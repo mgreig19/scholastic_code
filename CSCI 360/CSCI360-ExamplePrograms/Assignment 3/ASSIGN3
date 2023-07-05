@@ -1,0 +1,212 @@
+//KC03OA0A JOB ,'Kevin White',MSGCLASS=H                                00010000
+//STEP1 EXEC PGM=ASSIST                                                 00020000
+//STEPLIB DD DSN=KC02293.ASSIST.LOADLIB,DISP=SHR                        00030000
+//SYSPRINT DD SYSOUT=*                                                  00040000
+//SYSIN DD *                                                            00050000
+*********************************************                           00060000
+*                                                                       00070000
+* ASSIGNMENT 3                                                          00080000
+*                                                                       00090000
+* NAME: Kevin White                                                     00091000
+*                                                                       00092000
+* FUNCTION: This program will read through                              00093035
+*           the file given and print out info                           00093135
+*           on each of the emplyees. It will                            00093235
+*           use the data given to calculate                             00093335
+*           the Net pay of each, the total                              00093435
+*           number of emplyees, the amount                              00093535
+*           of emplyees that worked overtime                            00093635
+*           , and the average net pay.                                  00093735
+*                                                                       00094000
+* INPUT: Data stored in standard input                                  00095000
+*        representing the payroll report for                            00096000
+*        Widgets-R-Us                                                   00097000
+*                                                                       00098000
+* OUTPUT: A table of all emplyees listing the                           00099035
+*         information of each emplyee. As                               00099135
+*         well as 3 summary lines with the                              00099235
+*         total number of emplyees, total                               00099335
+*         number of emplyees that worked                                00099435
+*         overtime, and the average net pay.                            00099535
+*                                                                       00099700
+* ENTRY CONDS: NONE                                                     00099800
+*                                                                       00099900
+* EXIT CONDS: NONE                                                      00100000
+*                                                                       00100100
+* REGISTER USAGE:                                                       00100200
+*    2     Temp Counter For Employee count                              00100335
+*          and Overtime count                                           00100435
+*    3     Employee ID Number                                           00100535
+*    4     Reserved for Result of multiplying                           00100635
+*          Hourly Wage * Hours worked                                   00100735
+*    5     Hourly Wage                                                  00100835
+*    6     Hours Worked                                                 00100935
+*    7     Bonus                                                        00101035
+*    8     Deduction                                                    00101135
+*   10,11  Average Net Pay                                              00101235
+*   12,13  Average for rounding check                                   00101335
+*                                                                       00101400
+* PSEUDOCODE:                                                           00101500
+*                                                                       00101600
+*    <1> Set counters to 0                                              00101735
+*    <2> Print table Headings                                           00101835
+*    <3> Read from file                                                 00101935
+*    <4> While not end of file                                          00102035
+*          Increment Emplyee count                                      00102135
+*          Print Emplyee information                                    00102235
+*          Calculate Base Pay                                           00102335
+*            If hours worked greater than 40                            00102435
+*              Overtime Pay = Wage * 2 *                                00102535
+*                         (hours worked - 40)                           00102635
+*              Increment OT counter                                     00102735
+*            Else                                                       00102835
+*              Overtime Pay = 0                                         00102935
+*          Calculate Net Pay                                            00103035
+*    <5> If end-of-file Print summary lines                             00103135
+*                                                                       00104000
+*********************************************                           00110000
+MAIN     CSECT                                                          00111000
+         USING MAIN,15                                                  00112000
+*                                                                       00112102
+         SR    2,2               Set R2 to 0                            00112235
+         SR    11,11             Set R11 to 0                           00112435
+         ST    2,EPTOTAL         Set EPTOTAL to 0                       00112535
+         ST    2,OTTOTAL         Set EPTOTAL to 0                       00112635
+*                                                                       00112702
+         XPRNT TITLE,62          Print out TITLE to 62 characters       00112836
+         XPRNT TOPLINE1,62       Print out TOPLINE1 to 62 characters    00112936
+         XPRNT TOPLINE2,97       Print out TOPLINE2 to 97 characters    00113036
+         XPRNT TOPLINE3,97       Print out TOPLINE3 to 97 characters    00113136
+         XPRNT DASH,98           Print out DASH to 98 characters        00113236
+*                                                                       00113308
+LOOP     XREAD BUFFER,80         Reads a line from file                 00113436
+         BC    B'0100',ENDLOOP   If end-of-file, end loop               00113536
+         L     2,EPTOTAL         Sets R2 to EPTOTAL                     00113636
+         A     2,=F'1'           Adds 1 to EPTOTAL                      00113736
+         ST    2,EPTOTAL         Sets EPTOTAL to R2                     00113836
+         XDECI 3,BUFFER          Stores first number in R3              00113936
+         XDECI 5,0(1)            Stores second number in R5             00114036
+         XDECI 6,0(1)            Stores third number in R6              00114136
+         XDECI 8,0(1)            Stores fourth number in R8             00114236
+         XDECI 7,0(1)            Stores fifth number in R7              00114336
+         XDECO 3,EMPNUM          Sets EMPNUM to R3                      00114436
+         XDECO 5,WAGEP           Sets WAGEP to R5                       00114536
+         XDECO 6,HOURS           Sets HOURS to R6                       00114636
+         XDECO 7,BONUS           Sets BONUS to R7                       00114736
+         XDECO 8,DEDUCT          Sets DEDUCT to R8                      00114836
+*                                                                       00114911
+         ST    5,WAGE            Sets WAGE to R5                        00115036
+         MR    4,6               Multiplies R5 by R6                    00115136
+         ST    5,BASE            Stores result in BASE                  00115236
+         L     5,WAGE            Sets R5 to WAGE                        00115336
+*                                                                       00115414
+         C     6,=F'40'          Compares R6 to 40                      00115536
+         BH    IF                If R6 > 40 goto IF                     00115636
+         SR    5,5               Set 5 to 0                             00115736
+         B     ENDIF             Jump to ENDIF                          00115836
+IF       M     4,=F'2'           Multiply R5 by 2                       00115936
+         S     6,=F'40'          Subtrave R6 by 40                      00116036
+         MR    4,6               Multiply R5 by result                  00116136
+         L     2,OTTOTAL         Set R2 to OTTOTAL                      00116236
+         A     2,=F'1'           Increment OTTOTAL                      00116336
+         ST    2,OTTOTAL         Store the result                       00116436
+ENDIF    A     5,BASE            Add BASE to R5                         00116536
+         AR    5,7               Add R7 to R5                           00116636
+         SR    5,8               Subtract R5 by R8                      00116736
+         AR    11,5              Add R5 to R11                          00116836
+         XDECO 5,NET             Set NET to R5                          00116936
+*                                                                       00117011
+         XPRNT LINE,98           Print LINE to 98 characters            00117136
+         B     LOOP              Return to start of LOOP                00117236
+*                                                                       00117317
+ENDLOOP  L     2,EPTOTAL         SET R2 to EPTOTAL                      00117436
+         XDECO 2,EPTOTP          SET EPTOTP to R2                       00117536
+         XPRNT FLINE1,59         Print FLINE1 to 59 characters          00117636
+         M     10,=F'1'          Multiply R11 by 1 (Division Prep)      00117736
+         DR    10,2              Divide R11 by R2                       00117836
+         LR    13,10             Set R13 to R10                         00117936
+         M     12,=F'2'          Multiply R13 by 2                      00118036
+         CR    13,2              Compare R13 to R2                      00118136
+IF2      BNH   ENDIF2            If R13 <= R2 Continue                  00118236
+         A     11,=F'1'          Add 1 to R11                           00118336
+ENDIF2   XDECO 11,AVG            Set AVG to R11                         00118436
+         XPRNT FLINE2,59         Print FLINE2 to 59 characters          00118536
+         L     2,OTTOTAL         Set R2 to OTTOTAL                      00118636
+         XDECO 2,OTTOTP          Set OTTOTP to R2                       00118736
+         XPRNT FLINE3,59         Print FLINE3 to 59 characters          00118836
+*                                                                       00118902
+         BR    14                                                       00119000
+*                                                                       00119102
+BUFFER   DS    80C                                                      00119202
+EPTOTAL  DS    F                                                        00119314
+OTTOTAL  DS    F                                                        00119414
+BASE     DS    F                                                        00119514
+WAGE     DS    F                                                        00119614
+*                                                                       00119702
+TITLE    DC    C'0'              Double space carriage control          00119837
+         DC    CL30' '           30 characters of spaces                00119937
+         DC    CL31'Kevin White, CSCI360, Program 3'                    00120031
+*                                                                       00120131
+TOPLINE1 DC    C'0'              Double space carriage control          00120237
+         DC    CL31' '           31 characters of spaces                00120337
+         DC    CL30'Payroll Report -- Widgets-R-Us'                     00120406
+*                                                                       00120506
+TOPLINE2 DC    C'0'              Double space carriage control          00120637
+         DC    CL6' '            6 characters of spaces                 00120737
+         DC    CL8'EMPLOYEE'                                            00120809
+         DC    CL10' '           10 characters of spaces                00120937
+         DC    CL6'HOURLY'                                              00121008
+         DC    CL11' '           11 characters of spaces                00121137
+         DC    CL5'HOURS'                                               00121208
+         DC    CL47' '           47 characters of spaces                00121337
+         DC    CL3'NET'                                                 00121408
+*                                                                       00121508
+TOPLINE3 DC    C' '              Single space carriage control          00121637
+         DC    CL6' '            6 characters of spaces                 00121737
+         DC    CL6'NUMBER'                                              00121808
+         DC    CL13' '           13 characters of spaces                00121937
+         DC    CL4'WAGE'                                                00122008
+         DC    CL12' '           12 characters of spaces                00122137
+         DC    CL6'WORKED'                                              00122208
+         DC    CL11' '           11 characters of spaces                00122337
+         DC    CL5'BONUS'                                               00122408
+         DC    CL11' '           11 characters of spaces                00122537
+         DC    CL9'DEDUCTION'                                           00122608
+         DC    CL10' '           10 characters of spaces                00122737
+         DC    CL3'PAY'                                                 00122808
+*                                                                       00122908
+DASH     DC    C' '              Single space carriage control          00123037
+         DC    98C'-'            98 '-' characters                      00123137
+*                                                                       00123232
+LINE     DC    C'0'              Double space carriage control          00123337
+EMPNUM   DS    12C               Allocate 12 characters to EMPNUM       00123437
+         DC    CL5' '            5 characters of spaces                 00123537
+WAGEP    DS    12C               Allocate 12 characters to WAGEP        00123637
+         DC    CL5' '            5 characters of spaces                 00123737
+HOURS    DS    12C               Allocate 12 characters to HOURS        00123837
+         DC    CL5' '            5 characters of spaces                 00123937
+BONUS    DS    12C               Allocate 12 characters to BONUS        00124037
+         DC    CL5' '            5 characters of spaces                 00124137
+DEDUCT   DS    12C               Allocate 12 characters to DEDUCT       00124237
+         DC    CL5' '            5 characters of spaces                 00124337
+NET      DS    12C               Allocate 12 characters to NET          00124437
+*                                                                       00124504
+FLINE1   DC    C'-'              Triple space carriage control          00124637
+         DC    CL26'TOTAL NUMBER OR EMPLOYEES:'                         00124718
+         DC    CL20' '           20 characters of spaces                00124837
+EPTOTP   DS    12C               Allocate 12 characters to EPTOTP       00124937
+*                                                                       00125002
+FLINE2   DC    C'0'              Double space carriage control          00125137
+         DC    CL29'AVERAGE NET PAY PER EMPLOYEE:'                      00125218
+         DC    CL17' '           17 characters of spaces                00125337
+AVG      DS    12C               Allocate 12 characters for AVG         00125437
+*                                                                       00125518
+FLINE3   DC    C'0'              Double space carriage control          00125637
+         DC    CL37'NUMBER OF EMPLOYEES WORKING OVERTIME:'              00125718
+         DC    CL9' '            9 characters of spaces                 00125837
+OTTOTP   DS    12C               Allocate 12 characters for OTTOTP      00125937
+*                                                                       00126002
+         END   MAIN                                                     00126100
+/*                                                                      00127000
+//FT05F001 DD DSN=KC02314.SUMMER17.CSCI360.HW3DATA,DISP=SHR             00130001
+//                                                                      00140000

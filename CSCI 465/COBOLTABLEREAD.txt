@@ -1,0 +1,452 @@
+  *****************************************************
+      *                                                   *
+      * PROGRAM:  COBOL-DB2 ASSIGNMENT                    *
+      *                                                   *
+      * FUNCTION: THIS ASSIGNMENT WILL OPERATE EXACTLY    *
+      *           LIKE ASSIGNMENT 5 - COBOL TABLES, BUT   *
+      *           DATA5A AND DATA5B WILL BE READ FROM     *
+      *           DB2 TABLES RATHER THAN PDS MEMBERS      *
+      *                                                   *
+      *****************************************************
+                                                           
+       IDENTIFICATION DIVISION.                            
+      *------------------------*                           
+                                                           
+       PROGRAM-ID.    ASSIGN.                              
+       AUTHOR.        KEVIN M MATESI.                      
+       DATE-WRITTEN.  04/08/2015.                          
+       DATE-COMPILED.                                      
+                                                           
+       ENVIRONMENT DIVISION.                               
+      *---------------------*                              
+                                                           
+       INPUT-OUTPUT SECTION.                               
+                                                           
+       FILE-CONTROL.                                       
+                                                           
+           SELECT DATA5C-FILE ASSIGN TO INFILE3.           
+           SELECT PRINT-FILE  ASSIGN TO PRINTER.           
+                                                           
+       DATA DIVISION.                                      
+      *--------------*                                     
+                                                           
+       FILE SECTION.                                       
+                                                           
+       FD DATA5C-FILE RECORDING MODE IS F.                 
+                                                           
+       COPY SALESREC.                                            
+                                                                 
+       FD  PRINT-FILE RECORDING MODE IS F.                       
+                                                                 
+       01  PRINT-RECORD            PIC X(132).                   
+                                                                 
+      ****************************************************       
+      *                                                  *       
+      *  SQL                    DESCRIPTION              *       
+      *  ---                    -----------              *       
+      *  FUND                   FUND TABLE DCLGEN        *       
+      *  FUNDPRC                FUND_PRC TABLE DCLGEN    *       
+      *  SQLCA                  SQL COMMUNICATION AREA   *       
+      *                                                  *       
+      *  COBOL                  DESCRIPTION              *       
+      *  -----                  -----------              *       
+      *  WS-CURRENT-DATE-FIELDS VARIABLES TO HOLD CURR   *       
+      *                         DATE FROM DATE FUNCTION  *       
+      *  REPORT-FIELDS          VARIABLES USED FOR       *       
+      *                         CALCULATIONS             *       
+      *  REPORT-1               REPORT PRINTER LINES     *       
+      *  COBVARS                VARIOUS COBOL VARIABLES  *       
+      *                         USED THROUGHOUT THE      *       
+      *                         PROGRAM                  *       
+      *                                                  *       
+      ****************************************************       
+                                                                 
+       WORKING-STORAGE SECTION.                                  
+                                                                 
+       EXEC SQL                                                  
+         INCLUDE FUND                                            
+       END-EXEC.                                                 
+                                                                 
+       EXEC SQL                                                  
+         INCLUDE FUNDPRC                                         
+       END-EXEC.                                                 
+                                                                        
+       EXEC SQL                                                         
+         INCLUDE SQLCA                                                  
+       END-EXEC.                                                        
+                                                                        
+       01  WS-CURRENT-DATE-FIELDS.                                      
+           05  WS-CURRENT-DATE.                                         
+               10  CURRENT-YEAR           PIC  9(4).                    
+               10  CURRENT-MONTH          PIC  9(2).                    
+               10  CURRENT-DAY            PIC  9(2).                    
+           05  WS-CURRENT-TIME.                                         
+               10  CURRENT-HOUR           PIC  9(2).                    
+               10  CURRENT-MINUTE         PIC  9(2).                    
+               10  CURRENT-SECOND         PIC  9(2).                    
+               10  CURRENT-MS             PIC  9(2).                    
+           05  WS-DIFF-FROM-GMT           PIC S9(4).                    
+                                                                        
+       01  REPORT-FIELDS.                                               
+           05  PAGE-COUNT                 PIC 9(3).                     
+           05  LINE-COUNT                 PIC 99 VALUE 16.              
+           05  REPORT-HEADER.                                           
+               10  OUT-MONTH                  PIC 9(2).                 
+               10  FILLER                     PIC X VALUE '/'.          
+               10  OUT-DAY                    PIC 9(2).                 
+               10  FILLER                     PIC X VALUE '/'.          
+               10  OUT-YEAR                   PIC 9(4).                 
+               10  FILLER                     PIC X(39) VALUE SPACES.   
+               10  FILLER                     PIC X(34)                 
+                      VALUE 'DEWEY, CHEATHAM & HOWE MUTUAL FUND'.       
+               10  FILLER                     PIC X(40) VALUE SPACES.   
+               10  FILLER                     PIC X(6) VALUE 'PAGE: '.  
+               10  OUT-PAGE-COUNT             PIC ZZ9.                  
+           05  REPORT-HYPHENS                 PIC X(132) VALUE ALL '-'. 
+                                                                        
+       01  REPORT-1.                                                    
+           05  REPORT-1-FIELDS.                                         
+               10  SHARE-PRICE                PIC 9(3)V9(2) COMP-3.    
+               10  SHARE-SOLD                 PIC 9(7)V9(3) COMP-3.    
+               10  FUND-NBR                   PIC 9(2).                
+               10  BROKER-COUNT               PIC 9(3) VALUE 0.        
+               10  DEP-AMT-TOTAL              PIC 9(7)V99 VALUE 0.     
+               10  DEP-AMT-AVG                PIC 9(7)V99 VALUE 0.     
+           05  REPORT-1-HEADER-2.                                      
+               10  OUT-HOUR-1                 PIC 9(2).                
+               10  FILLER                     PIC X VALUE ':'.         
+               10  OUT-MINUTE-1               PIC 9(2).                
+               10  FILLER                     PIC X(43) VALUE SPACES.  
+               10  FILLER                     PIC X(36)                
+                      VALUE 'MUTUAL FUND DEPOSIT AND SALES REPORT'.    
+               10  FILLER                     PIC X(48) VALUE SPACES.  
+           05  REPORT-1-HEADER-3.                                      
+               10  FILLER                     PIC X(60) VALUE SPACES.  
+               10  FILLER                     PIC X(12)                
+                      VALUE 'SALES TOTALS'.                            
+               10  FILLER                     PIC X(61) VALUE SPACES.  
+           05  REPORT-1-COLUMNS-1.                                     
+               10  FILLER                     PIC X(9)                 
+                      VALUE 'CITY NAME'.                               
+               10  FILLER                     PIC X(12) VALUE SPACES.  
+               10  FILLER                     PIC X(11)                
+                      VALUE 'BROKER NAME'.                             
+               10  FILLER                     PIC X(9) VALUE SPACES.   
+               10  FILLER                     PIC X(11)                
+                      VALUE 'FUND NUMBER'.                             
+               10  FILLER                     PIC X(5) VALUE SPACES.   
+               10  FILLER                     PIC X(9)                 
+                      VALUE 'FUND NAME'.                               
+               10  FILLER                     PIC X(17) VALUE SPACES.  
+               10  FILLER                     PIC X(14)                
+                      VALUE 'DEPOSIT AMOUNT'.                          
+               10  FILLER                     PIC X(5) VALUE SPACES.   
+               10  FILLER                     PIC X(10)                
+                      VALUE 'PRICE FLAG'.                             
+               10  FILLER                     PIC X(9) VALUE SPACES.  
+               10  FILLER                     PIC X(11)               
+                      VALUE 'SHARES SOLD'.                            
+           05  REPORT-1-COLUMNS-2.                                    
+               10  FILLER                     PIC X(13)               
+                      VALUE 'TOTAL BROKERS'.                          
+               10  FILLER                     PIC X(43) VALUE SPACES. 
+               10  FILLER                     PIC X(20)               
+                      VALUE 'TOTAL DEPOSIT AMOUNT'.                   
+               10  FILLER                     PIC X(34) VALUE SPACES. 
+               10  FILLER                     PIC X(22)               
+                      VALUE 'AVERAGE DEPOSIT AMOUNT'.                 
+           05  REPORT-1-DATA-LINE.                                    
+               10  R1-WITH-NAME.                                      
+                   15  OUT-CITY-NAME          PIC X(20).              
+                   15  FILLER                 PIC X VALUE SPACES.     
+                   15  OUT-BROKER-NAME        PIC X(20).              
+               10  R1-WITHOUT-NAME         REDEFINES R1-WITH-NAME     
+                                           PIC X(41).                 
+               10  FILLER                  PIC X(9) VALUE SPACES.     
+               10  OUT-FUND-NBR            PIC Z9.                    
+               10  FILLER                  PIC X(3) VALUE SPACES.     
+               10  REPORT-1-DATA.                                     
+                   15  OUT-FUND-NAME       PIC X(25).                 
+                   15  FILLER              PIC X(7) VALUE SPACES.     
+                   15  OUT-DEP-AMT         PIC $$$,$$9.99.            
+                   15  FILLER              PIC X(14) VALUE SPACES.    
+                   15  OUT-SHARE-FLAG      PIC 9.                     
+                   15  FILLER              PIC X(4) VALUE SPACES.     
+                   15  OUT-SHR-SOLD        PIC ZZZ,ZZZ,ZZ9.9999.      
+               10  REPORT-1-NOT-FOUND      REDEFINES REPORT-1-DATA.   
+                   15  OUT-NOT-FOUND       PIC X(21).                 
+                   15  FILLER              PIC X(56).                 
+           05  REPORT-1-SUMMARY-LINE.                                 
+               10  FILLER                  PIC X(10) VALUE SPACES.    
+               10  OUT-BROKER-COUNT        PIC ZZ9.                    
+               10  FILLER                  PIC X(50) VALUE SPACES.     
+               10  OUT-DEP-AMT-TOTAL       PIC $$,$$$,$$9.99.          
+               10  FILLER                  PIC X(46) VALUE SPACES.     
+               10  OUT-DEP-AMT-AVG         PIC $$$,$$9.99.             
+                                                                       
+       01  COBVARS.                                                    
+           05  EOF-FLAG                     PIC X VALUE 'N'.           
+           05  MF-SALE-SUB                  PIC 9.                     
+                                                                                                                     
+       PROCEDURE DIVISION.                                             
+      *-------------------*                                            
+                                                                       
+      **************************************************************** 
+      *                                                              * 
+      *  0000-MAIN                                                   * 
+      *                                                              * 
+      *  THIS IS THE MAIN DRIVING PARAGRAPH FOR THE PROGRAM. IT WILL * 
+      *  GET THE DATE. THEN OPEN THE SHARES FILE AND THEN BEGIN TO   * 
+      *  PROCESS THE BROKER DATA SET. AFTER THE REPORT HAS BEEN      * 
+      *  PROCESSED, THE SUMMARY PAGE WILL BE GENERATED. THE FILES    * 
+      *  WILL THEN BE CLOSED, AND THE PROGRAM WILL EXIT.             * 
+      *                                                              * 
+      **************************************************************** 
+                                                                       
+       0000-MAIN.                                                      
+                                                                       
+           PERFORM 0100-SET-DATE-AND-TIME.                             
+                                                                       
+           OPEN INPUT  DATA5C-FILE                                     
+                OUTPUT PRINT-FILE.                                     
+                                                                       
+           READ DATA5C-FILE                                            
+               AT END MOVE 'Y' TO EOF-FLAG                             
+           END-READ.                                                   
+                                                                       
+           PERFORM 0200-PROCESS-REPORT-1 UNTIL EOF-FLAG = 'Y'.         
+                                                                       
+           CLOSE DATA5C-FILE.                                          
+                                                                       
+           PERFORM 0300-PROCESS-REPORT-1-SUMMARY.                      
+                                                                       
+           CLOSE PRINT-FILE.                                           
+                                                                       
+           STOP RUN.                                                   
+                                                                       
+      **************************************************************** 
+      *                                                              * 
+      *  0100-SET-DATE-AND-TIME                                      * 
+      *                                                              * 
+      *  THIS PARAGRAPH CALLS THE INTRINSIC DATE FUNCTION, AND THEN  * 
+      *  MOVES THE CURRENT DATE AND TIME TO THE APPROPRIATE HEADER   * 
+      *  LINES.                                                      * 
+      *                                                              * 
+      **************************************************************** 
+                                                                       
+       0100-SET-DATE-AND-TIME.                                         
+                                                                       
+           MOVE FUNCTION CURRENT-DATE TO WS-CURRENT-DATE-FIELDS.       
+                                                                       
+           MOVE CURRENT-DAY TO OUT-DAY.                                
+           MOVE CURRENT-MONTH TO OUT-MONTH.                            
+           MOVE CURRENT-YEAR TO OUT-YEAR.                              
+                                                                       
+           MOVE CURRENT-HOUR TO OUT-HOUR-1.                            
+           MOVE CURRENT-MINUTE TO OUT-MINUTE-1.                        
+                                                                       
+      **************************************************************** 
+      *                                                              * 
+      *  0200-PROCESS-REPORT-1                                       * 
+      *                                                              *
+      *  THIS PARAGRAPH WILL FIRST MOVE THE BROKER NAME AND CITY TO  *
+      *  THE OUTPUT LINE, AND THEN BEGIN TO PROCESS THE REST OF THE  *
+      *  DATA IN THE CURRENT BUFFER. EACH BROKER HAS 0-4 FUNDS       *
+      *  THAT THEY MAY HAVE SOLD, SO THE PROGRAM BEGINS TO ITERATE   *
+      *  THROUGH THE COBOL TABLE THAT IS USED TO REPRESENT THE       *
+      *  BROKERS DATA. IF IT IS 0, WE CAN SKIP IT, OTHERWISE WE      *
+      *  QUERY THE FUND TABLE TO GET THE FUND NAME. WE THEN BRANCH   *
+      *  TO THE APPROPRIATE PARAGRAPH BASED ON WHETHER OR NOT WE     *
+      *  GET A MATCH. WHEN CONTROL IS RETURNED, THE NEXT RECORD      *
+      *  WILL BE READ, AND THE CALLING PERFORM LOOP WILL RESTART.    *
+      *                                                              *
+      ****************************************************************
+                                                                      
+       0200-PROCESS-REPORT-1.                                         
+                                                                      
+           MOVE IN-CITY-NAME TO OUT-CITY-NAME.                        
+           MOVE IN-BROKER-NAME TO OUT-BROKER-NAME.                    
+                                                                      
+           ADD 1 TO BROKER-COUNT.                                     
+                                                                      
+           PERFORM                                                    
+             VARYING MF-SALE-SUB FROM 1 BY 1                          
+               UNTIL MF-SALE-SUB > 4                                  
+                                                                      
+                 PERFORM 0210-CHECK-HEADERS-REPORT-1                  
+                                                                      
+                 IF IN-FUND-NBR OF IN-MF-SALE (MF-SALE-SUB) > 0       
+                                                                      
+                     MOVE IN-FUND-NBR OF IN-MF-SALE (MF-SALE-SUB)     
+                         TO FND-FUND-NBR                              
+                                                                      
+                     EXEC SQL                                         
+                         SELECT FUND_NAME                             
+                         INTO :FND-FUND-NAME                          
+                         FROM KC02322.FUND                            
+                         WHERE FUND_NBR = :FND-FUND-NBR               
+                     END-EXEC                                         
+                                                                      
+                     IF SQLCODE = 100                                 
+                         PERFORM 0220-MF-NOT-FOUND                    
+                     ELSE                                             
+                         PERFORM 0230-MF-FOUND                        
+                     END-IF                                           
+                                                                      
+                 END-IF                                               
+                                                                      
+           END-PERFORM.                                               
+                                                                      
+           READ DATA5C-FILE                                           
+             AT END MOVE 'Y' TO EOF-FLAG                              
+           END-READ.                                                  
+                                                                      
+       0200-EXIT. EXIT.                                               
+                                                                      
+      ****************************************************************
+      *                                                              *
+      *  0210-CHECK-HEADERS-REPORT-1                                 *
+      *                                                              *
+      *  THIS PARAGRAPH WILL BE CALLED DURING PARAGRAPH 0200 TO      *
+      *  CHECK AND SEE IF A NEW PAGE IS NEEDED. IF 16 LINES HAVE     *
+      *  BEEN PRINTED, THEN A PAGE BREAK IS NEEDED.                  *
+      *                                                              *
+      ****************************************************************
+                                                                      
+       0210-CHECK-HEADERS-REPORT-1.                                   
+                                                                      
+           IF LINE-COUNT >= 16                                        
+                                                                      
+             MOVE 0 TO LINE-COUNT                                     
+                                                                      
+             ADD 1 TO PAGE-COUNT                                      
+                                                                      
+             MOVE PAGE-COUNT TO OUT-PAGE-COUNT                        
+                                                                      
+             WRITE PRINT-RECORD FROM REPORT-HEADER AFTER PAGE         
+             WRITE PRINT-RECORD FROM REPORT-1-HEADER-2 AFTER 1        
+             WRITE PRINT-RECORD FROM REPORT-1-COLUMNS-1 AFTER 2       
+             WRITE PRINT-RECORD FROM REPORT-HYPHENS AFTER 1           
+                                                                      
+           END-IF.                                                    
+                                                                      
+       0210-EXIT. EXIT.                                               
+                                                                      
+      ****************************************************************
+      *                                                              *
+      *  0220-MF-NOT-FOUND                                           *
+      *                                                              *
+      *  THIS PARAGRAPH WILL BE CALLED IF THE BINARY SEARCH FROM     *
+      *  PARAGRAPH 0200 DOES NOT FIND THE VALUE. IT WILL PRINT A     *
+      *  MESSAGE SAYING THE MUTUAL FUND IS NOT FOUND.                *
+      *                                                              *
+      ****************************************************************
+                                                                      
+       0220-MF-NOT-FOUND.                                             
+                                                                      
+           MOVE IN-FUND-NBR OF IN-MF-SALE (MF-SALE-SUB) TO            
+             OUT-FUND-NBR.                                            
+                                                                      
+           INITIALIZE REPORT-1-NOT-FOUND.                             
+                                                                      
+           MOVE SPACES TO REPORT-1-NOT-FOUND.                         
+           MOVE "MUTUAL FUND NOT FOUND" TO OUT-NOT-FOUND.             
+                                                                      
+           WRITE PRINT-RECORD FROM REPORT-1-DATA-LINE AFTER 2.        
+                                                                      
+           INITIALIZE R1-WITHOUT-NAME.                                
+                                                                      
+           ADD 1 TO LINE-COUNT.                                       
+                                                                      
+       0220-EXIT. EXIT.                                               
+                                                                      
+      ****************************************************************
+      *                                                              *
+      *  0230-MF-FOUND                                               *
+      *                                                              *
+      *  THIS PARAGRAPH WILL BE CALLED IF THE DB2 QUERY FROM THE     *
+      *  PREVIOUS PARAGRAPH DOES FIND THE FUND. THIS FUNCTION WILL   *
+      *  THEN QUERY THE FUND PRICE TABLE WITH THE FUND NUMBER AND    *
+      *  THE FUND FLAG, TO GET THE CORRESPONDING PRICE. IF THERE IS  *
+      *  AN ERROR, A MESSAGE IS PRINTED TO THE USER, OTHERWISE, THE  *
+      *  FUND PRICE IS RETURNED AND USED TO CALCULATE SHARES SHOLD.  *
+      *  THE NECESSARY DATA IS MOVED TO THE OUTPUT LINE, AND THE     *
+      *  LINE IS PRINTED. CONTROL IS THEN RETURNED TO THE CALLER.    *
+      *                                                              *
+      ****************************************************************
+                                                                      
+       0230-MF-FOUND.                                                 
+                                                                      
+           INITIALIZE REPORT-1-DATA.                                  
+                                                                      
+           MOVE IN-FUND-NBR OF IN-MF-SALE (MF-SALE-SUB) TO            
+             OUT-FUND-NBR.                                            
+                                                                      
+           MOVE FND-FUND-NAME TO OUT-FUND-NAME.                       
+                                                                      
+           MOVE IN-PRICE-FLAG OF IN-MF-SALE (MF-SALE-SUB)             
+               TO PRC-FUND-FLAG.                                      
+                                                                      
+           MOVE PRC-FUND-FLAG TO OUT-SHARE-FLAG.                      
+                                                                      
+           EXEC SQL                                                   
+               SELECT FUND_PRC                                        
+               INTO :PRC-FUND-PRC                                     
+               FROM KC02322.FUND_PRICE                                
+               WHERE FUND_NBR = :FND-FUND-NBR                         
+               AND FUND_FLAG = :PRC-FUND-FLAG                         
+           END-EXEC.                                                  
+                                                                      
+           IF SQLCODE NOT = 100                                       
+                                                                      
+               MOVE IN-DEPOSIT-AMT (MF-SALE-SUB) TO OUT-DEP-AMT       
+                                                                      
+               COMPUTE SHARE-SOLD ROUNDED =                           
+                 IN-DEPOSIT-AMT (MF-SALE-SUB) / PRC-FUND-PRC          
+                                                                      
+               MOVE SHARE-SOLD TO OUT-SHR-SOLD                        
+                                                                      
+               WRITE PRINT-RECORD FROM REPORT-1-DATA-LINE AFTER 2     
+                                                                      
+               INITIALIZE R1-WITHOUT-NAME                             
+                                                                      
+               ADD 1 TO LINE-COUNT                                    
+                                                                      
+               COMPUTE DEP-AMT-TOTAL =                                
+                 DEP-AMT-TOTAL + IN-DEPOSIT-AMT (MF-SALE-SUB)         
+                                                                      
+           ELSE                                                       
+               DISPLAY 'SQL ERROR!!!'                                 
+           END-IF.                                                    
+                                                                      
+       0230-EXIT. EXIT.                                               
+                                                                      
+      ****************************************************************
+      *                                                              *
+      *  0300-PROCESS-REPORT-1-SUMMARY                               *
+      *                                                              *
+      *  THIS PARAGRAPH WILL BE CALLED TO PRINT A SUMMARY PAGE       *
+      *  AT THE END OF THE FIRST REPORT.                             *
+      *                                                              *
+      **************************************************************** 
+                                                                       
+       0300-PROCESS-REPORT-1-SUMMARY.                                  
+                                                                       
+           ADD 1 TO PAGE-COUNT                                         
+           MOVE PAGE-COUNT TO OUT-PAGE-COUNT                           
+                                                                       
+           WRITE PRINT-RECORD FROM REPORT-HEADER AFTER PAGE            
+           WRITE PRINT-RECORD FROM REPORT-1-HEADER-3 AFTER 1           
+           WRITE PRINT-RECORD FROM REPORT-1-COLUMNS-2 AFTER 2          
+           WRITE PRINT-RECORD FROM REPORT-HYPHENS AFTER 1              
+                                                                       
+           COMPUTE DEP-AMT-AVG ROUNDED =                               
+             DEP-AMT-TOTAL / BROKER-COUNT.                             
+                                                                       
+           MOVE BROKER-COUNT TO OUT-BROKER-COUNT.                      
+           MOVE DEP-AMT-TOTAL TO OUT-DEP-AMT-TOTAL.                    
+           MOVE DEP-AMT-AVG TO OUT-DEP-AMT-AVG.                        
+                                                                       
+           WRITE PRINT-RECORD FROM REPORT-1-SUMMARY-LINE AFTER 2.      
+                                                                      
+       0300-EXIT. EXIT.

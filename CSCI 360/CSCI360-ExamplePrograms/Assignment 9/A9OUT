@@ -1,0 +1,730 @@
+ 1                    J E S 2  J O B  L O G  --  S Y S T E M  S 0 W 1  --  N O D E  Z O S K C T R         
+0 
+ 18.21.53 JOB06083 ---- FRIDAY,    04 AUG 2017 ----
+ 18.21.53 JOB06083  IRR010I  USERID KC03OA0  IS ASSIGNED TO THIS JOB.
+ 18.21.53 JOB06083  ICH70001I KC03OA0  LAST ACCESS AT 18:10:35 ON FRIDAY, AUGUST 4, 2017
+ 18.21.53 JOB06083  $HASP373 KC03OA0A STARTED - INIT 2    - CLASS A        - SYS S0W1
+ 18.21.53 JOB06083  -                                         --TIMINGS (MINS.)--            ----PAGING COUNTS---
+ 18.21.53 JOB06083  -JOBNAME  STEPNAME PROCSTEP    RC   EXCP    TCB    SRB  CLOCK   SERV  PG   PAGE   SWAP    VIO SWAPS
+ 18.21.53 JOB06083  -KC03OA0A                      00    274 ******    .00     .0    286   0      0      0      0     0
+ 18.21.53 JOB06083  -KC03OA0A ENDED.  NAME-Kevin White          TOTAL TCB CPU TIME=   .00  TOTAL ELAPSED TIME=    .0
+ 18.21.53 JOB06083  $HASP395 KC03OA0A ENDED
+0------ JES2 JOB STATISTICS ------
+-  04 AUG 2017 JOB EXECUTION DATE
+-          103 CARDS READ
+-          730 SYSOUT PRINT RECORDS
+-            0 SYSOUT PUNCH RECORDS
+-           66 SYSOUT SPOOL KBYTES
+-         0.00 MINUTES EXECUTION TIME
+         1 //KC03OA0A JOB ,'Kevin White',MSGCLASS=H                                JOB06083
+         2 //STEP1    EXEC  PGM=ASSIST,PARM='MACRO=F'                              00020000
+         3 //STEPLIB    DD  DSN=KC02293.ASSIST.LOADLIB,DISP=SHR                    00030000
+         4 //SYSPRINT   DD  SYSOUT=*                                               00040000
+         5 //SYSIN      DD  *                                                      00050000
+         6 //           DD DSN=KC02314.SUMMER17.CSCI360.HW9.DRIVER,DISP=SHR        00280000
+         7 //FT05F001   DD DUMMY                                                   00290000
+         8 //FT06F001   DD SYSOUT=*                                                00300000
+ ICH70001I KC03OA0  LAST ACCESS AT 18:10:35 ON FRIDAY, AUGUST 4, 2017
+ IEF236I ALLOC. FOR KC03OA0A STEP1
+ IGD103I SMS ALLOCATED TO DDNAME STEPLIB
+ IEF237I JES2 ALLOCATED TO SYSPRINT
+ IEF237I JES2 ALLOCATED TO SYSIN
+ IGD103I SMS ALLOCATED TO DDNAME
+ IEF237I DMY  ALLOCATED TO FT05F001
+ IEF237I JES2 ALLOCATED TO FT06F001
+ IEF142I KC03OA0A STEP1 - STEP WAS EXECUTED - COND CODE 0000
+ IGD104I KC02293.ASSIST.LOADLIB                       RETAINED,  DDNAME=STEPLIB 
+ IEF285I   KC03OA0.KC03OA0A.JOB06083.D0000102.?         SYSOUT        
+ IEF285I   KC03OA0.KC03OA0A.JOB06083.D0000101.?         SYSIN         
+ IGD104I KC02314.SUMMER17.CSCI360.HW9.DRIVER          RETAINED,  DDNAME=        
+ IEF285I   KC03OA0.KC03OA0A.JOB06083.D0000103.?         SYSOUT        
+ IEF373I STEP/STEP1   /START 2017216.1821
+ IEF032I STEP/STEP1   /STOP  2017216.1821 
+         CPU:     0 HR  00 MIN  00.01 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+         VIRT:   584K  SYS:   268K  EXT:        4K  SYS:    11372K
+         ATB- REAL:                     0K  SLOTS:                     0K
+              VIRT- ALLOC:       0M SHRD:       0M
+ IEF375I  JOB/KC03OA0A/START 2017216.1821
+ IEF033I  JOB/KC03OA0A/STOP  2017216.1821 
+         CPU:     0 HR  00 MIN  00.01 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+1*** ASSIST 4.0/A2-05/15/82  470/V7A/0:OS/VS2  INS=SDFP7/X=BGHO, CHECK/TRC/=1180, OPTS=CDKMPR FROM PENN ST*NIU COMPSCI*LT         
+0MACRO=F                                                                                                                          
+0                                                                                                               PAGE    1         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                       1 **************************************************                      00060000         
+                                       2 *                                                *                      00070000         
+                                       3 * PROGRAM:    ASSIGN9                            *                      00080000         
+                                       4 * PROGRAMMER: Kevin White                        *                      00090000         
+                                       5 *                                                *                      00100000         
+                                       6 * FUNCTION: This program will create the macros  *                      00110023         
+                                       7 *           for the given driver program.        *                      00111023         
+                                       8 *                                                *                      00120000         
+                                       9 * INPUT: NONE                                    *                      00130023         
+                                      10 *                                                *                      00140000         
+                                      11 * OUTPUT: NONE                                   *                      00150023         
+                                      12 *                                                *                      00160000         
+                                      13 * ENTRY CONDS: NONE                              *                      00170023         
+                                      14 *                                                *                      00180000         
+                                      15 * EXIT CONDS: NONE                               *                      00190023         
+                                      16 *                                                *                      00200000         
+                                      17 * REGISTER USAGE:                                *                      00210000         
+                                      18 *    2     Address for first argument in both    *                      00211023         
+                                      19 *          macros                                *                      00212023         
+                                      20 *    3     Address for second argument in both   *                      00213023         
+                                      21 *          macros                                *                      00214023         
+                                      22 *    4     Counter in STRLEN macro               *                      00215023         
+                                      23 *          Temp hex holder in TOHEX macro        *                      00216023         
+                                      24 *                                                *                      00220000         
+                                      25 * PSEUDOCODE:                                    *                      00230000         
+                                      26 *    <1> Create STRLEN macro                     *                      00231023         
+                                      27 *          While not end of string               *                      00232023         
+                                      28 *            Increment counter                   *                      00233023         
+                                      29 *          Set length to counter                 *                      00234023         
+                                      30 *    <2> Create TOHEX macro                      *                      00235023         
+                                      31 *          If half of byte is digit              *                      00236023         
+                                      32 *             Insert F in front                  *                      00237023         
+                                      33 *          If half of byte is character          *                      00238023         
+                                      34 *             Subtract by 9                      *                      00239023         
+                                      35 *             Insert C in front                  *                      00239123         
+                                      36 *                                                *                      00240000         
+                                      37 **************************************************                      00250000         
+                                      38 *                                                                       00260000         
+                                      39          MACRO                         Start STRLEN macro               00261023         
+                                      40 &SLABEL  STRLEN &STR,&LEN                                               00261100         
+                                      41          AIF   ('&STR' EQ '').ERROR    If &STR is empty to .ERROR       00261223         
+                                      42          AIF   ('&LEN' EQ '').ERROR    If &LEN is empty to .ERROR       00261323         
+                                      43 &SLABEL  STM   2,4,S&SYSNDX            Save registers in S&SYSNDX       00261523         
+                                      44          B     M&SYSNDX                Branch to M&SYSNDX               00261623         
+                                      45 S&SYSNDX DS    3F                      Register save area               00261723         
+                                      46 M&SYSNDX LA    2,&STR                  Load address of &STR in R2       00261823         
+                                      47          LA    3,&LEN                  Load address of &LEN in R3       00261923         
+                                      48          SR    4,4                     Set R4 to 0                      00262023         
+                                      49 L&SYSNDX CLI   0(2),X'00'              Compare current byte to X'00'    00262123         
+                                      50          BE    E&SYSNDX                If equal end loop                00262223         
+                                      51          A     4,=F'1'                 Increment counter                00262323         
+                                      52          LA    2,1(0,2)                Increment string                 00262423         
+1                                                                                                               PAGE    2         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                      53          B     L&SYSNDX                Return to start of loop          00262523         
+                                      54 E&SYSNDX ST    4,0(0,3)                Store string length in &LEN      00262623         
+                                      55          LM    2,4,S&SYSNDX            Restore Registers                00262723         
+                                      56          MEXIT                         Exit macro                       00262823         
+                                      57 .ERROR   MNOTE '*** MISSING ARGUMENT ***'                               00262900         
+                                      58          MEND                          End macro                        00263023         
+                                      59 *                                                                       00263100         
+                                      60          MACRO                         Start TOHEX macro                00264023         
+                                      61 &TLABEL  TOHEX &IN,&OUT                                                 00264100         
+                                      62          AIF   ('&IN' EQ '').ERROR     If &IN is empty to .ERROR        00264224         
+                                      63          AIF   ('&OUT' EQ '').ERROR    If &OUT is empty to .ERROR       00264324         
+                                      64 &TLABEL  STM   2,4,S&SYSNDX            Save registers                   00264424         
+                                      65          B     M&SYSNDX                Branch to M&SYSNDX               00264524         
+                                      66 S&SYSNDX DS    3F                      Register save area               00264624         
+                                      67 M&SYSNDX LA    2,&IN                   Load address of &IN to R2        00264824         
+                                      68          LA    3,&OUT                  Load address of &OUT to R3       00264924         
+                                      69          SR    4,4                     Set R4 to 0                      00265024         
+                                      70          IC    4,0(0,2)                Insert &IN into R4               00265124         
+                                      71          SRL   4,4                     Shift R4 4 bits left             00265324         
+                                      72          C     4,=F'9'                 Compare R4 to 9                  00265524         
+                                      73          BH    A&SYSNDX                If higher branch to A&SYSNDX     00265624         
+                                      74          A     4,=F'240'               Insert F infront                 00265724         
+                                      75          B     B&SYSNDX                Branch to B&SYSNDX               00265924         
+                                      76 A&SYSNDX S     4,=F'9'                 Subtract 9 from R4               00266024         
+                                      77          A     4,=F'192'               Insert C infront                 00266124         
+                                      78          B     B&SYSNDX                Branch to B&SYSNDX               00266224         
+                                      79 B&SYSNDX STC   4,0(0,3)                Store R4 into last byte of &OUT  00266324         
+                                      80          SR    4,4                     Set R4 to 0                      00266424         
+                                      81          IC    4,0(0,2)                Insert &IN into R4               00266524         
+                                      82          SLL   4,28                    Shift R4 left 28 bits            00266624         
+                                      83          SRL   4,28                    Shift R4 right 28 bits           00266724         
+                                      84          C     4,=F'9'                 Compare R4 to 9                  00266824         
+                                      85          BH    C&SYSNDX                If higher branch to C&SYSNDX     00266924         
+                                      86          A     4,=F'240'               Insert F infront                 00267024         
+                                      87          B     D&SYSNDX                Branch to D&SYSNDX               00267124         
+                                      88 C&SYSNDX S     4,=F'9'                 Subtract 9 fron R4               00267224         
+                                      89          A     4,=F'192'               Insert C infront                 00267324         
+                                      90 D&SYSNDX STC   4,1(0,3)                Store R4 in first byte of &OUT   00267424         
+                                      91          LM    2,4,S&SYSNDX            Restore Registers                00267524         
+                                      92          MEXIT                         Exit macro                       00267624         
+                                      93 .ERROR   MNOTE '*** MISSING ARGUMENT ***'                               00267700         
+                                      94          MEND                          End macro                        00268024         
+                                      95 *                                                                       00270000         
+                                      96 **********************************************************************                   
+                                      97 *                                                                    *                   
+                                      98 *            Name:  DRIVER.                                          *                   
+                                      99 *                                                                    *                   
+                                     100 *        Function:  Test platform for macros.                        *                   
+                                     101 *                                                                    *                   
+                                     102 *           Input:  None.                                            *                   
+                                     103 *                                                                    *                   
+                                     104 *          Output:  Results of the tests.                            *                   
+                                     105 *                                                                    *                   
+                                     106 *     Entry Conds:  14 -- Return address to the operating            *                   
+                                     107 *                         system.                                    *                   
+                                     108 *                   15 -- Address of entry to the program.           *                   
+                                     109 *                                                                    *                   
+1                                                                                                               PAGE    3         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                     110 *  Register Usage:   2 -- Used in addresses in macro tests.          *                   
+                                     111 *                   11 -- Second base register.                      *                   
+                                     112 *                   12 -- Base register.                             *                   
+                                     113 *                                                                    *                   
+                                     114 *      Exit Conds:  14 -- Return address to the operating            *                   
+                                     115 *                         system.                                    *                   
+                                     116 *                                                                    *                   
+                                     117 **********************************************************************                   
+1                                                                                                               PAGE    4         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                                                                                                                  
+                                                                                                                                  
+                                     119 **********************************************************************                   
+                                     120 *               The DRIVER program begins here.                      *                   
+                                     121 **********************************************************************                   
+                                     122 *                                                                                        
+ 000000                              123 DRIVER   CSECT                         Beginning of the program                          
+                                     124 *                                                                                        
+                                     126 *                                                                                        
+                                     127 *  Standard entry linkage.                                                               
+                                     128 *                                                                                        
+ 000000 90EC D00C            0000C   129          STM   14,12,12(13)            Store the registers in the save                   
+                                     130 *                                      area of the calling routine                       
+                                     131 *                                                                                        
+ 000004 18CF                         132          LR    12,15                   Point register 12 at DRIVER                       
+ 000000                              133          USING DRIVER,12               The base register is 12                           
+                                     134 *                                                                                        
+ 000006 41E0 C804            00804   135          LA    14,DRIVSAV              Point register 14 at DRIVER's                     
+                                     136 *                                      save area                                         
+ 00000A 50DE 0004            00004   137          ST    13,4(14)                Store the backward pointer                        
+ 00000E 50ED 0008            00008   138          ST    14,8(13)                Store the forward pointer                         
+ 000012 18DE                         139          LR    13,14                   Point register 13 at DRIVER's                     
+                                     140 *                                      save area                                         
+                                     141 *                                                                                        
+ 000014 E020 C664 001A 00664         142          XPRNT =CL26'1Results of testing Macros',26                                      
+                                     143 *                                      Print the title                                   
+                                     144 *                                                                                        
+                                     145 * This block of code tests the STRLEN macro.                                             
+                                     146 *                                                                                        
+ 00001A E020 C7A6 0001 007A6         147          XPRNT =C'0',1                 Skip an extra 2 lines                             
+ 000020 E020 C630 0020 00630         148          XPRNT =CL32'-First we test the STRLEN macro.',32                                
+                                     149 *                                      Print a heading                                   
+                                     150 *                                                                                        
+                                     151 * These first three calls to STRLEN all have problems which should                       
+                                     152 * result in MNOTEs.                                                                      
+                                     153 *                                                                                        
+                                     154          STRLEN   S1                                                                     
+ ----->AS***MNOTE***    1,*** MISSING ARGUMENT ***                                                                <-ERROR         
+                                     156 *                                                                                        
+                                     157          STRLEN   ,LENGTH                                                                
+ ----->AS***MNOTE***    1,*** MISSING ARGUMENT ***                                                                <-ERROR         
+                                     159 *                                                                                        
+                                     160          STRLEN                                                                          
+ ----->AS***MNOTE***    1,*** MISSING ARGUMENT ***                                                                <-ERROR         
+                                     162 *                                                                                        
+                                     163 * The next few calls to STRLEN should all work.                                          
+                                     164 *                                                                                        
+ 000026 E020 C7A7 001B 007A7         165          XPRNT =CL27'0The actual length is:    0',27                                     
+                                     166          STRLEN   S1,LENGTH                                                              
+ 00002C 9024 C034            00034   167+         STM   2,4,S0004               Save registers in S&SYSNDX                        
+ 000030 47F0 C040            00040   168+         B     M0004                   Branch to M&SYSNDX                                
+ 000034                              169+S0004    DS    3F                      Register save area                                
+ 000040 4120 C84C            0084C   170+M0004    LA    2,S1                    Load address of &STR in R2                        
+ 000044 4130 C854            00854   171+         LA    3,LENGTH                Load address of &LEN in R3                        
+ 000048 1B44                         172+         SR    4,4                     Set R4 to 0                                       
+ 00004A 9500 2000      00000         173+L0004    CLI   0(2),X'00'              Compare current byte to X'00'                     
+ 00004E 4780 C05E            0005E   174+         BE    E0004                   If equal end loop                                 
+1                                                                                                               PAGE    5         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+ 000052 5A40 C650            00650   175+         A     4,=F'1'                 Increment counter                                 
+ 000056 4120 2001            00001   176+         LA    2,1(0,2)                Increment string                                  
+ 00005A 47F0 C04A            0004A   177+         B     L0004                   Return to start of loop                           
+ 00005E 5040 3000            00000   178+E0004    ST    4,0(0,3)                Store string length in &LEN                       
+ 000062 9824 C034            00034   179+         LM    2,4,S0004               Restore Registers                                 
+ 000066 5840 C854            00854   180          L     4,LENGTH                                                                  
+ 00006A 4E40 C878            00878   181          CVD   4,TEMP                                                                    
+ 00006E D203 C86F C654 0086F 00654   182          MVC   SVALUE(4),=XL4'40202120'                                                  
+ 000074 DE03 C86F C87E 0086F 0087E   183          ED    SVALUE(4),TEMP+6                                                          
+ 00007A E020 C858 001B 00858         184          XPRNT SLINE,27                                                                  
+                                     185 *                                                                                        
+ 000080 E020 C7C2 001B 007C2         186          XPRNT =CL27'0The actual length is:    3',27                                     
+                                     187          STRLEN   S2,LENGTH                                                              
+ 000086 9024 C090            00090   188+         STM   2,4,S0005               Save registers in S&SYSNDX                        
+ 00008A 47F0 C09C            0009C   189+         B     M0005                   Branch to M&SYSNDX                                
+ 000090                              190+S0005    DS    3F                      Register save area                                
+ 00009C 4120 C84D            0084D   191+M0005    LA    2,S2                    Load address of &STR in R2                        
+ 0000A0 4130 C854            00854   192+         LA    3,LENGTH                Load address of &LEN in R3                        
+ 0000A4 1B44                         193+         SR    4,4                     Set R4 to 0                                       
+ 0000A6 9500 2000      00000         194+L0005    CLI   0(2),X'00'              Compare current byte to X'00'                     
+ 0000AA 4780 C0BA            000BA   195+         BE    E0005                   If equal end loop                                 
+ 0000AE 5A40 C650            00650   196+         A     4,=F'1'                 Increment counter                                 
+ 0000B2 4120 2001            00001   197+         LA    2,1(0,2)                Increment string                                  
+ 0000B6 47F0 C0A6            000A6   198+         B     L0005                   Return to start of loop                           
+ 0000BA 5040 3000            00000   199+E0005    ST    4,0(0,3)                Store string length in &LEN                       
+ 0000BE 9824 C090            00090   200+         LM    2,4,S0005               Restore Registers                                 
+ 0000C2 5840 C854            00854   201          L     4,LENGTH                                                                  
+ 0000C6 4E40 C878            00878   202          CVD   4,TEMP                                                                    
+ 0000CA D203 C86F C654 0086F 00654   203          MVC   SVALUE(4),=XL4'40202120'                                                  
+ 0000D0 DE03 C86F C87E 0086F 0087E   204          ED    SVALUE(4),TEMP+6                                                          
+ 0000D6 E020 C858 001B 00858         205          XPRNT SLINE,27                                                                  
+                                     206 *                                                                                        
+ 0000DC E020 C7A7 001B 007A7         207          XPRNT =CL27'0The actual length is:    0',27                                     
+                                     208          STRLEN   S3,LENGTH                                                              
+ 0000E2 9024 C0EC            000EC   209+         STM   2,4,S0006               Save registers in S&SYSNDX                        
+ 0000E6 47F0 C0F8            000F8   210+         B     M0006                   Branch to M&SYSNDX                                
+ 0000EC                              211+S0006    DS    3F                      Register save area                                
+ 0000F8 4120 C851            00851   212+M0006    LA    2,S3                    Load address of &STR in R2                        
+ 0000FC 4130 C854            00854   213+         LA    3,LENGTH                Load address of &LEN in R3                        
+ 000100 1B44                         214+         SR    4,4                     Set R4 to 0                                       
+ 000102 9500 2000      00000         215+L0006    CLI   0(2),X'00'              Compare current byte to X'00'                     
+ 000106 4780 C116            00116   216+         BE    E0006                   If equal end loop                                 
+ 00010A 5A40 C650            00650   217+         A     4,=F'1'                 Increment counter                                 
+ 00010E 4120 2001            00001   218+         LA    2,1(0,2)                Increment string                                  
+ 000112 47F0 C102            00102   219+         B     L0006                   Return to start of loop                           
+ 000116 5040 3000            00000   220+E0006    ST    4,0(0,3)                Store string length in &LEN                       
+ 00011A 9824 C0EC            000EC   221+         LM    2,4,S0006               Restore Registers                                 
+ 00011E 5840 C854            00854   222          L     4,LENGTH                                                                  
+ 000122 4E40 C878            00878   223          CVD   4,TEMP                                                                    
+ 000126 D203 C86F C654 0086F 00654   224          MVC   SVALUE(4),=XL4'40202120'                                                  
+ 00012C DE03 C86F C87E 0086F 0087E   225          ED    SVALUE(4),TEMP+6                                                          
+ 000132 E020 C858 001B 00858         226          XPRNT SLINE,27                                                                  
+                                     227 *                                                                                        
+ 000138 E020 C7C2 001B 007C2         228          XPRNT =CL27'0The actual length is:    3',27                                     
+ 00013E 4130 C84D            0084D   229          LA    3,S2                                                                      
+                                     230          STRLEN   0(3),LENGTH                                                            
+ 000142 9024 C14C            0014C   231+         STM   2,4,S0007               Save registers in S&SYSNDX                        
+1                                                                                                               PAGE    6         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+ 000146 47F0 C158            00158   232+         B     M0007                   Branch to M&SYSNDX                                
+ 00014C                              233+S0007    DS    3F                      Register save area                                
+ 000158 4123 0000            00000   234+M0007    LA    2,0(3)                  Load address of &STR in R2                        
+ 00015C 4130 C854            00854   235+         LA    3,LENGTH                Load address of &LEN in R3                        
+ 000160 1B44                         236+         SR    4,4                     Set R4 to 0                                       
+ 000162 9500 2000      00000         237+L0007    CLI   0(2),X'00'              Compare current byte to X'00'                     
+ 000166 4780 C176            00176   238+         BE    E0007                   If equal end loop                                 
+ 00016A 5A40 C650            00650   239+         A     4,=F'1'                 Increment counter                                 
+ 00016E 4120 2001            00001   240+         LA    2,1(0,2)                Increment string                                  
+ 000172 47F0 C162            00162   241+         B     L0007                   Return to start of loop                           
+ 000176 5040 3000            00000   242+E0007    ST    4,0(0,3)                Store string length in &LEN                       
+ 00017A 9824 C14C            0014C   243+         LM    2,4,S0007               Restore Registers                                 
+ 00017E 5840 C854            00854   244          L     4,LENGTH                                                                  
+ 000182 4E40 C878            00878   245          CVD   4,TEMP                                                                    
+ 000186 D203 C86F C654 0086F 00654   246          MVC   SVALUE(4),=XL4'40202120'                                                  
+ 00018C DE03 C86F C87E 0086F 0087E   247          ED    SVALUE(4),TEMP+6                                                          
+ 000192 E020 C858 001B 00858         248          XPRNT SLINE,27                                                                  
+                                     249 *                                                                                        
+ 000198 E020 C7C2 001B 007C2         250          XPRNT =CL27'0The actual length is:    3',27                                     
+ 00019E 4150 C854            00854   251          LA    5,LENGTH                                                                  
+                                     252          STRLEN   S2,0(5)                                                                
+ 0001A2 9024 C1AC            001AC   253+         STM   2,4,S0008               Save registers in S&SYSNDX                        
+ 0001A6 47F0 C1B8            001B8   254+         B     M0008                   Branch to M&SYSNDX                                
+ 0001AC                              255+S0008    DS    3F                      Register save area                                
+ 0001B8 4120 C84D            0084D   256+M0008    LA    2,S2                    Load address of &STR in R2                        
+ 0001BC 4135 0000            00000   257+         LA    3,0(5)                  Load address of &LEN in R3                        
+ 0001C0 1B44                         258+         SR    4,4                     Set R4 to 0                                       
+ 0001C2 9500 2000      00000         259+L0008    CLI   0(2),X'00'              Compare current byte to X'00'                     
+ 0001C6 4780 C1D6            001D6   260+         BE    E0008                   If equal end loop                                 
+ 0001CA 5A40 C650            00650   261+         A     4,=F'1'                 Increment counter                                 
+ 0001CE 4120 2001            00001   262+         LA    2,1(0,2)                Increment string                                  
+ 0001D2 47F0 C1C2            001C2   263+         B     L0008                   Return to start of loop                           
+ 0001D6 5040 3000            00000   264+E0008    ST    4,0(0,3)                Store string length in &LEN                       
+ 0001DA 9824 C1AC            001AC   265+         LM    2,4,S0008               Restore Registers                                 
+ 0001DE 5840 C854            00854   266          L     4,LENGTH                                                                  
+ 0001E2 4E40 C878            00878   267          CVD   4,TEMP                                                                    
+ 0001E6 D203 C86F C654 0086F 00654   268          MVC   SVALUE(4),=XL4'40202120'                                                  
+ 0001EC DE03 C86F C87E 0086F 0087E   269          ED    SVALUE(4),TEMP+6                                                          
+ 0001F2 E020 C858 001B 00858         270          XPRNT SLINE,27                                                                  
+                                     271 *                                                                                        
+ 0001F8 E020 C7C2 001B 007C2         272          XPRNT =CL27'0The actual length is:    3',27                                     
+ 0001FE 4130 C84D            0084D   273          LA    3,S2                                                                      
+ 000202 4150 C854            00854   274          LA    5,LENGTH                                                                  
+                                     275          STRLEN   0(3),0(5)                                                              
+ 000206 9024 C210            00210   276+         STM   2,4,S0009               Save registers in S&SYSNDX                        
+ 00020A 47F0 C21C            0021C   277+         B     M0009                   Branch to M&SYSNDX                                
+ 000210                              278+S0009    DS    3F                      Register save area                                
+ 00021C 4123 0000            00000   279+M0009    LA    2,0(3)                  Load address of &STR in R2                        
+ 000220 4135 0000            00000   280+         LA    3,0(5)                  Load address of &LEN in R3                        
+ 000224 1B44                         281+         SR    4,4                     Set R4 to 0                                       
+ 000226 9500 2000      00000         282+L0009    CLI   0(2),X'00'              Compare current byte to X'00'                     
+ 00022A 4780 C23A            0023A   283+         BE    E0009                   If equal end loop                                 
+ 00022E 5A40 C650            00650   284+         A     4,=F'1'                 Increment counter                                 
+ 000232 4120 2001            00001   285+         LA    2,1(0,2)                Increment string                                  
+ 000236 47F0 C226            00226   286+         B     L0009                   Return to start of loop                           
+ 00023A 5040 3000            00000   287+E0009    ST    4,0(0,3)                Store string length in &LEN                       
+ 00023E 9824 C210            00210   288+         LM    2,4,S0009               Restore Registers                                 
+1                                                                                                               PAGE    7         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+ 000242 5840 C854            00854   289          L     4,LENGTH                                                                  
+ 000246 4E40 C878            00878   290          CVD   4,TEMP                                                                    
+ 00024A D203 C86F C654 0086F 00654   291          MVC   SVALUE(4),=XL4'40202120'                                                  
+ 000250 DE03 C86F C87E 0086F 0087E   292          ED    SVALUE(4),TEMP+6                                                          
+ 000256 E020 C858 001B 00858         293          XPRNT SLINE,27                                                                  
+                                     294 *                                                                                        
+1                                                                                                               PAGE    8         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                                                                                                                  
+                                                                                                                                  
+                                     296 *                                                                                        
+                                     297 * This block of code tests the TOHEX macro.                                              
+                                     298 *                                                                                        
+ 00025C E020 C7A6 0001 007A6         299          XPRNT =C'0',1                 Skip an extra 2 lines                             
+ 000262 E020 C67E 001E 0067E         300          XPRNT =CL30'-Next we test the TOHEX macro.',30                                  
+                                     301 *                                      Print a heading                                   
+ 000268 E020 C7DD 0023 007DD         302          XPRNT =CL35'1Results of testing the TOHEX macro',35                             
+                                     303 *                                                                                        
+                                     304 * These first three calls should result in MNOTEs.                                       
+                                     305 *                                                                                        
+                                     306 T1       TOHEX  IN                                                                       
+ ----->AS***MNOTE***    1,*** MISSING ARGUMENT ***                                                                <-ERROR         
+                                     308 *                                                                                        
+                                     309 T2       TOHEX  , LOUT                                                                   
+ ----->AS***MNOTE***    1,*** MISSING ARGUMENT ***                                                                <-ERROR         
+                                     311 *                                                                                        
+                                     312 T3       TOHEX                                                                           
+ ----->AS***MNOTE***    1,*** MISSING ARGUMENT ***                                                                <-ERROR         
+                                     314 *                                                                                        
+                                     315 * The rest of the calls should succeed.                                                  
+                                     316 *                                                                                        
+ 00026E E020 C69C 0026 0069C         317          XPRNT =CL38'0In this test, the result should be 40',38                          
+ 000274 9240 C881      00881         318          MVI   IN,C' '                                                                   
+                                     319 T4       TOHEX IN,LOUT                                                                   
+ 000278 9024 C280            00280   320+T4       STM   2,4,S0013               Save registers                                    
+ 00027C 47F0 C28C            0028C   321+         B     M0013                   Branch to M&SYSNDX                                
+ 000280                              322+S0013    DS    3F                      Register save area                                
+ 00028C 4120 C881            00881   323+M0013    LA    2,IN                    Load address of &IN to R2                         
+ 000290 4130 C883            00883   324+         LA    3,LOUT                  Load address of &OUT to R3                        
+ 000294 1B44                         325+         SR    4,4                     Set R4 to 0                                       
+ 000296 4340 2000            00000   326+         IC    4,0(0,2)                Insert &IN into R4                                
+ 00029A 8840 0004            00004   327+         SRL   4,4                     Shift R4 4 bits left                              
+ 00029E 5940 C658            00658   328+         C     4,=F'9'                 Compare R4 to 9                                   
+ 0002A2 4720 C2AE            002AE   329+         BH    A0013                   If higher branch to A&SYSNDX                      
+ 0002A6 5A40 C65C            0065C   330+         A     4,=F'240'               Insert F infront                                  
+ 0002AA 47F0 C2BA            002BA   331+         B     B0013                   Branch to B&SYSNDX                                
+ 0002AE 5B40 C658            00658   332+A0013    S     4,=F'9'                 Subtract 9 from R4                                
+ 0002B2 5A40 C660            00660   333+         A     4,=F'192'               Insert C infront                                  
+ 0002B6 47F0 C2BA            002BA   334+         B     B0013                   Branch to B&SYSNDX                                
+ 0002BA 4240 3000            00000   335+B0013    STC   4,0(0,3)                Store R4 into last byte of &OUT                   
+ 0002BE 1B44                         336+         SR    4,4                     Set R4 to 0                                       
+ 0002C0 4340 2000            00000   337+         IC    4,0(0,2)                Insert &IN into R4                                
+ 0002C4 8940 001C            0001C   338+         SLL   4,28                    Shift R4 left 28 bits                             
+ 0002C8 8840 001C            0001C   339+         SRL   4,28                    Shift R4 right 28 bits                            
+ 0002CC 5940 C658            00658   340+         C     4,=F'9'                 Compare R4 to 9                                   
+ 0002D0 4720 C2DC            002DC   341+         BH    C0013                   If higher branch to C&SYSNDX                      
+ 0002D4 5A40 C65C            0065C   342+         A     4,=F'240'               Insert F infront                                  
+ 0002D8 47F0 C2E4            002E4   343+         B     D0013                   Branch to D&SYSNDX                                
+ 0002DC 5B40 C658            00658   344+C0013    S     4,=F'9'                 Subtract 9 fron R4                                
+ 0002E0 5A40 C660            00660   345+         A     4,=F'192'               Insert C infront                                  
+ 0002E4 4240 3001            00001   346+D0013    STC   4,1(0,3)                Store R4 in first byte of &OUT                    
+ 0002E8 9824 C280            00280   347+         LM    2,4,S0013               Restore Registers                                 
+ 0002EC E020 C882 0003 00882         348          XPRNT LINE,3                                                                    
+                                     349 *                                                                                        
+ 0002F2 E020 C6C2 0026 006C2         350          XPRNT =CL38'0In this test, the result should be 6F',38                          
+1                                                                                                               PAGE    9         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+ 0002F8 4130 C881            00881   351          LA    3,IN                                                                      
+ 0002FC 926F C881      00881         352          MVI   IN,C'?'                                                                   
+                                     353 T5       TOHEX 0(3),LOUT                                                                 
+ 000300 9024 C308            00308   354+T5       STM   2,4,S0014               Save registers                                    
+ 000304 47F0 C314            00314   355+         B     M0014                   Branch to M&SYSNDX                                
+ 000308                              356+S0014    DS    3F                      Register save area                                
+ 000314 4123 0000            00000   357+M0014    LA    2,0(3)                  Load address of &IN to R2                         
+ 000318 4130 C883            00883   358+         LA    3,LOUT                  Load address of &OUT to R3                        
+ 00031C 1B44                         359+         SR    4,4                     Set R4 to 0                                       
+ 00031E 4340 2000            00000   360+         IC    4,0(0,2)                Insert &IN into R4                                
+ 000322 8840 0004            00004   361+         SRL   4,4                     Shift R4 4 bits left                              
+ 000326 5940 C658            00658   362+         C     4,=F'9'                 Compare R4 to 9                                   
+ 00032A 4720 C336            00336   363+         BH    A0014                   If higher branch to A&SYSNDX                      
+ 00032E 5A40 C65C            0065C   364+         A     4,=F'240'               Insert F infront                                  
+ 000332 47F0 C342            00342   365+         B     B0014                   Branch to B&SYSNDX                                
+ 000336 5B40 C658            00658   366+A0014    S     4,=F'9'                 Subtract 9 from R4                                
+ 00033A 5A40 C660            00660   367+         A     4,=F'192'               Insert C infront                                  
+ 00033E 47F0 C342            00342   368+         B     B0014                   Branch to B&SYSNDX                                
+ 000342 4240 3000            00000   369+B0014    STC   4,0(0,3)                Store R4 into last byte of &OUT                   
+ 000346 1B44                         370+         SR    4,4                     Set R4 to 0                                       
+ 000348 4340 2000            00000   371+         IC    4,0(0,2)                Insert &IN into R4                                
+ 00034C 8940 001C            0001C   372+         SLL   4,28                    Shift R4 left 28 bits                             
+ 000350 8840 001C            0001C   373+         SRL   4,28                    Shift R4 right 28 bits                            
+ 000354 5940 C658            00658   374+         C     4,=F'9'                 Compare R4 to 9                                   
+ 000358 4720 C364            00364   375+         BH    C0014                   If higher branch to C&SYSNDX                      
+ 00035C 5A40 C65C            0065C   376+         A     4,=F'240'               Insert F infront                                  
+ 000360 47F0 C36C            0036C   377+         B     D0014                   Branch to D&SYSNDX                                
+ 000364 5B40 C658            00658   378+C0014    S     4,=F'9'                 Subtract 9 fron R4                                
+ 000368 5A40 C660            00660   379+         A     4,=F'192'               Insert C infront                                  
+ 00036C 4240 3001            00001   380+D0014    STC   4,1(0,3)                Store R4 in first byte of &OUT                    
+ 000370 9824 C308            00308   381+         LM    2,4,S0014               Restore Registers                                 
+ 000374 E020 C882 0003 00882         382          XPRNT LINE,3                                                                    
+                                     383 *                                                                                        
+ 00037A E020 C6E8 0026 006E8         384          XPRNT =CL38'0In this test, the result should be 94',38                          
+                                     385 T6       TOHEX =C'm',LOUT                                                                
+ 000380 9024 C388            00388   386+T6       STM   2,4,S0015               Save registers                                    
+ 000384 47F0 C394            00394   387+         B     M0015                   Branch to M&SYSNDX                                
+ 000388                              388+S0015    DS    3F                      Register save area                                
+ 000394 4120 C800            00800   389+M0015    LA    2,=C'm'                 Load address of &IN to R2                         
+ 000398 4130 C883            00883   390+         LA    3,LOUT                  Load address of &OUT to R3                        
+ 00039C 1B44                         391+         SR    4,4                     Set R4 to 0                                       
+ 00039E 4340 2000            00000   392+         IC    4,0(0,2)                Insert &IN into R4                                
+ 0003A2 8840 0004            00004   393+         SRL   4,4                     Shift R4 4 bits left                              
+ 0003A6 5940 C658            00658   394+         C     4,=F'9'                 Compare R4 to 9                                   
+ 0003AA 4720 C3B6            003B6   395+         BH    A0015                   If higher branch to A&SYSNDX                      
+ 0003AE 5A40 C65C            0065C   396+         A     4,=F'240'               Insert F infront                                  
+ 0003B2 47F0 C3C2            003C2   397+         B     B0015                   Branch to B&SYSNDX                                
+ 0003B6 5B40 C658            00658   398+A0015    S     4,=F'9'                 Subtract 9 from R4                                
+ 0003BA 5A40 C660            00660   399+         A     4,=F'192'               Insert C infront                                  
+ 0003BE 47F0 C3C2            003C2   400+         B     B0015                   Branch to B&SYSNDX                                
+ 0003C2 4240 3000            00000   401+B0015    STC   4,0(0,3)                Store R4 into last byte of &OUT                   
+ 0003C6 1B44                         402+         SR    4,4                     Set R4 to 0                                       
+ 0003C8 4340 2000            00000   403+         IC    4,0(0,2)                Insert &IN into R4                                
+ 0003CC 8940 001C            0001C   404+         SLL   4,28                    Shift R4 left 28 bits                             
+ 0003D0 8840 001C            0001C   405+         SRL   4,28                    Shift R4 right 28 bits                            
+ 0003D4 5940 C658            00658   406+         C     4,=F'9'                 Compare R4 to 9                                   
+ 0003D8 4720 C3E4            003E4   407+         BH    C0015                   If higher branch to C&SYSNDX                      
+1                                                                                                               PAGE   10         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+ 0003DC 5A40 C65C            0065C   408+         A     4,=F'240'               Insert F infront                                  
+ 0003E0 47F0 C3EC            003EC   409+         B     D0015                   Branch to D&SYSNDX                                
+ 0003E4 5B40 C658            00658   410+C0015    S     4,=F'9'                 Subtract 9 fron R4                                
+ 0003E8 5A40 C660            00660   411+         A     4,=F'192'               Insert C infront                                  
+ 0003EC 4240 3001            00001   412+D0015    STC   4,1(0,3)                Store R4 in first byte of &OUT                    
+ 0003F0 9824 C388            00388   413+         LM    2,4,S0015               Restore Registers                                 
+ 0003F4 E020 C882 0003 00882         414          XPRNT LINE,3                                                                    
+                                     415 *                                                                                        
+ 0003FA E020 C70E 0026 0070E         416          XPRNT =CL38'0In this test, the result should be F7',38                          
+ 000400 41A0 C883            00883   417          LA    10,LOUT                                                                   
+ 000404 92F7 C881      00881         418          MVI   IN,C'7'                                                                   
+                                     419 T7       TOHEX IN,0(10)                                                                  
+ 000408 9024 C410            00410   420+T7       STM   2,4,S0016               Save registers                                    
+ 00040C 47F0 C41C            0041C   421+         B     M0016                   Branch to M&SYSNDX                                
+ 000410                              422+S0016    DS    3F                      Register save area                                
+ 00041C 4120 C881            00881   423+M0016    LA    2,IN                    Load address of &IN to R2                         
+ 000420 413A 0000            00000   424+         LA    3,0(10)                 Load address of &OUT to R3                        
+ 000424 1B44                         425+         SR    4,4                     Set R4 to 0                                       
+ 000426 4340 2000            00000   426+         IC    4,0(0,2)                Insert &IN into R4                                
+ 00042A 8840 0004            00004   427+         SRL   4,4                     Shift R4 4 bits left                              
+ 00042E 5940 C658            00658   428+         C     4,=F'9'                 Compare R4 to 9                                   
+ 000432 4720 C43E            0043E   429+         BH    A0016                   If higher branch to A&SYSNDX                      
+ 000436 5A40 C65C            0065C   430+         A     4,=F'240'               Insert F infront                                  
+ 00043A 47F0 C44A            0044A   431+         B     B0016                   Branch to B&SYSNDX                                
+ 00043E 5B40 C658            00658   432+A0016    S     4,=F'9'                 Subtract 9 from R4                                
+ 000442 5A40 C660            00660   433+         A     4,=F'192'               Insert C infront                                  
+ 000446 47F0 C44A            0044A   434+         B     B0016                   Branch to B&SYSNDX                                
+ 00044A 4240 3000            00000   435+B0016    STC   4,0(0,3)                Store R4 into last byte of &OUT                   
+ 00044E 1B44                         436+         SR    4,4                     Set R4 to 0                                       
+ 000450 4340 2000            00000   437+         IC    4,0(0,2)                Insert &IN into R4                                
+ 000454 8940 001C            0001C   438+         SLL   4,28                    Shift R4 left 28 bits                             
+ 000458 8840 001C            0001C   439+         SRL   4,28                    Shift R4 right 28 bits                            
+ 00045C 5940 C658            00658   440+         C     4,=F'9'                 Compare R4 to 9                                   
+ 000460 4720 C46C            0046C   441+         BH    C0016                   If higher branch to C&SYSNDX                      
+ 000464 5A40 C65C            0065C   442+         A     4,=F'240'               Insert F infront                                  
+ 000468 47F0 C474            00474   443+         B     D0016                   Branch to D&SYSNDX                                
+ 00046C 5B40 C658            00658   444+C0016    S     4,=F'9'                 Subtract 9 fron R4                                
+ 000470 5A40 C660            00660   445+         A     4,=F'192'               Insert C infront                                  
+ 000474 4240 3001            00001   446+D0016    STC   4,1(0,3)                Store R4 in first byte of &OUT                    
+ 000478 9824 C410            00410   447+         LM    2,4,S0016               Restore Registers                                 
+ 00047C E020 C882 0003 00882         448          XPRNT LINE,3                                                                    
+                                     449 *                                                                                        
+ 000482 E020 C734 0026 00734         450          XPRNT =CL38'0In this test, the result should be 4E',38                          
+ 000488 4190 C881            00881   451          LA    9,IN                                                                      
+ 00048C 41A0 C883            00883   452          LA    10,LOUT                                                                   
+ 000490 924E C881      00881         453          MVI   IN,C'+'                                                                   
+                                     454 T8       TOHEX 0(9),0(10)                                                                
+ 000494 9024 C49C            0049C   455+T8       STM   2,4,S0017               Save registers                                    
+ 000498 47F0 C4A8            004A8   456+         B     M0017                   Branch to M&SYSNDX                                
+ 00049C                              457+S0017    DS    3F                      Register save area                                
+ 0004A8 4129 0000            00000   458+M0017    LA    2,0(9)                  Load address of &IN to R2                         
+ 0004AC 413A 0000            00000   459+         LA    3,0(10)                 Load address of &OUT to R3                        
+ 0004B0 1B44                         460+         SR    4,4                     Set R4 to 0                                       
+ 0004B2 4340 2000            00000   461+         IC    4,0(0,2)                Insert &IN into R4                                
+ 0004B6 8840 0004            00004   462+         SRL   4,4                     Shift R4 4 bits left                              
+ 0004BA 5940 C658            00658   463+         C     4,=F'9'                 Compare R4 to 9                                   
+ 0004BE 4720 C4CA            004CA   464+         BH    A0017                   If higher branch to A&SYSNDX                      
+1                                                                                                               PAGE   11         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+ 0004C2 5A40 C65C            0065C   465+         A     4,=F'240'               Insert F infront                                  
+ 0004C6 47F0 C4D6            004D6   466+         B     B0017                   Branch to B&SYSNDX                                
+ 0004CA 5B40 C658            00658   467+A0017    S     4,=F'9'                 Subtract 9 from R4                                
+ 0004CE 5A40 C660            00660   468+         A     4,=F'192'               Insert C infront                                  
+ 0004D2 47F0 C4D6            004D6   469+         B     B0017                   Branch to B&SYSNDX                                
+ 0004D6 4240 3000            00000   470+B0017    STC   4,0(0,3)                Store R4 into last byte of &OUT                   
+ 0004DA 1B44                         471+         SR    4,4                     Set R4 to 0                                       
+ 0004DC 4340 2000            00000   472+         IC    4,0(0,2)                Insert &IN into R4                                
+ 0004E0 8940 001C            0001C   473+         SLL   4,28                    Shift R4 left 28 bits                             
+ 0004E4 8840 001C            0001C   474+         SRL   4,28                    Shift R4 right 28 bits                            
+ 0004E8 5940 C658            00658   475+         C     4,=F'9'                 Compare R4 to 9                                   
+ 0004EC 4720 C4F8            004F8   476+         BH    C0017                   If higher branch to C&SYSNDX                      
+ 0004F0 5A40 C65C            0065C   477+         A     4,=F'240'               Insert F infront                                  
+ 0004F4 47F0 C500            00500   478+         B     D0017                   Branch to D&SYSNDX                                
+ 0004F8 5B40 C658            00658   479+C0017    S     4,=F'9'                 Subtract 9 fron R4                                
+ 0004FC 5A40 C660            00660   480+         A     4,=F'192'               Insert C infront                                  
+ 000500 4240 3001            00001   481+D0017    STC   4,1(0,3)                Store R4 in first byte of &OUT                    
+ 000504 9824 C49C            0049C   482+         LM    2,4,S0017               Restore Registers                                 
+ 000508 E020 C882 0003 00882         483          XPRNT LINE,3                                                                    
+                                     484 *                                                                                        
+ 00050E E020 C75A 0026 0075A         485          XPRNT =CL38'0In this test, the result should be C2',38                          
+ 000514 41A0 C882            00882   486          LA    10,LINE                                                                   
+ 000518 92C2 C881      00881         487          MVI   IN,C'B'                                                                   
+                                     488 T9       TOHEX IN,1(10)                                                                  
+ 00051C 9024 C524            00524   489+T9       STM   2,4,S0018               Save registers                                    
+ 000520 47F0 C530            00530   490+         B     M0018                   Branch to M&SYSNDX                                
+ 000524                              491+S0018    DS    3F                      Register save area                                
+ 000530 4120 C881            00881   492+M0018    LA    2,IN                    Load address of &IN to R2                         
+ 000534 413A 0001            00001   493+         LA    3,1(10)                 Load address of &OUT to R3                        
+ 000538 1B44                         494+         SR    4,4                     Set R4 to 0                                       
+ 00053A 4340 2000            00000   495+         IC    4,0(0,2)                Insert &IN into R4                                
+ 00053E 8840 0004            00004   496+         SRL   4,4                     Shift R4 4 bits left                              
+ 000542 5940 C658            00658   497+         C     4,=F'9'                 Compare R4 to 9                                   
+ 000546 4720 C552            00552   498+         BH    A0018                   If higher branch to A&SYSNDX                      
+ 00054A 5A40 C65C            0065C   499+         A     4,=F'240'               Insert F infront                                  
+ 00054E 47F0 C55E            0055E   500+         B     B0018                   Branch to B&SYSNDX                                
+ 000552 5B40 C658            00658   501+A0018    S     4,=F'9'                 Subtract 9 from R4                                
+ 000556 5A40 C660            00660   502+         A     4,=F'192'               Insert C infront                                  
+ 00055A 47F0 C55E            0055E   503+         B     B0018                   Branch to B&SYSNDX                                
+ 00055E 4240 3000            00000   504+B0018    STC   4,0(0,3)                Store R4 into last byte of &OUT                   
+ 000562 1B44                         505+         SR    4,4                     Set R4 to 0                                       
+ 000564 4340 2000            00000   506+         IC    4,0(0,2)                Insert &IN into R4                                
+ 000568 8940 001C            0001C   507+         SLL   4,28                    Shift R4 left 28 bits                             
+ 00056C 8840 001C            0001C   508+         SRL   4,28                    Shift R4 right 28 bits                            
+ 000570 5940 C658            00658   509+         C     4,=F'9'                 Compare R4 to 9                                   
+ 000574 4720 C580            00580   510+         BH    C0018                   If higher branch to C&SYSNDX                      
+ 000578 5A40 C65C            0065C   511+         A     4,=F'240'               Insert F infront                                  
+ 00057C 47F0 C588            00588   512+         B     D0018                   Branch to D&SYSNDX                                
+ 000580 5B40 C658            00658   513+C0018    S     4,=F'9'                 Subtract 9 fron R4                                
+ 000584 5A40 C660            00660   514+         A     4,=F'192'               Insert C infront                                  
+ 000588 4240 3001            00001   515+D0018    STC   4,1(0,3)                Store R4 in first byte of &OUT                    
+ 00058C 9824 C524            00524   516+         LM    2,4,S0018               Restore Registers                                 
+ 000590 E020 C882 0003 00882         517          XPRNT LINE,3                                                                    
+                                     518 *                                                                                        
+ 000596 E020 C780 0026 00780         519          XPRNT =CL38'0In this test, the result should be F0',38                          
+ 00059C 92F0 C881      00881         520          MVI   IN,C'0'                                                                   
+                                     521 T10      TOHEX PREIN+1,LINE+1                                                            
+1                                                                                                               PAGE   12         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+ 0005A0 9024 C5A8            005A8   522+T10      STM   2,4,S0019               Save registers                                    
+ 0005A4 47F0 C5B4            005B4   523+         B     M0019                   Branch to M&SYSNDX                                
+ 0005A8                              524+S0019    DS    3F                      Register save area                                
+ 0005B4 4120 C881            00881   525+M0019    LA    2,PREIN+1               Load address of &IN to R2                         
+ 0005B8 4130 C883            00883   526+         LA    3,LINE+1                Load address of &OUT to R3                        
+ 0005BC 1B44                         527+         SR    4,4                     Set R4 to 0                                       
+ 0005BE 4340 2000            00000   528+         IC    4,0(0,2)                Insert &IN into R4                                
+ 0005C2 8840 0004            00004   529+         SRL   4,4                     Shift R4 4 bits left                              
+ 0005C6 5940 C658            00658   530+         C     4,=F'9'                 Compare R4 to 9                                   
+ 0005CA 4720 C5D6            005D6   531+         BH    A0019                   If higher branch to A&SYSNDX                      
+ 0005CE 5A40 C65C            0065C   532+         A     4,=F'240'               Insert F infront                                  
+ 0005D2 47F0 C5E2            005E2   533+         B     B0019                   Branch to B&SYSNDX                                
+ 0005D6 5B40 C658            00658   534+A0019    S     4,=F'9'                 Subtract 9 from R4                                
+ 0005DA 5A40 C660            00660   535+         A     4,=F'192'               Insert C infront                                  
+ 0005DE 47F0 C5E2            005E2   536+         B     B0019                   Branch to B&SYSNDX                                
+ 0005E2 4240 3000            00000   537+B0019    STC   4,0(0,3)                Store R4 into last byte of &OUT                   
+ 0005E6 1B44                         538+         SR    4,4                     Set R4 to 0                                       
+ 0005E8 4340 2000            00000   539+         IC    4,0(0,2)                Insert &IN into R4                                
+ 0005EC 8940 001C            0001C   540+         SLL   4,28                    Shift R4 left 28 bits                             
+ 0005F0 8840 001C            0001C   541+         SRL   4,28                    Shift R4 right 28 bits                            
+ 0005F4 5940 C658            00658   542+         C     4,=F'9'                 Compare R4 to 9                                   
+ 0005F8 4720 C604            00604   543+         BH    C0019                   If higher branch to C&SYSNDX                      
+ 0005FC 5A40 C65C            0065C   544+         A     4,=F'240'               Insert F infront                                  
+ 000600 47F0 C60C            0060C   545+         B     D0019                   Branch to D&SYSNDX                                
+ 000604 5B40 C658            00658   546+C0019    S     4,=F'9'                 Subtract 9 fron R4                                
+ 000608 5A40 C660            00660   547+         A     4,=F'192'               Insert C infront                                  
+ 00060C 4240 3001            00001   548+D0019    STC   4,1(0,3)                Store R4 in first byte of &OUT                    
+ 000610 9824 C5A8            005A8   549+         LM    2,4,S0019               Restore Registers                                 
+ 000614 E020 C882 0003 00882         550          XPRNT LINE,3                                                                    
+                                     551 *                                                                                        
+                                     552 *  Standard exit linkage with return code = 0.                                           
+                                     553 *                                                                                        
+ 00061A 17FF                         554          XR    15,15                   Put 0 in register 15                              
+ 00061C 58DD 0004            00004   555          L     13,4(13)                Point register 13 at the calling                  
+                                     556 *                                      program's save area                               
+ 000620 58ED 000C            0000C   557          L     14,12(13)               Restore all registers except                      
+ 000624 980C D014            00014   558          LM    0,12,20(13)             15                                                
+ 000628 07FE                         559          BR    14                      Return to the calling program                     
+1                                                                                                               PAGE   13         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                                                                                                                  
+                                                                                                                                  
+                                     561 **********************************************************************                   
+                                     562 *          The storage section for DRIVER starts here.               *                   
+                                     563 **********************************************************************                   
+                                     564 *                                                                                        
+                                     565          LTORG                                                                           
+ 000630 60C68999A2A340A6             566                =CL32'-First we test the STRLEN macro.'                                   
+ 000650 00000001                     567                =F'1'                                                                     
+ 000654 40202120                     568                =XL4'40202120'                                                            
+ 000658 00000009                     569                =F'9'                                                                     
+ 00065C 000000F0                     570                =F'240'                                                                   
+ 000660 000000C0                     571                =F'192'                                                                   
+ 000664 F1D985A2A493A3A2             572                =CL26'1Results of testing Macros'                                         
+ 00067E 60D585A7A340A685             573                =CL30'-Next we test the TOHEX macro.'                                     
+ 00069C F0C99540A38889A2             574                =CL38'0In this test, the result should be 40'                             
+ 0006C2 F0C99540A38889A2             575                =CL38'0In this test, the result should be 6F'                             
+ 0006E8 F0C99540A38889A2             576                =CL38'0In this test, the result should be 94'                             
+ 00070E F0C99540A38889A2             577                =CL38'0In this test, the result should be F7'                             
+ 000734 F0C99540A38889A2             578                =CL38'0In this test, the result should be 4E'                             
+ 00075A F0C99540A38889A2             579                =CL38'0In this test, the result should be C2'                             
+ 000780 F0C99540A38889A2             580                =CL38'0In this test, the result should be F0'                             
+ 0007A6 F0                           581                =C'0'                                                                     
+ 0007A7 F0E38885408183A3             582                =CL27'0The actual length is:    0'                                        
+ 0007C2 F0E38885408183A3             583                =CL27'0The actual length is:    3'                                        
+ 0007DD F1D985A2A493A3A2             584                =CL35'1Results of testing the TOHEX macro'                                
+ 000800 94                           585                =C'm'                                                                     
+                                     586 *                                                                                        
+ 000804 FFFFFFFFFFFFFFFF             587 DRIVSAV  DC    18F'-1'                 Save area for linkage                             
+                                     588 *                                                                                        
+                                     589 * Variables for testing STRLEN                                                           
+ 00084C 00                           590 S1       DC    X'00'                                                                     
+                                     591 *                                                                                        
+                                     592 *                                                                                        
+ 00084D C1C2C300                     593 S2       DC    XL4'C1C2C300'                                                             
+                                     594 *                                                                                        
+ 000851 000000                       595 S3       DC    XL3'000000'                                                               
+                                     596 *                                                                                        
+ 000854                              597 LENGTH   DS    F                                                                         
+                                     598 *                                                                                        
+ 000858 F0                           599 SLINE    DC    C'0'                                                                      
+ 000859 E388854083969497             600          DC    CL22'The computed length is'                                              
+ 00086F                              601 SVALUE   DS    4C                                                                        
+                                     602 *                                                                                        
+ 000878                              603 TEMP     DS    D                                                                         
+                                     604 *                                                                                        
+                                     605 * Variables for testing TOHEX                                                            
+                                     606 *                                                                                        
+ 000880                              607 PREIN    DS    C                                                                         
+ 000881                              608 IN       DS    C                                                                         
+                                     609 *                                                                                        
+ 000882 F0                           610 LINE     DC    C'0'                                                                      
+ 000883                              611 LOUT     DS    CL2                                                                       
+                                     612          END   DRIVER                  End of the overall program                        
+0***  NO   STATEMENTS FLAGGED -  NO   WARNINGS,  NO   ERRORS                                                                      
+0*** DYNAMIC CORE AREA USED:  LOW:   35840 HIGH:    2924 LEAVING:  454804 FREE BYTES. AVERAGE:       63 BYTES/STMT ***            
+0*** ASSEMBLY TIME =    0.005 SECS,   122600 STATEMENTS/SEC ***                                                                   
+1*** PROGRAM EXECUTION BEGINNING - ANY OUTPUT BEFORE EXECUTION TIME MESSAGE IS PRODUCED BY USER PROGRAM ***                       
+1Results of testing Macros                                                                                                        
+0                                                                                                                                 
+-First we test the STRLEN macro.                                                                                                  
+0The actual length is:    0                                                                                                       
+0The computed length is   0                                                                                                       
+0The actual length is:    3                                                                                                       
+0The computed length is   3                                                                                                       
+0The actual length is:    0                                                                                                       
+0The computed length is   0                                                                                                       
+0The actual length is:    3                                                                                                       
+0The computed length is   3                                                                                                       
+0The actual length is:    3                                                                                                       
+0The computed length is   3                                                                                                       
+0The actual length is:    3                                                                                                       
+0The computed length is   3                                                                                                       
+0                                                                                                                                 
+-Next we test the TOHEX macro.                                                                                                    
+1Results of testing the TOHEX macro                                                                                               
+0In this test, the result should be 40                                                                                            
+040                                                                                                                               
+0In this test, the result should be 6F                                                                                            
+06F                                                                                                                               
+0In this test, the result should be 94                                                                                            
+094                                                                                                                               
+0In this test, the result should be F7                                                                                            
+0F7                                                                                                                               
+0In this test, the result should be 4E                                                                                            
+04E                                                                                                                               
+0In this test, the result should be C2                                                                                            
+0C2                                                                                                                               
+0In this test, the result should be F0                                                                                            
+0F0                                                                                                                               
+0*** EXECUTION TIME =    0.000 SECS.       353 INSTRUCTIONS EXECUTED -   353000 INSTRUCTIONS/SEC ***                              
+0*** FIRST CARD NOT READ: NO CARDS READ:FILE UNOPENED                                                                             
+0*** AM004 - NORMAL USER TERMINATION BY RETURN ***                                                                                

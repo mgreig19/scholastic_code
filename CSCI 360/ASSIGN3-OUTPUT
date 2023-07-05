@@ -1,0 +1,262 @@
+1                    J E S 2  J O B  L O G  --  S Y S T E M  S 0 W 1  --  N O D E  Z O S K C T R         
+0 
+ 17.36.19 JOB04174 ---- TUESDAY,   26 SEP 2017 ----
+ 17.36.19 JOB04174  IRR010I  USERID KC03KA9  IS ASSIGNED TO THIS JOB.
+ 17.36.19 JOB04174  ICH70001I KC03KA9  LAST ACCESS AT 17:23:27 ON TUESDAY, SEPTEMBER 26, 2017
+ 17.36.19 JOB04174  $HASP373 KC03KA9K STARTED - INIT 2    - CLASS A        - SYS S0W1
+ 17.36.19 JOB04174  -                                         --TIMINGS (MINS.)--            ----PAGING COUNTS---
+ 17.36.19 JOB04174  -JOBNAME  STEPNAME PROCSTEP    RC   EXCP    TCB    SRB  CLOCK   SERV  PG   PAGE   SWAP    VIO SWAPS
+ 17.36.19 JOB04174  -KC03KA9K                      00     70 ******    .00     .0    180   0      0      0      0     0
+ 17.36.19 JOB04174  -KC03KA9K ENDED.  NAME-MASON GREIG          TOTAL TCB CPU TIME=   .00  TOTAL ELAPSED TIME=    .0
+ 17.36.19 JOB04174  $HASP395 KC03KA9K ENDED
+0------ JES2 JOB STATISTICS ------
+-  26 SEP 2017 JOB EXECUTION DATE
+-          185 CARDS READ
+-          262 SYSOUT PRINT RECORDS
+-            0 SYSOUT PUNCH RECORDS
+-           28 SYSOUT SPOOL KBYTES
+-         0.00 MINUTES EXECUTION TIME
+         1 //KC03KA9K JOB ,'MASON GREIG',MSGCLASS=H                                JOB04174
+         2 //STEP1 EXEC PGM=ASSIST                                                 00020001
+         3 //STEPLIB DD DSN=KC02293.ASSIST.LOADLIB,DISP=SHR                        00030001
+         4 //SYSPRINT DD SYSOUT=*                                                  00040001
+         5 //SYSIN DD *                                                            00050001
+         6 //FT05F001 DD DSN=KC02314.AUTUMN17.CSCI360.HW3DATA,DISP=SHR             00221248
+ ICH70001I KC03KA9  LAST ACCESS AT 17:23:27 ON TUESDAY, SEPTEMBER 26, 2017
+ IEF236I ALLOC. FOR KC03KA9K STEP1
+ IGD103I SMS ALLOCATED TO DDNAME STEPLIB
+ IEF237I JES2 ALLOCATED TO SYSPRINT
+ IEF237I JES2 ALLOCATED TO SYSIN
+ IGD103I SMS ALLOCATED TO DDNAME FT05F001
+ IEF142I KC03KA9K STEP1 - STEP WAS EXECUTED - COND CODE 0000
+ IGD104I KC02293.ASSIST.LOADLIB                       RETAINED,  DDNAME=STEPLIB 
+ IEF285I   KC03KA9.KC03KA9K.JOB04174.D0000102.?         SYSOUT        
+ IEF285I   KC03KA9.KC03KA9K.JOB04174.D0000101.?         SYSIN         
+ IGD104I KC02314.AUTUMN17.CSCI360.HW3DATA             RETAINED,  DDNAME=FT05F001
+ IEF373I STEP/STEP1   /START 2017269.1736
+ IEF032I STEP/STEP1   /STOP  2017269.1736 
+         CPU:     0 HR  00 MIN  00.01 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+         VIRT:   584K  SYS:   264K  EXT:        4K  SYS:    11552K
+         ATB- REAL:                     0K  SLOTS:                     0K
+              VIRT- ALLOC:       0M SHRD:       0M
+ IEF375I  JOB/KC03KA9K/START 2017269.1736
+ IEF033I  JOB/KC03KA9K/STOP  2017269.1736 
+         CPU:     0 HR  00 MIN  00.01 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+1*** ASSIST 4.0/A2-05/15/82  470/V7A/0:OS/VS2  INS=SDFP7/X=BGHO, CHECK/TRC/=1180, OPTS=CDKMPR FROM PENN ST*NIU COMPSCI*LT         
+0                                                                                                                                 
+0                                                                                                               PAGE    1         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                       1 ********************************************                            00060001         
+                                       2 *                                                                       00070001         
+                                       3 * ASSIGNMENT 3                                                          00080001         
+                                       4 *                                                                       00090001         
+                                       5 * NAME: MASON GREIG                                                     00100001         
+                                       6 *                                                                       00101053         
+                                       7 * THIS PROGRAM HAS 108 LENGTH PRINT LINE                                00110039         
+                                       8 *                                                                       00111053         
+                                       9 * REGISTER USAGE:                                                       00120002         
+                                      10 *  1     USED BY XDECI                                                  00121005         
+                                      11 * 15     BASE REGISTER                                                  00122005         
+                                      12 *  2     CALCULATION                                                    00130002         
+                                      13 *  3     FIRST NUMBER                                                   00140009         
+                                      14 *  4     SECOND NUMBER                                                  00150009         
+                                      15 *  5     RESULT                                                         00160040         
+                                      16 *  6     REMAINDER VALUE                                                00170040         
+                                      17 *  7     QUOTIENT OR PRODUCT VALUE                                      00180030         
+                                      18 *  8     ADDCOUNT                                                       00190002         
+                                      19 *  9     SUBCOUNT                                                       00191002         
+                                      20 * 10     MCOUNT                                                         00192002         
+                                      21 * 11     DCOUNT                                                         00193002         
+                                      22 * 12     OPCOUNT                                                        00194002         
+                                      23 *                                                                       00195034         
+                                      24 ********************************************                            00200001         
+ 000000                               25 MAIN     CSECT                      START OF PROGRAM                    00201009         
+ 000000                               26          USING MAIN,15                                                  00202001         
+ 000000 1B55                          27          SR    5,5                  ZERO RESULT VAL                     00202140         
+ 000002 1B66                          28          SR    6,6                  ZERO REMAINDER VAL                  00202240         
+ 000004 1B77                          29          SR    7,7                  ZERP QUOTIENT PRODUCT VAL           00202331         
+ 000006 1B88                          30          SR    8,8                  ZERO OUT THE COUNT REGISTERS        00202409         
+ 000008 1B99                          31          SR    9,9                                                      00202502         
+ 00000A 1BAA                          32          SR    10,10                                                    00202602         
+ 00000C 1BBB                          33          SR    11,11                                                    00202702         
+ 00000E 1BCC                          34          SR    12,12                                                    00202802         
+ 000010 E020 F160 0048 00160          35          XPRNT HEADER,72            PRNT HEADER AND LABEL INFO          00202936         
+ 000016 E020 F1A8 0037 001A8          36          XPRNT LABELS,55                                                00203036         
+ 00001C E020 F1DF 006C 001DF          37          XPRNT DASH,108             FORMATTING LINE                     00203136         
+ 000022 E000 F110 0050 00110          38 LOOP     XREAD BUFFER,80            BEGIN TO READ IN FILE               00203209         
+ 000028 4740 F0DC            000DC    39          BC    B'0100',END1         GO TO END1 WHEN AT EOF              00204009         
+ 00002C 5320 F110            00110    40          XDECI 2,BUFFER             READ IN THE FIRST NUMBER            00205009         
+ 000030 5330 1000            00000    41          XDECI 3,0(0,1)             READ IN SECOND NUMBER               00205109         
+ 000034 5340 1000            00000    42          XDECI 4,0(0,1)             READ IN THIRD NUMBER                00205209         
+ 000038 5AC0 F100            00100    43          A     12,=F'1'             INCREMENT OPERATION COUNT           00205809         
+ 00003C 5920 F100            00100    44          C     2,=F'1'              COMPARE VAL IN REG 2 TO '1'         00206209         
+ 000040 4780 F05C            0005C    45          BC    B'1000',ADD          BRANCH TO ADD IF REG 2 = '1'        00206309         
+ 000044 5920 F104            00104    46          C     2,=F'2'              COMPARE VAL IN REG 2 TO '2'         00206409         
+ 000048 4780 F07A            0007A    47          BC    B'1000',SUBT         BRANCH TO SUBT IF REG 2 = '2'       00206509         
+ 00004C 5920 F108            00108    48          C     2,=F'3'              COMPARE VAL IN REG 2 TO '3'         00206609         
+ 000050 4780 F098            00098    49          BC    B'1000',MULT         BRANCH TO MULT IF REG 2 = '3'       00206709         
+ 000054 5920 F10C            0010C    50          C     2,=F'4'              COMPARE VAL IN REG 2 TO '4'         00206809         
+ 000058 4780 F0B6            000B6    51          BC    B'1000',DIV          BRANCH TO DIV IF REG 2 = '4'        00206909         
+                                      52 *                                                                       00207009         
+1                                                                                                               PAGE    2         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+ 00005C 5230 F284            00284    53 ADD      XDECO 3,ADDNUM1            PLACE VAL IN REG 3 ON PRNT LINE     00207131         
+ 000060 5240 F290            00290    54          XDECO 4,ADDNUM2            PLACE VAL IN REG 4 ON PRNT LINE     00207231         
+ 000064 1853                          55          LR    5,3                  PLACE VAL OF REG 3 IN REG 5         00207353         
+ 000066 1A54                          56          AR    5,4                  ADD VAL IN REG 4 TO VAL IN REG 5    00207453         
+ 000068 5A80 F100            00100    57          A     8,=F'1'              INCREMENT ADDCOUNT                  00207509         
+ 00006C 5250 F2B0            002B0    58          XDECO 5,SUM                PUT RESULT ON PRINT LINE            00207640         
+ 000070 E020 F273 0049 00273          59          XPRNT ADDLINE,73           PRINT THE OUTPUT LINE               00207949         
+ 000076 47F0 F022            00022    60          BC    B'1111',LOOP         GO TO LOOP WHEN FINISHED            00208009         
+                                      61 *                                                                       00208109         
+ 00007A 5230 F2CD            002CD    62 SUBT     XDECO 3,SUBNUM1            PLACE VAL IN REG 3 ON PRNT LINE     00208231         
+ 00007E 5240 F2D9            002D9    63          XDECO 4,SUBNUM2            PLACE VAL IN REG 4 ON PRNT LINE     00208331         
+ 000082 1853                          64          LR    5,3                  PLACE VAL OF REG 3 IN REG 5         00208453         
+ 000084 1B54                          65          SR    5,4                  SUBTRACT REG 4 FROM REG 5           00208553         
+ 000086 5A90 F100            00100    66          A     9,=F'1'              INCREMENT SUBCOUNT                  00208609         
+ 00008A 5250 F2F9            002F9    67          XDECO 5,DIFF               PUT RESULT ON PRINT LINE            00208740         
+ 00008E E020 F2BC 0049 002BC          68          XPRNT SUBLINE,73           PRINT THE OUTPUT LINE               00208952         
+ 000094 47F0 F022            00022    69          BC    B'1111',LOOP         GO TO LOOP WHEN FINISHED            00209009         
+                                      70 *                                                                       00209109         
+ 000098 5230 F316            00316    71 MULT     XDECO 3,MULNUM1            PLACE VAL IN REG 3 ON PRNT LINE     00209231         
+ 00009C 5240 F322            00322    72          XDECO 4,MULNUM2            PLACE VAL IN REG 4 ON PRNT LINE     00209331         
+ 0000A0 1873                          73          LR    7,3                  LOAD REG 7 WITH VAL IN REG 3        00209539         
+ 0000A2 1C64                          74          MR    6,4                  MULTIPLY REG 6 BY REG 4             00209626         
+ 0000A4 5AA0 F100            00100    75          A     10,=F'1'             INCREMENT MCOUNT                    00209809         
+ 0000A8 5270 F342            00342    76          XDECO 7,PRODUCT            PUT RESULT ON PRINT LINE            00209930         
+ 0000AC E020 F305 0049 00305          77          XPRNT MULLINE,73            PRINT THE OUTPUT LINE              00210051         
+ 0000B2 47F0 F022            00022    78          BC    B'1111',LOOP          GOT TO LOOP WHEN FINISHED          00210109         
+                                      79 *                                                                       00210209         
+ 0000B6 5230 F35F            0035F    80 DIV      XDECO 3,DIVNUM1             PLACE VAL IN REG 3 ON PRNT LINE    00210331         
+ 0000BA 5240 F36B            0036B    81          XDECO 4,DIVNUM2             PLACE VAL IN REG 4 ON PRNT LINE    00210431         
+ 0000BE 1873                          82          LR    7,3                   LOAD REG 3 INTO REG 7              00210531         
+ 0000C0 5C60 F100            00100    83          M     6,=F'1'               MULTIPLY REG 6 BY '1'              00210728         
+ 0000C4 1D64                          84          DR    6,4                   DIVIDE REG 6 BY REG 4              00210920         
+ 0000C6 5AB0 F100            00100    85          A     11,=F'1'              INCREMENT DCOUNT                   00211109         
+ 0000CA 5260 F3A9            003A9    86          XDECO 6,REMAINDR            PUT REMAINDER ON PRINT LINE        00211243         
+ 0000CE 5270 F38B            0038B    87          XDECO 7,QUOTIENT            PUT RESULT ON PRINT LINE           00211343         
+ 0000D2 E020 F34E 0067 0034E          88          XPRNT DIVLINE,103           PRINT THE OUTPUT LINE              00211551         
+ 0000D8 47F0 F022            00022    89          BC    B'1111',LOOP          GO TO LOOP WHEN FINISHED           00211609         
+                                      90 *                                                                       00211709         
+ 0000DC 5280 F3E5            003E5    91 END1     XDECO 8,ADDCOUNT            PLACE COUNT VALS ON PRINT LINE     00211831         
+ 0000E0 5290 F400            00400    92          XDECO 9,SUBCOUNT                                               00211913         
+ 0000E4 52A0 F41E            0041E    93          XDECO 10,MCOUNT                                                00212013         
+ 0000E8 52B0 F436            00436    94          XDECO 11,DCOUNT                                                00212113         
+ 0000EC 52C0 F3CA            003CA    95          XDECO 12,OPCOUNT                                               00212213         
+ 0000F0 E020 F3B5 0021 003B5          96          XPRNT STATLINE,33           PRINT TOTAL CALC LINE              00212336         
+ 0000F6 E020 F3D6 006C 003D6          97          XPRNT COUNTLNE,108          PRINT CALC SUMMARY LINE            00212436         
+ 0000FC 07FE                          98          BCR   B'1111',14            BRANCH TO END OF PROGRAM           00212509         
+                                      99          LTORG                                                          00212616         
+ 000100 00000001                     100                =F'1'                                                                     
+ 000104 00000002                     101                =F'2'                                                                     
+ 000108 00000003                     102                =F'3'                                                                     
+ 00010C 00000004                     103                =F'4'                                                                     
+                                     104 *                                                                       00212709         
+ 000110                              105 BUFFER   DS    80C                   INPUT FILE BUFFER                  00212809         
+                                     106 *                                                                       00212910         
+ 000160                              107 HEADER   DS    C'0'                  TOP OF THE REPORT                  00213030         
+ 000161 4040404040404040             108          DC    CL50' '                                                  00213130         
+ 000193 D9C5E2E4D3E3E240             109          DC    C'RESULTS OF ARITHMETIC'                                 00213230         
+1                                                                                                               PAGE    3         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                     110 *                                                                       00213330         
+ 0001A8                              111 LABELS   DS    C'0'                  COLUMN LABELING                    00213431         
+ 0001A9 D6D7C5D9C1E3C9D6             112          DC    C'OPERATION'         LABEL FOR COLUMN 1                  00213553         
+ 0001B2 4040404040404040             113          DC    CL14' '              BLANK SPACE                         00213653         
+ 0001C0 D5E4D440F1                   114          DC    C'NUM 1'             LABEL FOR COLUMN 2                  00213753         
+ 0001C5 40404040404040               115          DC    CL7' '               BLANK SPACE                         00213853         
+ 0001CC D5E4D440F2                   116          DC    C'NUM 2'             LABEL FOR COLUMN 3                  00213953         
+ 0001D1 4040404040404040             117          DC    CL8' '               BLANK SPACE                         00214053         
+ 0001D9 D9C5E2E4D3E3                 118          DC    C'RESULT'            LABEL FOR COLUMN 4                  00214153         
+ 0001DF                              119 DASH     DS    C'0'                 FORMATTING LINE                     00214234         
+ 0001E0 6060606060606060             120          DC    147C'-'                                                  00214334         
+                                     121 *                                                                       00214430         
+ 000273                              122 ADDLINE  DS    C'0'                 START OF ADDITION PRINT LINE        00214531         
+ 000274 C1C4C4C9E3C9D6D5             123          DC    C'ADDITION:'         OPERATION LABEL                     00214653         
+ 00027D 40404040404040               124          DC    CL7' '               BLANK SPACE                         00214753         
+ 000284                              125 ADDNUM1  DS    CL12                 VAL OF FIRST TABLE NUMBER           00214853         
+ 000290                              126 ADDNUM2  DS    CL12                 VAL OF SECOND TABLE NUMBER          00215053         
+ 00029C 4040404040404040             127          DC    CL8' '               BLANK SPACE                         00215153         
+ 0002A4 E2E4D47A                     128          DC    C'SUM:'              LABEL OF RESULT                     00215253         
+ 0002A8 4040404040404040             129          DC    CL8' '               BLANK SPACE                         00215353         
+ 0002B0                              130 SUM      DS    CL12                 SUM OF NUMBERS                      00215453         
+                                     131 *                                                                       00215530         
+ 0002BC                              132 SUBLINE  DS    C'0'                 START OF THE SUBTRACTION LINE       00215631         
+ 0002BD E2E4C2E3D9C1C3E3             133          DC    C'SUBTRACTION:'      OPERATION LABEL                     00215753         
+ 0002C9 40404040                     134          DC    CL4' '               BLANK SPACE                         00215853         
+ 0002CD                              135 SUBNUM1  DS    CL12                 VAL OF FIRST TABLE NUMBER           00215953         
+ 0002D9                              136 SUBNUM2  DS    CL12                 VAL OF SECOND TABLE NUMBER          00216153         
+ 0002E5 4040404040404040             137          DC    CL8' '               BLANK SPACE                         00216253         
+ 0002ED C4C9C6C6C5D9C5D5             138          DC    C'DIFFERENCE: '      RESULT LABEL                        00216353         
+ 0002F9                              139 DIFF     DS    CL12                 DIFFERENCE OF NUMBER                00216553         
+                                     140 *                                                                       00216630         
+ 000305                              141 MULLINE  DS    C'0'                 START OF THE MULTIPLICATION LINE    00216731         
+ 000306 D4E4D3E3C9D7D3C9             142          DC    C'MULTIPLICATION:'  OPERATION LABEL                      00216853         
+ 000315 40                           143          DC    C' '                BLANK SPACE                          00216953         
+ 000316                              144 MULNUM1  DS    CL12                VAL OF FIRST TABLE NUMBER            00217053         
+ 000322                              145 MULNUM2  DS    CL12                VAL OF SECOND TABLE NUMBER           00217253         
+ 00032E 4040404040404040             146          DC    CL8' '              BLANK SPACE                          00217353         
+ 000336 D7D9D6C4E4C3E37A             147          DC    C'PRODUCT:'         RESULT LABEL                         00217453         
+ 00033E 40404040                     148          DC    CL4' '              BLANK SPACE                          00217553         
+ 000342                              149 PRODUCT  DS    CL12                 PRODUCT OF NUMBERS                  00217653         
+                                     150 *                                                                       00217731         
+ 00034E                              151 DIVLINE  DS    C'0'                 START OF DIVISION LINE              00217831         
+ 00034F C4C9E5C9E2C9D6D5             152          DC    C'DIVISION:'         OPERATION LABEL                     00217953         
+ 000358 40404040404040               153          DC    CL7' '               BLANK SPACE                         00218053         
+ 00035F                              154 DIVNUM1  DS    CL12                 VAL OF FIRST TABLE NUMBER           00218153         
+ 00036B                              155 DIVNUM2  DS    CL12                 VAL OF SECOND TABLE NUMBER          00218353         
+ 000377 4040404040404040             156          DC    CL8' '               BLANK SPACE                         00218453         
+ 00037F D8E4D6E3C9C5D5E3             157          DC    C'QUOTIENT:'         RESULT LABEL                        00218553         
+ 000388 404040                       158          DC    CL3' '               BLANK SPACE                         00218653         
+ 00038B                              159 QUOTIENT DS    CL12                 QUOTIENT OF NUMBERS                 00218753         
+ 000397 4040404040404040             160          DC    CL8' '               BLANK SPACE                         00218853         
+ 00039F D9C5D4C1C9D5C4C5             161          DC    C'REMAINDER:'        REMAINDER LABEL                     00218953         
+ 0003A9                              162 REMAINDR DS    CL12                 REMAINDER OF DIVIDE CLALCULATION    00219053         
+                                     163 *                                                                       00219110         
+ 0003B5 F0                           164 STATLINE DC    C'0'                 OPERATIONS SUMMARY LINE             00219209         
+ 0003B6 60E3D6E3C1D340C3             165          DC    C'-TOTAL CALCULATIONS:' LITERAL                          00219336         
+ 0003CA                              166 OPCOUNT  DS    CL12                   THE NUMBER OF CALCS DONE          00219409         
+1                                                                                                               PAGE    4         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                     167 *                                                                       00219510         
+ 0003D6 F0                           168 COUNTLNE DC    C'0'                   THE COUNT TRACKER LINE            00219609         
+ 0003D7 4040404040                   169          DC    CL5' '                 BLANK SPACE                       00219753         
+ 0003DC C1C4C4C9E3C9D6D5             170          DC    C'ADDITION:'           LITERAL 'ADDITION:'               00219809         
+ 0003E5                              171 ADDCOUNT DS    CL12                   THE NUM OF ADD CALCS DONE         00219909         
+ 0003F1 404040                       172          DC    CL3' '                 THREE BLANK SPACES                00220009         
+ 0003F4 E2E4C2E3D9C1C3E3             173          DC    C'SUBTRACTION:'        LITERAL 'SUBTRACTION'             00220109         
+ 000400                              174 SUBCOUNT DS    CL12                   THE NUM OF SUBT CALCS DONE        00220209         
+ 00040C 404040                       175          DC    CL3' '                 THREE BLANK SPACES                00220309         
+ 00040F D4E4D3E3C9D7D3C9             176          DC    C'MULTIPLICATION:'     LITERAL 'MULTIPLICATION'          00220409         
+ 00041E                              177 MCOUNT   DS    CL12                   THE NUM OF MULT CALCS DONE        00220509         
+ 00042A 404040                       178          DC    CL3' '                 THREE BLANK SPACES                00220609         
+ 00042D C4C9E5C9E2C9D6D5             179          DC    C'DIVISION:'           LITERAL 'DIVISION'                00220709         
+ 000436                              180 DCOUNT   DS    CL12                   THE NUM OF DIV CALCS DONE         00220809         
+                                     181          END   MAIN                   END OF MAIN PROGRAM               00220909         
+0***  NO   STATEMENTS FLAGGED -  NO   WARNINGS,  NO   ERRORS                                                                      
+0*** DYNAMIC CORE AREA USED:  LOW:   12156 HIGH:    1068 LEAVING:  480344 FREE BYTES. AVERAGE:       72 BYTES/STMT ***            
+0*** ASSEMBLY TIME =    0.001 SECS,   182000 STATEMENTS/SEC ***                                                                   
+0*** PROGRAM EXECUTION BEGINNING - ANY OUTPUT BEFORE EXECUTION TIME MESSAGE IS PRODUCED BY USER PROGRAM ***                       
+                                                   RESULTS OF ARITHMETIC                                                          
+ OPERATION              NUM 1       NUM 2        RESULT                                                                           
+ -----------------------------------------------------------------------------------------------------------                      
+ ADDITION:                987          45        SUM:                1032                                                         
+ MULTIPLICATION:        12345           3        PRODUCT:           37035                                                         
+ MULTIPLICATION:           -9         999        PRODUCT:           -8991                                                         
+ DIVISION:               5890           4        QUOTIENT:           1472        REMAINDER:           2                           
+ SUBTRACTION:              38        9308        DIFFERENCE:        -9270                                                         
+ ADDITION:               2468       -9753        SUM:               -7285                                                         
+ MULTIPLICATION:           11          30        PRODUCT:             330                                                         
+ DIVISION:               1977          24        QUOTIENT:             82        REMAINDER:           9                           
+ ADDITION:               -450        -762        SUM:               -1212                                                         
+ DIVISION:                  0          15        QUOTIENT:              0        REMAINDER:           0                           
+ DIVISION:                -25           3        QUOTIENT:             -8        REMAINDER:          -1                           
+ DIVISION:                 25          -3        QUOTIENT:             -8        REMAINDER:           1                           
+ SUBTRACTION:            -465        -360        DIFFERENCE:         -105                                                         
+ DIVISION:                465         360        QUOTIENT:              1        REMAINDER:         105                           
+ MULTIPLICATION:         7783        8729        PRODUCT:        67937807                                                         
+ ADDITION:              10203       40506        SUM:               50709                                                         
+0-TOTAL CALCULATIONS:          16                                                                                                 
+0     ADDITION:           4   SUBTRACTION:           2   MULTIPLICATION:           4   DIVISION:           6                      
+0*** EXECUTION TIME =    0.001 SECS.       345 INSTRUCTIONS EXECUTED -   345000 INSTRUCTIONS/SEC ***                              
+0*** AM004 - NORMAL USER TERMINATION BY RETURN ***                                                                                

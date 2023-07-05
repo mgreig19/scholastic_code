@@ -1,0 +1,116 @@
+1                    J E S 2  J O B  L O G  --  S Y S T E M  S 0 W 1  --  N O D E  Z O S K C T R         
+0 
+ 14.39.01 JOB08147 ---- WEDNESDAY, 28 JUN 2017 ----
+ 14.39.01 JOB08147  IRR010I  USERID KC03OA0  IS ASSIGNED TO THIS JOB.
+ 14.39.01 JOB08147  ICH70001I KC03OA0  LAST ACCESS AT 14:34:14 ON WEDNESDAY, JUNE 28, 2017
+ 14.39.01 JOB08147  $HASP373 KC03OA0A STARTED - INIT 2    - CLASS A        - SYS S0W1
+ 14.39.01 JOB08147  -                                         --TIMINGS (MINS.)--            ----PAGING COUNTS---
+ 14.39.01 JOB08147  -JOBNAME  STEPNAME PROCSTEP    RC   EXCP    TCB    SRB  CLOCK   SERV  PG   PAGE   SWAP    VIO SWAPS
+ 14.39.01 JOB08147  -KC03OA0A                      00     38 ******    .00     .0     76   0      0      0      0     0
+ 14.39.01 JOB08147  -KC03OA0A ENDED.  NAME-Kevin White          TOTAL TCB CPU TIME=   .00  TOTAL ELAPSED TIME=    .0
+ 14.39.01 JOB08147  $HASP395 KC03OA0A ENDED
+0------ JES2 JOB STATISTICS ------
+-  28 JUN 2017 JOB EXECUTION DATE
+-           60 CARDS READ
+-          116 SYSOUT PRINT RECORDS
+-            0 SYSOUT PUNCH RECORDS
+-           11 SYSOUT SPOOL KBYTES
+-         0.00 MINUTES EXECUTION TIME
+         1 //KC03OA0A JOB ,'Kevin White',MSGCLASS=H                                JOB08147
+         2 //STEP1 EXEC PGM=ASSIST                                                 00020001
+         3 //STEPLIB DD DSN=KC02293.ASSIST.LOADLIB,DISP=SHR                        00030001
+         4 //SYSPRINT DD SYSOUT=*                                                  00040001
+         5 //SYSIN DD *                                                            00050001
+ ICH70001I KC03OA0  LAST ACCESS AT 14:34:14 ON WEDNESDAY, JUNE 28, 2017
+ IEF236I ALLOC. FOR KC03OA0A STEP1
+ IGD103I SMS ALLOCATED TO DDNAME STEPLIB
+ IEF237I JES2 ALLOCATED TO SYSPRINT
+ IEF237I JES2 ALLOCATED TO SYSIN
+ IEF142I KC03OA0A STEP1 - STEP WAS EXECUTED - COND CODE 0000
+ IGD104I KC02293.ASSIST.LOADLIB                       RETAINED,  DDNAME=STEPLIB 
+ IEF285I   KC03OA0.KC03OA0A.JOB08147.D0000102.?         SYSOUT        
+ IEF285I   KC03OA0.KC03OA0A.JOB08147.D0000101.?         SYSIN         
+ IEF373I STEP/STEP1   /START 2017179.1439
+ IEF032I STEP/STEP1   /STOP  2017179.1439 
+         CPU:     0 HR  00 MIN  00.00 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+         VIRT:   584K  SYS:   268K  EXT:        0K  SYS:    11236K
+         ATB- REAL:                     0K  SLOTS:                     0K
+              VIRT- ALLOC:       0M SHRD:       0M
+ IEF375I  JOB/KC03OA0A/START 2017179.1439
+ IEF033I  JOB/KC03OA0A/STOP  2017179.1439 
+         CPU:     0 HR  00 MIN  00.00 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+1*** ASSIST 4.0/A2-05/15/82  470/V7A/0:OS/VS2  INS=SDFP7/X=BGHO, CHECK/TRC/=1180, OPTS=CDKMPR FROM PENN ST*NIU COMPSCI*LT         
+0                                                                                                                                 
+0                                                                                                               PAGE    1         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                       1 *************************************************                       00060051         
+                                       2 * ASSIGNMENT 1 - PART C                                                 00070046         
+                                       3 *                                                                       00080001         
+                                       4 * NAME: Kevin White                                                     00090001         
+                                       5 *                                                                       00102051         
+                                       6 * FUNCTION: This routine will add and subtract 2                        00102151         
+                                       7 *           numbers and store the results.                              00102251         
+                                       8 *                                                                       00102351         
+                                       9 * INPUT: NONE                                                           00102451         
+                                      10 *                                                                       00102551         
+                                      11 * OUTPUT: A dump of registers from the address                          00103051         
+                                      12 *         stored within RESULT1 to RESULT2.                             00104051         
+                                      13 *                                                                       00105051         
+                                      14 * ENTRY CONDS: NONE                                                     00105151         
+                                      15 *                                                                       00105251         
+                                      16 * EXIT CONDS: NONE                                                      00105351         
+                                      17 *                                                                       00105451         
+                                      18 * REGISTER USAGE                                                        00105551         
+                                      19 *                                                                       00106051         
+                                      20 *   R3  -- Store NUM1 for Subtraction                                   00110051         
+                                      21 *   R4  -- Store NUM2 for Subtraction and result                        00120051         
+                                      22 *   R5  -- Store NUM1 for Addition                                      00130051         
+                                      23 *   R6  -- Store NUM2 for Addition and result                           00140051         
+                                      24 *   R15 -- Base Register                                                00150051         
+                                      25 *                                                                       00160001         
+                                      26 *   PSEUDOCODE:                                                         00161051         
+                                      27 *                                                                       00162051         
+                                      28 *     <1> Load values into Registers                                    00163051         
+                                      29 *     <2> Add register 3 and 4                                          00164051         
+                                      30 *     <3> Subtract register 6 and 5                                     00165051         
+                                      31 *     <4> Store results                                                 00166051         
+                                      32 *     <5> Dump registers                                                00167051         
+                                      33 *     <6> Dump address stored in results                                00168051         
+                                      34 *                                                                       00169051         
+                                      35 *************************************************                       00170051         
+ 000000                               36 MAIN     CSECT                                                          00180001         
+ 000000                               37          USING MAIN,15                                                  00190001         
+ 000000 5830 F02C            0002C    38          L     3,44(0,15)      Loads NUM1 into Register 3               00200047         
+ 000004 5840 F030            00030    39          L     4,48(0,15)      Loads NUM2 into Register 4               00210047         
+ 000008 5850 F02C            0002C    40          L     5,44(0,15)      Loads NUM1 into Register 5               00220047         
+ 00000C 5860 F030            00030    41          L     6,48(0,15)      Loads NUM2 into Register 6               00230047         
+ 000010 1B43                          42          SR    4,3             Subtracts Register 4 by Register 3       00240047         
+ 000012 1A65                          43          AR    6,5             Adds Register 6 to Register 5            00250047         
+ 000014 5040 F034            00034    44          ST    4,52(0,15)      Stores Register 4 into RESULT1           00260047         
+ 000018 5060 F038            00038    45          ST    6,56(0,15)      Stores Register 6 into RESULT2           00260147         
+ 00001C E160 0000 0000 00000          46          XDUMP                                                          00260250         
+ 000022 E060 F034 0004 00034          47          XDUMP 52(0,15),4      Dumps the Address at RESULT1 to RESULT2  00260348         
+                                      48 *                                                                       00260447         
+ 000028 07FE                          49          BR    14              End CSECT                                00270048         
+ 00002C 000000E7                      50 NUM1     DC    F'231'          Defines Fullword NUM1 storing 231        00280048         
+ 000030 00000069                      51 NUM2     DC    F'105'          Defines Fullword NUM2 storing 105        00290048         
+ 000034                               52 RESULT1  DS    F               Defines storage for RESULT1              00291048         
+1                                                                                                               PAGE    2         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+ 000038                               53 RESULT2  DS    F               Defines storage for RESULT1              00292048         
+                                      54          END   MAIN                                                     00300001         
+0***  NO   STATEMENTS FLAGGED -  NO   WARNINGS,  NO   ERRORS                                                                      
+0*** DYNAMIC CORE AREA USED:  LOW:    1432 HIGH:     392 LEAVING:  491744 FREE BYTES. AVERAGE:       33 BYTES/STMT ***            
+0*** ASSEMBLY TIME =    0.000 SECS,    55000 STATEMENTS/SEC ***                                                                   
+0*** PROGRAM EXECUTION BEGINNING - ANY OUTPUT BEFORE EXECUTION TIME MESSAGE IS PRODUCED BY USER PROGRAM ***                       
+0BEGIN XSNAP - CALL     1 AT E0000022 USER REGISTERS                                                                              
+0 REGS 0-7      F4F4F4F4    F4F4F4F4    F4F4F4F4    000000E7    FFFFFF82    000000E7    00000150    F4F4F4F4                      
+  REGS 8-15     F4F4F4F4    F4F4F4F4    F4F4F4F4    F4F4F4F4    F4F4F4F4    00000040    FFFE7960    00000000                      
+0                                                                                                                                 
+0BEGIN XSNAP - CALL     2 AT E0000028 USER STORAGE                                                                                
+0                             CORE ADDRESSES SPECIFIED-     000034 TO 000038                                                      
+ 000020   0000E060 F0340004 07FEF5F5 000000E7    00000069 FFFFFF82 00000150 F5F5F5F5   *....0.....55...X............5555*         
+0                                                                                                                                 
+0*** EXECUTION TIME =    0.000 SECS.        11 INSTRUCTIONS EXECUTED -    11000 INSTRUCTIONS/SEC ***                              
+0*** FIRST CARD NOT READ: NO CARDS READ:FILE UNOPENED                                                                             
+0*** AM004 - NORMAL USER TERMINATION BY RETURN ***                                                                                

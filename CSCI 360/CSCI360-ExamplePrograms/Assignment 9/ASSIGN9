@@ -1,0 +1,103 @@
+//KC03OA0A JOB ,'Kevin White',MSGCLASS=H                                00010000
+//STEP1    EXEC  PGM=ASSIST,PARM='MACRO=F'                              00020000
+//STEPLIB    DD  DSN=KC02293.ASSIST.LOADLIB,DISP=SHR                    00030000
+//SYSPRINT   DD  SYSOUT=*                                               00040000
+//SYSIN      DD  *                                                      00050000
+**************************************************                      00060000
+*                                                *                      00070000
+* PROGRAM:    ASSIGN9                            *                      00080000
+* PROGRAMMER: Kevin White                        *                      00090000
+*                                                *                      00100000
+* FUNCTION: This program will create the macros  *                      00110023
+*           for the given driver program.        *                      00111023
+*                                                *                      00120000
+* INPUT: NONE                                    *                      00130023
+*                                                *                      00140000
+* OUTPUT: NONE                                   *                      00150023
+*                                                *                      00160000
+* ENTRY CONDS: NONE                              *                      00170023
+*                                                *                      00180000
+* EXIT CONDS: NONE                               *                      00190023
+*                                                *                      00200000
+* REGISTER USAGE:                                *                      00210000
+*    2     Address for first argument in both    *                      00211023
+*          macros                                *                      00212023
+*    3     Address for second argument in both   *                      00213023
+*          macros                                *                      00214023
+*    4     Counter in STRLEN macro               *                      00215023
+*          Temp hex holder in TOHEX macro        *                      00216023
+*                                                *                      00220000
+* PSEUDOCODE:                                    *                      00230000
+*    <1> Create STRLEN macro                     *                      00231023
+*          While not end of string               *                      00232023
+*            Increment counter                   *                      00233023
+*          Set length to counter                 *                      00234023
+*    <2> Create TOHEX macro                      *                      00235023
+*          If half of byte is digit              *                      00236023
+*             Insert F in front                  *                      00237023
+*          If half of byte is character          *                      00238023
+*             Subtract by 9                      *                      00239023
+*             Insert C in front                  *                      00239123
+*                                                *                      00240000
+**************************************************                      00250000
+*                                                                       00260000
+         MACRO                         Start STRLEN macro               00261023
+&SLABEL  STRLEN &STR,&LEN                                               00261100
+         AIF   ('&STR' EQ '').ERROR    If &STR is empty to .ERROR       00261223
+         AIF   ('&LEN' EQ '').ERROR    If &LEN is empty to .ERROR       00261323
+&SLABEL  STM   2,4,S&SYSNDX            Save registers in S&SYSNDX       00261523
+         B     M&SYSNDX                Branch to M&SYSNDX               00261623
+S&SYSNDX DS    3F                      Register save area               00261723
+M&SYSNDX LA    2,&STR                  Load address of &STR in R2       00261823
+         LA    3,&LEN                  Load address of &LEN in R3       00261923
+         SR    4,4                     Set R4 to 0                      00262023
+L&SYSNDX CLI   0(2),X'00'              Compare current byte to X'00'    00262123
+         BE    E&SYSNDX                If equal end loop                00262223
+         A     4,=F'1'                 Increment counter                00262323
+         LA    2,1(0,2)                Increment string                 00262423
+         B     L&SYSNDX                Return to start of loop          00262523
+E&SYSNDX ST    4,0(0,3)                Store string length in &LEN      00262623
+         LM    2,4,S&SYSNDX            Restore Registers                00262723
+         MEXIT                         Exit macro                       00262823
+.ERROR   MNOTE '*** MISSING ARGUMENT ***'                               00262900
+         MEND                          End macro                        00263023
+*                                                                       00263100
+         MACRO                         Start TOHEX macro                00264023
+&TLABEL  TOHEX &IN,&OUT                                                 00264100
+         AIF   ('&IN' EQ '').ERROR     If &IN is empty to .ERROR        00264224
+         AIF   ('&OUT' EQ '').ERROR    If &OUT is empty to .ERROR       00264324
+&TLABEL  STM   2,4,S&SYSNDX            Save registers                   00264424
+         B     M&SYSNDX                Branch to M&SYSNDX               00264524
+S&SYSNDX DS    3F                      Register save area               00264624
+M&SYSNDX LA    2,&IN                   Load address of &IN to R2        00264824
+         LA    3,&OUT                  Load address of &OUT to R3       00264924
+         SR    4,4                     Set R4 to 0                      00265024
+         IC    4,0(0,2)                Insert &IN into R4               00265124
+         SRL   4,4                     Shift R4 4 bits left             00265324
+         C     4,=F'9'                 Compare R4 to 9                  00265524
+         BH    A&SYSNDX                If higher branch to A&SYSNDX     00265624
+         A     4,=F'240'               Insert F infront                 00265724
+         B     B&SYSNDX                Branch to B&SYSNDX               00265924
+A&SYSNDX S     4,=F'9'                 Subtract 9 from R4               00266024
+         A     4,=F'192'               Insert C infront                 00266124
+         B     B&SYSNDX                Branch to B&SYSNDX               00266224
+B&SYSNDX STC   4,0(0,3)                Store R4 into last byte of &OUT  00266324
+         SR    4,4                     Set R4 to 0                      00266424
+         IC    4,0(0,2)                Insert &IN into R4               00266524
+         SLL   4,28                    Shift R4 left 28 bits            00266624
+         SRL   4,28                    Shift R4 right 28 bits           00266724
+         C     4,=F'9'                 Compare R4 to 9                  00266824
+         BH    C&SYSNDX                If higher branch to C&SYSNDX     00266924
+         A     4,=F'240'               Insert F infront                 00267024
+         B     D&SYSNDX                Branch to D&SYSNDX               00267124
+C&SYSNDX S     4,=F'9'                 Subtract 9 fron R4               00267224
+         A     4,=F'192'               Insert C infront                 00267324
+D&SYSNDX STC   4,1(0,3)                Store R4 in first byte of &OUT   00267424
+         LM    2,4,S&SYSNDX            Restore Registers                00267524
+         MEXIT                         Exit macro                       00267624
+.ERROR   MNOTE '*** MISSING ARGUMENT ***'                               00267700
+         MEND                          End macro                        00268024
+*                                                                       00270000
+//           DD DSN=KC02314.SUMMER17.CSCI360.HW9.DRIVER,DISP=SHR        00280000
+//FT05F001   DD DUMMY                                                   00290000
+//FT06F001   DD SYSOUT=*                                                00300000

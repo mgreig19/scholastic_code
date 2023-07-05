@@ -1,0 +1,367 @@
+//KC03KA9A JOB ,'MASON GREIG',MSGCLASS=H                                00010000
+//STEP1 EXEC PGM=ASSIST                                                 00020000
+//STEPLIB DD DSN=KC02293.ASSIST.LOADLIB,DISP=SHR                        00030000
+//SYSPRINT DD SYSOUT=*                                                  00040000
+*************************************                                   00050000
+*                                                                       00060000
+* ASSIGNMENT 7                                                          00070000
+*                                                                       00080000
+* NAME: MASON GREIG                                                     00090000
+*                                                                       00100000
+* FUNCTION: THIS PROGRAM TAKES AN INPUT FILE,                           00110000
+*           PRINTS A REPORT, SORTS THE DATA,                            00120000
+*           AND THEN WILL PRINT ANOTHER REPORT                          00130000
+*                                                                       00140000
+*************************************                                   00150000
+* MAIN                                                                  00160000
+*                                                                       00170000
+* FUNCTION: THIS PROGRAM WILL CALL EXTERNAL                             00180000
+*           SUBROUTINES THAT BUILD, PRINT,                              00190000
+*           AND SORT THE DATA READ IN FROM                              00200000
+*           A FILE                                                      00210000
+*                                                                       00220000
+* REGISTER USAGE                                                        00230000
+*                                                                       00231000
+*  1 PARAMETERS                                                         00240000
+* 12 MAIN                                                               00250000
+* 15 EXTERNAL SUBROUTINE                                                00260000
+* 14 RETURN                                                             00270000
+*                                                                       00280000
+*************************************                                   00290000
+*                                                                       00291039
+MAIN     CSECT                                 MAIN PROGRAM             00300009
+         STM   14,12,12(13)                    ENTRY LINKAGE            00300109
+         LR    12,15                                                    00300201
+         USING MAIN,12                                                  00300301
+         LA    14,MAINSAVE                                              00300401
+         ST    13,4(0,14)                                               00300501
+         ST    14,8(0,13)                                               00300601
+         LR    13,14                                                    00300701
+*                                                                       00300801
+         LA    1,BPARAMS                       STORE PARAMETERS         00300909
+         L     15,=V(BUILD)                    STORE CALL TO EXT SUB    00301009
+         BALR  14,15                           CALL EXT SUB ROUTINE     00301109
+*                                                                       00301201
+         XPRNT HEADER,70                       PRINT HEADER             00301309
+         XPRNT FORMAT,1                        PRINT FORMAT SPACING     00301409
+         XPRNT HEAD3,69                        PRINT COLUMN LABELS      00301509
+*                                                                       00301642
+         LA    1,PPARAMS                                                00301742
+         L     15,=V(PRINT)                                             00301842
+         BALR  14,15                                                    00301942
+*                                                                       00302001
+         LA    1,SPARAMS                       STORE PARAMETERS         00302109
+         L     15,=V(SORT)                     STORE CALL TO EXT SUB    00302209
+         BALR  14,15                           CALL EXT SUB ROUTINE     00302309
+*                                                                       00302401
+         XPRNT HEAD2,70                        PRINT HEADER             00302509
+         XPRNT FORMAT,1                        PRINT FORMAT SPACING     00302609
+         XPRNT HEAD3,69                        PRINT COLUMN LABELS      00302709
+*                                                                       00302801
+         LA    1,PPARAM2                       STORE PARAMETERS         00302909
+         L     15,=V(PRINT)                    STORE CALL TO EXT SUB    00303009
+         BALR  14,15                           CALL EXT SUB ROUTINE     00303109
+*                                                                       00303201
+         L     13,4(0,13)                      EXIT LINKAGE             00303309
+         LM    14,12,12(13)                                             00303401
+         BR    14                                                       00303501
+*                                                                       00303601
+         LTORG                                                          00303701
+*                                                                       00303802
+         ORG   MAIN+((*-MAIN+31)/32)*32                                 00303912
+TABLE    DS    120CL25' '                      TABLE OF 120 25LENGTH    00304013
+EOT      DS    F                               END OF TABLE             00304113
+BPARAMS  DC    A(TABLE)                        BUILD PARAMETERS         00304210
+         DC    A(EOT)                                                   00304302
+PPARAMS  DC    A(TABLE)                        PRINT PARAMETERS         00304410
+         DC    A(EOT)                                                   00304502
+         DC    A(HEADER)                                                00304602
+PPARAM2  DC    A(TABLE)                PRINT2 PARAMETERS                00304710
+         DC    A(EOT)                                                   00304802
+         DC    A(HEAD2)                                                 00304902
+SPARAMS  DC    A(TABLE)                SORT PARAMETERS                  00305010
+         DC    A(EOT)                                                   00305102
+*                                                                       00305202
+MAINSAVE DS    18F                     MAINSAVE LOCATION                00305313
+*                                                                       00305702
+HEADER   DC    C'1'                    FIRST HEADER                     00305810
+         DC    CL19' '                                                  00305901
+         DC    CL30'CHRONOLOGICAL LIST OF ELEMENTS'                     00306001
+         DC    CL11' '                                                  00306101
+         DC    CL6'PAGE  '                                              00306202
+         DC    CL3'  1'                                                 00306351
+HEAD2    DC    C'1'                    SECOND HEADER                    00306410
+         DC    CL24' '                                                  00306502
+         DC    CL23'ELEMENTS SORTED BY NAME'                            00306602
+         DC    CL13' '                                                  00306702
+         DC    CL6'PAGE  '                                              00306802
+         DC    CL3'  1'                                                 00306951
+HEAD3    DC    C'-'                    COLUMN LABELS                    00307010
+         DC    CL15'NAME OF ELEMENT'                                    00307103
+         DC    CL3' '                                                   00307203
+         DC    CL15'CHEMICAL SYMBOL'                                    00307303
+         DC    CL3' '                                                   00307403
+         DC    CL13'ATOMIC NUMBER'                                      00307503
+         DC    CL4' '                                                   00307603
+         DC    CL15'DATE DISCOVERED'                                    00307703
+FORMAT   DC    C' '                    FORMAT SPACING                   00307810
+*                                                                       00307913
+TABLELNE DSECT                                                          00308013
+DSCVRD   DS    CL7                                                      00308113
+ELEMENT  DS    CL13                                                     00308213
+CHEMSYM  DS    CL3                                                      00308314
+ATOMNUM  DS    PL2                                                      00308414
+*                                                                       00308500
+*************************************                                   00308600
+*                                                                       00308700
+* BUILD                                                                 00308800
+*                                                                       00308900
+* FUNCTION: THIS EXTERNAL SUBROUTINE WILL                               00309000
+*           BUILD A TABLE USING THE DATA                                00309100
+*           READ IN FROM A FILE                                         00309200
+*                                                                       00309300
+* REGISTER USAGE                                                        00309400
+*                                                                       00309500
+*************************************                                   00309600
+*                                                                       00309700
+BUILD    CSECT                         BUILD SUBROUTINE                 00309810
+         STM   14,12,12(13)                                             00309902
+         LR    12,15                                                    00310002
+         USING BUILD,12                ENTRY LINKAGE                    00310110
+         LA    14,BUILDSVE                                              00310202
+         ST    13,4(0,14)                                               00310302
+         ST    14,8(0,13)                                               00310402
+         LR    13,14                                                    00310502
+*                                                                       00310602
+         USING TABLELNE,3              STORE TABLELNE DSECT             00310733
+         SR    2,2                                                      00310830
+         LM    3,4,0(1)                UNLOAD PARAMETERS                00310910
+BLOOP    XREAD BUFFER,80               READ IN FROM INPUT FILE          00311010
+         BC    B'0100',BLDEND          IF ERROR GO TO bldend            00311157
+         CR    3,4                     CHECK TO SEE IF AT EOT           00311240
+         BC    B'1000',BLDEND          IF EVEN GO TO BLDEND             00311340
+         MVI   DSCVRD,C' '             CLEAR TABLE                      00311453
+         MVC   DSCVRD+1(24),DSCVRD                                      00311553
+         TRT   BUFFER(80),SCANTAB      SEARCH FOR NONBLANK LOC          00311739
+         LR    6,1                     STORE NON BLANK SPACE LOC FOUND  00312970
+         TRT   0(80,6),SPACETAB        SEARCH FOR SPACE AFTER NON BLANK 00313140
+         LR    5,1                                                      00313240
+         LR    7,1                     STORE BLANK SPACE LOC FOUND      00313339
+         SR    7,6                     FIND LENGTH                      00313440
+         BCTR  7,0                     ADJUST LENGTH                    00313539
+         LA    8,DSCVRD                PLACE DATE DISCOVERED IN 8       00313662
+         EX    7,MOVEDATA              CALL MOVEDATA WHEN LENGTH FOUND  00313740
+         TR    0(0,8),LOWERTAB         TRANSLATE DSCVRD TO ALL LOWERCSE 00313872
+         TRT   0(80,5),SCANTAB         search for next non blank        00313967
+         LR    6,1                     store address of non blank       00314067
+         TRT   0(80,6),SPACETAB        search for next space            00314167
+         LR    5,1                     store address of first blank     00314267
+         LR    7,1                     store end of the value length    00314367
+         SR    7,6                     calculate length                 00314467
+         BCTR  7,0                     adjust length                    00314567
+         LA    8,ELEMENT               place element in 8               00314667
+         EX    7,MOVEDATA              call movedata when length calc   00314767
+         TR    0(0,8),UPPERTAB         translate first character to up  00314867
+         TR    1(0,8),LOWERTAB         translate the rest to lower      00314972
+         TRT   0(80,5),SCANTAB         search for next first character  00315067
+         LR    6,1                     store address of first charac    00315167
+         TRT   0(80,6),SPACETAB        search for first space at end    00315267
+         LR    5,1                     store space address              00315367
+         LR    7,1                     prep 7 for length                00315467
+         SR    7,6                     calc length                      00315567
+         BCTR  7,0                     adjust length                    00315667
+         LA    8,CHEMSYM               store chemsym in 8               00315767
+         EX    7,MOVEDATA              call movedata when calc length   00315867
+         TR    0(0,8),UPPERTAB         TRANSLATE CHEMSYM FORMAT         00315968
+         TR    1(0,8),LOWERTAB                                          00316068
+         TRT   0(80,5),SCANTAB         SEARCH FOR FIRST NEXT CHARC      00316167
+         LR    6,1                     STORE ADDRESS IN 6               00316267
+         TRT   0(80,6),SPACETAB        SEARCH FOR NEXT SPACE            00316367
+         LR    5,1                     STORE ADDRESS IN 5 & 7           00316467
+         LR    7,1                                                      00316539
+         SR    7,6                     CALC LENGTH PF VALUE             00316667
+         BCTR  7,0                     ADJUST LENGTH                    00316767
+         LA    8,ATOMNUM               PLACE ATOMNUM IN 8               00316867
+         EX    7,PKDATA                CALL PKDATA WHEN LENGTH CALC     00316967
+         LA    3,25(3)                 INCREMENT TABLE                  00317067
+         BC    B'1111',BLOOP           GO TO BLOOP                      00317167
+BLDEND   ST    3,0(0,4)                STORE EOT                        00317267
+         L     13,4(0,13)              EXIT LINKAGE                     00317467
+         LM    14,12,12(13)                                             00317539
+         BR    14                                                       00317639
+         LTORG                                                          00317739
+*                                                                       00317808
+BUFFER   DS    CL80                    BUFFER                           00317945
+         DC    C' '                                                     00318045
+BUILDSVE DS    18F                     BUILD SAVE LOCATION              00318125
+*                                                                       00318237
+SCANTAB  DC    256X'FF'                SEARCH TABLE FOR FINDING         00318337
+         ORG   SCANTAB+C' '            NONSPACE CHARACTERS              00318437
+         DC    X'00'                                                    00318537
+         ORG                                                            00318602
+*                                                                       00318707
+UPPERTAB DC    256X'00'                TRANSLATE TABLE FOR UPPERCASE    00318810
+         ORG   UPPERTAB+C'a'           CONVERSION                       00318960
+         DC    C'ABCDEFGHIJKLMNOPQRSTUVWXYZ'                            00319041
+         ORG                                                            00319107
+*                                                                       00319207
+LOWERTAB DC    256X'00'                TRANSLATE TABLE FOR LOWERCASE    00319310
+         ORG   LOWERTAB+C'A'           CONVERSION                       00319460
+         DC    C'abcdefghijklmnopqrstuvwxyz'                            00319541
+         ORG                                                            00319607
+*                                                                       00319707
+SPACETAB DC    256X'00'                SEARCH TABLE FOR FINDING SPACES  00319810
+         ORG   SPACETAB+C' '           WITHIN THE BUFFER INPUT FILE     00319910
+         DC    X'FF'                                                    00320007
+         ORG                                                            00320107
+*                                                                       00320207
+PKDATA   PACK  0(2,8),0(0,6)                                            00320340
+*                                                                       00320440
+MOVEDATA MVC   0(0,8),0(6)                                              00320540
+*                                                                       00320600
+*************************************                                   00320700
+*                                                                       00320800
+* PRINT                                                                 00320900
+*                                                                       00321000
+* FUNCTION: THIS EXTERNAL SUBROUTINE WILL                               00321100
+*           PRINT A REPORT WHICH DISPLAYS                               00321200
+*           THE DATA READ IN FROM A FILE                                00321300
+*                                                                       00321400
+* REGISTER USAGE                                                        00321500
+*                                                                       00321602
+*  1    PARAMETERS                                                      00321702
+*  2    LEFT EMPTY                                                      00321802
+*  3    TABLE                                                           00321902
+*  4    EOT                                                             00322002
+*  5    HEADER                                                          00322102
+*  6    TABLELNE DSECT                                                  00322202
+*  10   LINE COUNT                                                      00322302
+*  11   PAGE COUNT                                                      00322402
+*  12   PRINT REGISTER                                                  00322502
+*                                                                       00322602
+*************************************                                   00322700
+*                                                                       00322800
+PRINT    CSECT                                                          00322900
+         STM   14,12,12(13)            ENTRY LINKAGE                    00323008
+         LR    12,15                                                    00323102
+         USING PRINT,12                                                 00323202
+         LA    14,PRNTSVE                                               00323302
+         ST    13,4(0,14)                                               00323402
+         ST    14,8(0,13)                                               00323502
+         LR    13,14                                                    00323602
+*                                                                       00323702
+         USING TABLELNE,3              LOAD DSECT                       00323833
+         LM    3,5,0(1)                UNLOAD PARAMETERS                00323908
+         SR    10,10                   ZERO OUT LINE COUNT              00324008
+         ZAP   PAGECNT(2),=P'1'        INITIALIZE PAGE COUNTER          00324108
+PRNTLOOP C     3,0(0,4)                COMPARE TABLE TO EOT             00324208
+         BC    B'1000',ENDPRNT         IF EQUAL GO TO ENDPRNT           00324308
+         C     10,=F'50'               COMPARE REG 10 TO 50             00324408
+         BC    B'1100',NEWLINE         IF < OR = GO TO NEWLINE          00324508
+         SR    10,10                   ZERO OUT LINE COUNT              00324608
+         AP    PAGECNT(2),=P'1'        INCREMENT PAGE COUNT             00324708
+         MVI   PRNTLINE+1,C' '         DESTRUCTIVE OVERLAP              00324808
+         MVC   PRNTLINE+2(68),PRNTLINE+1                                00324902
+         MVC   PRNTLINE+1(69),0(5)     PLACE HEADER ON PRNTLNE          00325055
+         UNPK  ELEMNUM(3),PAGECNT      MAKE PAGE NUM PRINTABLE          00325173
+         MVC   PRNTLINE+69(3),ELEMNUM  PLACE PAGE NUM ON LINE           00325252
+         XPRNT PRNTLINE,70             PRINT THE HEADER LINE            00325356
+         XPRNT SPACE,1                 PRINT SPACING LINE               00325408
+         MVC   PRNTLINE+1(69),COLLABEL PLACE COLLABELS ON LINE          00325508
+         XPRNT PRNTLINE,70             PRINT OUT PRNTLINE               00325648
+         XPRNT SPACE,1                 PRINT SPACING LINE               00325708
+NEWLINE  MVI   PRNTLINE+1,C' '         DESTRUCTIVE OVERLAP              00325808
+         MVC   PRNTLINE+2(68),PRNTLINE+1                                00325902
+         MVC   PRNTLINE+2(13),ELEMENT  PLACE ELEMENT ON LINE            00326065
+         MVC   PRNTLINE+15(10),=C'          '   FORMAT SPACING          00326164
+         MVC   PRNTLINE+25(3),CHEMSYM  PLACE SYMBOL ON LINE             00326265
+         MVC   PRNTLINE+28(15),=C'               '  FORMAT SPACING      00326365
+         UNPK  ELEMNUM(3),ATOMNUM      MAKE ATOMNUM PRNTABLE            00326408
+         MVC   PRNTLINE+43(3),ELEMNUM  PLACE PRNTNUM ON LINE            00326565
+         MVC   PRNTLINE+46(11),=C'           '   FORMAT SPACING         00326665
+         MVC   PRNTLINE+57(7),DSCVRD   PLACE DATE ON LINE               00326765
+         MVC   PRNTLINE+64(6),=C'      '    FORMAT SPACING              00326865
+         A     10,=F'1'                INCREMENT LINE COUNT             00326908
+         XPRNT PRNTLINE,70             PRINT LINE                       00327043
+         LA    3,25(0,3)               INCREMENT TABLE                  00327108
+         BC    B'1111',PRNTLOOP        GO TO PRNTLOOP                   00327208
+ENDPRNT  ST    3,0(0,4)                DROP DSECT                       00327317
+         DROP  3                                                        00327464
+         L     13,4(0,13)                                               00327503
+         LM    14,12,12(13)            EXIT LINKAGE                     00327608
+         BR    14                                                       00327702
+         LTORG                                                          00327802
+*                                                                       00327902
+PRNTSVE  DS    18F                                                      00328012
+PAGECNT  DC    PL3'0'                  PACKED PAGE COUNT                00328147
+ELEMNUM  DC    ZL3'0'                  ZONED NUM FOR PRINTING VALUES    00328274
+PRNTLINE DC    C'0'                    PRNTLINE                         00328309
+         DC    CL70' '                                                  00328402
+SPACE    DC    C' '                    FORMAT SPACING                   00328509
+COLLABEL DC    C'-'                    COLUMN LABELS                    00328609
+         DC    CL15'NAME OF ELEMENT'                                    00328702
+         DC    CL3' '                                                   00328802
+         DC    CL15'CHEMICAL SYMBOL'                                    00328902
+         DC    CL3' '                                                   00329003
+         DC    CL13'ATOMIC NUMBER'                                      00329102
+         DC    CL4' '                                                   00329202
+         DC    CL15'DATE DISCOVERED'                                    00329302
+*                                                                       00329400
+*************************************                                   00329500
+*                                                                       00329600
+* SORT                                                                  00329700
+*                                                                       00329800
+* FUNCTION: THIS EXTERNAL SUBROUTINE WILL                               00329900
+*           SORT THE CONTENTS OF THE DATA                               00330000
+*           STORED IN THE TABLE                                         00330100
+*                                                                       00330200
+* REGISTER USAGE                                                        00330300
+*                                                                       00330408
+*  12   SORT MAIN REGISTER                                              00330508
+*  14   SAVE ADDRESS                                                    00330608
+*   3   TABLE                                                           00330708
+*   4   EOT                                                             00330808
+*   5   TEMP                                                            00330908
+*   6   NEXT POSITION IN TABLE                                          00331008
+*                                                                       00331108
+*************************************                                   00331200
+*                                                                       00331300
+SORT     CSECT                         BEGIN OF DORT                    00331408
+         STM   14,12,12(13)            ENTRY LINAGE                     00331508
+         LR    12,15                                                    00331602
+         USING SORT,12                                                  00331702
+         LA    14,SORTSVE                                               00331802
+         ST    13,4(0,14)                                               00331902
+         ST    14,8(0,13)                                               00332002
+         LR    13,14                                                    00332102
+*                                                                       00332203
+         LM    3,4,0(1)                LOAD PARAMETERS                  00332308
+SORTLOOP CR    3,4                     COMPARE TABLE TO EOT             00332419
+         BC    B'1000',ENDSORT         IF EQUAL GO TO ENDSORT           00332508
+         LR    5,3                                                      00332619
+         LA    6,25(0,3)                                                00332722
+SLOOP2   CR    6,4                     COMPARE NEXT TO EOT              00332819
+         BC    B'1000',SWAP            IF EQUAL GO TO ENDSORT           00332919
+         CLC   7(13,6),7(5)            COMPARE CURRENT TO NEXT          00333019
+         BC    B'1011',INCRMNT         IF > OR = GO TO INCREMENT        00333126
+         LR    5,6                                                      00333219
+INCRMNT  LA    6,25(0,6)               INCREMENT TABLE                  00333322
+         BC    B'1111',SLOOP2          GO TO SORTLOOP                   00333419
+SWAP     MVC   TEMP,0(3)               STORE NEXT IN CURRENT TABLE POS  00333519
+         MVC   0(25,3),0(5)                                             00333619
+         MVC   0(25,5),TEMP                                             00333719
+         LA    3,25(0,3)               STORE CURRENT TABLE POS IN NEXT  00333822
+         BC    B'1111',SORTLOOP                                         00333919
+*                                                                       00334007
+ENDSORT  ST    3,0(0,4)                                                 00334116
+         L     13,4(0,13)              EXIT LINKAGE                     00334308
+         LM    14,12,12(13)                                             00334407
+         BR    14                                                       00334507
+         LTORG                                                          00334607
+TEMP     DS    CL25' '                                                  00334719
+SORTSVE  DS    18F                     SAVE AREA                        00334808
+         END   MAIN                                                     00334905
+*                                                                       00335000
+*/                                                                      00335100
+//FT05F001 DD DSN=KC02314.AUTUMN17.CSCI360.HW7DATA,DISP=SHR             00336000
+//                                                                      00340000

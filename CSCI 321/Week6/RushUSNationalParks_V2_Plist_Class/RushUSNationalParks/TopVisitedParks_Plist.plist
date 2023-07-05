@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>park_name</key>
+		<string>Great Smoky Mountain</string>
+		<key>city</key>
+		<string>Gatlinburg</string>
+		<key>state</key>
+		<string>Tennessee</string>
+		<key>phone</key>
+		<string>865-436-1200</string>
+		<key>webstie</key>
+		<string>http://www.nps.gov/grsm</string>
+		<key>park_info</key>
+		<string>GSMountain_info.pdf</string>
+		<key>cell_image</key>
+		<string>GSMountain_cell</string>
+		<key>park_image_1</key>
+		<string>GSMountain_image_1.jpg</string>
+		<key>park_image_2</key>
+		<string>GSMountain_image_2.jpg</string>
+		<key>park_image_3</key>
+		<string>GSMountain_image_3.jpg</string>
+		<key>park_image_4</key>
+		<string>GSMountain_image_4.jpg</string>
+		<key>park_image_5</key>
+		<string>GSMountain_image_5.jpg</string>
+		<key>park_image_6</key>
+		<string>GSMountain_image_6.jpg</string>
+		<key>park_image_7</key>
+		<string>GSMountain_image_7.jpg</string>
+	</dict>
+	<dict>
+		<key>park_name</key>
+		<string>Grand Canyon</string>
+		<key>city</key>
+		<string>Grand Canyon</string>
+		<key>state</key>
+		<string>Arizona</string>
+		<key>phone</key>
+		<string>928-638-7888</string>
+		<key>webstie</key>
+		<string>http://www.nps.gov/grca</string>
+		<key>park_info</key>
+		<string>GrandCanyon_info.pdf</string>
+		<key>cell_image</key>
+		<string>GCanyon_cell</string>
+		<key>park_image_1</key>
+		<string>GCanyon_image_1.jpg</string>
+		<key>park_image_2</key>
+		<string>GCanyon_image_2.jpg</string>
+		<key>park_image_3</key>
+		<string>GCanyon_image_3.jpg</string>
+		<key>park_image_4</key>
+		<string>GCanyon_image_4.jpg</string>
+		<key>park_image_5</key>
+		<string>GCanyon_image_5.jpg</string>
+		<key>park_image_6</key>
+		<string>GCanyon_image_6.jpg</string>
+		<key>park_image_7</key>
+		<string>GCanyon_image_7.jpg</string>
+	</dict>
+	<dict>
+		<key>park_name</key>
+		<string>Yosemite</string>
+		<key>city</key>
+		<string>Yosemite National Park</string>
+		<key>state</key>
+		<string>California</string>
+		<key>phone</key>
+		<string>209-372-0200</string>
+		<key>webstie</key>
+		<string>http://www.nps.gov/yose</string>
+		<key>park_info</key>
+		<string>Yosemite_info.pdf</string>
+		<key>cell_image</key>
+		<string>Yosemite_cell</string>
+		<key>park_image_1</key>
+		<string>Yosemite_image_1.jpg</string>
+		<key>park_image_2</key>
+		<string>Yosemite_image_2.jpg</string>
+		<key>park_image_3</key>
+		<string>Yosemite_image_3.jpg</string>
+		<key>park_image_4</key>
+		<string>Yosemite_image_4.jpg</string>
+		<key>park_image_5</key>
+		<string>Yosemite_image_5.jpg</string>
+		<key>park_image_6</key>
+		<string>Yosemite_image_6.jpg</string>
+		<key>park_image_7</key>
+		<string>Yosemite_image_7.jpg</string>
+	</dict>
+</array>
+</plist>

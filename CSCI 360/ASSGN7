@@ -1,0 +1,700 @@
+1                    J E S 2  J O B  L O G  --  S Y S T E M  S 0 W 1  --  N O D E  Z O S K C T R         
+0 
+ 22.18.10 JOB00783 ---- THURSDAY,  16 NOV 2017 ----
+ 22.18.10 JOB00783  IRR010I  USERID KC03KA9  IS ASSIGNED TO THIS JOB.
+ 22.18.10 JOB00783  ICH70001I KC03KA9  LAST ACCESS AT 22:17:17 ON THURSDAY, NOVEMBER 16, 2017
+ 22.18.10 JOB00783  $HASP373 KC03KA9A STARTED - INIT 2    - CLASS A        - SYS S0W1
+ 22.18.10 JOB00783  -                                         --TIMINGS (MINS.)--            ----PAGING COUNTS---
+ 22.18.10 JOB00783  -JOBNAME  STEPNAME PROCSTEP    RC   EXCP    TCB    SRB  CLOCK   SERV  PG   PAGE   SWAP    VIO SWAPS
+ 22.18.10 JOB00783  -KC03KA9A                      00    176 ******    .00     .0    913   0      0      0      0     0
+ 22.18.10 JOB00783  -KC03KA9A ENDED.  NAME-MASON GREIG          TOTAL TCB CPU TIME=   .00  TOTAL ELAPSED TIME=    .0
+ 22.18.10 JOB00783  $HASP395 KC03KA9A ENDED
+0------ JES2 JOB STATISTICS ------
+-  16 NOV 2017 JOB EXECUTION DATE
+-          366 CARDS READ
+-          695 SYSOUT PRINT RECORDS
+-            0 SYSOUT PUNCH RECORDS
+-           66 SYSOUT SPOOL KBYTES
+-         0.00 MINUTES EXECUTION TIME
+         1 //KC03KA9A JOB ,'MASON GREIG',MSGCLASS=H                                JOB00783
+         2 //STEP1 EXEC PGM=ASSIST                                                 00020000
+         3 //STEPLIB DD DSN=KC02293.ASSIST.LOADLIB,DISP=SHR                        00030000
+         4 //SYSPRINT DD SYSOUT=*                                                  00040000
+         5 //SYSIN     DD *               GENERATED STATEMENT                              
+         6 //FT05F001 DD DSN=KC02314.AUTUMN17.CSCI360.HW7DATA,DISP=SHR             00336000
+ ICH70001I KC03KA9  LAST ACCESS AT 22:17:17 ON THURSDAY, NOVEMBER 16, 2017
+ IEF236I ALLOC. FOR KC03KA9A STEP1
+ IGD103I SMS ALLOCATED TO DDNAME STEPLIB
+ IEF237I JES2 ALLOCATED TO SYSPRINT
+ IEF237I JES2 ALLOCATED TO SYSIN
+ IGD103I SMS ALLOCATED TO DDNAME FT05F001
+ IEF142I KC03KA9A STEP1 - STEP WAS EXECUTED - COND CODE 0000
+ IGD104I KC02293.ASSIST.LOADLIB                       RETAINED,  DDNAME=STEPLIB 
+ IEF285I   KC03KA9.KC03KA9A.JOB00783.D0000102.?         SYSOUT        
+ IEF285I   KC03KA9.KC03KA9A.JOB00783.D0000101.?         SYSIN         
+ IGD104I KC02314.AUTUMN17.CSCI360.HW7DATA             RETAINED,  DDNAME=FT05F001
+ IEF373I STEP/STEP1   /START 2017320.2218
+ IEF032I STEP/STEP1   /STOP  2017320.2218 
+         CPU:     0 HR  00 MIN  00.03 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+         VIRT:   584K  SYS:   268K  EXT:        4K  SYS:    11424K
+         ATB- REAL:                     0K  SLOTS:                     0K
+              VIRT- ALLOC:       0M SHRD:       0M
+ IEF375I  JOB/KC03KA9A/START 2017320.2218
+ IEF033I  JOB/KC03KA9A/STOP  2017320.2218 
+         CPU:     0 HR  00 MIN  00.03 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+1*** ASSIST 4.0/A2-05/15/82  470/V7A/0:OS/VS2  INS=SDFP7/X=BGHO, CHECK/TRC/=1180, OPTS=CDKMPR FROM PENN ST*NIU COMPSCI*LT         
+0                                                                                                                                 
+0                                                                                                               PAGE    1         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                       1 *************************************                                   00050000         
+                                       2 *                                                                       00060000         
+                                       3 * ASSIGNMENT 7                                                          00070000         
+                                       4 *                                                                       00080000         
+                                       5 * NAME: MASON GREIG                                                     00090000         
+                                       6 *                                                                       00100000         
+                                       7 * FUNCTION: THIS PROGRAM TAKES AN INPUT FILE,                           00110000         
+                                       8 *           PRINTS A REPORT, SORTS THE DATA,                            00120000         
+                                       9 *           AND THEN WILL PRINT ANOTHER REPORT                          00130000         
+                                      10 *                                                                       00140000         
+                                      11 *************************************                                   00150000         
+                                      12 * MAIN                                                                  00160000         
+                                      13 *                                                                       00170000         
+                                      14 * FUNCTION: THIS PROGRAM WILL CALL EXTERNAL                             00180000         
+                                      15 *           SUBROUTINES THAT BUILD, PRINT,                              00190000         
+                                      16 *           AND SORT THE DATA READ IN FROM                              00200000         
+                                      17 *           A FILE                                                      00210000         
+                                      18 *                                                                       00220000         
+                                      19 * REGISTER USAGE                                                        00230000         
+                                      20 *                                                                       00231000         
+                                      21 *  1 PARAMETERS                                                         00240000         
+                                      22 * 12 MAIN                                                               00250000         
+                                      23 * 15 EXTERNAL SUBROUTINE                                                00260000         
+                                      24 * 14 RETURN                                                             00270000         
+                                      25 *                                                                       00280000         
+                                      26 *************************************                                   00290000         
+                                      27 *                                                                       00291039         
+ 000000                               28 MAIN     CSECT                                 MAIN PROGRAM             00300009         
+ 000000 90EC D00C            0000C    29          STM   14,12,12(13)                    ENTRY LINKAGE            00300109         
+ 000004 18CF                          30          LR    12,15                                                    00300201         
+ 000000                               31          USING MAIN,12                                                  00300301         
+ 000006 41E0 CC64            00C64    32          LA    14,MAINSAVE                                              00300401         
+ 00000A 50D0 E004            00004    33          ST    13,4(0,14)                                               00300501         
+ 00000E 50E0 D008            00008    34          ST    14,8(0,13)                                               00300601         
+ 000012 18DE                          35          LR    13,14                                                    00300701         
+                                      36 *                                                                       00300801         
+ 000014 4110 CC3C            00C3C    37          LA    1,BPARAMS                       STORE PARAMETERS         00300909         
+ 000018 58F0 C070            00070    38          L     15,=V(BUILD)                    STORE CALL TO EXT SUB    00301009         
+ 00001C 05EF                          39          BALR  14,15                           CALL EXT SUB ROUTINE     00301109         
+                                      40 *                                                                       00301201         
+ 00001E E020 CCAC 0046 00CAC          41          XPRNT HEADER,70                       PRINT HEADER             00301309         
+ 000024 E020 CD7D 0001 00D7D          42          XPRNT FORMAT,1                        PRINT FORMAT SPACING     00301409         
+ 00002A E020 CD38 0045 00D38          43          XPRNT HEAD3,69                        PRINT COLUMN LABELS      00301509         
+                                      44 *                                                                       00301642         
+ 000030 4110 CC44            00C44    45          LA    1,PPARAMS                                                00301742         
+ 000034 58F0 C074            00074    46          L     15,=V(PRINT)                                             00301842         
+ 000038 05EF                          47          BALR  14,15                                                    00301942         
+                                      48 *                                                                       00302001         
+ 00003A 4110 CC5C            00C5C    49          LA    1,SPARAMS                       STORE PARAMETERS         00302109         
+ 00003E 58F0 C078            00078    50          L     15,=V(SORT)                     STORE CALL TO EXT SUB    00302209         
+ 000042 05EF                          51          BALR  14,15                           CALL EXT SUB ROUTINE     00302309         
+                                      52 *                                                                       00302401         
+1                                                                                                               PAGE    2         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+ 000044 E020 CCF2 0046 00CF2          53          XPRNT HEAD2,70                        PRINT HEADER             00302509         
+ 00004A E020 CD7D 0001 00D7D          54          XPRNT FORMAT,1                        PRINT FORMAT SPACING     00302609         
+ 000050 E020 CD38 0045 00D38          55          XPRNT HEAD3,69                        PRINT COLUMN LABELS      00302709         
+                                      56 *                                                                       00302801         
+ 000056 4110 CC50            00C50    57          LA    1,PPARAM2                       STORE PARAMETERS         00302909         
+ 00005A 58F0 C074            00074    58          L     15,=V(PRINT)                    STORE CALL TO EXT SUB    00303009         
+ 00005E 05EF                          59          BALR  14,15                           CALL EXT SUB ROUTINE     00303109         
+                                      60 *                                                                       00303201         
+ 000060 58D0 D004            00004    61          L     13,4(0,13)                      EXIT LINKAGE             00303309         
+ 000064 98EC D00C            0000C    62          LM    14,12,12(13)                                             00303401         
+ 000068 07FE                          63          BR    14                                                       00303501         
+                                      64 *                                                                       00303601         
+                                      65          LTORG                                                          00303701         
+ 000070 00000D80                      66                =V(BUILD)                                                                 
+ 000074 00001308                      67                =V(PRINT)                                                                 
+ 000078 000014F0                      68                =V(SORT)                                                                  
+                                      69 *                                                                       00303802         
+ 000080                               70          ORG   MAIN+((*-MAIN+31)/32)*32                                 00303912         
+ 000080                               71 TABLE    DS    120CL25' '                      TABLE OF 120 25LENGTH    00304013         
+ 000C38                               72 EOT      DS    F                               END OF TABLE             00304113         
+ 000C3C 00000080                      73 BPARAMS  DC    A(TABLE)                        BUILD PARAMETERS         00304210         
+ 000C40 00000C38                      74          DC    A(EOT)                                                   00304302         
+ 000C44 00000080                      75 PPARAMS  DC    A(TABLE)                        PRINT PARAMETERS         00304410         
+ 000C48 00000C38                      76          DC    A(EOT)                                                   00304502         
+ 000C4C 00000CAC                      77          DC    A(HEADER)                                                00304602         
+ 000C50 00000080                      78 PPARAM2  DC    A(TABLE)                PRINT2 PARAMETERS                00304710         
+ 000C54 00000C38                      79          DC    A(EOT)                                                   00304802         
+ 000C58 00000CF2                      80          DC    A(HEAD2)                                                 00304902         
+ 000C5C 00000080                      81 SPARAMS  DC    A(TABLE)                SORT PARAMETERS                  00305010         
+ 000C60 00000C38                      82          DC    A(EOT)                                                   00305102         
+                                      83 *                                                                       00305202         
+ 000C64                               84 MAINSAVE DS    18F                     MAINSAVE LOCATION                00305313         
+                                      85 *                                                                       00305702         
+ 000CAC F1                            86 HEADER   DC    C'1'                    FIRST HEADER                     00305810         
+ 000CAD 4040404040404040              87          DC    CL19' '                                                  00305901         
+ 000CC0 C3C8D9D6D5D6D3D6              88          DC    CL30'CHRONOLOGICAL LIST OF ELEMENTS'                     00306001         
+ 000CDE 4040404040404040              89          DC    CL11' '                                                  00306101         
+ 000CE9 D7C1C7C54040                  90          DC    CL6'PAGE  '                                              00306202         
+ 000CEF 4040F1                        91          DC    CL3'  1'                                                 00306351         
+ 000CF2 F1                            92 HEAD2    DC    C'1'                    SECOND HEADER                    00306410         
+ 000CF3 4040404040404040              93          DC    CL24' '                                                  00306502         
+ 000D0B C5D3C5D4C5D5E3E2              94          DC    CL23'ELEMENTS SORTED BY NAME'                            00306602         
+ 000D22 4040404040404040              95          DC    CL13' '                                                  00306702         
+ 000D2F D7C1C7C54040                  96          DC    CL6'PAGE  '                                              00306802         
+ 000D35 4040F1                        97          DC    CL3'  1'                                                 00306951         
+ 000D38 60                            98 HEAD3    DC    C'-'                    COLUMN LABELS                    00307010         
+ 000D39 D5C1D4C540D6C640              99          DC    CL15'NAME OF ELEMENT'                                    00307103         
+ 000D48 404040                       100          DC    CL3' '                                                   00307203         
+ 000D4B C3C8C5D4C9C3C1D3             101          DC    CL15'CHEMICAL SYMBOL'                                    00307303         
+ 000D5A 404040                       102          DC    CL3' '                                                   00307403         
+ 000D5D C1E3D6D4C9C340D5             103          DC    CL13'ATOMIC NUMBER'                                      00307503         
+ 000D6A 40404040                     104          DC    CL4' '                                                   00307603         
+ 000D6E C4C1E3C540C4C9E2             105          DC    CL15'DATE DISCOVERED'                                    00307703         
+ 000D7D 40                           106 FORMAT   DC    C' '                    FORMAT SPACING                   00307810         
+                                     107 *                                                                       00307913         
+ 000000                              108 TABLELNE DSECT                                                          00308013         
+ 000000                              109 DSCVRD   DS    CL7                                                      00308113         
+1                                                                                                               PAGE    3         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+ 000007                              110 ELEMENT  DS    CL13                                                     00308213         
+ 000014                              111 CHEMSYM  DS    CL3                                                      00308314         
+ 000017                              112 ATOMNUM  DS    PL2                                                      00308414         
+                                     113 *                                                                       00308500         
+                                     114 *************************************                                   00308600         
+                                     115 *                                                                       00308700         
+                                     116 * BUILD                                                                 00308800         
+                                     117 *                                                                       00308900         
+                                     118 * FUNCTION: THIS EXTERNAL SUBROUTINE WILL                               00309000         
+                                     119 *           BUILD A TABLE USING THE DATA                                00309100         
+                                     120 *           READ IN FROM A FILE                                         00309200         
+                                     121 *                                                                       00309300         
+                                     122 * REGISTER USAGE                                                        00309400         
+                                     123 *                                                                       00309500         
+                                     124 *************************************                                   00309600         
+                                     125 *                                                                       00309700         
+ 000D80                              126 BUILD    CSECT                         BUILD SUBROUTINE                 00309810         
+ 000D80 90EC D00C            0000C   127          STM   14,12,12(13)                                             00309902         
+ 000D84 18CF                         128          LR    12,15                                                    00310002         
+ 000D80                              129          USING BUILD,12                ENTRY LINKAGE                    00310110         
+ 000D86 41E0 C134            00EB4   130          LA    14,BUILDSVE                                              00310202         
+ 000D8A 50D0 E004            00004   131          ST    13,4(0,14)                                               00310302         
+ 000D8E 50E0 D008            00008   132          ST    14,8(0,13)                                               00310402         
+ 000D92 18DE                         133          LR    13,14                                                    00310502         
+                                     134 *                                                                       00310602         
+ 000000                              135          USING TABLELNE,3              STORE TABLELNE DSECT             00310733         
+ 000D94 1B22                         136          SR    2,2                                                      00310830         
+ 000D96 9834 1000            00000   137          LM    3,4,0(1)                UNLOAD PARAMETERS                00310910         
+ 000D9A E000 C0E0 0050 00E60         138 BLOOP    XREAD BUFFER,80               READ IN FROM INPUT FILE          00311010         
+ 000DA0 4740 C0D2            00E52   139          BC    B'0100',BLDEND          IF ERROR GO TO bldend            00311157         
+ 000DA4 1934                         140          CR    3,4                     CHECK TO SEE IF AT EOT           00311240         
+ 000DA6 4780 C0D2            00E52   141          BC    B'1000',BLDEND          IF EVEN GO TO BLDEND             00311340         
+ 000DAA 9240 3000      00000         142          MVI   DSCVRD,C' '             CLEAR TABLE                      00311453         
+ 000DAE D217 3001 3000 00001 00000   143          MVC   DSCVRD+1(24),DSCVRD                                      00311553         
+ 000DB4 DD4F C0E0 C17C 00E60 00EFC   144          TRT   BUFFER(80),SCANTAB      SEARCH FOR NONBLANK LOC          00311739         
+ 000DBA 1861                         145          LR    6,1                     STORE NON BLANK SPACE LOC FOUND  00312970         
+ 000DBC DD4F 6000 C47C 00000 011FC   146          TRT   0(80,6),SPACETAB        SEARCH FOR SPACE AFTER NON BLANK 00313140         
+ 000DC2 1851                         147          LR    5,1                                                      00313240         
+ 000DC4 1871                         148          LR    7,1                     STORE BLANK SPACE LOC FOUND      00313339         
+ 000DC6 1B76                         149          SR    7,6                     FIND LENGTH                      00313440         
+ 000DC8 0670                         150          BCTR  7,0                     ADJUST LENGTH                    00313539         
+ 000DCA 4180 3000            00000   151          LA    8,DSCVRD                PLACE DATE DISCOVERED IN 8       00313662         
+ 000DCE 4470 C582            01302   152          EX    7,MOVEDATA              CALL MOVEDATA WHEN LENGTH FOUND  00313740         
+ 000DD2 DC00 8000 C37C 00000 010FC   153          TR    0(0,8),LOWERTAB         TRANSLATE DSCVRD TO ALL LOWERCSE 00313872         
+ 000DD8 DD4F 5000 C17C 00000 00EFC   154          TRT   0(80,5),SCANTAB         search for next non blank        00313967         
+ 000DDE 1861                         155          LR    6,1                     store address of non blank       00314067         
+ 000DE0 DD4F 6000 C47C 00000 011FC   156          TRT   0(80,6),SPACETAB        search for next space            00314167         
+ 000DE6 1851                         157          LR    5,1                     store address of first blank     00314267         
+ 000DE8 1871                         158          LR    7,1                     store end of the value length    00314367         
+ 000DEA 1B76                         159          SR    7,6                     calculate length                 00314467         
+ 000DEC 0670                         160          BCTR  7,0                     adjust length                    00314567         
+ 000DEE 4180 3007            00007   161          LA    8,ELEMENT               place element in 8               00314667         
+ 000DF2 4470 C582            01302   162          EX    7,MOVEDATA              call movedata when length calc   00314767         
+ 000DF6 DC00 8000 C27C 00000 00FFC   163          TR    0(0,8),UPPERTAB         translate first character to up  00314867         
+ 000DFC DC00 8001 C37C 00001 010FC   164          TR    1(0,8),LOWERTAB         translate the rest to lower      00314972         
+ 000E02 DD4F 5000 C17C 00000 00EFC   165          TRT   0(80,5),SCANTAB         search for next first character  00315067         
+ 000E08 1861                         166          LR    6,1                     store address of first charac    00315167         
+1                                                                                                               PAGE    4         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+ 000E0A DD4F 6000 C47C 00000 011FC   167          TRT   0(80,6),SPACETAB        search for first space at end    00315267         
+ 000E10 1851                         168          LR    5,1                     store space address              00315367         
+ 000E12 1871                         169          LR    7,1                     prep 7 for length                00315467         
+ 000E14 1B76                         170          SR    7,6                     calc length                      00315567         
+ 000E16 0670                         171          BCTR  7,0                     adjust length                    00315667         
+ 000E18 4180 3014            00014   172          LA    8,CHEMSYM               store chemsym in 8               00315767         
+ 000E1C 4470 C582            01302   173          EX    7,MOVEDATA              call movedata when calc length   00315867         
+ 000E20 DC00 8000 C27C 00000 00FFC   174          TR    0(0,8),UPPERTAB         TRANSLATE CHEMSYM FORMAT         00315968         
+ 000E26 DC00 8001 C37C 00001 010FC   175          TR    1(0,8),LOWERTAB                                          00316068         
+ 000E2C DD4F 5000 C17C 00000 00EFC   176          TRT   0(80,5),SCANTAB         SEARCH FOR FIRST NEXT CHARC      00316167         
+ 000E32 1861                         177          LR    6,1                     STORE ADDRESS IN 6               00316267         
+ 000E34 DD4F 6000 C47C 00000 011FC   178          TRT   0(80,6),SPACETAB        SEARCH FOR NEXT SPACE            00316367         
+ 000E3A 1851                         179          LR    5,1                     STORE ADDRESS IN 5 & 7           00316467         
+ 000E3C 1871                         180          LR    7,1                                                      00316539         
+ 000E3E 1B76                         181          SR    7,6                     CALC LENGTH PF VALUE             00316667         
+ 000E40 0670                         182          BCTR  7,0                     ADJUST LENGTH                    00316767         
+ 000E42 4180 3017            00017   183          LA    8,ATOMNUM               PLACE ATOMNUM IN 8               00316867         
+ 000E46 4470 C57C            012FC   184          EX    7,PKDATA                CALL PKDATA WHEN LENGTH CALC     00316967         
+ 000E4A 4133 0019            00019   185          LA    3,25(3)                 INCREMENT TABLE                  00317067         
+ 000E4E 47F0 C01A            00D9A   186          BC    B'1111',BLOOP           GO TO BLOOP                      00317167         
+ 000E52 5030 4000            00000   187 BLDEND   ST    3,0(0,4)                STORE EOT                        00317267         
+ 000E56 58D0 D004            00004   188          L     13,4(0,13)              EXIT LINKAGE                     00317467         
+ 000E5A 98EC D00C            0000C   189          LM    14,12,12(13)                                             00317539         
+ 000E5E 07FE                         190          BR    14                                                       00317639         
+                                     191          LTORG                                                          00317739         
+                                     192 *                                                                       00317808         
+ 000E60                              193 BUFFER   DS    CL80                    BUFFER                           00317945         
+ 000EB0 40                           194          DC    C' '                                                     00318045         
+ 000EB4                              195 BUILDSVE DS    18F                     BUILD SAVE LOCATION              00318125         
+                                     196 *                                                                       00318237         
+ 000EFC FFFFFFFFFFFFFFFF             197 SCANTAB  DC    256X'FF'                SEARCH TABLE FOR FINDING         00318337         
+ 000F3C                              198          ORG   SCANTAB+C' '            NONSPACE CHARACTERS              00318437         
+ 000F3C 00                           199          DC    X'00'                                                    00318537         
+ 000FFC                              200          ORG                                                            00318602         
+                                     201 *                                                                       00318707         
+ 000FFC 0000000000000000             202 UPPERTAB DC    256X'00'                TRANSLATE TABLE FOR UPPERCASE    00318810         
+ 00107D                              203          ORG   UPPERTAB+C'a'           CONVERSION                       00318960         
+ 00107D C1C2C3C4C5C6C7C8             204          DC    C'ABCDEFGHIJKLMNOPQRSTUVWXYZ'                            00319041         
+ 0010FC                              205          ORG                                                            00319107         
+                                     206 *                                                                       00319207         
+ 0010FC 0000000000000000             207 LOWERTAB DC    256X'00'                TRANSLATE TABLE FOR LOWERCASE    00319310         
+ 0011BD                              208          ORG   LOWERTAB+C'A'           CONVERSION                       00319460         
+ 0011BD 8182838485868788             209          DC    C'abcdefghijklmnopqrstuvwxyz'                            00319541         
+ 0011FC                              210          ORG                                                            00319607         
+                                     211 *                                                                       00319707         
+ 0011FC 0000000000000000             212 SPACETAB DC    256X'00'                SEARCH TABLE FOR FINDING SPACES  00319810         
+ 00123C                              213          ORG   SPACETAB+C' '           WITHIN THE BUFFER INPUT FILE     00319910         
+ 00123C FF                           214          DC    X'FF'                                                    00320007         
+ 0012FC                              215          ORG                                                            00320107         
+                                     216 *                                                                       00320207         
+ 0012FC F210 8000 6000 00000 00000   217 PKDATA   PACK  0(2,8),0(0,6)                                            00320340         
+                                     218 *                                                                       00320440         
+ 001302 D200 8000 6000 00000 00000   219 MOVEDATA MVC   0(0,8),0(6)                                              00320540         
+                                     220 *                                                                       00320600         
+                                     221 *************************************                                   00320700         
+                                     222 *                                                                       00320800         
+                                     223 * PRINT                                                                 00320900         
+1                                                                                                               PAGE    5         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                     224 *                                                                       00321000         
+                                     225 * FUNCTION: THIS EXTERNAL SUBROUTINE WILL                               00321100         
+                                     226 *           PRINT A REPORT WHICH DISPLAYS                               00321200         
+                                     227 *           THE DATA READ IN FROM A FILE                                00321300         
+                                     228 *                                                                       00321400         
+                                     229 * REGISTER USAGE                                                        00321500         
+                                     230 *                                                                       00321602         
+                                     231 *  1    PARAMETERS                                                      00321702         
+                                     232 *  2    LEFT EMPTY                                                      00321802         
+                                     233 *  3    TABLE                                                           00321902         
+                                     234 *  4    EOT                                                             00322002         
+                                     235 *  5    HEADER                                                          00322102         
+                                     236 *  6    TABLELNE DSECT                                                  00322202         
+                                     237 *  10   LINE COUNT                                                      00322302         
+                                     238 *  11   PAGE COUNT                                                      00322402         
+                                     239 *  12   PRINT REGISTER                                                  00322502         
+                                     240 *                                                                       00322602         
+                                     241 *************************************                                   00322700         
+                                     242 *                                                                       00322800         
+ 001308                              243 PRINT    CSECT                                                          00322900         
+ 001308 90EC D00C            0000C   244          STM   14,12,12(13)            ENTRY LINKAGE                    00323008         
+ 00130C 18CF                         245          LR    12,15                                                    00323102         
+ 001308                              246          USING PRINT,12                                                 00323202         
+ 00130E 41E0 C10C            01414   247          LA    14,PRNTSVE                                               00323302         
+ 001312 50D0 E004            00004   248          ST    13,4(0,14)                                               00323402         
+ 001316 50E0 D008            00008   249          ST    14,8(0,13)                                               00323502         
+ 00131A 18DE                         250          LR    13,14                                                    00323602         
+                                     251 *                                                                       00323702         
+ 000000                              252          USING TABLELNE,3              LOAD DSECT                       00323833         
+ 00131C 9835 1000            00000   253          LM    3,5,0(1)                UNLOAD PARAMETERS                00323908         
+ 001320 1BAA                         254          SR    10,10                   ZERO OUT LINE COUNT              00324008         
+ 001322 F810 C154 C0F0 0145C 013F8   255          ZAP   PAGECNT(2),=P'1'        INITIALIZE PAGE COUNTER          00324108         
+ 001328 5930 4000            00000   256 PRNTLOOP C     3,0(0,4)                COMPARE TABLE TO EOT             00324208         
+ 00132C 4780 C0C4            013CC   257          BC    B'1000',ENDPRNT         IF EQUAL GO TO ENDPRNT           00324308         
+ 001330 59A0 C0D8            013E0   258          C     10,=F'50'               COMPARE REG 10 TO 50             00324408         
+ 001334 47C0 C072            0137A   259          BC    B'1100',NEWLINE         IF < OR = GO TO NEWLINE          00324508         
+ 001338 1BAA                         260          SR    10,10                   ZERO OUT LINE COUNT              00324608         
+ 00133A FA10 C154 C0F0 0145C 013F8   261          AP    PAGECNT(2),=P'1'        INCREMENT PAGE COUNT             00324708         
+ 001340 9240 C15B      01463         262          MVI   PRNTLINE+1,C' '         DESTRUCTIVE OVERLAP              00324808         
+ 001344 D243 C15C C15B 01464 01463   263          MVC   PRNTLINE+2(68),PRNTLINE+1                                00324902         
+ 00134A D244 C15B 5000 01463 00000   264          MVC   PRNTLINE+1(69),0(5)     PLACE HEADER ON PRNTLNE          00325055         
+ 001350 F322 C157 C154 0145F 0145C   265          UNPK  ELEMNUM(3),PAGECNT      MAKE PAGE NUM PRINTABLE          00325173         
+ 001356 D202 C19F C157 014A7 0145F   266          MVC   PRNTLINE+69(3),ELEMNUM  PLACE PAGE NUM ON LINE           00325252         
+ 00135C E020 C15A 0046 01462         267          XPRNT PRNTLINE,70             PRINT THE HEADER LINE            00325356         
+ 001362 E020 C1A1 0001 014A9         268          XPRNT SPACE,1                 PRINT SPACING LINE               00325408         
+ 001368 D244 C15B C1A2 01463 014AA   269          MVC   PRNTLINE+1(69),COLLABEL PLACE COLLABELS ON LINE          00325508         
+ 00136E E020 C15A 0046 01462         270          XPRNT PRNTLINE,70             PRINT OUT PRNTLINE               00325648         
+ 001374 E020 C1A1 0001 014A9         271          XPRNT SPACE,1                 PRINT SPACING LINE               00325708         
+ 00137A 9240 C15B      01463         272 NEWLINE  MVI   PRNTLINE+1,C' '         DESTRUCTIVE OVERLAP              00325808         
+ 00137E D243 C15C C15B 01464 01463   273          MVC   PRNTLINE+2(68),PRNTLINE+1                                00325902         
+ 001384 D20C C15C 3007 01464 00007   274          MVC   PRNTLINE+2(13),ELEMENT  PLACE ELEMENT ON LINE            00326065         
+ 00138A D209 C169 C0E0 01471 013E8   275          MVC   PRNTLINE+15(10),=C'          '   FORMAT SPACING          00326164         
+ 001390 D202 C173 3014 0147B 00014   276          MVC   PRNTLINE+25(3),CHEMSYM  PLACE SYMBOL ON LINE             00326265         
+ 001396 D20E C176 C0F1 0147E 013F9   277          MVC   PRNTLINE+28(15),=C'               '  FORMAT SPACING      00326365         
+ 00139C F321 C157 3017 0145F 00017   278          UNPK  ELEMNUM(3),ATOMNUM      MAKE ATOMNUM PRNTABLE            00326408         
+ 0013A2 D202 C185 C157 0148D 0145F   279          MVC   PRNTLINE+43(3),ELEMNUM  PLACE PRNTNUM ON LINE            00326565         
+ 0013A8 D20A C188 C100 01490 01408   280          MVC   PRNTLINE+46(11),=C'           '   FORMAT SPACING         00326665         
+1                                                                                                               PAGE    6         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+ 0013AE D206 C193 3000 0149B 00000   281          MVC   PRNTLINE+57(7),DSCVRD   PLACE DATE ON LINE               00326765         
+ 0013B4 D205 C19A C0EA 014A2 013F2   282          MVC   PRNTLINE+64(6),=C'      '    FORMAT SPACING              00326865         
+ 0013BA 5AA0 C0DC            013E4   283          A     10,=F'1'                INCREMENT LINE COUNT             00326908         
+ 0013BE E020 C15A 0046 01462         284          XPRNT PRNTLINE,70             PRINT LINE                       00327043         
+ 0013C4 4130 3019            00019   285          LA    3,25(0,3)               INCREMENT TABLE                  00327108         
+ 0013C8 47F0 C020            01328   286          BC    B'1111',PRNTLOOP        GO TO PRNTLOOP                   00327208         
+ 0013CC 5030 4000            00000   287 ENDPRNT  ST    3,0(0,4)                DROP DSECT                       00327317         
+ 0013D0                              288          DROP  3                                                        00327464         
+ 0013D0 58D0 D004            00004   289          L     13,4(0,13)                                               00327503         
+ 0013D4 98EC D00C            0000C   290          LM    14,12,12(13)            EXIT LINKAGE                     00327608         
+ 0013D8 07FE                         291          BR    14                                                       00327702         
+                                     292          LTORG                                                          00327802         
+ 0013E0 00000032                     293                =F'50'                                                                    
+ 0013E4 00000001                     294                =F'1'                                                                     
+ 0013E8 4040404040404040             295                =C'          '                                                            
+ 0013F2 404040404040                 296                =C'      '                                                                
+ 0013F8 1C                           297                =P'1'                                                                     
+ 0013F9 4040404040404040             298                =C'               '                                                       
+ 001408 4040404040404040             299                =C'           '                                                           
+                                     300 *                                                                       00327902         
+ 001414                              301 PRNTSVE  DS    18F                                                      00328012         
+ 00145C 00000C                       302 PAGECNT  DC    PL3'0'                  PACKED PAGE COUNT                00328147         
+ 00145F F0F0C0                       303 ELEMNUM  DC    ZL3'0'                  ZONED NUM FOR PRINTING VALUES    00328274         
+ 001462 F0                           304 PRNTLINE DC    C'0'                    PRNTLINE                         00328309         
+ 001463 4040404040404040             305          DC    CL70' '                                                  00328402         
+ 0014A9 40                           306 SPACE    DC    C' '                    FORMAT SPACING                   00328509         
+ 0014AA 60                           307 COLLABEL DC    C'-'                    COLUMN LABELS                    00328609         
+ 0014AB D5C1D4C540D6C640             308          DC    CL15'NAME OF ELEMENT'                                    00328702         
+ 0014BA 404040                       309          DC    CL3' '                                                   00328802         
+ 0014BD C3C8C5D4C9C3C1D3             310          DC    CL15'CHEMICAL SYMBOL'                                    00328902         
+ 0014CC 404040                       311          DC    CL3' '                                                   00329003         
+ 0014CF C1E3D6D4C9C340D5             312          DC    CL13'ATOMIC NUMBER'                                      00329102         
+ 0014DC 40404040                     313          DC    CL4' '                                                   00329202         
+ 0014E0 C4C1E3C540C4C9E2             314          DC    CL15'DATE DISCOVERED'                                    00329302         
+                                     315 *                                                                       00329400         
+                                     316 *************************************                                   00329500         
+                                     317 *                                                                       00329600         
+                                     318 * SORT                                                                  00329700         
+                                     319 *                                                                       00329800         
+                                     320 * FUNCTION: THIS EXTERNAL SUBROUTINE WILL                               00329900         
+                                     321 *           SORT THE CONTENTS OF THE DATA                               00330000         
+                                     322 *           STORED IN THE TABLE                                         00330100         
+                                     323 *                                                                       00330200         
+                                     324 * REGISTER USAGE                                                        00330300         
+                                     325 *                                                                       00330408         
+                                     326 *  12   SORT MAIN REGISTER                                              00330508         
+                                     327 *  14   SAVE ADDRESS                                                    00330608         
+                                     328 *   3   TABLE                                                           00330708         
+                                     329 *   4   EOT                                                             00330808         
+                                     330 *   5   TEMP                                                            00330908         
+                                     331 *   6   NEXT POSITION IN TABLE                                          00331008         
+                                     332 *                                                                       00331108         
+                                     333 *************************************                                   00331200         
+                                     334 *                                                                       00331300         
+ 0014F0                              335 SORT     CSECT                         BEGIN OF DORT                    00331408         
+ 0014F0 90EC D00C            0000C   336          STM   14,12,12(13)            ENTRY LINAGE                     00331508         
+ 0014F4 18CF                         337          LR    12,15                                                    00331602         
+1                                                                                                               PAGE    7         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+ 0014F0                              338          USING SORT,12                                                  00331702         
+ 0014F6 41E0 C084            01574   339          LA    14,SORTSVE                                               00331802         
+ 0014FA 50D0 E004            00004   340          ST    13,4(0,14)                                               00331902         
+ 0014FE 50E0 D008            00008   341          ST    14,8(0,13)                                               00332002         
+ 001502 18DE                         342          LR    13,14                                                    00332102         
+                                     343 *                                                                       00332203         
+ 001504 9834 1000            00000   344          LM    3,4,0(1)                LOAD PARAMETERS                  00332308         
+ 001508 1934                         345 SORTLOOP CR    3,4                     COMPARE TABLE TO EOT             00332419         
+ 00150A 4780 C058            01548   346          BC    B'1000',ENDSORT         IF EQUAL GO TO ENDSORT           00332508         
+ 00150E 1853                         347          LR    5,3                                                      00332619         
+ 001510 4160 3019            00019   348          LA    6,25(0,3)                                                00332722         
+ 001514 1964                         349 SLOOP2   CR    6,4                     COMPARE NEXT TO EOT              00332819         
+ 001516 4780 C03E            0152E   350          BC    B'1000',SWAP            IF EQUAL GO TO ENDSORT           00332919         
+ 00151A D50C 6007 5007 00007 00007   351          CLC   7(13,6),7(5)            COMPARE CURRENT TO NEXT          00333019         
+ 001520 47B0 C036            01526   352          BC    B'1011',INCRMNT         IF > OR = GO TO INCREMENT        00333126         
+ 001524 1856                         353          LR    5,6                                                      00333219         
+ 001526 4160 6019            00019   354 INCRMNT  LA    6,25(0,6)               INCREMENT TABLE                  00333322         
+ 00152A 47F0 C024            01514   355          BC    B'1111',SLOOP2          GO TO SORTLOOP                   00333419         
+ 00152E D218 C068 3000 01558 00000   356 SWAP     MVC   TEMP,0(3)               STORE NEXT IN CURRENT TABLE POS  00333519         
+ 001534 D218 3000 5000 00000 00000   357          MVC   0(25,3),0(5)                                             00333619         
+ 00153A D218 5000 C068 00000 01558   358          MVC   0(25,5),TEMP                                             00333719         
+ 001540 4130 3019            00019   359          LA    3,25(0,3)               STORE CURRENT TABLE POS IN NEXT  00333822         
+ 001544 47F0 C018            01508   360          BC    B'1111',SORTLOOP                                         00333919         
+                                     361 *                                                                       00334007         
+ 001548 5030 4000            00000   362 ENDSORT  ST    3,0(0,4)                                                 00334116         
+ 00154C 58D0 D004            00004   363          L     13,4(0,13)              EXIT LINKAGE                     00334308         
+ 001550 98EC D00C            0000C   364          LM    14,12,12(13)                                             00334407         
+ 001554 07FE                         365          BR    14                                                       00334507         
+                                     366          LTORG                                                          00334607         
+ 001558                              367 TEMP     DS    CL25' '                                                  00334719         
+ 001574                              368 SORTSVE  DS    18F                     SAVE AREA                        00334808         
+                                     369          END   MAIN                                                     00334905         
+0***  NO   STATEMENTS FLAGGED -  NO   WARNINGS,  NO   ERRORS                                                                      
+0*** DYNAMIC CORE AREA USED:  LOW:   22120 HIGH:    1552 LEAVING:  469896 FREE BYTES. AVERAGE:       63 BYTES/STMT ***            
+0*** ASSEMBLY TIME =    0.002 SECS,   185000 STATEMENTS/SEC ***                                                                   
+0*** PROGRAM EXECUTION BEGINNING - ANY OUTPUT BEFORE EXECUTION TIME MESSAGE IS PRODUCED BY USER PROGRAM ***                       
+1                   CHRONOLOGICAL LIST OF ELEMENTS           PAGE    1                                                            
+                                                                                                                                  
+-NAME OF ELEMENT   CHEMICAL SYMBOL   ATOMIC NUMBER    DATE DISCOVERED                                                             
+0 C ppER                                   029            nciENT                                                                  
+0   LFuR                                   016            ncIEnT                                                                  
+0  iLveR                                   047           ancIent                                                                  
+0  in                                      050           anCiEnt                                                                  
+0   tIMoNY                b                051           ancIenT                                                                  
+0   ld                   A                 079            NCieNt                                                                  
+0 TercUrY                Hg                080           anCIENT                                                                  
+0   Ad                                     082            nCiENt                                                                  
+0   smutH                B                 083           ca.1400                                                                  
+0 W OsPHORuS                               015            669                                                                     
+0   RboN                                   006           cA.1694                                                                  
+0 I oN                   Fe                026            735                                                                     
+0 W atiNUM               W                 078            735                                                                     
+0   cKEL                 Ui                028            751                                                                     
+0  vBaLT                  v                027            751                                                                     
+0   GnesIUm               g                012            755                                                                     
+0   TrogEN                                 007            772                                                                     
+0 V Ygen                                   008            774                                                                     
+0 T ngaNEse              Tu                025            774                                                                     
+0  hloRINE               C                 017            774                                                                     
+0   romiUM               Cy                024            774                                                                     
+0 H DROgeN                                 001            776                                                                     
+0  vlybDENUM                               042            781                                                                     
+0   llurIuM               e                052            782                                                                     
+0   NgStEn                                 074            783                                                                     
+0  iRcOniUm               y                040            789                                                                     
+0  yANIUm                                  092            789                                                                     
+0   roNtIUM               y                038            790                                                                     
+0  caNdiuM                c                021            791                                                                     
+1   tRIum                                  039            794                                                                     
+0   RyLliuM                                004            797                                                                     
+0   NaDIUM                                 023            797                                                                     
+0 UiObiuM                 b                041            801                                                                     
+0   ntaLuM                                 073            802                                                                     
+0  hoDium                                  045            803                                                                     
+0   LLADIUM              Wd                046            803                                                                     
+0 C rIuM                 C                 058            803                                                                     
+0   MIUM                 V                 076            803                                                                     
+0   IdIum                 y                077            803                                                                     
+0  vDIuM                                   011            807                                                                     
+0  vTasSium                                019            807                                                                     
+0 B RoN                  B                 005            808                                                                     
+0 B RiuM                 B                 056            808                                                                     
+0   DiNe                                   053            811                                                                     
+0   Thium                Si                003            817                                                                     
+0  admIUM                C                 048            817                                                                     
+0  ySenIc                A                 033            817                                                                     
+0   lIcoN                 i                014            824                                                                     
+0  sUminuM               A                 013            825                                                                     
+0 ByOmInE                By                025            825                                                                     
+0  eLeNIUM                e                034            826                                                                     
+01                   CHRONOLOGICAL LIST OF ELEMENTS           PAGE   2                                                            
+                                                                                                                                  
+0-NAME OF ELEMENT   CHEMICAL SYMBOL   ATOMIC NUMBER    DATE DISCOVERED                                                            
+                                                                                                                                  
+0   orium                                  090            829                                                                     
+0  itAniuM                                 022            830                                                                     
+0 SanTHAnuM              Sa                057            839                                                                     
+0   bIUm                                   068            842                                                                     
+0   rBium                 b                065            843                                                                     
+0 Y thEnium                                044            844                                                                     
+0  esiUM                                   055            860                                                                     
+1 Y biDIUM                                 037            861                                                                     
+0  haLLiUM                s                081            861                                                                     
+0   DIUM                                   049            863                                                                     
+0 H lmIUm                Hv                067            867                                                                     
+0   nC                                     030            875                                                                     
+0   TERbIum                                070            878                                                                     
+0  aLcIuM                C                 020            879                                                                     
+0   MAriUM                                 062            879                                                                     
+0   uLIUm                 t                069            879                                                                     
+0   doLinIuM                               064            880                                                                     
+0 WyaSeODyMIUm                             059            885                                                                     
+0  eODymiUm               d                060            885                                                                     
+0 FsUoriNe               F                 009            886                                                                     
+0  eRManIuM               e                032            886                                                                     
+0   LlIUm                G                 031            886                                                                     
+0   sprOSIUm                               066            886                                                                     
+0   gOn                   y                018            894                                                                     
+0 H LiuM                  e                002            895                                                                     
+0 U On                                     010            898                                                                     
+0   YPtOn                                  036            898                                                                     
+0  eNoN                   e                054            898                                                                     
+0 W lonium               Wv                084            898                                                                     
+0  aDiUM                 Ya                088            898                                                                     
+0   tiNIum                c                089            899                                                                     
+0 Y don                  Y                 086            900                                                                     
+0 E ROpIum                                 063            901                                                                     
+0   TetiUm                                 071            907                                                                     
+0 WyoTAcTiniUM           W                 091            913                                                                     
+0 H FnIUm                Hf                072            923                                                                     
+0   ENIum                Y                 075            925                                                                     
+0  ecHnETIuM              c                043            937                                                                     
+0 F aNcIuM               F                 087            939                                                                     
+1   tAtiNe               A                 085            940                                                                     
+0  epTUNIUm                                093            940                                                                     
+0  sutoNIum              W                 094            940                                                                     
+0 A eriCiUM               t                095            944                                                                     
+0 C rIum                 C                 096            944                                                                     
+0 WyOMEtHIUm                               061            945                                                                     
+0 BerkeLIum              Br                097            949                                                                     
+0 C lIforNiUM            C                 098            950                                                                     
+0 E nSteIniuM            E                 099            952                                                                     
+0 FermIum                F                 100            952                                                                     
+0 TeNdelevIuM                              101            955                                                                     
+0  vbeliUM               U                 102            958                                                                     
+01                   CHRONOLOGICAL LIST OF ELEMENTS           PAGE   3                                                            
+                                                                                                                                  
+0-NAME OF ELEMENT   CHEMICAL SYMBOL   ATOMIC NUMBER    DATE DISCOVERED                                                            
+                                                                                                                                  
+0  awRenCIuM             Sy                103            961                                                                     
+0 Y THErfoRDIUM                            104            964                                                                     
+0 D BNIUm                D                 105            967                                                                     
+0  eABorGiUM              g                106            974                                                                     
+0   hrIUm                B                 107            981                                                                     
+0  eiTnERIuM             T                 109            982                                                                     
+0   sSiuM                                  108            984                                                                     
+0   rmsTaDtIUm                             110            994                                                                     
+0  venTgenIum            Yg                111            994                                                                     
+0  uUNbiUm                 B               112            996                                                                     
+0  uuntriUm                T               113            998                                                                     
+0   uNocTiUM               o               118            999                                                                     
+0   unQUaDium              Q               114            999                                                                     
+0  uuNHEXIuM               H               116            000                                                                     
+0   unPENtIUM              p               115            004                                                                     
+0  uuNsEptiUm              s               117            nKNoWN                                                                  
+1                        ELEMENTS SORTED BY NAME             PAGE    1                                                            
+                                                                                                                                  
+-NAME OF ELEMENT   CHEMICAL SYMBOL   ATOMIC NUMBER    DATE DISCOVERED                                                             
+0   bIUm                                   068            842                                                                     
+0   cKEL                 Ui                028            751                                                                     
+0   doLinIuM                               064            880                                                                     
+0   gOn                   y                018            894                                                                     
+0   hrIUm                B                 107            981                                                                     
+0   ld                   A                 079            NCieNt                                                                  
+0   llurIuM               e                052            782                                                                     
+0   lIcoN                 i                014            824                                                                     
+0   ntaLuM                                 073            802                                                                     
+0   nC                                     030            875                                                                     
+0   orium                                  090            829                                                                     
+0   rmsTaDtIUm                             110            994                                                                     
+0   romiUM               Cy                024            774                                                                     
+0   roNtIUM               y                038            790                                                                     
+0   rBium                 b                065            843                                                                     
+0   smutH                B                 083           ca.1400                                                                  
+0   sprOSIUm                               066            886                                                                     
+0   sSiuM                                  108            984                                                                     
+0   tiNIum                c                089            899                                                                     
+0   tAtiNe               A                 085            940                                                                     
+0   tIMoNY                b                051           ancIenT                                                                  
+0   tRIum                                  039            794                                                                     
+0   unPENtIUM              p               115            004                                                                     
+0   unQUaDium              Q               114            999                                                                     
+0   uLIUm                 t                069            879                                                                     
+0   uNocTiUM               o               118            999                                                                     
+0   Ad                                     082            nCiENt                                                                  
+0   DiNe                                   053            811                                                                     
+0   DIUM                                   049            863                                                                     
+1   ENIum                Y                 075            925                                                                     
+0   GnesIUm               g                012            755                                                                     
+0   IdIum                 y                077            803                                                                     
+0   LlIUm                G                 031            886                                                                     
+0   LFuR                                   016            ncIEnT                                                                  
+0   LLADIUM              Wd                046            803                                                                     
+0   MAriUM                                 062            879                                                                     
+0   MIUM                 V                 076            803                                                                     
+0   NaDIUM                                 023            797                                                                     
+0   NgStEn                                 074            783                                                                     
+0   RboN                                   006           cA.1694                                                                  
+0   RyLliuM                                004            797                                                                     
+0   TetiUm                                 071            907                                                                     
+0   Thium                Si                003            817                                                                     
+0   TrogEN                                 007            772                                                                     
+0   TERbIum                                070            878                                                                     
+0   YPtOn                                  036            898                                                                     
+0  admIUM                C                 048            817                                                                     
+0  awRenCIuM             Sy                103            961                                                                     
+0  aDiUM                 Ya                088            898                                                                     
+0  aLcIuM                C                 020            879                                                                     
+0  caNdiuM                c                021            791                                                                     
+01                        ELEMENTS SORTED BY NAME             PAGE   2                                                            
+                                                                                                                                  
+0-NAME OF ELEMENT   CHEMICAL SYMBOL   ATOMIC NUMBER    DATE DISCOVERED                                                            
+                                                                                                                                  
+0  ecHnETIuM              c                043            937                                                                     
+0  eiTnERIuM             T                 109            982                                                                     
+0  epTUNIUm                                093            940                                                                     
+0  esiUM                                   055            860                                                                     
+0  eABorGiUM              g                106            974                                                                     
+0  eLeNIUM                e                034            826                                                                     
+0  eNoN                   e                054            898                                                                     
+1  eODymiUm               d                060            885                                                                     
+0  eRManIuM               e                032            886                                                                     
+0  haLLiUM                s                081            861                                                                     
+0  hloRINE               C                 017            774                                                                     
+0  hoDium                                  045            803                                                                     
+0  in                                      050           anCiEnt                                                                  
+0  itAniuM                                 022            830                                                                     
+0  iLveR                                   047           ancIent                                                                  
+0  iRcOniUm               y                040            789                                                                     
+0  sutoNIum              W                 094            940                                                                     
+0  sUminuM               A                 013            825                                                                     
+0  uuntriUm                T               113            998                                                                     
+0  uuNsEptiUm              s               117            nKNoWN                                                                  
+0  uuNHEXIuM               H               116            000                                                                     
+0  uUNbiUm                 B               112            996                                                                     
+0  vbeliUM               U                 102            958                                                                     
+0  venTgenIum            Yg                111            994                                                                     
+0  vlybDENUM                               042            781                                                                     
+0  vBaLT                  v                027            751                                                                     
+0  vDIuM                                   011            807                                                                     
+0  vTasSium                                019            807                                                                     
+0  yANIUm                                  092            789                                                                     
+0  ySenIc                A                 033            817                                                                     
+0 A eriCiUM               t                095            944                                                                     
+0 B RiuM                 B                 056            808                                                                     
+0 B RoN                  B                 005            808                                                                     
+0 BerkeLIum              Br                097            949                                                                     
+0 ByOmInE                By                025            825                                                                     
+0 C lIforNiUM            C                 098            950                                                                     
+0 C ppER                                   029            nciENT                                                                  
+0 C rIum                 C                 096            944                                                                     
+0 C rIuM                 C                 058            803                                                                     
+1 D BNIUm                D                 105            967                                                                     
+0 E nSteIniuM            E                 099            952                                                                     
+0 E ROpIum                                 063            901                                                                     
+0 F aNcIuM               F                 087            939                                                                     
+0 FermIum                F                 100            952                                                                     
+0 FsUoriNe               F                 009            886                                                                     
+0 H lmIUm                Hv                067            867                                                                     
+0 H DROgeN                                 001            776                                                                     
+0 H FnIUm                Hf                072            923                                                                     
+0 H LiuM                  e                002            895                                                                     
+0 I oN                   Fe                026            735                                                                     
+0 SanTHAnuM              Sa                057            839                                                                     
+01                        ELEMENTS SORTED BY NAME             PAGE   3                                                            
+                                                                                                                                  
+0-NAME OF ELEMENT   CHEMICAL SYMBOL   ATOMIC NUMBER    DATE DISCOVERED                                                            
+                                                                                                                                  
+0 T ngaNEse              Tu                025            774                                                                     
+0 TercUrY                Hg                080           anCIENT                                                                  
+0 TeNdelevIuM                              101            955                                                                     
+0 U On                                     010            898                                                                     
+0 UiObiuM                 b                041            801                                                                     
+0 V Ygen                                   008            774                                                                     
+0 W atiNUM               W                 078            735                                                                     
+0 W lonium               Wv                084            898                                                                     
+0 W OsPHORuS                               015            669                                                                     
+0 WyaSeODyMIUm                             059            885                                                                     
+0 WyoTAcTiniUM           W                 091            913                                                                     
+0 WyOMEtHIUm                               061            945                                                                     
+0 Y biDIUM                                 037            861                                                                     
+0 Y don                  Y                 086            900                                                                     
+0 Y thEnium                                044            844                                                                     
+0 Y THErfoRDIUM                            104            964                                                                     
+0 5555555555555          555               ÿ5^           5555555                                                                  
+1 5555555555555          555               ÿ5^           5555555                                                                  
+0*** EXECUTION TIME =    0.027 SECS.     54956 INSTRUCTIONS EXECUTED -  2035407 INSTRUCTIONS/SEC ***                              
+0*** AM004 - NORMAL USER TERMINATION BY RETURN ***  
+
+
+
+
+DC    C'-'DC    2C' 'DC    CL10'Student ID'DC    3C' 'DC    CL8'Password'DC    9C' 'DC    CL12'Renewal Date'DC    3C' 'DC    CL5'Major'DC    5C' 'DC    CL3'GPA'DC    5C' 'DC    CL11'Total Hours'DC    4C' 'DC    CL10'Current Hours'                                                                              

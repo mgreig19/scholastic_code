@@ -1,0 +1,33 @@
+#! /bin/bash							#enables scripting
+BEGIN {								#header section
+	recordCount = 0; Zsales = 0; Ysales = 0; Xsales = 0	#setting counts to zero in order to track sales and record totals
+	print "\nSales Data for year 2014"
+	print "========================="			#prints the title and accompanying border format line
+}
+{
+	if($1 == "2014" && $3 == "Z")
+		Zsales += $4+$5+$6+$7+$8	#if the year in argument 1 is equal to 2014 and argument 3 is equal to station Z then add the proceding argument values to the variable Zsales
+
+	if($1 == "2014" && $3 == "Y")
+		Ysales += $4+$5+$6+$7+$8	#if the year in argument 1 is equal to 2014 and argument 3 is equal to station Y then add the proceding argument values to the variable Ysales 
+
+	if($1 == "2014" && $3 == "X")
+		Xsales += $4+$5+$6+$7+$8	#if the year in argument 1 is equal to 2014 and argument 3 is equal to station X then add the proceding argument values to the variable Xsales
+
+	if($1 == "2014")
+                {
+                        printf("%7s%8.2f\n", $2":\t", $4+$5+$6+$7+$8)	#if the value in argument 1 is equal to 2014 then print out the value stored in agrument 3(month abreviation), and prints the sum of all sales made in that month
+                        salesTotal = Zsales + Ysales + Xsales		#stores the sum of all the station sales into the variable salesTotal
+                        recordCount++					#add one to the current value for the amount of records found and processed, store in recordCount
+                }
+}
+END {									#footer section
+	print "========================="				#prints a border format line
+	print "Station volume for 2014 is:"				#the title which describes the next section of data
+	printf("%7s%8.2f\n", "X:\t", Xsales)
+	printf("%7s%8.2f\n", "Y:\t", Ysales)				#prints the total sales of each station for the year of 2014
+	printf("%7s%8.2f\n", "Z:\t", Zsales)
+	print "========================="				#prints a border format line
+	printf("%s%8.2f\n", "Total:\t", salesTotal)			#prints the total sales for the year stored in salesTotal
+	print recordCount, "records processed\n"			#prints the number of records processed in the above program
+}

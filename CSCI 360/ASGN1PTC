@@ -1,0 +1,49 @@
+//KC03KA9 JOB ,'MASON GREIG',MSGCLASS=H                                 00010003
+//STEP1 EXEC PGM=ASSIST                                                 00020000
+//STEPLIB DD DSN=KC02293.ASSIST.LOADLIB,DISP=SHR                        00030000
+//SYSPRINT DD SYSOUT=*                                                  00040000
+//SYSIN DD *                                                            00050000
+********************************************                            00060000
+* ASSIGNMENT 1                                                          00070000
+*                                                                       00080000
+* NAME: MASON GREIG                                                     00090000
+*                                                                       00100000
+* PART C                                                                00110007
+* REWRITE ASSIGNMENT 1 USING EXPLICIT ADDRESSING                        00111007
+* DECLARE TWO CONSECUTIVE FULLWORDS OF,                                 00120005
+* STORAGE CALLED DIFF AND SUM                                           00121005
+* STORE THE FIRST ANSWER (NUM1 MINUS NUM2) INTO DIFF                    00130005
+* STORE THE SECOND ANSWER (NUM1 PLUS NUM2) INTO SUM                     00130105
+* USE XDUMP TO DUMP OUT THE VALUES IN THAT AREA OF STORAGE              00133005
+* CONTAINING RESULT1 AND RESULT2                                        00134005
+*                                                                       00134106
+* REGISTER USAGE                                                        00135006
+* 2   HOLDS NUM1 AND THE DIFFERENCE OF 2 AND 9                          00136013
+* 9   HOLDS NUM2                                                        00138006
+* 7   HOLDS NUM1 AND THE SUM OF 7 AND 12                                00139013
+* 12  HOLDS NUM2                                                        00139106
+* NUM1 HOLDS THE VALUE 249                                              00140013
+* NUM2 HOLDS THE VALUE 117                                              00150013
+* DIFF HOLD THE DIFFERENCE OF REG 2 AND 9                               00151013
+* SUM HOLDS THE SUM OF REG 7 AND 12                                     00152013
+********************************************                            00160000
+MAIN     CSECT                                                          00170000
+         USING MAIN,15                                                  00180000
+         L     2,44(,15)                                                00190012
+         L     9,48(,15)                                                00200012
+         SR    2,9                                                      00210001
+         ST    2,52(,15)                                                00211012
+         XDUMP 52(,15),4                                                00212012
+         L     7,44(,15)                                                00220012
+         L     12,48(,15)                                               00230012
+         AR    7,12                                                     00240000
+         ST    7,56(,15)                                                00240112
+         XDUMP 56(,15),4                                                00241012
+         BR    14                                                       00242001
+NUM1     DC    F'249'                                                   00250000
+NUM2     DC    F'117'                                                   00260000
+DIFF     DS    F                                                        00270005
+SUM      DS    F                                                        00271005
+         END   MAIN                                                     00280000
+/*                                                                      00290000
+//                                                                      00300000

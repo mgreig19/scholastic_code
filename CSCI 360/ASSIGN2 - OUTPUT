@@ -1,0 +1,131 @@
+NUM11                    J E S 2  J O B  L O G  --  S Y S T E M  S 0 W 1  --  N O D E  Z O S K C T R         
+0 
+ 22.58.26 JOB07464 ---- SATURDAY,  16 SEP 2017 ----
+ 22.58.26 JOB07464  IRR010I  USERID KC03KA9  IS ASSIGNED TO THIS JOB.
+ 22.58.26 JOB07464  ICH70001I KC03KA9  LAST ACCESS AT 22:52:43 ON SATURDAY, SEPTEMBER 16, 2017
+ 22.58.26 JOB07464  $HASP373 KC03KA9A STARTED - INIT 2    - CLASS A        - SYS S0W1
+ 22.58.26 JOB07464  -                                         --TIMINGS (MINS.)--            ----PAGING COUNTS---
+ 22.58.26 JOB07464  -JOBNAME  STEPNAME PROCSTEP    RC   EXCP    TCB    SRB  CLOCK   SERV  PG   PAGE   SWAP    VIO SWAPS
+ 22.58.26 JOB07464  -KC03KA9A                      00     45 ******    .00     .0    124   0      0      0      0     0
+ 22.58.26 JOB07464  -KC03KA9A ENDED.  NAME-MASON GREIG          TOTAL TCB CPU TIME=   .00  TOTAL ELAPSED TIME=    .0
+ 22.58.26 JOB07464  $HASP395 KC03KA9A ENDED
+0------ JES2 JOB STATISTICS ------
+-  16 SEP 2017 JOB EXECUTION DATE
+-           79 CARDS READ
+-          131 SYSOUT PRINT RECORDS
+-            0 SYSOUT PUNCH RECORDS
+-           13 SYSOUT SPOOL KBYTES
+-         0.00 MINUTES EXECUTION TIME
+         1 //KC03KA9A JOB ,'MASON GREIG',MSGCLASS=H                                JOB07464
+         2 //STEP1   EXEC  PGM=ASSIST                                              00020000
+         3 //STEPLIB   DD  DSN=KC02293.ASSIST.LOADLIB,DISP=SHR                     00030000
+         4 //SYSPRINT  DD  SYSOUT=*                                                00040000
+         5 //SYSIN     DD  *                                                       00050000
+         6 //FT05F001  DD  *                    INPUT DATA                         00660009
+         7 //FT06F001  DD SYSOUT=*                                                 00790000
+ ICH70001I KC03KA9  LAST ACCESS AT 22:52:43 ON SATURDAY, SEPTEMBER 16, 2017
+ IEF236I ALLOC. FOR KC03KA9A STEP1
+ IGD103I SMS ALLOCATED TO DDNAME STEPLIB
+ IEF237I JES2 ALLOCATED TO SYSPRINT
+ IEF237I JES2 ALLOCATED TO SYSIN
+ IEF237I JES2 ALLOCATED TO FT05F001
+ IEF237I JES2 ALLOCATED TO FT06F001
+ IEF142I KC03KA9A STEP1 - STEP WAS EXECUTED - COND CODE 0000
+ IGD104I KC02293.ASSIST.LOADLIB                       RETAINED,  DDNAME=STEPLIB 
+ IEF285I   KC03KA9.KC03KA9A.JOB07464.D0000103.?         SYSOUT        
+ IEF285I   KC03KA9.KC03KA9A.JOB07464.D0000101.?         SYSIN         
+ IEF285I   KC03KA9.KC03KA9A.JOB07464.D0000102.?         SYSIN         
+ IEF285I   KC03KA9.KC03KA9A.JOB07464.D0000104.?         SYSOUT        
+ IEF373I STEP/STEP1   /START 2017259.2258
+ IEF032I STEP/STEP1   /STOP  2017259.2258 
+         CPU:     0 HR  00 MIN  00.00 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+         VIRT:   584K  SYS:   268K  EXT:        0K  SYS:    11508K
+         ATB- REAL:                     0K  SLOTS:                     0K
+              VIRT- ALLOC:       0M SHRD:       0M
+ IEF375I  JOB/KC03KA9A/START 2017259.2258
+ IEF033I  JOB/KC03KA9A/STOP  2017259.2258 
+         CPU:     0 HR  00 MIN  00.00 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+1*** ASSIST 4.0/A2-05/15/82  470/V7A/0:OS/VS2  INS=SDFP7/X=BGHO, CHECK/TRC/=1180, OPTS=CDKMPR FROM PENN ST*NIU COMPSCI*LT         
+0                                                                                                                                 
+0                                                                                                               PAGE    1         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                       1 ***********************************************************             00060000         
+                                       2 *                                                                       00070000         
+                                       3 * PROGRAM:      ASSIGN2                                                 00080000         
+                                       4 * PROGRAMMER:   MASON GREIG                                             00090000         
+                                       5 *                                                                       00100000         
+                                       6 * REGISTER USAGE:                                                       00110000         
+                                       7 *   1        USED BY XDECI                                              00120000         
+                                       8 *  15        BASE REGISTER                                              00130000         
+                                       9 *   4        HOLDS THE VALUE OF X                                       00140001         
+                                      10 *   5        HOLDS THE VALUE OF Y                                       00150000         
+                                      11 *   6        HOLDS THE VALUE OF Z                                       00160001         
+                                      12 *   7        RESULT REGISTER                                            00170001         
+                                      13 *   8        LINE COUNT REGISTER                                        00180001         
+                                      14 *   9        TOTAL REGISTER                                             00190001         
+                                      15 ***********************************************************             00200000         
+ 000000                               16 MAIN     CSECT                                                          00210000         
+ 000000                               17          USING MAIN,15                                                  00220000         
+ 000000 1B88                          18          SR    8,8                   INITIALIZE THE LINE COUNT REG      00230002         
+ 000002 1B99                          19          SR    9,9                   INITIALIZE THE RESULT LINE         00240001         
+ 000004 E000 F050 0050 00050          20 TOP1     XREAD BUFFER,80             TOP OF LOOP/READ A LINE            00250001         
+ 00000A 4740 F040            00040    21          BC    B'0100',END1          IF READ IN FAILS GOTO END1         00260001         
+ 00000E 5340 F050            00050    22          XDECI 4,BUFFER              STORE THE FIRST NUM IN REG 4       00270009         
+ 000012 5350 1000            00000    23          XDECI 5,0(0,1)              STORE THE SECOND NUM IN REG 5      00280009         
+ 000016 5360 1000            00000    24          XDECI 6,0(0,1)              STORE THE THIRD NUM IN REG 6       00290009         
+ 00001A 5240 F0A4            000A4    25          XDECO 4,OUTX                STORE VALUE OF REG 4 IN OUTX       00300009         
+ 00001E 5250 F0BD            000BD    26          XDECO 5,OUTY                STORE VALUE OF REG 5 IN OUTY       00310009         
+ 000022 5260 F0D6            000D6    27          XDECO 6,OUTZ                STORE VALUE OF REG 6 IN OUTZ       00320009         
+ 000026 5A80 F148            00148    28          A     8,=F'1'               INCREMENT THE LINE COUNT           00330001         
+ 00002A 1875                          29          LR    7,5                   COPYREG 5 TO REG 7 (Y IN 7)        00340006         
+ 00002C 1A76                          30          AR    7,6                   ADD REG 6 TO REG 7 (Y + Z)         00350001         
+ 00002E 1B74                          31          SR    7,4                   SUBTRACT 4 FROM 7 (Y + Z - X)      00360001         
+ 000030 1A97                          32          AR    9,7                   ADD THE RESULT TO THE TOTAL SUM    00370001         
+ 000032 5270 F0F4            000F4    33          XDECO 7,YZX                 STORE VALUE AT REG 7 IN YZX        00380009         
+ 000036 E020 F0A0 0060 000A0          34          XPRNT OUTLINE,96            PRINT THE REPORT LINE              00390008         
+ 00003C 47F0 F004            00004    35          BC    B'1111',TOP1          RETURN TO THE TOP OF THE LOOP      00400001         
+ 000040 5290 F138            00138    36 END1     XDECO 9,TOTALSUM            STORE VALUE IN REG 9 AT ADDRESS    00410009         
+ 000044 5280 F112            00112    37          XDECO 8,LINENUM             STORE VALUE IN REG 8 AT ADDRESS    00420009         
+ 000048 E020 F100 0044 00100          38          XPRNT STATLINE,68           PRINT THE SUMMARY LINE             00430007         
+ 00004E 07FE                          39          BCR    B'1111',14           EXIT PROGRAM                       00440001         
+ 000050                               40 BUFFER   DS    80C                   LABEL WHERE INPUT WILL BE STORED   00450009         
+ 0000A0 F0                            41 OUTLINE  DC    C'0'                  START OF OUTPUT LINE               00460009         
+ 0000A1 E7407E                        42          DC    C'X ='                LITERAL 'X =' LOCATED AT START LNE 00470010         
+ 0000A4                               43 OUTX     DS    CL12                  VALUE OF X LOCATED AFTER 'X ='     00480009         
+ 0000B0 4040404040404040              44          DC    CL10' '               TEN BLANK SPACES FOR PADDING       00490009         
+ 0000BA E8407E                        45          DC    C'Y ='                LITERAL 'Y =' AFTER PADDING        00500009         
+ 0000BD                               46 OUTY     DS    CL12                  VALUE OF Y LOCATED AFTER 'Y ='     00510009         
+ 0000C9 4040404040404040              47          DC    CL10' '               TEN BLANK SPACES FOR PADDING       00520009         
+ 0000D3 E9407E                        48          DC    C'Z ='                LITERAL 'Z =' AFTER PADDING        00530009         
+ 0000D6                               49 OUTZ     DS    CL12                  VALUE OF Z LOCATED AFTER 'Z ='     00540009         
+ 0000E2 4040404040404040              50          DC    CL10' '               TEN BLANK SPACES OF PADDING        00550009         
+ 0000EC D9C5E2E4D3E3407E              51          DC    C'RESULT ='           LITERAL 'RESULT =' AFTER PADDING   00560009         
+ 0000F4                               52 YZX      DS    CL12                  VALUE OF CALCULATION RESULT        00570009         
+1                                                                                                               PAGE    2         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+ 000100 F0                            53 STATLINE DC    C'0'                  START OF SUMMARY LINE              00580009         
+ 000101 D5E4D4C2C5D940D6              54          DC    C'NUMBER OF LINES ='  LITERAL 'NUMBER OF LINES ='        00590010         
+ 000112                               55 LINENUM  DS    CL12                  VALUE OF LINE COUNT                00600009         
+ 00011E 4040404040404040              56          DC    CL10' '               TEN BLANK SPACES FOR PADDING       00610009         
+ 000128 E2E4D440D6C640D9              57          DC    C'SUM OF RESULTS ='   LITERAL PUT AFTER PADDING          00620009         
+ 000138                               58 TOTALSUM DS    CL12                  THE SUM OF ALL THE RESULTS         00630009         
+                                      59          END   MAIN                  END OF THE MAIN PROGRAM            00640009         
+ 000148 00000001                      60                =F'1'                                                                     
+0***  NO   STATEMENTS FLAGGED -  NO   WARNINGS,  NO   ERRORS                                                                      
+0*** DYNAMIC CORE AREA USED:  LOW:    4024 HIGH:     536 LEAVING:  489008 FREE BYTES. AVERAGE:       74 BYTES/STMT ***            
+0*** ASSEMBLY TIME =    0.000 SECS,    61000 STATEMENTS/SEC ***                                                                   
+0*** PROGRAM EXECUTION BEGINNING - ANY OUTPUT BEFORE EXECUTION TIME MESSAGE IS PRODUCED BY USER PROGRAM ***                       
+0X =        8163          Y =        2529          Z =        2805          RESULT =       -2829                                  
+0X =        4536          Y =        1839          Z =        5741          RESULT =        3044                                  
+0X =         591          Y =        7843          Z =        9487          RESULT =       16739                                  
+0X =        4190          Y =        3057          Z =        2775          RESULT =        1642                                  
+0X =        2399          Y =         667          Z =        4129          RESULT =        2397                                  
+0X =        8118          Y =        3961          Z =        6535          RESULT =        2378                                  
+0X =        4765          Y =         498          Z =        1111          RESULT =       -3156                                  
+0X =        9056          Y =        2345          Z =        1110          RESULT =       -5601                                  
+0X =           1          Y =           2          Z =           3          RESULT =           4                                  
+0X =        9999          Y =        9998          Z =        9997          RESULT =        9996                                  
+0X =        8001          Y =        7999          Z =        3512          RESULT =        3510                                  
+0NUMBER OF LINES =          11          SUM OF RESULTS =       28124                                                              
+0*** EXECUTION TIME =    0.001 SECS.       184 INSTRUCTIONS EXECUTED -   184000 INSTRUCTIONS/SEC ***                              
+0*** AM004 - NORMAL USER TERMINATION BY RETURN ***                                                                                

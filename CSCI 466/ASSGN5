@@ -1,0 +1,453 @@
+1                    J E S 2  J O B  L O G  --  S Y S T E M  S 0 W 1  --  N O D E  Z O S K C T R         
+0 
+ 23.36.23 JOB02103 ---- MONDAY,    23 OCT 2017 ----
+ 23.36.23 JOB02103  IRR010I  USERID KC03KA9  IS ASSIGNED TO THIS JOB.
+ 23.36.23 JOB02103  ICH70001I KC03KA9  LAST ACCESS AT 23:36:03 ON MONDAY, OCTOBER 23, 2017
+ 23.36.23 JOB02103  $HASP373 KC03KA9K STARTED - INIT 2    - CLASS A        - SYS S0W1
+ 23.36.23 JOB02103  -                                         --TIMINGS (MINS.)--            ----PAGING COUNTS---
+ 23.36.23 JOB02103  -JOBNAME  STEPNAME PROCSTEP    RC   EXCP    TCB    SRB  CLOCK   SERV  PG   PAGE   SWAP    VIO SWAPS
+ 23.36.23 JOB02103  -KC03KA9K                      00     73 ******    .00     .0    236   0      0      0      0     0
+ 23.36.23 JOB02103  -KC03KA9K ENDED.  NAME-MASON GREIG          TOTAL TCB CPU TIME=   .00  TOTAL ELAPSED TIME=    .0
+ 23.36.23 JOB02103  $HASP395 KC03KA9K ENDED
+0------ JES2 JOB STATISTICS ------
+-  23 OCT 2017 JOB EXECUTION DATE
+-          288 CARDS READ
+-          453 SYSOUT PRINT RECORDS
+-            0 SYSOUT PUNCH RECORDS
+-           49 SYSOUT SPOOL KBYTES
+-         0.00 MINUTES EXECUTION TIME
+         1 //KC03KA9K JOB ,'MASON GREIG',MSGCLASS=H                                JOB02103
+         2 //STEP1 EXEC PGM=ASSIST                                                 00061119
+         3 //STEPLIB DD DSN=KC02293.ASSIST.LOADLIB,DISP=SHR                        00061220
+         4 //SYSPRINT DD SYSOUT=*                                                  00061319
+         5 //SYSIN DD *                                                            00061419
+         6 //FT05F001 DD DSN=KC02314.AUTUMN17.CSCI360.HW5DATA,DISP=SHR             00227057
+ ICH70001I KC03KA9  LAST ACCESS AT 23:36:03 ON MONDAY, OCTOBER 23, 2017
+ IEF236I ALLOC. FOR KC03KA9K STEP1
+ IGD103I SMS ALLOCATED TO DDNAME STEPLIB
+ IEF237I JES2 ALLOCATED TO SYSPRINT
+ IEF237I JES2 ALLOCATED TO SYSIN
+ IGD103I SMS ALLOCATED TO DDNAME FT05F001
+ IEF142I KC03KA9K STEP1 - STEP WAS EXECUTED - COND CODE 0000
+ IGD104I KC02293.ASSIST.LOADLIB                       RETAINED,  DDNAME=STEPLIB 
+ IEF285I   KC03KA9.KC03KA9K.JOB02103.D0000102.?         SYSOUT        
+ IEF285I   KC03KA9.KC03KA9K.JOB02103.D0000101.?         SYSIN         
+ IGD104I KC02314.AUTUMN17.CSCI360.HW5DATA             RETAINED,  DDNAME=FT05F001
+ IEF373I STEP/STEP1   /START 2017296.2336
+ IEF032I STEP/STEP1   /STOP  2017296.2336 
+         CPU:     0 HR  00 MIN  00.01 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+         VIRT:   584K  SYS:   268K  EXT:        4K  SYS:    12008K
+         ATB- REAL:                     0K  SLOTS:                     0K
+              VIRT- ALLOC:       0M SHRD:       0M
+ IEF375I  JOB/KC03KA9K/START 2017296.2336
+ IEF033I  JOB/KC03KA9K/STOP  2017296.2336 
+         CPU:     0 HR  00 MIN  00.01 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+1*** ASSIST 4.0/A2-05/15/82  470/V7A/0:OS/VS2  INS=SDFP7/X=BGHO, CHECK/TRC/=1180, OPTS=CDKMPR FROM PENN ST*NIU COMPSCI*LT         
+0                                                                                                                                 
+0                                                                                                               PAGE    1         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                       1 *****************************************************                   00062019         
+                                       2 *                                                                       00070001         
+                                       3 * ASSIGNMENT 5                                                          00080001         
+                                       4 *                                                                       00090001         
+                                       5 * NAME: MASON GREIG                                                     00100001         
+                                       6 *                                                                       00110001         
+                                       7 * FUNCTION: THIS PROGRAM USES EXTERNAL SUBROUTINES                      00120004         
+                                       8 *           TO BUILD, SEARCH, AND PRINT OUT A TABLE                     00130004         
+                                       9 *           OF NUMBERS. THIS PROGRAM WILL ALSO PRINT OUT                00140004         
+                                      10 *           THE SEARCH SUMMARY TABLE.                                   00150004         
+                                      11 *                                                                       00151004         
+                                      12 * INPUT:  THE INPUT IS A DATA FILE SUPPLIED BY THE PROFESSOR.           00160004         
+                                      13 *                                                                       00170001         
+                                      14 * REGISTER USAGE                                                        00171004         
+                                      15 *                                                                       00171104         
+                                      16 * 13 MAINSAVE REGISTER                                                  00171204         
+                                      17 * 12 MAIN BASE REGISTER                                                 00172004         
+                                      18 *  1 PARAMETER LIST                                                     00173004         
+                                      19 * 14 EXIT PROGRAM                                                       00174004         
+                                      20 * 14 RETURN REGISTER                                                    00175004         
+                                      21 * 10 FILE DATA                                                          00176055         
+                                      22 *  7 SEARCH CHECK                                                       00177004         
+                                      23 *                                                                       00178004         
+                                      24 *****************************************************                   00180001         
+                                      25 *                                                                       00181004         
+ 000000                               26 MAIN     CSECT                                                          00190001         
+ 000000 90EC D00C            0000C    27          STM   14,12,12(13)             SAVES REGISTERS                 00200115         
+ 000004 18CF                          28          LR    12,15                    SETS REG 12 AS BASE REG         00200215         
+ 000000                               29          USING MAIN,12                                                  00200304         
+ 000006 41E0 C124            00124    30          LA    14,MAINSAVE              STORE MAINSAVE ADDRESS IN 12    00200415         
+ 00000A 50D0 E004            00004    31          ST    13,4(0,14)               SAVE FORWARD POINTER            00200515         
+ 00000E 50E0 D008            00008    32          ST    14,8(0,13)                   SAVE BACKWARD POINTER       00200615         
+ 000012 18DE                          33          LR    13,14                        POINTER TO MAINSAVE         00200715         
+                                      34 *                                                                       00200804         
+ 000014 E020 C284 0031 00284          35          XPRNT HEADER,49                    PRINTS HEADER               00200942         
+ 00001A E020 C2B5 0001 002B5          36          XPRNT HEADSPCE,1                   PRINTS FORMATTING LINE      00201015         
+ 000020 4110 C260            00260    37          LA    1,BUILDPAR                   SAVE PARAMETERS             00201115         
+ 000024 58F0 C0A0            000A0    38          L     15,=V(BUILD)                 LOAD A VIRTUAL ADDRESS OF   00201221         
+ 000028 05EF                          39          BALR  14,15                        ROUTINE AND BRANCH TO IT    00201315         
+                                      40 *                                                                       00201404         
+ 00002A 4110 C26C            0026C    41          LA    1,PRNTPAR                    SAVE PARAMETERS             00201515         
+ 00002E 58F0 C0A4            000A4    42          L     15,=V(PRINT)                 LOAD A VIRTUAL ADDRESS OF   00201621         
+ 000032 05EF                          43          BALR  14,15                        ROUTINE AND BRANCH TO IT    00201715         
+                                      44 *                                                                       00201804         
+ 000034 E020 C2D7 0001 002D7          45          XPRNT SPCE,1                                                   00201928         
+ 00003A E020 C2B6 0021 002B6          46          XPRNT RESULTS,33                   PRINTS A RESULTS HEADER     00202025         
+ 000040 E020 C2D7 0001 002D7          47          XPRNT SPCE,1                       PRINTS FORMATTING SPACE     00202115         
+ 000046 9240 C2EF      002EF          48 LNELOOP  MVI   SRESULT+23,C' '              DESTRUCTIVE OVERLAP         00202263         
+ 00004A D20D C2F0 C2EF 002F0 002EF    49          MVC   SRESULT+24(14),SRESULT+23                                00202363         
+ 000050 E000 C0C8 0050 000C8          50          XREAD BUFFER,80                    READS FROM INPUT FILE       00202415         
+ 000056 4740 C096            00096    51          BC    B'0100',ENDLINE              IF AT EOF GO TO ENDLINE     00202521         
+ 00005A 5390 C0C8            000C8    52          XDECI 9,BUFFER                     STORE BUFFER VALUE IN 9     00202615         
+1                                                                                                               PAGE    2         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+ 00005E 5090 C11C            0011C    53          ST    9,TARGET                     STORE 9 VALUE IN TARGET     00202715         
+ 000062 4110 C274            00274    54          LA    1,SEARCHP                    SAVE THE SEARCH PARAMETERS  00202821         
+ 000066 58F0 C0A8            000A8    55          L     15,=V(SEARCH)                LOAD A VIRTUAL ADDRESS OF   00202921         
+ 00006A 05EF                          56          BALR  14,15                        ROUTINE AND BRANCH TO IT    00203015         
+ 00006C 58A0 C120            00120    57          L     10,FOUND                     STORE FOUND CC INTO 7       00203154         
+ 000070 5290 C2E3            002E3    58          XDECO 9,NUMFND                     PUT VALUE IN 9 INTO NUMFND  00203253         
+ 000074 5970 C0AC            000AC    59          C     7,=F'0'                      COMPARE CC TO 0             00203315         
+ 000078 4780 C086            00086    60          BC    B'1000',NOTFND               IF EQUAL GO TO NOTFOUND     00203453         
+ 00007C D209 C2EF C0B0 002EF 000B0    61          MVC   SRESULT+23(10),=C' WAS FOUND'  DESTRUCTIVE OVERLAP       00203565         
+ 000082 47F0 C08C            0008C    62          BC    B'1111',ENDRSLT                GO TO ENDSLINE            00203622         
+                                      63 *                                                                       00203704         
+ 000086 D20D C2EF C0BA 002EF 000BA    64 NOTFND   MVC   SRESULT+23(14),=C' WAS NOT FOUND'  DESTRUCTVE OVRLAP     00203865         
+ 00008C E020 C2D8 0025 002D8          65 ENDRSLT  XPRNT SRESULT,37                       PRINT THE RESULT        00203938         
+ 000092 47F0 C046            00046    66          BC    B'1111',LNELOOP                  GO TO THE TOP OF LOOP   00204015         
+ 000096 58D0 D004            00004    67 ENDLINE  L     13,4(0,13)                       STANDARD EXIT LINKAGE   00204115         
+ 00009A 98EC D00C            0000C    68          LM    14,12,12(13)                                             00204204         
+ 00009E 07FE                          69          BR    14                            EXIT                       00204351         
+                                      70          LTORG                                                          00204422         
+ 0000A0 00000300                      71                =V(BUILD)                                                                 
+ 0000A4 000003E0                      72                =V(PRINT)                                                                 
+ 0000A8 00000500                      73                =V(SEARCH)                                                                
+ 0000AC 00000000                      74                =F'0'                                                                     
+ 0000B0 40E6C1E240C6D6E4              75                =C' WAS FOUND'                                                            
+ 0000BA 40E6C1E240D5D6E3              76                =C' WAS NOT FOUND'                                                        
+ 0000C8                               77 BUFFER   DS    80C                                                      00204504         
+ 000118 5C                            78          DC    C'*'                                                     00204604         
+ 00011C                               79 TARGET   DS    F                                                        00204704         
+ 000120                               80 FOUND    DS    F                                                        00204804         
+ 000124                               81 MAINSAVE DS    18F                                                      00204904         
+ 00016C FFFFFFFFFFFFFFFF              82 TABLE    DC    60F'-1'                                                  00205063         
+ 00025C                               83 EOT      DS    F                                                        00205104         
+                                      84 *                                                                       00205204         
+ 000260 0000016C                      85 BUILDPAR DC    A(TABLE)                                                 00205304         
+ 000264 0000025C                      86          DC    A(EOT)                                                   00205404         
+ 000268 000000C8                      87          DC    A(BUFFER)                                                00205504         
+ 00026C 0000016C                      88 PRNTPAR  DC    A(TABLE)                                                 00205604         
+ 000270 0000025C                      89          DC    A(EOT)                                                   00205704         
+ 000274 0000016C                      90 SEARCHP  DC    A(TABLE)                                                 00205804         
+ 000278 0000025C                      91          DC    A(EOT)                                                   00205904         
+ 00027C 0000011C                      92          DC    A(TARGET)                                                00206004         
+ 000280 00000120                      93          DC    A(FOUND)                                                 00206104         
+                                      94 *                                                                       00206204         
+ 000284 F1                            95 HEADER   DC    C'1'                                                     00206304         
+ 000285 4040404040404040              96          DC    CL34' '                                                  00206438         
+ 0002A7 E3C1C2D3C540C3D6              97          DC    C'TABLE CONTENTS'                                        00206529         
+ 0002B5 F0                            98 HEADSPCE DC    C'0'                                                     00206604         
+                                      99 *                                                                       00206704         
+ 0002B6 60                           100 RESULTS  DC    C'-'                                                     00206804         
+ 0002B7 60D9C5E2E4D3E3E2             101          DC    C'-RESULTS OF SEARCHING THE TABLE-'                      00206904         
+ 0002D7 F0                           102 SPCE     DC    C'0'                                                     00207004         
+ 0002D8 60                           103 SRESULT  DC    C'-'                                                     00207104         
+ 0002D9 60E3C1D9C7C5E340             104          DC    C'-TARGET = '                                            00207326         
+ 0002E3                              105 NUMFND   DS    12C                                                      00207523         
+ 0002EF                              106          DS    14C                                                      00207638         
+                                     107 *                                                                       00207704         
+                                     108 **********************************************                          00207804         
+                                     109 *                                                                       00207904         
+1                                                                                                               PAGE    3         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                     110 * BUILD                                                                 00208004         
+                                     111 *                                                                       00208104         
+                                     112 * FUNCTION: THIS METHOD BUILDS THE TABLE OUT OF                         00208204         
+                                     113 *           DATA WHICH IS READ IN FROM THE INPUT FILE                   00208304         
+                                     114 *                                                                       00208404         
+                                     115 * OUTPUT: N/A                                                           00208504         
+                                     116 *                                                                       00208604         
+                                     117 * REGISTER USAGE                                                        00208704         
+                                     118 *                                                                       00208804         
+                                     119 *  4    INPUT VALUE                                                     00208904         
+                                     120 *  5    EOF NUMBER TO CHECK                                             00209004         
+                                     121 *  7    TABLE                                                           00209104         
+                                     122 *  8    EOT                                                             00209204         
+                                     123 *  9    INPUT BUFFER                                                    00209304         
+                                     124 * 10    COUNTER                                                         00209460         
+                                     125 **********************************************                          00209504         
+                                     126 *                                                                       00209604         
+ 000300                              127 BUILD    CSECT                                                          00209704         
+ 000300 90EC D00C            0000C   128          STM   14,12,12(13)                                             00209804         
+ 000304 18CF                         129          LR    12,15                                                    00209904         
+ 000300                              130          USING BUILD,12                                                 00210004         
+ 000306 41E0 C094            00394   131          LA    14,BUILDSVE                                              00210104         
+ 00030A 50D0 E004            00004   132          ST    13,4(0,14)                                               00210204         
+ 00030E 50E0 D008            00008   133          ST    14,8(0,13)                                               00210304         
+ 000312 18DE                         134          LR    13,14                                                    00210404         
+ 000314 1BAA                         135          SR    10,10                                                    00210538         
+                                     136 *                                                                       00210604         
+ 000316 9879 1000            00000   137          LM    7,9,0(1)                                                 00210704         
+ 00031A 5850 C088            00388   138          L     5,=F'-77777777'                                          00210804         
+ 00031E E000 9000 0050 00000         139 BLDLOOP  XREAD 0(0,9),80                                                00210904         
+ 000324 4740 C078            00378   140          BC    B'0100',ENDBLD                                           00211004         
+ 000328 59A0 C08C            0038C   141          C     10,=F'56'                                                00211150         
+ 00032C 4780 C078            00378   142          BC    B'1000',ENDBLD                                           00211250         
+ 000330 5340 9000            00000   143          XDECI 4,0(0,9)                                                 00211340         
+ 000334 4710 C01E            0031E   144          BC    B'0001',BLDLOOP                                          00211404         
+ 000338 1954                         145          CR    5,4                                                      00211504         
+ 00033A 4780 C078            00378   146          BC    B'1000',ENDBLD                                           00211604         
+ 00033E 59A0 C08C            0038C   147          C     10,=F'56'                                                00211747         
+ 000342 4780 C078            00378   148          BC    B'1000',ENDBLD                                           00211847         
+ 000346 5040 7000            00000   149          ST    4,0(0,7)                                                 00211904         
+ 00034A 5AA0 C090            00390   150          A     10,=F'1'                                                 00212047         
+ 00034E 4170 7004            00004   151          LA    7,4(0,7)                                                 00212104         
+ 000352 5340 1000            00000   152 BLDLOOP2 XDECI 4,0(0,1)                                                 00212241         
+ 000356 4710 C01E            0031E   153          BC    B'0001',BLDLOOP                                          00212340         
+ 00035A 1954                         154          CR    5,4                                                      00212440         
+ 00035C 4780 C078            00378   155          BC    B'1000',ENDBLD                                           00212540         
+ 000360 59A0 C08C            0038C   156          C     10,=F'56'                                                00212647         
+ 000364 4780 C078            00378   157          BC    B'1000',ENDBLD                                           00212747         
+ 000368 5040 7000            00000   158          ST    4,0(0,7)                                                 00212840         
+ 00036C 5AA0 C090            00390   159          A     10,=F'1'                                                 00212947         
+ 000370 4170 7004            00004   160          LA    7,4(0,7)                                                 00213040         
+ 000374 47F0 C052            00352   161          BC    B'1111',BLDLOOP2                                         00213104         
+                                     162 *                                                                       00213204         
+ 000378 5070 8000            00000   163 ENDBLD   ST    7,0(0,8)                                                 00213304         
+ 00037C 58D0 D004            00004   164          L     13,4(0,13)                                               00213404         
+ 000380 98EC D00C            0000C   165          LM    14,12,12(13)                                             00213504         
+ 000384 07FE                         166          BR    14                                                       00213604         
+1                                                                                                               PAGE    4         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                     167          LTORG                                                          00213704         
+ 000388 FB5D348F                     168                =F'-77777777'                                                             
+ 00038C 00000038                     169                =F'56'                                                                    
+ 000390 00000001                     170                =F'1'                                                                     
+ 000394                              171 BUILDSVE DS    18F                                                      00213804         
+                                     172 *                                                                       00213904         
+                                     173 **********************************************                          00214004         
+                                     174 *                                                                       00214104         
+                                     175 * PRINT                                                                 00214204         
+                                     176 *                                                                       00214304         
+                                     177 * FUNCTION: THIS METHOD PRINTS OUT THE TABLE                            00214404         
+                                     178 *           WHICH CONTAINS THE DATA. THIS TABLE                         00214504         
+                                     179 *           IS DOUBLE SPACE AND CONTAINS 7 NUMBERS                      00214604         
+                                     180 *           PER LINE.                                                   00214704         
+                                     181 *                                                                       00214804         
+                                     182 * INPUT: THE TABLE WHICH WAS BUILT FROM INPUT FILE VALUES               00214904         
+                                     183 *                                                                       00215004         
+                                     184 * OUTPUT: A FORMATTED TABLE WHICH DISPLAYS THE                          00215104         
+                                     185 *         DATA 7 NUMBERS PER LINE.                                      00215204         
+                                     186 *                                                                       00215304         
+                                     187 * REGISTER USAGE                                                        00215404         
+                                     188 *                                                                       00215546         
+                                     189 *  6    TABLE VALUE                                                     00215646         
+                                     190 *  7    TABLE                                                           00215746         
+                                     191 *  8    EOT                                                             00215846         
+                                     192 * 10    LINE VAULE COUNTER                                              00215946         
+                                     193 *                                                                       00216046         
+                                     194 **********************************************                          00216104         
+                                     195 *                                                                       00216204         
+ 0003E0                              196 PRINT    CSECT                                                          00216304         
+ 0003E0 90EC D00C            0000C   197          STM   14,12,12(13)                                             00216404         
+ 0003E4 18CF                         198          LR    12,15                                                    00216504         
+ 0003E0                              199          USING PRINT,12                                                 00216604         
+ 0003E6 41E0 C080            00460   200          LA    14,PRNTSVE                                               00216704         
+ 0003EA 50D0 E004            00004   201          ST    13,4(0,14)                                               00216804         
+ 0003EE 50E0 D008            00008   202          ST    14,8(0,13)                                               00216904         
+ 0003F2 18DE                         203          LR    13,14                                                    00217004         
+ 0003F4 9878 1000            00000   204          LM    7,8,0(1)                                                 00217104         
+                                     205 *                                                                       00217204         
+ 0003F8 5970 8000            00000   206 PRNTLOOP C     7,0(0,8)                                                 00217304         
+ 0003FC 4780 C06C            0044C   207          BC    B'1000',ENDPRNT                                          00217422         
+ 000400 9240 C0C9      004A9         208          MVI   PRNTLINE+1,C' '                                          00217537         
+ 000404 D254 C0CA C0C9 004AA 004A9   209          MVC   PRNTLINE+2(85),PRNTLINE+1                                00217663         
+ 00040A 4190 C0C8            004A8   210          LA    9,PRNTLINE                                               00217704         
+ 00040E 4190 9001            00001   211          LA    9,1(0,9)                                                 00217804         
+ 000412 1BAA                         212          SR    10,10                                                    00217904         
+                                     213 *                                                                       00218004         
+ 000414 5970 8000            00000   214 PLOOP2   C     7,0(0,8)                                                 00218125         
+ 000418 4780 C062            00442   215          BC    B'1000',ENDP2                                            00218204         
+ 00041C 59A0 C078            00458   216          C     10,=F'8'                                                 00218338         
+ 000420 4780 C062            00442   217          BC    B'1000',ENDP2                                            00218404         
+ 000424 5860 7000            00000   218          L     6,0(0,7)                                                 00218504         
+ 000428 5260 C112            004F2   219          XDECO 6,VALUE                                                  00218604         
+ 00042C D20B 9000 C112 00000 004F2   220          MVC   0(12,9),VALUE                                            00218704         
+ 000432 4190 900C            0000C   221          LA    9,12(0,9)                                                00218804         
+ 000436 5AA0 C07C            0045C   222          A     10,=F'1'                                                 00218904         
+ 00043A 4170 7004            00004   223          LA    7,4(0,7)                                                 00219004         
+1                                                                                                               PAGE    5         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+ 00043E 47F0 C034            00414   224          BC    B'1111',PLOOP2                                           00219104         
+                                     225 *                                                                       00219204         
+ 000442 E020 C0C8 0056 004A8         226 ENDP2    XPRNT PRNTLINE,86                                              00219363         
+ 000448 47F0 C018            003F8   227          BC    B'1111',PRNTLOOP                                         00219422         
+ 00044C 58D0 D004            00004   228 ENDPRNT  L     13,4(0,13)                                               00219504         
+ 000450 98EC D00C            0000C   229          LM    14,12,12(13)                                             00219604         
+ 000454 07FE                         230          BR    14                                                       00219704         
+                                     231          LTORG                                                          00219804         
+ 000458 00000008                     232                =F'8'                                                                     
+ 00045C 00000001                     233                =F'1'                                                                     
+                                     234 *                                                                       00219904         
+ 000460                              235 PRNTSVE  DS    18F                                                      00220004         
+ 0004A8 40                           236 PRNTLINE DC    C' '                                                     00220133         
+ 0004A9                              237          DS    73C                                                      00220238         
+ 0004F2                              238 VALUE    DS    12C                                                      00220326         
+                                     239 *                                                                       00220404         
+                                     240 ************************************************                        00220504         
+                                     241 *                                                                       00220604         
+                                     242 * SEARCH                                                                00220704         
+                                     243 *                                                                       00220804         
+                                     244 *  FUNCTION: THIS METHOD SEARCHES THE TABLE FOR                         00220904         
+                                     245 *            A VALUE THAT IS PASSED IN BY THE CALLING                   00221004         
+                                     246 *            PROGRAM.                                                   00221104         
+                                     247 *                                                                       00221204         
+                                     248 *  INTPUT: THIS METHOD TAKES 4 ARGUMENTS - THE ADDRESS                  00221304         
+                                     249 *          OF THE TABLE, THE ADDRESS OF THE EOT, TARGET VALUE           00221404         
+                                     250 *          , FOUND VALUE.                                               00221504         
+                                     251 *  OUTPUT: THIS METHOD SENDS A RETURN CONDITION CODE                    00221604         
+                                     252 *          WHICH INFORMS THE CALLING PROGRAM OF IF THE                  00221704         
+                                     253 *          SEARCH IS SUCCESSFUL.                                        00221804         
+                                     254 *                                                                       00221904         
+                                     255 *  REGISTER USAGE                                                       00222004         
+                                     256 *                                                                       00222156         
+                                     257 *   5    TARGET VALUE                                                   00222253         
+                                     258 *   6    TABLE  VALUE                                                   00222353         
+                                     259 *   7    TABLE                                                          00222404         
+                                     260 *   8    EOT                                                            00222504         
+                                     261 *   9    TARGET                                                         00222604         
+                                     262 *  10    CONDITION VALUE                                                00222753         
+                                     263 *                                                                       00222853         
+                                     264 ************************************************                        00222904         
+ 000500                              265 SEARCH   CSECT                                                          00223057         
+ 000500 90EC D00C            0000C   266          STM   14,12,12(13)                                             00223204         
+ 000504 18CF                         267          LR    12,15                                                    00223304         
+ 000500                              268          USING SEARCH,12                                                00223404         
+ 000506 41E0 C058            00558   269          LA    14,SRCHSAVE                                              00223504         
+ 00050A 50D0 E004            00004   270          ST    13,4(0,14)                                               00223604         
+ 00050E 50E0 D008            00008   271          ST    14,8(0,13)                                               00223704         
+ 000512 18DE                         272          LR    13,14                                                    00223804         
+ 000514 987A 1000            00000   273          LM    7,10,0(1)                                                00223904         
+ 000518 5850 9000            00000   274          L     5,0(0,9)                                                 00224004         
+                                     275 *                                                                       00224104         
+ 00051C 5860 7000            00000   276 SLOOP    L     6,0(0,7)                                                 00224253         
+ 000520 1956                         277          CR    5,6                                                      00224404         
+ 000522 4780 C036            00536   278          BC    B'1000',WASFOUND                                         00224504         
+ 000526 5970 8000            00000   279          C     7,0(0,8)                                                 00224653         
+ 00052A 4780 C03E            0053E   280          BC    B'1000',NOTFOUND                                         00224753         
+1                                                                                                               PAGE    6         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+ 00052E 4170 7004            00004   281          LA    7,4(0,7)                                                 00224804         
+ 000532 47F0 C01C            0051C   282          BC    B'1111',SLOOP                                            00224904         
+ 000536 58A0 C050            00550   283 WASFOUND L     10,=F'1'                                                 00225053         
+ 00053A 47F0 C042            00542   284          BC    B'1111',ENDSRCH                                          00225104         
+ 00053E 58A0 C054            00554   285 NOTFOUND L     10,=F'0'                                                 00225253         
+ 000542 58D0 D004            00004   286 ENDSRCH  L     13,4(0,13)                                               00225453         
+ 000546 98EC D00C            0000C   287          LM    14,12,12(13)                                             00225504         
+ 00054A 07FE                         288          BR    14                                                       00225604         
+                                     289          LTORG                                                          00225704         
+ 000550 00000001                     290                =F'1'                                                                     
+ 000554 00000000                     291                =F'0'                                                                     
+ 000558                              292 SRCHSAVE DS    18F                                                      00225804         
+                                     293 *                                                                       00225904         
+                                     294          END   MAIN                                                     00226004         
+0***  NO   STATEMENTS FLAGGED -  NO   WARNINGS,  NO   ERRORS                                                                      
+0*** DYNAMIC CORE AREA USED:  LOW:   13992 HIGH:    1468 LEAVING:  478108 FREE BYTES. AVERAGE:       52 BYTES/STMT ***            
+0*** ASSEMBLY TIME =    0.001 SECS,   295000 STATEMENTS/SEC ***                                                                   
+0*** PROGRAM EXECUTION BEGINNING - ANY OUTPUT BEFORE EXECUTION TIME MESSAGE IS PRODUCED BY USER PROGRAM ***                       
+1                                  TABLE CONTENTS                                                                                 
+0                                                                                                                                 
+            1       -2005         515          90          50          -1        6020                                             
+      -777224           3        7534      204914         141           0         -41                                             
+          218         111          46        9001      312909        -517           6                                             
+           89         305         250         305     7845902        -311         -99                                             
+            2        6509          -5         177          42         777        -900                                             
+        65712       88442         -84         131        5106         121           1                                             
+        95221         -80    -5005005          12          34        5678        88899                                            
+0                                                                                                                                 
+--RESULTS OF SEARCHING THE TABLE-                                                                                                 
+0                                                                                                                                 
+0*** EXECUTION TIME =    0.002 SECS.      1387 INSTRUCTIONS EXECUTED -   693500 INSTRUCTIONS/SEC ***                              
+0*** FIRST CARD NOT READ: 994                                                                                                     
+1 ASSIST COMPLETION DUMP                                                                                                          
+0PSW AT ABEND FFC50004 90000504       COMPLETION CODE   SYSTEM = 0C4 PROTECTION                                                   
+0** TRACE OF INSTRUCTIONS JUST BEFORE TERMINATION: PSW BITS SHOWN ARE THOSE BEFORE CORRESPONDING INSTRUCTION DECODED ***          
+0  IM LOCATION    INSTRUCTION :  IM = PSW BITS 32-39(ILC,CC,MASK) BEFORE INSTRUCTION EXECUTED AT PROGRAM LOCATION SHOWN           
+0  00  000046     9240 C2EF                                                                                                       
+0  80  00004A     D20D C2F0 C2EF                                                                                                  
+0  C0  000050     E000 C0C8 0050                                                                                                  
+0  C0  000056     4740 C096                                                                                                       
+0  80  00005A     5390 C0C8                                                                                                       
+0  90  00005E     5090 C11C                                                                                                       
+0  90  000062     4110 C274                                                                                                       
+0  90  000066     58F0 C0A8                                                                                                       
+0  90  00006A     05EF                                                                                                            
+0  50  000500     4040 4040       <-- LAST INSTRUCTION DONE - PROBABLE CAUSE OF TERMINATION                                       
+0                                                                                                                                 
+-** TRACE OF LAST 10 BRANCH INSTRUCTIONS EXECUTED: PSW BITS SHOWN ARE THOSE BEFORE CORRESPONDING INSTRUCTION DECODED ***          
+0  IM LOCATION    INSTRUCTION :  IM = PSW BITS 32-39(ILC,CC,MASK) BEFORE INSTRUCTION EXECUTED AT PROGRAM LOCATION SHOWN           
+0  20  00043E     47F0 C034                                                                                                       
+0  A0  00043E     47F0 C034                                                                                                       
+0  A0  00043E     47F0 C034                                                                                                       
+0  A0  00043E     47F0 C034                                                                                                       
+0  A0  00043E     47F0 C034                                                                                                       
+0  80  000418     4780 C062                                                                                                       
+0  80  000448     47F0 C018                                                                                                       
+0  80  0003FC     4780 C06C                                                                                                       
+0  80  000454     07FE                                                                                                            
+0  50  00006A     05EF                                                                                                            
+0 REGS 0-7      F4F4F4F4    00000274    F4F4F4F4    F4F4F4F4    F4F4F4F4    F4F4F4F4    F4F4F4F4    F4F4F4F4                      
+  REGS 8-15     F4F4F4F4    FFFFE09F    F4F4F4F4    F4F4F4F4    00000000    00000124    5000006C    00000500                      
+0 FLTR 0-6      F4F4F4F4F4F4F4F4        F4F4F4F4F4F4F4F4        F4F4F4F4F4F4F4F4        F4F4F4F4F4F4F4F4                          
+1 USER STORAGE                                                                                                                    
+0                             CORE ADDRESSES SPECIFIED-     000000 TO 0006E8                                                      
+ 000000   90ECD00C 18CF41E0 C12450D0 E00450E0    D00818DE E020C284 0031E020 C2B50001   *........A.............B.....B...*         
+ 000020   4110C260 58F0C0A0 05EF4110 C26C58F0    C0A405EF E020C2D7 0001E020 C2B60021   *..B..0......B..0......BP....B...*         
+ 000040   E020C2D7 00019240 C2EFD20D C2F0C2EF    E000C0C8 00504740 C0965390 C0C85090   *..BP... B.K.B0B....H... .....H..*         
+ 000060   C11C4110 C27458F0 C0A805EF 58A0C120    5290C2E3 5970C0AC 4780C086 D209C2EF   *A...B..0......A...BT........K.B.*         
+ 000080   C0B047F0 C08CD20D C2EFC0BA E020C2D8    002547F0 C04658D0 D00498EC D00C07FE   *...0..K.B.....BQ...0............*         
+ 0000A0   00000300 000003E0 00000500 00000000    40E6C1E2 40C6D6E4 D5C440E6 C1E240D5   *................ WAS FOUND WAS N*         
+ 0000C0   D6E340C6 D6E4D5C4 60F8F0F3 F3404040    40404040 40404040 40404040 40404040   *OT FOUND.8033                   *         
+ 0000E0   40404040 40404040 40404040 40404040    40404040 40404040 40404040 40404040   *                                *         
+ 000100   40404040 40404040 40404040 40404040    40404040 40404040 5CF5F5F5 FFFFE09F   *                        .555....*         
+ 000120   F5F5F5F5 F5F5F5F5 000005A0 00000460    40000034 000003E0 F4F4F4F4 0000026C   *55555555........ .......4444....*         
+ 000140   F4F4F4F4 F4F4F4F4 F4F4F4F4 F4F4F4F4    F4F4F4F4 F4F4F4F4 F4F4F4F4 F4F4F4F4   *44444444444444444444444444444444*         
+ 000160   F4F4F4F4 F4F4F4F4 00000000 00000001    FFFFF82B 00000203 0000005A 00000032   *44444444..........8.............*         
+ 000180   FFFFFFFF 0002A0BB 0000EB2D FFF423F8    00000003 00001D6E 00032072 0000008D   *.............4.8................*         
+ 0001A0   00000000 00093F4F FFFFFE5D 000000DA    0000006F 0000002E 00002329 0004C64D   *..............................F.*         
+ 0001C0   FFFFFDFB 00000009 0000003E 00000059    00000131 000000FA 00000131 0077B80E   *................................*         
+ 0001E0   FFFFFEC9 FFFE795F FFFFFC19 00000002    0000196D FFFFFFFB 000000B1 0000002A   *...I............................*         
+ 000200   00000309 00000159 FFFFDCCF 000100B0    0001597A FFFFFFAC 00000083 000013F2   *...............................2*         
+ 000220   00000079 FFFFFFA7 0000000F 000173F5    FFFFFFB0 FFB3A133 0000000C 00000022   *...............5................*         
+ 000240   0000162E 000022B9 FFFFFFFF FFFFFFFF    FFFFFFFF FFFFFFFF FFFFFFFF 00000248   *................................*         
+ 000260   0000016C 0000025C 000000C8 0000016C    0000025C 0000016C 0000025C 0000011C   *...........H....................*         
+ 000280   00000120 F1404040 40404040 40404040    40404040 40404040 40404040 40404040   *....1                           *         
+ 0002A0   40404040 404040E3 C1C2D3C5 40C3D6D5    E3C5D5E3 E2F06060 D9C5E2E4 D3E3E240   *       TABLE CONTENTS0..RESULTS *         
+ 0002C0   D6C640E2 C5C1D9C3 C8C9D5C7 40E3C8C5    40E3C1C2 D3C560F0 6060E3C1 D9C7C5E3   *OF SEARCHING THE TABLE.0..TARGET*         
+ 0002E0   407E40F5 F5F5F5F5 F5F5F5F5 F5F5F540    40404040 40404040 40404040 4040F5F5   * . 555555555555               55*         
+ 000300   90ECD00C 18CF41E0 C09450D0 E00450E0    D00818DE 1BAA9879 10005850 C088E000   *................................*         
+ 000320   90000050 4740C078 59A0C08C 4780C078    53409000 4710C01E 19544780 C07859A0   *..... ........... ..............*         
+ 000340   C08C4780 C0785040 70005AA0 C0904170    70045340 10004710 C01E1954 4780C078   *....... ........... ............*         
+ 000360   59A0C08C 4780C078 50407000 5AA0C090    41707004 47F0C052 50708000 58D0D004   *......... ...........0..........*         
+ 000380   98ECD00C 07FEF5F5 FB5D348F 00000038    00000001 F5F5F5F5 00000124 F5F5F5F5   *......55............5555....5555*         
+ 0003A0   F5F5F5F5 F5F5F5F5 F5F5F5F5 F5F5F5F5    F5F5F5F5 F5F5F5F5 F5F5F5F5 F5F5F5F5   *55555555555555555555555555555555*         
+   LINES    0003C0-0003C0    SAME AS ABOVE                                                                                        
+ 0003E0   90ECD00C 18CF41E0 C08050D0 E00450E0    D00818DE 98781000 59708000 4780C06C   *................................*         
+ 000400   9240C0C9 D254C0CA C0C94190 C0C84190    90011BAA 59708000 4780C062 59A0C078   *. .IK....I...H..................*         
+ 000420   4780C062 58607000 5260C112 D20B9000    C1124190 900C5AA0 C07C4170 700447F0   *..........A.K...A..............0*         
+ 000440   C034E020 C0C80056 47F0C018 58D0D004    98ECD00C 07FEF5F5 00000008 00000001   *.....H...0............55........*         
+ 000460   F5F5F5F5 00000124 F5F5F5F5 F5F5F5F5    F5F5F5F5 F5F5F5F5 F5F5F5F5 F5F5F5F5   *5555....555555555555555555555555*         
+ 000480   F5F5F5F5 F5F5F5F5 F5F5F5F5 F5F5F5F5    F5F5F5F5 F5F5F5F5 F5F5F5F5 F5F5F5F5   *55555555555555555555555555555555*         
+ 0004A0   F5F5F5F5 F5F5F5F5 40404040 40404040    F9F5F2F2 F1404040 40404040 404060F8   *55555555        95221         .8*         
+ 0004C0   F0404040 4060F5F0 F0F5F0F0 F5404040    40404040 404040F1 F2404040 40404040   *0    .5005005          12       *         
+ 0004E0   404040F3 F4404040 40404040 40F5F6F7    F8404040 40404040 40F8F8F8 F9F94040   *   34        5678        88899  *         
+ 000500   40404040 404040F1 405850D0 E00450E0    D00818DE 987A1000 58509000 58607000   *       1 .......................*         
+ 000520   19564780 C0365970 80004780 C03E4170    700447F0 C01C58A0 C05047F0 C04258A0   *...................0.......0....*         
+ 000540   C05458D0 D00498EC D00C07FE F5F5F5F5    00000001 00000000 F5F5F5F5 F5F5F5F5   *............5555........55555555*         
+ 000560   F5F5F5F5 F5F5F5F5 F5F5F5F5 F5F5F5F5    F5F5F5F5 F5F5F5F5 F5F5F5F5 F5F5F5F5   *55555555555555555555555555555555*         
+   LINES    000580-000580    SAME AS ABOVE                                                                                        
+ 0005A0   F5F5F5F5 00000000 00000124 FFFE7960    00000000 F4F4F4F4 F4F4F4F4 F4F4F4F4   *5555................444444444444*         
+ 0005C0   F4F4F4F4 F4F4F4F4 F4F4F4F4 F4F4F4F4    F4F4F4F4 F4F4F4F4 F4F4F4F4 F4F4F4F4   *44444444444444444444444444444444*         
+ 0005E0   F4F4F4F4 F4F4F4F4 F5F5F5F5 F5F5F5F5    F5F5F5F5 F5F5F5F5 F5F5F5F5 F5F5F5F5   *44444444555555555555555555555555*         
+ 000600   F5F5F5F5 F5F5F5F5 F5F5F5F5 F5F5F5F5    F5F5F5F5 F5F5F5F5 F5F5F5F5 F5F5F5F5   *55555555555555555555555555555555*         
+   LINES    000620-0006C0    SAME AS ABOVE                                                                                        
+0                                                                                                                                 

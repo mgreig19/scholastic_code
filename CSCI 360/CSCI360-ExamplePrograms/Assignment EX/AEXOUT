@@ -1,0 +1,568 @@
+1                    J E S 2  J O B  L O G  --  S Y S T E M  S 0 W 1  --  N O D E  Z O S K C T R         
+0 
+ 11.30.13 JOB07171 ---- SATURDAY,  05 AUG 2017 ----
+ 11.30.13 JOB07171  IRR010I  USERID KC03OA0  IS ASSIGNED TO THIS JOB.
+ 11.30.13 JOB07171  ICH70001I KC03OA0  LAST ACCESS AT 11:29:37 ON SATURDAY, AUGUST 5, 2017
+ 11.30.13 JOB07171  $HASP373 KC03OA0A STARTED - INIT 2    - CLASS A        - SYS S0W1
+ 11.30.13 JOB07171  -                                         --TIMINGS (MINS.)--            ----PAGING COUNTS---
+ 11.30.13 JOB07171  -JOBNAME  STEPNAME PROCSTEP    RC   EXCP    TCB    SRB  CLOCK   SERV  PG   PAGE   SWAP    VIO SWAPS
+ 11.30.13 JOB07171  -KC03OA0A                      00    141 ******    .00     .0    299   0      0      0      0     0
+ 11.30.13 JOB07171  -KC03OA0A ENDED.  NAME-Kevin White          TOTAL TCB CPU TIME=   .00  TOTAL ELAPSED TIME=    .0
+ 11.30.13 JOB07171  $HASP395 KC03OA0A ENDED
+0------ JES2 JOB STATISTICS ------
+-  05 AUG 2017 JOB EXECUTION DATE
+-          155 CARDS READ
+-          568 SYSOUT PRINT RECORDS
+-            0 SYSOUT PUNCH RECORDS
+-           39 SYSOUT SPOOL KBYTES
+-         0.00 MINUTES EXECUTION TIME
+         1 //KC03OA0A JOB ,'Kevin White',MSGCLASS=H                                JOB07171
+         2 //STEP1   EXEC PGM=ASSIST                                               00020000
+         3 //STEPLIB   DD DSN=KC02293.ASSIST.LOADLIB,DISP=SHR                      00030000
+         4 //SYSPRINT  DD SYSOUT=*                                                 00040000
+         5 //SYSIN     DD *                                                        00050000
+         6 //FT05F001  DD DSN=KC02314.SUMMER17.CSCI360.HWEXDATA,DISP=SHR           00370001
+ ICH70001I KC03OA0  LAST ACCESS AT 11:29:37 ON SATURDAY, AUGUST 5, 2017
+ IEF236I ALLOC. FOR KC03OA0A STEP1
+ IGD103I SMS ALLOCATED TO DDNAME STEPLIB
+ IEF237I JES2 ALLOCATED TO SYSPRINT
+ IEF237I JES2 ALLOCATED TO SYSIN
+ IGD103I SMS ALLOCATED TO DDNAME FT05F001
+ IEF142I KC03OA0A STEP1 - STEP WAS EXECUTED - COND CODE 0000
+ IGD104I KC02293.ASSIST.LOADLIB                       RETAINED,  DDNAME=STEPLIB 
+ IEF285I   KC03OA0.KC03OA0A.JOB07171.D0000102.?         SYSOUT        
+ IEF285I   KC03OA0.KC03OA0A.JOB07171.D0000101.?         SYSIN         
+ IGD104I KC02314.SUMMER17.CSCI360.HWEXDATA            RETAINED,  DDNAME=FT05F001
+ IEF373I STEP/STEP1   /START 2017217.1130
+ IEF032I STEP/STEP1   /STOP  2017217.1130 
+         CPU:     0 HR  00 MIN  00.01 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+         VIRT:   584K  SYS:   268K  EXT:        4K  SYS:    11396K
+         ATB- REAL:                     0K  SLOTS:                     0K
+              VIRT- ALLOC:       0M SHRD:       0M
+ IEF375I  JOB/KC03OA0A/START 2017217.1130
+ IEF033I  JOB/KC03OA0A/STOP  2017217.1130 
+         CPU:     0 HR  00 MIN  00.01 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+1*** ASSIST 4.0/A2-05/15/82  470/V7A/0:OS/VS2  INS=SDFP7/X=BGHO, CHECK/TRC/=1180, OPTS=CDKMPR FROM PENN ST*NIU COMPSCI*LT         
+0                                                                                                                                 
+0                                                                                                               PAGE    1         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                       1 ************************************************************            00060000         
+                                       2 *                                                          *            00070000         
+                                       3 * PROGRAM:     ASNEX                                       *            00080033         
+                                       4 * PROGRAMMER:  Kevin White                                 *            00090000         
+                                       5 *                                                          *            00090132         
+                                       6 * FUNCTION: This program will encrypt each line of the     *            00090232         
+                                       7 *           given file and print out the original, the     *            00090332         
+                                       8 *           encrypted, and the decryped vesrion of the     *            00090432         
+                                       9 *           line. It will also print out the key that is   *            00090532         
+                                      10 *           used for encryption.                           *            00090632         
+                                      11 *                                                          *            00090732         
+                                      12 * INPUT:    The lines to be encrypted in the standard      *            00090832         
+                                      13 *           output.                                        *            00090932         
+                                      14 *                                                          *            00091032         
+                                      15 * OUTPUT:   The original line followed by the key used for *            00091132         
+                                      16 *           encryption, the encrypted line, and lastly the *            00091232         
+                                      17 *           decrypted line (should match original).        *            00091332         
+                                      18 *                                                          *            00091432         
+                                      19 * ENTRY CONDS: NONE                                        *            00091532         
+                                      20 *                                                          *            00091632         
+                                      21 * EXIT CONDS: NONE                                         *            00091732         
+                                      22 *                                                          *            00091932         
+                                      23 * REGISTER USAGE:                                          *            00092032         
+                                      24 *    2     Key for encrytion                               *            00093032         
+                                      25 *    3     Line counter                                    *            00094032         
+                                      26 *                                                          *            00095032         
+                                      27 * PSUEDOCODE:                                              *            00096033         
+                                      28 *    <1> Print page header                                 *            00097033         
+                                      29 *    <2> While not end of file                             *            00098033         
+                                      30 *          If 10 on page                                   *            00098133         
+                                      31 *            Start new page                                *            00098233         
+                                      32 *          Print original and key                          *            00099033         
+                                      33 *          Use key to encrypt line                         *            00099133         
+                                      34 *          Print out ecrypted line                         *            00099233         
+                                      35 *          Use key to decrypt line                         *            00099333         
+                                      36 *          Print out decrypted line                        *            00099433         
+                                      37 *                                                          *            00100000         
+                                      38 ************************************************************            00110000         
+ 000000                               39 MAIN     CSECT                                                          00120000         
+ 000000                               40          USING MAIN,15                                                  00130000         
+                                      41 *                                                                       00131002         
+ 000000 D203 F32F F108 0032F 00108    42          MVC   HEADER+71(4),=X'40202120'                                00132023         
+ 000006 DE03 F32F F120 0032F 00120    43          ED    HEADER+71(4),PAGE       Puts page number in HEADER       00133033         
+ 00000C E020 F2E8 004B 002E8          44          XPRNT HEADER,75               Prints out HEADER                00134033         
+ 000012 E020 F333 004B 00333          45          XPRNT HEADER2,75              Prints out HEADER2               00135033         
+ 000018 1B33                          46          SR    3,3                     Sets R3 to 0                     00135133         
+                                      47 *                                                                       00136006         
+ 00001A E000 F24A 0050 0024A          48 LOOP     XREAD BUFFER,80               Reads from file                  00137033         
+ 000020 4740 F100            00100    49          BC    B'0100',ENDLOOP         Branch to ENDLOOP if end of file 00138033         
+ 000024 F271 F2D8 F24A 002D8 0024A    50          PACK  KEY(8),BUFFER(2)        Puts encryption key int KEY      00139033         
+ 00002A 9240 F29A      0029A          51          MVI   CODE,C' '               Destructive overlap              00139233         
+ 00002E D23A F29B F29A 0029B 0029A    52          MVC   CODE+1(59),CODE         On CODE                          00139333         
+1                                                                                                               PAGE    2         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+ 000034 D23B F29A F24D 0029A 0024D    53          MVC   CODE(60),BUFFER+3       Pulls line from file into CODE   00139433         
+                                      54 *                                                                       00139508         
+ 00003A 5930 F11C            0011C    55          C     3,PERPAGE               Compare line counter to PERPAGE  00139633         
+ 00003E 4770 F062            00062    56          BNE   NOTNEW                  If not equal branch to NOTNEW    00139733         
+ 000042 1B33                          57          SR    3,3                     Set R3 to 0                      00139833         
+ 000044 FA10 F120 F11A 00120 0011A    58          AP    PAGE,=P'1'              Increase page count by 1         00139933         
+ 00004A D203 F32F F108 0032F 00108    59          MVC   HEADER+71(4),=X'40202120'                                00140023         
+ 000050 DE03 F32F F120 0032F 00120    60          ED    HEADER+71(4),PAGE       Put page on HEADER               00140133         
+ 000056 E020 F2E8 004B 002E8          61          XPRNT HEADER,75               Print HEADER                     00140233         
+ 00005C E020 F333 004B 00333          62          XPRNT HEADER2,75              Print HEADER2                    00140333         
+ 000062 5A30 F10C            0010C    63 NOTNEW   A     3,=F'1'                 Increment line counter           00140433         
+                                      64 *                                                                       00140506         
+ 000066 9240 F12D      0012D          65          MVI   OUTORG+11,C' '          Destructive overlap              00140633         
+ 00006A D23C F12E F12D 0012E 0012D    66          MVC   OUTORG+12(61),OUTORG+11 On OUTORG                        00140733         
+ 000070 D23B F12F F29A 0012F 0029A    67          MVC   OUTORG+13(60),CODE      Put CODE in OUTORG               00140833         
+ 000076 E020 F122 004A 00122          68          XPRNT OUTORG,74               Print out OUTORG                 00140933         
+                                      69 *                                                                       00141013         
+ 00007C 9240 F177      00177          70          MVI   OUTKEY+11,C' '          Destructive overlap              00141133         
+ 000080 D23C F178 F177 00178 00177    71          MVC   OUTKEY+12(61),OUTKEY+11 On OUTKEY                        00141233         
+ 000086 D203 F177 F110 00177 00110    72          MVC   OUTKEY+11(4),=X'40212020'                                00141318         
+ 00008C DE03 F177 F2DE 00177 002DE    73          ED    OUTKEY+11(4),KEY+6      Put KEY in OUTKEY                00141433         
+ 000092 E020 F16C 004A 0016C          74          XPRNT OUTKEY,74               Print out OUTKEY                 00141533         
+                                      75 *                                                                       00141624         
+ 000098 4F20 F2D8            002D8    76          CVB   2,KEY                   Convert KEY to binary            00141733         
+ 00009C 5920 F114            00114    77          C     2,=F'0'                 Compare KEY to 0                 00141833         
+ 0000A0 4780 F0AE            000AE    78          BE    ENDENC                  If KEY is 0 branch to ENDENC     00141933         
+ 0000A4 DC3B F29A F37E 0029A 0037E    79 ENCODE   TR    CODE(60),TRANTAB        Use TRANTAB to shift characters  00142033         
+ 0000AA 4620 F0A4            000A4    80          BCT   2,ENCODE                Sub 1 from R2 if not 0 branch    00142133         
+ 0000AE 9240 F1C1      001C1          81 ENDENC   MVI   OUTENC+11,C' '          Destructive overlap              00142233         
+ 0000B2 D23C F1C2 F1C1 001C2 001C1    82          MVC   OUTENC+12(61),OUTENC+11 On OUTENC                        00142333         
+ 0000B8 D23B F1C3 F29A 001C3 0029A    83          MVC   OUTENC+13(60),CODE      Put CODE(encrypted) in OUTENC    00142433         
+ 0000BE E020 F1B6 004A 001B6          84          XPRNT OUTENC,74               Print OUTENC                     00142533         
+                                      85 *                                                                       00142627         
+ 0000C4 F871 F2E0 F118 002E0 00118    86          ZAP   DEKEY,=P'26'            Set DEKEY to 26                  00142733         
+ 0000CA FB77 F2E0 F2D8 002E0 002D8    87          SP    DEKEY(8),KEY(8)         Subtract KEY from DEKEY          00142833         
+ 0000D0 4F20 F2E0            002E0    88          CVB   2,DEKEY                 Convert DEKEY to binary          00142933         
+ 0000D4 5920 F114            00114    89          C     2,=F'0'                 Compare DEKEY to 0               00143033         
+ 0000D8 4780 F0E6            000E6    90          BE    ENDDEC                  If 0 branch to ENDDEC            00143133         
+ 0000DC DC3B F29A F37E 0029A 0037E    91 DECODE   TR    CODE(60),TRANTAB        Use TRANTAB to shift characters  00143233         
+ 0000E2 4620 F0DC            000DC    92          BCT   2,DECODE                Sub 1 from R2 if not 0 branch    00143333         
+ 0000E6 9240 F20B      0020B          93 ENDDEC   MVI   OUTDEC+11,C' '          Destructive overlap              00143433         
+ 0000EA D23C F20C F20B 0020C 0020B    94          MVC   OUTDEC+12(61),OUTDEC+11 on OUTDEC                        00143533         
+ 0000F0 D23B F20D F29A 0020D 0029A    95          MVC   OUTDEC+13(60),CODE      Put CODE(decrypted) in OUTDEC    00143633         
+ 0000F6 E020 F200 004A 00200          96          XPRNT OUTDEC,74               Print OUTDEC                     00143733         
+                                      97 *                                                                       00143806         
+ 0000FC 47F0 F01A            0001A    98          B     LOOP                    Return to start of loop          00143933         
+                                      99 *                                                                       00144000         
+ 000100 07FE                         100 ENDLOOP  BR    14                                                       00150006         
+                                     101 *                                                                       00150102         
+                                     102          LTORG                                                          00150202         
+ 000108 40202120                     103                =X'40202120'                                                              
+ 00010C 00000001                     104                =F'1'                                                                     
+ 000110 40212020                     105                =X'40212020'                                                              
+ 000114 00000000                     106                =F'0'                                                                     
+ 000118 026C                         107                =P'26'                                                                    
+ 00011A 1C                           108                =P'1'                                                                     
+ 00011C 00000009                     109 PERPAGE  DC    F'9'                    Set number of lines per page     00150334         
+1                                                                                                               PAGE    3         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+ 000120 001C                         110 PAGE     DC    PL2'1'                  Set initial page count to 1      00151033         
+ 000122 F0                           111 OUTORG   DC    C'0'                    Double space carriage control    00151133         
+ 000123 D699898789958193             112          DC    CL73'Original: '                                         00151223         
+ 00016C 40                           113 OUTKEY   DC    C' '                    Single space carriage control    00151333         
+ 00016D D285A87A40404040             114          DC    CL73'Key:      '                                         00151423         
+ 0001B6 40                           115 OUTENC   DC    C' '                    Single space carriage control    00151533         
+ 0001B7 C59583968485847A             116          DC    CL73'Encoded:  '                                         00151623         
+ 000200 40                           117 OUTDEC   DC    C' '                    Single space carriage control    00151733         
+ 000201 C48583968485847A             118          DC    CL73'Decoded:  '                                         00151823         
+ 00024A                              119 BUFFER   DS    80C                     Allocate 80C for BUFFER          00151933         
+ 00029A                              120 CODE     DS    60C                     Allocate 60C for CODE            00152033         
+ 0002D8                              121 KEY      DS    D                       Allocate D for KEY               00152333         
+ 0002E0                              122 DEKEY    DS    D                       Allocate D for DEKEY             00152433         
+ 0002E8 F1                           123 HEADER   DC    C'1'                    New page carriage control        00152533         
+ 0002E9 4040404040404040             124          DC    CL74' '                 Allocate CL74 for HEADER         00153033         
+ 000305                              125          ORG   HEADER+29                                                00154002         
+ 000305 C3968489958740D7             126          DC    CL15'Coding Practice'                                    00155002         
+ 00032B                              127          ORG   HEADER+67                                                00156023         
+ 00032B D7818785                     128          DC    CL4'Page'                                                00157002         
+ 000333                              129          ORG                                                            00157102         
+ 000333 40                           130 HEADER2  DC    C' '                    Single space carriage control    00158033         
+ 000334 4040404040404040             131          DC    CL74' '                 Allocate CL74 for HEADER2        00159033         
+ 000352                              132          ORG   HEADER2+31                                               00159102         
+ 000352 D285A5899540E688             133          DC    CL11'Kevin White'                                        00159202         
+ 00037E                              134          ORG                                                            00159335         
+ 00037E 0000000000000000             135 TRANTAB  DC    256X'00'                Allocate 256X for TRANTAB        00160033         
+ 0003BE                              136          ORG   TRANTAB+C' '                                             00170000         
+ 0003BE 40                           137          DC    X'40'                   Set space to 40                  00180033         
+ 0003C9                              138          ORG   TRANTAB+C'.'                                             00190000         
+ 0003C9 4B4C4D4E4F50                 139          DC    X'4B4C4D4E4F50'         Keep symbols in place            00200033         
+ 0003D8                              140          ORG   TRANTAB+C'!'                                             00210000         
+ 0003D8 5A5B5C5D5E5F6061             141          DC    X'5A5B5C5D5E5F6061'     Keep symbols in place            00220033         
+ 0003E9                              142          ORG   TRANTAB+C','                                             00230000         
+ 0003E9 6B6C6D6E6F                   143          DC    X'6B6C6D6E6F'           Keep symbols in place            00240033         
+ 0003F8                              144          ORG   TRANTAB+C':'                                             00250000         
+ 0003F8 7A7B7C7D7E7F                 145          DC    X'7A7B7C7D7E7F'         Keep symbols in place            00260033         
+ 00043F                              146          ORG   TRANTAB+C'A'                                             00270000         
+ 00043F C2C3C4C5C6C7C8C9             147          DC    X'C2C3C4C5C6C7C8C9D1'   Shift A-I right by one           00280033         
+ 00044F                              148          ORG   TRANTAB+C'J'                                             00290000         
+ 00044F D2D3D4D5D6D7D8D9             149          DC    X'D2D3D4D5D6D7D8D9E2'   Shift J-R right by one           00300033         
+ 000460                              150          ORG   TRANTAB+C'S'                                             00310000         
+ 000460 E3E4E5E6E7E8E9C1             151          DC    X'E3E4E5E6E7E8E9C1'     Shift S-Z right by one           00320033         
+ 00047E                              152          ORG                                                            00330000         
+                                     153 *                                                                       00340001         
+                                     154          END   MAIN                                                     00350001         
+0***  NO   STATEMENTS FLAGGED -  NO   WARNINGS,  NO   ERRORS                                                                      
+0*** DYNAMIC CORE AREA USED:  LOW:    8288 HIGH:     864 LEAVING:  484416 FREE BYTES. AVERAGE:       59 BYTES/STMT ***            
+0*** ASSEMBLY TIME =    0.001 SECS,   155000 STATEMENTS/SEC ***                                                                   
+0*** PROGRAM EXECUTION BEGINNING - ANY OUTPUT BEFORE EXECUTION TIME MESSAGE IS PRODUCED BY USER PROGRAM ***                       
+1                            Coding Practice                       Page   1                                                       
+                               Kevin White                                                                                        
+0Original:   THIS IS THE FIRST LINE.                                                                                              
+ Key:        00                                                                                                                   
+ Encoded:    THIS IS THE FIRST LINE.                                                                                              
+ Decoded:    THIS IS THE FIRST LINE.                                                                                              
+0Original:   SNEEZY, SLEEPY, DOPEY, DOC, HAPPY, BASHFUL AND GRUMPY                                                                
+ Key:        01                                                                                                                   
+ Encoded:    TOFFAZ, TMFFQZ, EPQFZ, EPD, IBQQZ, CBTIGVM BOE HSVNQZ                                                                
+ Decoded:    SNEEZY, SLEEPY, DOPEY, DOC, HAPPY, BASHFUL AND GRUMPY                                                                
+0Original:   WISDOM COMES FROM EXPERIENCE.                                                                                        
+ Key:        25                                                                                                                   
+ Encoded:    VHRCNL BNLDR EQNL DWODQHDMBD.                                                                                        
+ Decoded:    WISDOM COMES FROM EXPERIENCE.                                                                                        
+0Original:   EXPERIENCE COMES FROM A LACK OF WISDOM.                                                                              
+ Key:        05                                                                                                                   
+ Encoded:    JCUJWNJSHJ HTRJX KWTR F QFHP TK BNXITR.                                                                              
+ Decoded:    EXPERIENCE COMES FROM A LACK OF WISDOM.                                                                              
+0Original:   HOPE MAKES A GOOD BREAKFAST BUT A POOR SUPPER.                                                                       
+ Key:        13                                                                                                                   
+ Encoded:    UBCR ZNXRF N TBBQ OERNXSNFG OHG N CBBE FHCCRE.                                                                       
+ Decoded:    HOPE MAKES A GOOD BREAKFAST BUT A POOR SUPPER.                                                                       
+0Original:   ORDER IS HEAVEN'S FIRST LAW.                                                                                         
+ Key:        10                                                                                                                   
+ Encoded:    YBNOB SC ROKFOX'C PSBCD VKG.                                                                                         
+ Decoded:    ORDER IS HEAVEN'S FIRST LAW.                                                                                         
+0Original:   ANYTHING THAT CAN GO WRONG, WILL.                                                                                    
+ Key:        18                                                                                                                   
+ Encoded:    SFQLZAFY LZSL USF YG OJGFY, OADD.                                                                                    
+ Decoded:    ANYTHING THAT CAN GO WRONG, WILL.                                                                                    
+0Original:   ANYTHING THAT CANNOT GO WRONG, WILL FIND A WAY TO DO SO.                                                             
+ Key:        08                                                                                                                   
+ Encoded:    IVGBPQVO BPIB KIVVWB OW EZWVO, EQTT NQVL I EIG BW LW AW.                                                             
+ Decoded:    ANYTHING THAT CANNOT GO WRONG, WILL FIND A WAY TO DO SO.                                                             
+0Original:   WEIRD IS PART OF THE JOB.                                                                                            
+ Key:        19                                                                                                                   
+ Encoded:    PXBKW BL ITKM HY MAX CHU.                                                                                            
+ Decoded:    WEIRD IS PART OF THE JOB.                                                                                            
+1                            Coding Practice                       Page   2                                                       
+                               Kevin White                                                                                        
+0Original:   THE PLURAL OF ANECDOTE IS NOT DATA.                                                                                  
+ Key:        06                                                                                                                   
+ Encoded:    ZNK VRAXGR UL GTKIJUZK OY TUZ JGZG.                                                                                  
+ Decoded:    THE PLURAL OF ANECDOTE IS NOT DATA.                                                                                  
+0Original:   NEVER, NEVER, NEVER, NEVER, NEVER GIVE UP.                                                                           
+ Key:        10                                                                                                                   
+ Encoded:    XOFOB, XOFOB, XOFOB, XOFOB, XOFOB QSFO EZ.                                                                           
+ Decoded:    NEVER, NEVER, NEVER, NEVER, NEVER GIVE UP.                                                                           
+0Original:   WITH PRACTICE, WE CAN REPEAT OUR MISTAKES EXACTLY.                                                                   
+ Key:        23                                                                                                                   
+ Encoded:    TFQE MOXZQFZB, TB ZXK OBMBXQ LRO JFPQXHBP BUXZQIV.                                                                   
+ Decoded:    WITH PRACTICE, WE CAN REPEAT OUR MISTAKES EXACTLY.                                                                   
+0Original:   GIVING UP IS THE SUREST WAY TO FAIL.                                                                                 
+ Key:        11                                                                                                                   
+ Encoded:    RTGTYR FA TD ESP DFCPDE HLJ EZ QLTW.                                                                                 
+ Decoded:    GIVING UP IS THE SUREST WAY TO FAIL.                                                                                 
+0Original:   WHEN IN DOUBT, MUMBLE.                                                                                               
+ Key:        24                                                                                                                   
+ Encoded:    UFCL GL BMSZR, KSKZJC.                                                                                               
+ Decoded:    WHEN IN DOUBT, MUMBLE.                                                                                               
+0Original:   IMITATION IS THE SINCEREST FORM OF LAZINESS.                                                                         
+ Key:        02                                                                                                                   
+ Encoded:    KOKVCVKQP KU VJG UKPEGTGUV HQTO QH NCBKPGUU.                                                                         
+ Decoded:    IMITATION IS THE SINCEREST FORM OF LAZINESS.                                                                         
+0Original:   BAD SPELLERS OF THE WORLD, UNTIE!                                                                                    
+ Key:        02                                                                                                                   
+ Encoded:    DCF URGNNGTU QH VJG YQTNF, WPVKG!                                                                                    
+ Decoded:    BAD SPELLERS OF THE WORLD, UNTIE!                                                                                    
+0Original:   I ALMOST FOOLED YOU THAT TIME, EH?                                                                                   
+ Key:        25                                                                                                                   
+ Encoded:    H ZKLNRS ENNKDC XNT SGZS SHLD, DG?                                                                                   
+ Decoded:    I ALMOST FOOLED YOU THAT TIME, EH?                                                                                   
+0Original:   THERE'S NO SUCH THING AS A LITTLE VENGEANCE.                                                                         
+ Key:        17                                                                                                                   
+ Encoded:    KYVIV'J EF JLTY KYZEX RJ R CZKKCV MVEXVRETV.                                                                         
+ Decoded:    THERE'S NO SUCH THING AS A LITTLE VENGEANCE.                                                                         
+1                            Coding Practice                       Page   3                                                       
+                               Kevin White                                                                                        
+0Original:   YOUR LUCK IS HOW YOU TREAT PEOPLE.                                                                                   
+ Key:        04                                                                                                                   
+ Encoded:    CSYV PYGO MW LSA CSY XVIEX TISTPI.                                                                                   
+ Decoded:    YOUR LUCK IS HOW YOU TREAT PEOPLE.                                                                                   
+0Original:   IT'S ALL DARKEST BEFORE IT'S TOTALLY BLACK.                                                                          
+ Key:        14                                                                                                                   
+ Encoded:    WH'G OZZ ROFYSGH PSTCFS WH'G HCHOZZM PZOQY.                                                                          
+ Decoded:    IT'S ALL DARKEST BEFORE IT'S TOTALLY BLACK.                                                                          
+0Original:   THIS LINE IS NOT TO BE CHANGED.                                                                                      
+ Key:        00                                                                                                                   
+ Encoded:    THIS LINE IS NOT TO BE CHANGED.                                                                                      
+ Decoded:    THIS LINE IS NOT TO BE CHANGED.                                                                                      
+0Original:   "MAN, I HATE CONFORMISTS."  "YEAH, ME TOO."  "WE ALL DO."                                                            
+ Key:        12                                                                                                                   
+ Encoded:    "YMZ, U TMFQ OAZRADYUEFE."  "KQMT, YQ FAA."  "IQ MXX PA."                                                            
+ Decoded:    "MAN, I HATE CONFORMISTS."  "YEAH, ME TOO."  "WE ALL DO."                                                            
+0Original:   THERE IS NO END TO THE MAKING OF BOOKS.                                                                              
+ Key:        25                                                                                                                   
+ Encoded:    SGDQD HR MN DMC SN SGD LZJHMF NE ANNJR.                                                                              
+ Decoded:    THERE IS NO END TO THE MAKING OF BOOKS.                                                                              
+0Original:   MASTERY IS NINE TIMES PATIENCE.                                                                                      
+ Key:        10                                                                                                                   
+ Encoded:    WKCDOBI SC XSXO DSWOC ZKDSOXMO.                                                                                      
+ Decoded:    MASTERY IS NINE TIMES PATIENCE.                                                                                      
+0Original:   DO WHAT I MEANT, NOT WHAT I SAID.                                                                                    
+ Key:        18                                                                                                                   
+ Encoded:    VG OZSL A EWSFL, FGL OZSL A KSAV.                                                                                    
+ Decoded:    DO WHAT I MEANT, NOT WHAT I SAID.                                                                                    
+0Original:   ANTIDISESTABLISHMENTARIANISM IS ONLY ONE WORD.                                                                       
+ Key:        11                                                                                                                   
+ Encoded:    LYETOTDPDELMWTDSXPYELCTLYTDX TD ZYWJ ZYP HZCO.                                                                       
+ Decoded:    ANTIDISESTABLISHMENTARIANISM IS ONLY ONE WORD.                                                                       
+0Original:   I'D RATHER BELIEVE IN STUPIDITY THAN MALICE.                                                                         
+ Key:        07                                                                                                                   
+ Encoded:    P'K YHAOLY ILSPLCL PU ZABWPKPAF AOHU THSPJL.                                                                         
+ Decoded:    I'D RATHER BELIEVE IN STUPIDITY THAN MALICE.                                                                         
+1                            Coding Practice                       Page   4                                                       
+                               Kevin White                                                                                        
+0Original:   THE STUPID IS ALWAYS POSSIBLE.                                                                                       
+ Key:        19                                                                                                                   
+ Encoded:    MAX LMNIBW BL TEPTRL IHLLBUEX.                                                                                       
+ Decoded:    THE STUPID IS ALWAYS POSSIBLE.                                                                                       
+0Original:   CHARACTER IS HIGHER THAN INTELLECT.                                                                                  
+ Key:        20                                                                                                                   
+ Encoded:    WBULUWNYL CM BCABYL NBUH CHNYFFYWN.                                                                                  
+ Decoded:    CHARACTER IS HIGHER THAN INTELLECT.                                                                                  
+0Original:   PRIDE IS A BLOSSOM OF ASHES.                                                                                         
+ Key:        15                                                                                                                   
+ Encoded:    EGXST XH P QADHHDB DU PHWTH.                                                                                         
+ Decoded:    PRIDE IS A BLOSSOM OF ASHES.                                                                                         
+0Original:   MONDAY'S CHILD IS FAIR OF FACE.                                                                                      
+ Key:        15                                                                                                                   
+ Encoded:    BDCSPN'H RWXAS XH UPXG DU UPRT.                                                                                      
+ Decoded:    MONDAY'S CHILD IS FAIR OF FACE.                                                                                      
+0Original:   DO NOTHING.  AVOID CRITICISM.                                                                                        
+ Key:        09                                                                                                                   
+ Encoded:    MX WXCQRWP.  JEXRM LARCRLRBV.                                                                                        
+ Decoded:    DO NOTHING.  AVOID CRITICISM.                                                                                        
+0Original:   DASHER AND DANCER AND PRANCER AND VIXEN                                                                              
+ Key:        07                                                                                                                   
+ Encoded:    KHZOLY HUK KHUJLY HUK WYHUJLY HUK CPELU                                                                              
+ Decoded:    DASHER AND DANCER AND PRANCER AND VIXEN                                                                              
+0Original:   COMET AND CUPID AND DONDER AND BLITZEN (AND RUDOLPH?)                                                                
+ Key:        19                                                                                                                   
+ Encoded:    VHFXM TGW VNIBW TGW WHGWXK TGW UEBMSXG (TGW KNWHEIA?)                                                                
+ Decoded:    COMET AND CUPID AND DONDER AND BLITZEN (AND RUDOLPH?)                                                                
+0Original:   DO AS YOUR MOTHER SAID, NOT AS SHE DID.                                                                              
+ Key:        08                                                                                                                   
+ Encoded:    LW IA GWCZ UWBPMZ AIQL, VWB IA APM LQL.                                                                              
+ Decoded:    DO AS YOUR MOTHER SAID, NOT AS SHE DID.                                                                              
+0Original:   WEDNESDAY'S CHILD IS FULL OF WOE.                                                                                    
+ Key:        21                                                                                                                   
+ Encoded:    RZYIZNYVT'N XCDGY DN APGG JA RJZ.                                                                                    
+ Decoded:    WEDNESDAY'S CHILD IS FULL OF WOE.                                                                                    
+1                            Coding Practice                       Page   5                                                       
+                               Kevin White                                                                                        
+0Original:   JUDGE MY VOW, SPHINX OF BLACK QUARTZ!                                                                                
+ Key:        09                                                                                                                   
+ Encoded:    SDMPN VH EXF, BYQRWG XO KUJLT ZDJACI!                                                                                
+ Decoded:    JUDGE MY VOW, SPHINX OF BLACK QUARTZ!                                                                                
+0Original:   PRUDENCE AND COURAGE MAKE GOOD TEAMMATES.                                                                            
+ Key:        05                                                                                                                   
+ Encoded:    UWZIJSHJ FSI HTZWFLJ RFPJ LTTI YJFRRFYJX.                                                                            
+ Decoded:    PRUDENCE AND COURAGE MAKE GOOD TEAMMATES.                                                                            
+0Original:   THERE IS NO GOOD WAY TO IMPLEMENT A BAD IDEA.                                                                        
+ Key:        11                                                                                                                   
+ Encoded:    ESPCP TD YZ RZZO HLJ EZ TXAWPXPYE L MLO TOPL.                                                                        
+ Decoded:    THERE IS NO GOOD WAY TO IMPLEMENT A BAD IDEA.                                                                        
+0Original:   IT IS USUALLY BETTER TO DO ANYTHING THAN TO DO NOTHING.                                                              
+ Key:        09                                                                                                                   
+ Encoded:    RC RB DBDJUUH KNCCNA CX MX JWHCQRWP CQJW CX MX WXCQRWP.                                                              
+ Decoded:    IT IS USUALLY BETTER TO DO ANYTHING THAN TO DO NOTHING.                                                              
+0Original:   BEAUTY FADES, DUMB IS FOREVER.                                                                                       
+ Key:        03                                                                                                                   
+ Encoded:    EHDXWB IDGHV, GXPE LV IRUHYHU.                                                                                       
+ Decoded:    BEAUTY FADES, DUMB IS FOREVER.                                                                                       
+0Original:   TOO MUCH OF ANYTHING IS SIMPLY WONDERFUL.                                                                            
+ Key:        12                                                                                                                   
+ Encoded:    FAA YGOT AR MZKFTUZS UE EUYBXK IAZPQDRGX.                                                                            
+ Decoded:    TOO MUCH OF ANYTHING IS SIMPLY WONDERFUL.                                                                            
+0Original:   THIS IS A SHORT MESSAGE.                                                                                             
+ Key:        02                                                                                                                   
+ Encoded:    VJKU KU C UJQTV OGUUCIG.                                                                                             
+ Decoded:    THIS IS A SHORT MESSAGE.                                                                                             
+0Original:   THIS IS SHORTER.                                                                                                     
+ Key:        04                                                                                                                   
+ Encoded:    XLMW MW WLSVXIV.                                                                                                     
+ Decoded:    THIS IS SHORTER.                                                                                                     
+0Original:   THIS SILLY MESSAGE IS LONGER THAN THE LAST TWO LINES, RIGHT?                                                         
+ Key:        24                                                                                                                   
+ Encoded:    RFGQ QGJJW KCQQYEC GQ JMLECP RFYL RFC JYQR RUM JGLCQ, PGEFR?                                                         
+ Decoded:    THIS SILLY MESSAGE IS LONGER THAN THE LAST TWO LINES, RIGHT?                                                         
+1                            Coding Practice                       Page   6                                                       
+                               Kevin White                                                                                        
+0Original:   AM I AMBIVALENT?  WELL, YES AND NO.                                                                                  
+ Key:        13                                                                                                                   
+ Encoded:    NZ V NZOVINYRAG?  JRYY, LRF NAQ AB.                                                                                  
+ Decoded:    AM I AMBIVALENT?  WELL, YES AND NO.                                                                                  
+0Original:   SATURDAY'S CHILD MUST WORK FOR A LIVING.                                                                             
+ Key:        06                                                                                                                   
+ Encoded:    YGZAXJGE'Y INORJ SAYZ CUXQ LUX G ROBOTM.                                                                             
+ Decoded:    SATURDAY'S CHILD MUST WORK FOR A LIVING.                                                                             
+0Original:   BLOSSOM WHERE YOU'RE PLANTED.                                                                                        
+ Key:        24                                                                                                                   
+ Encoded:    ZJMQQMK UFCPC WMS'PC NJYLRCB.                                                                                        
+ Decoded:    BLOSSOM WHERE YOU'RE PLANTED.                                                                                        
+0Original:   HISTORY IS A RACE WITHOUT A FINISH LINE.                                                                             
+ Key:        03                                                                                                                   
+ Encoded:    KLVWRUB LV D UDFH ZLWKRXW D ILQLVK OLQH.                                                                             
+ Decoded:    HISTORY IS A RACE WITHOUT A FINISH LINE.                                                                             
+0Original:   APRIL SHOWERS BRING MAY FLOWERS.                                                                                     
+ Key:        23                                                                                                                   
+ Encoded:    XMOFI PELTBOP YOFKD JXV CILTBOP.                                                                                     
+ Decoded:    APRIL SHOWERS BRING MAY FLOWERS.                                                                                     
+0Original:   DO NOT LOOK INTO LASER WITH REMAINING EYE.                                                                           
+ Key:        11                                                                                                                   
+ Encoded:    OZ YZE WZZV TYEZ WLDPC HTES CPXLTYTYR PJP.                                                                           
+ Decoded:    DO NOT LOOK INTO LASER WITH REMAINING EYE.                                                                           
+0Original:   ENGINEERS BUILD WEAPONS.  ARCHITECTS BUILD TARGETS.                                                                  
+ Key:        16                                                                                                                   
+ Encoded:    UDWYDUUHI RKYBT MUQFEDI.  QHSXYJUSJI RKYBT JQHWUJI.                                                                  
+ Decoded:    ENGINEERS BUILD WEAPONS.  ARCHITECTS BUILD TARGETS.                                                                  
+0Original:   ANGER IS HEAVY, BUT HOPE FLOATS.                                                                                     
+ Key:        22                                                                                                                   
+ Encoded:    WJCAN EO DAWRU, XQP DKLA BHKWPO.                                                                                     
+ Decoded:    ANGER IS HEAVY, BUT HOPE FLOATS.                                                                                     
+0Original:   "QUESTION AUTHORITY!"  "NOT ON YOUR SAY-SO!"                                                                         
+ Key:        13                                                                                                                   
+ Encoded:    "DHRFGVBA NHGUBEVGL!"  "ABG BA LBHE FNL-FB!"                                                                         
+ Decoded:    "QUESTION AUTHORITY!"  "NOT ON YOUR SAY-SO!"                                                                         
+1                            Coding Practice                       Page   7                                                       
+                               Kevin White                                                                                        
+0Original:   "LIVE AND LET LIVE" CAN MEAN "LIVE AND LET SUFFER."                                                                  
+ Key:        02                                                                                                                   
+ Encoded:    "NKXG CPF NGV NKXG" ECP OGCP "NKXG CPF NGV UWHHGT."                                                                  
+ Decoded:    "LIVE AND LET LIVE" CAN MEAN "LIVE AND LET SUFFER."                                                                  
+0Original:   YOU CAN'T CHEAT AN HONEST MAN WITHOUT GOING TO COURT.                                                                
+ Key:        17                                                                                                                   
+ Encoded:    PFL TRE'K TYVRK RE YFEVJK DRE NZKYFLK XFZEX KF TFLIK.                                                                
+ Decoded:    YOU CAN'T CHEAT AN HONEST MAN WITHOUT GOING TO COURT.                                                                
+0Original:   TUESDAY'S CHILD IS FULL OF GRACE.                                                                                    
+ Key:        21                                                                                                                   
+ Encoded:    OPZNYVT'N XCDGY DN APGG JA BMVXZ.                                                                                    
+ Decoded:    TUESDAY'S CHILD IS FULL OF GRACE.                                                                                    
+0Original:   IT'S HARD TO PROGRAM GOOD HELP THESE DAYS.                                                                           
+ Key:        09                                                                                                                   
+ Encoded:    RC'B QJAM CX YAXPAJV PXXM QNUY CQNBN MJHB.                                                                           
+ Decoded:    IT'S HARD TO PROGRAM GOOD HELP THESE DAYS.                                                                           
+0Original:   CINDERELLA MARRIED A PRINCE OF A GUY.                                                                                
+ Key:        25                                                                                                                   
+ Encoded:    BHMCDQDKKZ LZQQHDC Z OQHMBD NE Z FTX.                                                                                
+ Decoded:    CINDERELLA MARRIED A PRINCE OF A GUY.                                                                                
+0Original:   SIZE MATTERS NOT.                                                                                                    
+ Key:        01                                                                                                                   
+ Encoded:    TJAF NBUUFST OPU.                                                                                                    
+ Decoded:    SIZE MATTERS NOT.                                                                                                    
+0Original:   BUY ON RUMOR AND SELL ON FACT.                                                                                       
+ Key:        12                                                                                                                   
+ Encoded:    NGK AZ DGYAD MZP EQXX AZ RMOF.                                                                                       
+ Decoded:    BUY ON RUMOR AND SELL ON FACT.                                                                                       
+0Original:   I TRIED TO BE AN OUTSIDER, BUT I JUST DIDN'T FIT IN.                                                                 
+ Key:        16                                                                                                                   
+ Encoded:    Y JHYUT JE RU QD EKJIYTUH, RKJ Y ZKIJ TYTD'J VYJ YD.                                                                 
+ Decoded:    I TRIED TO BE AN OUTSIDER, BUT I JUST DIDN'T FIT IN.                                                                 
+0Original:   SCHRODINGER'S CAT HAD A POINT OF VIEW, TOO.                                                                          
+ Key:        01                                                                                                                   
+ Encoded:    TDISPEJOHFS'T DBU IBE B QPJOU PG WJFX, UPP.                                                                          
+ Decoded:    SCHRODINGER'S CAT HAD A POINT OF VIEW, TOO.                                                                          
+1                            Coding Practice                       Page   8                                                       
+                               Kevin White                                                                                        
+0Original:   IT TAKES A VILLAGE TO ABANDON A CHILD.                                                                               
+ Key:        20                                                                                                                   
+ Encoded:    CN NUEYM U PCFFUAY NI UVUHXIH U WBCFX.                                                                               
+ Decoded:    IT TAKES A VILLAGE TO ABANDON A CHILD.                                                                               
+0Original:   YOU ARE REMEMBERED FOR THE RULES YOU BREAK.                                                                          
+ Key:        08                                                                                                                   
+ Encoded:    GWC IZM ZMUMUJMZML NWZ BPM ZCTMA GWC JZMIS.                                                                          
+ Decoded:    YOU ARE REMEMBERED FOR THE RULES YOU BREAK.                                                                          
+0Original:   A FREE PRESS IS NOTHING IF NOT REPETITIVE.                                                                           
+ Key:        24                                                                                                                   
+ Encoded:    Y DPCC NPCQQ GQ LMRFGLE GD LMR PCNCRGRGTC.                                                                           
+ Decoded:    A FREE PRESS IS NOTHING IF NOT REPETITIVE.                                                                           
+0Original:   WAS THE LITTLE MERMAID A GOOD DANCER?  BEFORE OR AFTER?                                                              
+ Key:        05                                                                                                                   
+ Encoded:    BFX YMJ QNYYQJ RJWRFNI F LTTI IFSHJW?  GJKTWJ TW FKYJW?                                                              
+ Decoded:    WAS THE LITTLE MERMAID A GOOD DANCER?  BEFORE OR AFTER?                                                              
+0Original:   THIS LINE IS NOT TO BE CHANGED.                                                                                      
+ Key:        26                                                                                                                   
+ Encoded:    THIS LINE IS NOT TO BE CHANGED.                                                                                      
+ Decoded:    THIS LINE IS NOT TO BE CHANGED.                                                                                      
+0Original:   THURSDAY'S CHILD HAS FAR TO GO.                                                                                      
+ Key:        11                                                                                                                   
+ Encoded:    ESFCDOLJ'D NSTWO SLD QLC EZ RZ.                                                                                      
+ Decoded:    THURSDAY'S CHILD HAS FAR TO GO.                                                                                      
+0Original:   MAY FLOWERS BRING PILGRIMS.                                                                                          
+ Key:        24                                                                                                                   
+ Encoded:    KYW DJMUCPQ ZPGLE NGJEPGKQ.                                                                                          
+ Decoded:    MAY FLOWERS BRING PILGRIMS.                                                                                          
+0Original:   THERE ARE NO INNOCENT BYSTANDERS IN HELL.                                                                            
+ Key:        15                                                                                                                   
+ Encoded:    IWTGT PGT CD XCCDRTCI QNHIPCSTGH XC WTAA.                                                                            
+ Decoded:    THERE ARE NO INNOCENT BYSTANDERS IN HELL.                                                                            
+0Original:   HEISENBERG PROBABLY SLEPT HERE.                                                                                      
+ Key:        19                                                                                                                   
+ Encoded:    AXBLXGUXKZ IKHUTUER LEXIM AXKX.                                                                                      
+ Decoded:    HEISENBERG PROBABLY SLEPT HERE.                                                                                      
+1                            Coding Practice                       Page   9                                                       
+                               Kevin White                                                                                        
+0Original:   ASSUME NO ONE WILL KEEP A SECRET.                                                                                    
+ Key:        07                                                                                                                   
+ Encoded:    HZZBTL UV VUL DPSS RLLW H ZLJYLA.                                                                                    
+ Decoded:    ASSUME NO ONE WILL KEEP A SECRET.                                                                                    
+0Original:   THE POWER TO TAX INVOLVES THE POWER TO DESTROY.                                                                      
+ Key:        23                                                                                                                   
+ Encoded:    QEB MLTBO QL QXU FKSLISBP QEB MLTBO QL ABPQOLV.                                                                      
+ Decoded:    THE POWER TO TAX INVOLVES THE POWER TO DESTROY.                                                                      
+0Original:   NOTHING I SAY TODAY WILL TEACH ME ANYTHING.                                                                          
+ Key:        10                                                                                                                   
+ Encoded:    XYDRSXQ S CKI DYNKI GSVV DOKMR WO KXIDRSXQ.                                                                          
+ Decoded:    NOTHING I SAY TODAY WILL TEACH ME ANYTHING.                                                                          
+0Original:   IF WISHES WERE HORSES, WHAT WOULD HORSES WISH FOR?                                                                   
+ Key:        04                                                                                                                   
+ Encoded:    MJ AMWLIW AIVI LSVWIW, ALEX ASYPH LSVWIW AMWL JSV?                                                                   
+ Decoded:    IF WISHES WERE HORSES, WHAT WOULD HORSES WISH FOR?                                                                   
+0Original:   FRIDAY'S CHILD IS LOVING AND GIVING.                                                                                 
+ Key:        14                                                                                                                   
+ Encoded:    TFWROM'G QVWZR WG ZCJWBU OBR UWJWBU.                                                                                 
+ Decoded:    FRIDAY'S CHILD IS LOVING AND GIVING.                                                                                 
+0Original:   TRUSTWORTHY, LOYAL, HELPFUL, FRIENDLY, COURTEOUS, KIND                                                               
+ Key:        05                                                                                                                   
+ Encoded:    YWZXYBTWYMD, QTDFQ, MJQUKZQ, KWNJSIQD, HTZWYJTZX, PNSI                                                               
+ Decoded:    TRUSTWORTHY, LOYAL, HELPFUL, FRIENDLY, COURTEOUS, KIND                                                               
+0Original:   OBEDIENT, CHEERFUL, THRIFTY, BRAVE, CLEAN AND REVERENT                                                               
+ Key:        20                                                                                                                   
+ Encoded:    IVYXCYHN, WBYYLZOF, NBLCZNS, VLUPY, WFYUH UHX LYPYLYHN                                                               
+ Decoded:    OBEDIENT, CHEERFUL, THRIFTY, BRAVE, CLEAN AND REVERENT                                                               
+0Original:   IN A WORLD WITHOUT ROMANCE, IT IS BETTER TO BE DEAD.                                                                 
+ Key:        18                                                                                                                   
+ Encoded:    AF S OGJDV OALZGML JGESFUW, AL AK TWLLWJ LG TW VWSV.                                                                 
+ Decoded:    IN A WORLD WITHOUT ROMANCE, IT IS BETTER TO BE DEAD.                                                                 
+0Original:   A JUST CAUSE DOES NOT MAKE WAR NOBLE.                                                                                
+ Key:        06                                                                                                                   
+ Encoded:    G PAYZ IGAYK JUKY TUZ SGQK CGX TUHRK.                                                                                
+ Decoded:    A JUST CAUSE DOES NOT MAKE WAR NOBLE.                                                                                
+1                            Coding Practice                       Page  10                                                       
+                               Kevin White                                                                                        
+0Original:   "SOMEWHERE, SOMEONE CONSIDERS US EXOTIC."  "COOL."                                                                   
+ Key:        22                                                                                                                   
+ Encoded:    "OKIASDANA, OKIAKJA YKJOEZANO QO ATKPEY."  "YKKH."                                                                   
+ Decoded:    "SOMEWHERE, SOMEONE CONSIDERS US EXOTIC."  "COOL."                                                                   
+0Original:   THIS IS NOT THE LAST LINE.                                                                                           
+ Key:        03                                                                                                                   
+ Encoded:    WKLV LV QRW WKH ODVW OLQH.                                                                                           
+ Decoded:    THIS IS NOT THE LAST LINE.                                                                                           
+0Original:   THIS IS THE LAST LINE.                                                                                               
+ Key:        00                                                                                                                   
+ Encoded:    THIS IS THE LAST LINE.                                                                                               
+ Decoded:    THIS IS THE LAST LINE.                                                                                               
+0*** EXECUTION TIME =    0.005 SECS.      7370 INSTRUCTIONS EXECUTED -  1474000 INSTRUCTIONS/SEC ***                              
+0*** AM004 - NORMAL USER TERMINATION BY RETURN ***                                                                                

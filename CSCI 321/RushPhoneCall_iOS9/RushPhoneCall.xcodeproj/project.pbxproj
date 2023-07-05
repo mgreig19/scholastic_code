@@ -1,0 +1,505 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		064F71321E6BA9C000A25475 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064F71311E6BA9C000A25475 /* AppDelegate.swift */; };
+		064F71341E6BA9C000A25475 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064F71331E6BA9C000A25475 /* ViewController.swift */; };
+		064F71371E6BA9C000A25475 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 064F71351E6BA9C000A25475 /* Main.storyboard */; };
+		064F71391E6BA9C000A25475 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 064F71381E6BA9C000A25475 /* Assets.xcassets */; };
+		064F713C1E6BA9C000A25475 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 064F713A1E6BA9C000A25475 /* LaunchScreen.storyboard */; };
+		064F71471E6BA9C000A25475 /* RushPhoneCallTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064F71461E6BA9C000A25475 /* RushPhoneCallTests.swift */; };
+		064F71521E6BA9C000A25475 /* RushPhoneCallUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064F71511E6BA9C000A25475 /* RushPhoneCallUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		064F71431E6BA9C000A25475 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 064F71261E6BA9C000A25475 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 064F712D1E6BA9C000A25475;
+			remoteInfo = RushPhoneCall;
+		};
+		064F714E1E6BA9C000A25475 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 064F71261E6BA9C000A25475 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 064F712D1E6BA9C000A25475;
+			remoteInfo = RushPhoneCall;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		064F712E1E6BA9C000A25475 /* RushPhoneCall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RushPhoneCall.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		064F71311E6BA9C000A25475 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		064F71331E6BA9C000A25475 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		064F71361E6BA9C000A25475 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		064F71381E6BA9C000A25475 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		064F713B1E6BA9C000A25475 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		064F713D1E6BA9C000A25475 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		064F71421E6BA9C000A25475 /* RushPhoneCallTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RushPhoneCallTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		064F71461E6BA9C000A25475 /* RushPhoneCallTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RushPhoneCallTests.swift; sourceTree = "<group>"; };
+		064F71481E6BA9C000A25475 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		064F714D1E6BA9C000A25475 /* RushPhoneCallUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RushPhoneCallUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		064F71511E6BA9C000A25475 /* RushPhoneCallUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RushPhoneCallUITests.swift; sourceTree = "<group>"; };
+		064F71531E6BA9C000A25475 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		064F712B1E6BA9C000A25475 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		064F713F1E6BA9C000A25475 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		064F714A1E6BA9C000A25475 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		064F71251E6BA9C000A25475 = {
+			isa = PBXGroup;
+			children = (
+				064F71301E6BA9C000A25475 /* RushPhoneCall */,
+				064F71451E6BA9C000A25475 /* RushPhoneCallTests */,
+				064F71501E6BA9C000A25475 /* RushPhoneCallUITests */,
+				064F712F1E6BA9C000A25475 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		064F712F1E6BA9C000A25475 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				064F712E1E6BA9C000A25475 /* RushPhoneCall.app */,
+				064F71421E6BA9C000A25475 /* RushPhoneCallTests.xctest */,
+				064F714D1E6BA9C000A25475 /* RushPhoneCallUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		064F71301E6BA9C000A25475 /* RushPhoneCall */ = {
+			isa = PBXGroup;
+			children = (
+				064F71311E6BA9C000A25475 /* AppDelegate.swift */,
+				064F71331E6BA9C000A25475 /* ViewController.swift */,
+				064F71351E6BA9C000A25475 /* Main.storyboard */,
+				064F71381E6BA9C000A25475 /* Assets.xcassets */,
+				064F713A1E6BA9C000A25475 /* LaunchScreen.storyboard */,
+				064F713D1E6BA9C000A25475 /* Info.plist */,
+			);
+			path = RushPhoneCall;
+			sourceTree = "<group>";
+		};
+		064F71451E6BA9C000A25475 /* RushPhoneCallTests */ = {
+			isa = PBXGroup;
+			children = (
+				064F71461E6BA9C000A25475 /* RushPhoneCallTests.swift */,
+				064F71481E6BA9C000A25475 /* Info.plist */,
+			);
+			path = RushPhoneCallTests;
+			sourceTree = "<group>";
+		};
+		064F71501E6BA9C000A25475 /* RushPhoneCallUITests */ = {
+			isa = PBXGroup;
+			children = (
+				064F71511E6BA9C000A25475 /* RushPhoneCallUITests.swift */,
+				064F71531E6BA9C000A25475 /* Info.plist */,
+			);
+			path = RushPhoneCallUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		064F712D1E6BA9C000A25475 /* RushPhoneCall */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 064F71561E6BA9C000A25475 /* Build configuration list for PBXNativeTarget "RushPhoneCall" */;
+			buildPhases = (
+				064F712A1E6BA9C000A25475 /* Sources */,
+				064F712B1E6BA9C000A25475 /* Frameworks */,
+				064F712C1E6BA9C000A25475 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RushPhoneCall;
+			productName = RushPhoneCall;
+			productReference = 064F712E1E6BA9C000A25475 /* RushPhoneCall.app */;
+			productType = "com.apple.product-type.application";
+		};
+		064F71411E6BA9C000A25475 /* RushPhoneCallTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 064F71591E6BA9C000A25475 /* Build configuration list for PBXNativeTarget "RushPhoneCallTests" */;
+			buildPhases = (
+				064F713E1E6BA9C000A25475 /* Sources */,
+				064F713F1E6BA9C000A25475 /* Frameworks */,
+				064F71401E6BA9C000A25475 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				064F71441E6BA9C000A25475 /* PBXTargetDependency */,
+			);
+			name = RushPhoneCallTests;
+			productName = RushPhoneCallTests;
+			productReference = 064F71421E6BA9C000A25475 /* RushPhoneCallTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		064F714C1E6BA9C000A25475 /* RushPhoneCallUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 064F715C1E6BA9C000A25475 /* Build configuration list for PBXNativeTarget "RushPhoneCallUITests" */;
+			buildPhases = (
+				064F71491E6BA9C000A25475 /* Sources */,
+				064F714A1E6BA9C000A25475 /* Frameworks */,
+				064F714B1E6BA9C000A25475 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				064F714F1E6BA9C000A25475 /* PBXTargetDependency */,
+			);
+			name = RushPhoneCallUITests;
+			productName = RushPhoneCallUITests;
+			productReference = 064F714D1E6BA9C000A25475 /* RushPhoneCallUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		064F71261E6BA9C000A25475 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = "Kai Rush";
+				TargetAttributes = {
+					064F712D1E6BA9C000A25475 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+					064F71411E6BA9C000A25475 = {
+						CreatedOnToolsVersion = 7.3.1;
+						TestTargetID = 064F712D1E6BA9C000A25475;
+					};
+					064F714C1E6BA9C000A25475 = {
+						CreatedOnToolsVersion = 7.3.1;
+						TestTargetID = 064F712D1E6BA9C000A25475;
+					};
+				};
+			};
+			buildConfigurationList = 064F71291E6BA9C000A25475 /* Build configuration list for PBXProject "RushPhoneCall" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 064F71251E6BA9C000A25475;
+			productRefGroup = 064F712F1E6BA9C000A25475 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				064F712D1E6BA9C000A25475 /* RushPhoneCall */,
+				064F71411E6BA9C000A25475 /* RushPhoneCallTests */,
+				064F714C1E6BA9C000A25475 /* RushPhoneCallUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		064F712C1E6BA9C000A25475 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				064F713C1E6BA9C000A25475 /* LaunchScreen.storyboard in Resources */,
+				064F71391E6BA9C000A25475 /* Assets.xcassets in Resources */,
+				064F71371E6BA9C000A25475 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		064F71401E6BA9C000A25475 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		064F714B1E6BA9C000A25475 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		064F712A1E6BA9C000A25475 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				064F71341E6BA9C000A25475 /* ViewController.swift in Sources */,
+				064F71321E6BA9C000A25475 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		064F713E1E6BA9C000A25475 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				064F71471E6BA9C000A25475 /* RushPhoneCallTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		064F71491E6BA9C000A25475 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				064F71521E6BA9C000A25475 /* RushPhoneCallUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		064F71441E6BA9C000A25475 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 064F712D1E6BA9C000A25475 /* RushPhoneCall */;
+			targetProxy = 064F71431E6BA9C000A25475 /* PBXContainerItemProxy */;
+		};
+		064F714F1E6BA9C000A25475 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 064F712D1E6BA9C000A25475 /* RushPhoneCall */;
+			targetProxy = 064F714E1E6BA9C000A25475 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		064F71351E6BA9C000A25475 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				064F71361E6BA9C000A25475 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		064F713A1E6BA9C000A25475 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				064F713B1E6BA9C000A25475 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		064F71541E6BA9C000A25475 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		064F71551E6BA9C000A25475 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		064F71571E6BA9C000A25475 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = RushPhoneCall/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = edu.niu.cs.rush.RushPhoneCall;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		064F71581E6BA9C000A25475 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = RushPhoneCall/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = edu.niu.cs.rush.RushPhoneCall;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		064F715A1E6BA9C000A25475 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = RushPhoneCallTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = edu.niu.cs.rush.RushPhoneCallTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RushPhoneCall.app/RushPhoneCall";
+			};
+			name = Debug;
+		};
+		064F715B1E6BA9C000A25475 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = RushPhoneCallTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = edu.niu.cs.rush.RushPhoneCallTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RushPhoneCall.app/RushPhoneCall";
+			};
+			name = Release;
+		};
+		064F715D1E6BA9C000A25475 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = RushPhoneCallUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = edu.niu.cs.rush.RushPhoneCallUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = RushPhoneCall;
+			};
+			name = Debug;
+		};
+		064F715E1E6BA9C000A25475 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = RushPhoneCallUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = edu.niu.cs.rush.RushPhoneCallUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = RushPhoneCall;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		064F71291E6BA9C000A25475 /* Build configuration list for PBXProject "RushPhoneCall" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				064F71541E6BA9C000A25475 /* Debug */,
+				064F71551E6BA9C000A25475 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		064F71561E6BA9C000A25475 /* Build configuration list for PBXNativeTarget "RushPhoneCall" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				064F71571E6BA9C000A25475 /* Debug */,
+				064F71581E6BA9C000A25475 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		064F71591E6BA9C000A25475 /* Build configuration list for PBXNativeTarget "RushPhoneCallTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				064F715A1E6BA9C000A25475 /* Debug */,
+				064F715B1E6BA9C000A25475 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		064F715C1E6BA9C000A25475 /* Build configuration list for PBXNativeTarget "RushPhoneCallUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				064F715D1E6BA9C000A25475 /* Debug */,
+				064F715E1E6BA9C000A25475 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 064F71261E6BA9C000A25475 /* Project object */;
+}

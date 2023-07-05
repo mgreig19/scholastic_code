@@ -1,0 +1,196 @@
+/*
+DDL
+assign 6
+section:        CSCI466-2
+TA:             Kartheek Chintalapati
+Due:            Mar 6, 2017
+
+May-Myo Khine
+z1785954
+*/
+
+mysql> use z1785954;
+Database changed
+
+mysql> CREATE TABLE instrument (instrument_id MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    -> instrument_type CHAR(15) NOT NULL, maker_name CHAR(25) NOT NULL, made_year CHAR(4)
+    -> NOT NULL, PRIMARY KEY (instrument_id));
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> CREATE TABLE player ( player_id MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    -> last_name CHAR(15) NOT NULL, first_name CHAR(15) NOT NULL, salary DECIMAL(7,2) NOT NULL,
+    -> PRIMARY KEY ( player_id));
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> CREATE TABLE plays (instrument_id MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    -> player_id MEDIUMINT UNSIGNED NOT NULL,rating ENUM('A','B','C','D') NOT NULL,
+    -> PRIMARY KEY(instrument_id),FOREIGN KEY(player_id) REFERENCES player (player_id));
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> INSERT INTO instrument VALUES(' ','Violin', 'May','1995');
+Query OK, 1 row affected, 1 warning (0.02 sec)
+
+mysql> INSERT INTO instrument VALUES(' ','Guiter', 'Ada','1996');
+Query OK, 1 row affected, 1 warning (0.02 sec)
+
+mysql> INSERT INTO instrument VALUES(' ','Piano', 'Chit','1997');
+Query OK, 1 row affected, 1 warning (0.04 sec)
+
+mysql> INSERT INTO instrument VALUES(' ','Drum', 'Su','2000');
+Query OK, 1 row affected, 1 warning (0.07 sec)
+
+mysql> INSERT INTO instrument VALUES(' ','Saxophone', 'Khine','2015');
+Query OK, 1 row affected, 1 warning (0.05 sec)
+
+mysql> 
+mysql> INSERT INTO player VALUES(' ','Khine','May','65000.00');
+Query OK, 1 row affected, 1 warning (0.07 sec)
+
+mysql> INSERT INTO player VALUES(' ','Su','Chit','989.55');
+Query OK, 1 row affected, 1 warning (0.06 sec)
+
+mysql> INSERT INTO player VALUES(' ','Khine','Khine','2100.02');
+Query OK, 1 row affected, 1 warning (0.08 sec)
+
+mysql> INSERT INTO player VALUES(' ','Myo','May','1100.55');
+Query OK, 1 row affected, 1 warning (0.04 sec)
+
+mysql> INSERT INTO player VALUES(' ','Loynvros','Ada','1234.56');
+Query OK, 1 row affected, 1 warning (0.01 sec)
+
+mysql> 
+mysql> INSERT INTO plays VALUES(' ','001','A');
+Query OK, 1 row affected, 1 warning (0.02 sec)
+
+mysql> INSERT INTO plays VALUES(' ','002','B');
+Query OK, 1 row affected, 1 warning (0.02 sec)
+
+mysql> INSERT INTO plays VALUES(' ','003','C');
+Query OK, 1 row affected, 1 warning (0.06 sec)
+
+mysql> INSERT INTO plays VALUES(' ','004','D');
+Query OK, 1 row affected, 1 warning (0.07 sec)
+
+mysql> INSERT INTO plays VALUES(' ','005','A');
+Query OK, 1 row affected, 1 warning (0.03 sec)
+
+mysql> SELECT * FROM instrument;
++---------------+-----------------+------------+-----------+
+| instrument_id | instrument_type | maker_name | made_year |
++---------------+-----------------+------------+-----------+
+|             1 | Violin          | May        | 1995      |
+|             2 | Guiter          | Ada        | 1996      |
+|             3 | Piano           | Chit       | 1997      |
+|             4 | Drum            | Su         | 2000      |
+|             5 | Saxophone       | Khine      | 2015      |
++---------------+-----------------+------------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM player;
++-----------+-----------+------------+----------+
+| player_id | last_name | first_name | salary   |
++-----------+-----------+------------+----------+
+|         1 | Khine     | May        | 65000.00 |
+|         2 | Su        | Chit       |   989.55 |
+|         3 | Khine     | Khine      |  2100.02 |
+|         4 | Myo       | May        |  1100.55 |
+|         5 | Loynvros  | Ada        |  1234.56 |
++-----------+-----------+------------+----------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM plays;
++---------------+-----------+--------+
+| instrument_id | player_id | rating |
++---------------+-----------+--------+
+|             1 |         1 | A      |
+|             2 |         2 | B      |
+|             3 |         3 | C      |
+|             4 |         4 | D      |
+|             5 |         5 | A      |
++---------------+-----------+--------+
+5 rows in set (0.00 sec)
+
+mysql> ALTER TABLE player ADD start_date int DEFAULT 2010;
+Query OK, 5 rows affected (0.11 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM player;
++-----------+-----------+------------+----------+------------+
+| player_id | last_name | first_name | salary   | start_date |
++-----------+-----------+------------+----------+------------+
+|         1 | Khine     | May        | 65000.00 |       2010 |
+|         2 | Su        | Chit       |   989.55 |       2010 |
+|         3 | Khine     | Khine      |  2100.02 |       2010 |
+|         4 | Myo       | May        |  1100.55 |       2010 |
+|         5 | Loynvros  | Ada        |  1234.56 |       2010 |
++-----------+-----------+------------+----------+------------+
+5 rows in set (0.00 sec)
+
+mysql> UPDATE player SET start_date = '2015' WHERE player_id = '001';
+Query OK, 1 row affected (0.09 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE player SET start_date = '2015' WHERE player_id = '003';
+Query OK, 1 row affected (0.09 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM player;
++-----------+-----------+------------+----------+------------+
+| player_id | last_name | first_name | salary   | start_date |
++-----------+-----------+------------+----------+------------+
+|         1 | Khine     | May        | 65000.00 |       2015 |
+|         2 | Su        | Chit       |   989.55 |       2010 |
+|         3 | Khine     | Khine      |  2100.02 |       2015 |
+|         4 | Myo       | May        |  1100.55 |       2010 |
+|         5 | Loynvros  | Ada        |  1234.56 |       2010 |
++-----------+-----------+------------+----------+------------+
+5 rows in set (0.00 sec)
+
+mysql> DELETE FROM plays WHERE instrument_id='005';
+Query OK, 1 row affected (0.03 sec)
+
+mysql> SELECT * FROM plays;
++---------------+-----------+--------+
+| instrument_id | player_id | rating |
++---------------+-----------+--------+
+|             1 |         1 | A      |
+|             2 |         2 | B      |
+|             3 |         3 | C      |
+|             4 |         4 | D      |
++---------------+-----------+--------+
+4 rows in set (0.00 sec)
+
+mysql> DESCRIBE instrument;
++-----------------+-----------------------+------+-----+---------+----------------+
+| Field           | Type                  | Null | Key | Default | Extra          |
++-----------------+-----------------------+------+-----+---------+----------------+
+| instrument_id   | mediumint(8) unsigned | NO   | PRI | NULL    | auto_increment |
+| instrument_type | char(15)              | NO   |     | NULL    |                |
+| maker_name      | char(25)              | NO   |     | NULL    |                |
+| made_year       | char(4)               | NO   |     | NULL    |                |
++-----------------+-----------------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> DESCRIBE player;
++------------+-----------------------+------+-----+---------+----------------+
+| Field      | Type                  | Null | Key | Default | Extra          |
++------------+-----------------------+------+-----+---------+----------------+
+| player_id  | mediumint(8) unsigned | NO   | PRI | NULL    | auto_increment |
+| last_name  | char(15)              | NO   |     | NULL    |                |
+| first_name | char(15)              | NO   |     | NULL    |                |
+| salary     | decimal(7,2)          | NO   |     | NULL    |                |
+| start_date | int(11)               | YES  |     | 2010    |                |
++------------+-----------------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> DESCRIBE plays;
++---------------+-----------------------+------+-----+---------+----------------+
+| Field         | Type                  | Null | Key | Default | Extra          |
++---------------+-----------------------+------+-----+---------+----------------+
+| instrument_id | mediumint(8) unsigned | NO   | PRI | NULL    | auto_increment |
+| player_id     | mediumint(8) unsigned | NO   | MUL | NULL    |                |
+| rating        | enum('A','B','C','D') | NO   |     | NULL    |                |
++---------------+-----------------------+------+-----+---------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> \t

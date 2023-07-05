@@ -1,0 +1,769 @@
+//KC03LF7A JOB ,'GREIG',MSGCLASS=H                                      00010000
+//*                                                                     00020000
+//********************************************************************
+//*                                                                  *
+//* PROGRAM: ASSIGNMENT 7                                            *
+//* AUTHOR: MASON GREIG OSCAR NAHENA                                 *
+//* DATE DUE: 4/23/2018                                              *
+//*                                                                  *
+//* FUNCTION: A COBOL PROGRAM WHICH BUILDS A 2D TABLE FROM TWO INPUT *
+//*           FILES AND THEN USES A THIRD INPUT FILE TO PROCESS      *
+//*           FUNDS FROM BROKERS INTO A REPORT FILE WITH AN          *
+//*           ACCOMPANYING SUMMARY REPORT                            *
+//*                                                                  *
+//********************************************************************
+//*
+//********************************************************************
+//*                                                                  *
+//* JSTEP01: THIS JSTEP UTLIZES THE IBM SORT PROGRAM TO SORT THE     *
+//*          DATA7A DATA BY THE FUND NUMBER AND THEN PASS THE NEWLY  *
+//*          SORTED DATA TO THE COBOL PROGRAM IN A TEMPORARY FILE    *
+//*                                                                  *
+//* SORTIN: THE DATA TO BE SORTED BY THE SORT PROGRAM                *
+//*                                                                  *
+//* SORTOUT: TEMPORARY OUTPUT FILE TO HOLD THE SORTED DATA           *
+//*                                                                  *
+//* SYSOUT: STANDARD OUTPUT FOR THE INSTREAM SORT PROGRAM            *
+//*                                                                  *
+//* SYSIN: THE START OF THE INSTREAM SORT PROGRAM                    *
+//*                                                                  *
+//********************************************************************
+//*
+//JSTEP01  EXEC PGM=SORT,PARM='CMP=CLC'
+//*
+//SORTIN   DD   DSN=KC02322.CSCI465.DATASP18(DATA7A),DISP=SHR
+//SORTOUT  DD   DSN=&&SORTED,SPACE=(TRK,(1,5)),DISP=(NEW,PASS)
+//*
+//SYSOUT   DD   SYSOUT=*
+//*
+//SYSIN    DD   *
+  SORT FIELDS=(1,2,ZD,A)
+/*
+//********************************************************************
+//*                                                                  *
+//* JSTEP02: THIS JSTEP COMPILES THE COBOL CODE AND STORES           *
+//*          THE COMPILE CODE OBJECT INTO A TEMPORARY DATASET WHICH  *
+//*          IS THEN PASSED TO THE NEXT JOB STEP - JSTEP02           *
+//*                                                                  *
+//* SYSIN: THE START OF THE INSTREAM COBOL PROGRAM                   *
+//*                                                                  *
+//* SYSLIN: TEMPORARY OUTPUT OBJECT TO HOLD AND PASS COBOL PROGRAM   *
+//*                                                                  *
+//* SYSPRINT: MESSAGES FROM COBOL COMPILER PROCESS                   *
+//*                                                                  *
+//* SYSUT1 - SYSUT15: THESE ARE WORK SPACES FOR THE COBOL COMPILER   *
+//*                                                                  *
+//* STSMDECK: CONTAINS A COPY OF THE UPDATED INPUT SOURCE            *
+//*                                                                  *
+//********************************************************************
+//*
+//JSTEP02  EXEC PGM=IGYCRCTL,REGION=0M,PARM=APOST,COND=(0,LT)
+//*
+//SYSLIB   DD   DSN=KC02322.CSCI465.COPYLIB,DISP=SHR
+//*
+//SYSIN    DD *
+      ****************************************************************  00030000
+      *                                                              *  00040000
+      * PROGRAM NAME:  ASSIGN7                                       *  00050000
+      *                                                              *  00060000
+      * FUNCTION:  THIS PROGRAM READS INPUT DATA RECORDS AND THEN    *  00070000
+      *            WRITES THEM TO STANDARD OUTPUT.                   *  00080000
+      *                                                              *  00090000
+      * INPUT:     INPUT-FILE: THE TEMPORARY DATA WHICH WAS SORTED   *  00100000
+      *            INPUT-FILE2: THE PRICE DATA TO BE USED TO BUILD   *  00110000
+      *                         THE TABLE                            *  00110000
+      *            INPUT-FILE3: THE SALES RECORDS TO BE PROCESSED    *  00110000
+      *                         AND PRINTED                          *  00110000
+      * OUTPUT:    PRINT-FILE: THIS FILE WRITES TO STANDARD OUTPUT   *  00110000
+      *                                                              *  00130000
+      ****************************************************************  00140000
+       IDENTIFICATION DIVISION.                                         00150000
+
+       PROGRAM-ID.    ASSIGN7.                                          00160000
+       AUTHOR.        MASON GREIG. OSCAR BAHENA.                        00170000
+       DATE-WRITTEN.  02/05/2018.                                       00180000
+       DATE-COMPILED.                                                   00190000
+
+       ENVIRONMENT DIVISION.                                            00200000
+
+       INPUT-OUTPUT SECTION.                                            00210000
+
+       FILE-CONTROL.                                                    00220000
+
+           SELECT INPUT-FILE ASSIGN TO SORTEDO.                         00230000
+           SELECT INPUT-FILE2 ASSIGN TO COBIN2.
+           SELECT INPUT-FILE3 ASSIGN TO COBIN3.
+           SELECT PRINT-FILE ASSIGN TO COBOUT.                          00240000
+
+       DATA DIVISION.                                                   00250000
+
+       FILE SECTION.                                                    00260000
+
+       FD  INPUT-FILE                                                   00270000
+           RECORDING MODE IS F.                                         00280000
+
+       COPY FUNDREC.                                                    00290000
+           05  FILLER                        PIC X(53).
+
+       FD  INPUT-FILE2                                                  00270000
+           RECORDING MODE IS F.                                         00280000
+
+       COPY PRCREC.                                                     00290000
+
+       FD  INPUT-FILE3                                                  00270000
+           RECORDING MODE IS F.                                         00280000
+
+       COPY SALESREC.                                                   00290000
+
+       FD  PRINT-FILE                                                   00300000
+           RECORDING MODE IS F.                                         00310000
+
+       01  PRINT-RECORD                      PIC X(132).                 20000
+                                                                         0330000
+      ****************************************************************
+      *                                                              *
+      * VARIABLES:                                                   *
+      *                                                              *
+      * EOF-FLAG, EOF-FLAG2: THESE ARE CHANGED TO 'Y' WHEN THE END   *
+      *    EOF-FLAG3         OF THE ASSOCIATED FILE HAS BEEN REACHED *
+      *                                                              *
+      * TABLE-FUNDS: THE 2-DIMENSIONAL TABLE WHICH HOLDS THE DATA    *
+      *              THAT HAS BEEN READ IN FROM THE TWO INPUT FILES  *
+      *              AND THE TEMPORARY FILE WHICH CONTAINS THE SORTED*
+      *              DATA OF THE THIRD INPUT FILE                    *
+      *                                                              *
+      * PRCSUB: THE PRICE SUBSCRIPT WHICH IS USED TO ITERATE THROUGH *
+      *         THE PRICE RECORD DATA PORTION OF THE TABLE           *
+      *                                                              *
+      * LINECTR: A VARIABLE TO TRACK THE NUMBER OF LINES WRITTEN     *
+      *                                                              *
+      * PAGECTR: A VARIABLE TO TRACK THE NUMBER OF PAGES PROCESSED   *
+      *                                                              *
+      * BROKERCTR: A VARIABLE TO TRACK THE NUMBER OF BROKERS         *
+      *            PROCESSED                                         *
+      *                                                              *
+      * CALCSHRAMT: HOLDS THE SHARES SOLD AMOUNT AFTER THE COMPUTE   *
+      *             IS CALLED IN THE PROGRAM                         *
+      *                                                              *
+      * AVGDEPTAMT: HOLDS THE AVERAGE DEPOSIT AMOUNT AFTER IT HAS    *
+      *             BEEN CALCULATED BY THE PROGRAM                   *
+      *                                                              *
+      * TOTDEPTAMT: HOLDS THE TOTAL AMOUNT OF THE DEPOSITS WHICH     *
+      *             IS CALCULATED BY THE PROGRAM                     *
+      *                                                              *
+      * HEADER1: THE PRINT LINE STRUCTURE FOR THE FIRST HEADER LEVEL *
+      *          OF THE SALES REPORTS DETAIL REPORT WHICH IS PRINTED *
+      *          WITH EVERY NEW REPORT PAGE                          *
+      *                                                              *
+      * HEADER2: THE PRINT LINE STRUCTURE FOR THE SECOND HEADER LEVEL*
+      *          OF THE SALES REPORTS DETAIL REPORT WHICH IS PRINTED *
+      *          WITH EVERY NEW REPORT PAGE                          *
+      *                                                              *
+      * HEADER3: THE PRINT LINE STRUCTURE FOR THE THIRD HEADER LEVEL *
+      *          OF THE TOTAL SUMMARY REPORT WHICH IS PRINTED ON A   *
+      *          NEW PAGE AFTER THE DETAIL REPORTS                   *
+      *                                                              *
+      * COL-HDR1: THE PRINT LINE STRUCTURE FOR THE FIRST LEVEL OF THE*
+      *           COLUMN HEADERS WHICH LABEL THE REPORTS DETAIL LINES*
+      *                                                              *
+      * COL-HDR2: THE PRINT LINE STRUCTURE FOR THE SECOND LEVEL OF   *
+      *       THE COLUMN HEADERS WHICH LABEL THE REPORTS DETAIL LINES*
+      *                                                              *
+      * COL-HDR3: THE PRINT LINE STRUCTURE FOR THE FIRST LEVEL OF THE*
+      *           COLUMN HEADERS WHICH LABEL THE DETAIL LINES FOR    *
+      *           THE TOTAL SUMMARY REPORT                           *
+      *                                                              *
+      * COL-HYPHENS: THE PRINT LINE STRUCTURE FOR THE THIRD LEVEL OF *
+      *             THE COLUMN HEADERS WHICH LABEL THE REPORTS DETAIL*
+      *             LINES                                            *
+      *                                                              *
+      * COL-HYPHEN2: THE PRINT LINE STRUCTURE FOR THE SECOND LEVEL OF*
+      *              THE COLUMN HEADERS WHICH LABEL THE DETAIL LINE  *
+      *              IN THE TOTAL SUMMARY REPORT                     *
+      *                                                              *
+      * REPORT-LINE: THE PRINT STRUCTURE FOR THE DETAIL LINE OF THE  *
+      *              REPORT WHICH DISPLAYS THE TABLE DATA AND THE    *
+      *              VARIABLES WHICH ARE CALCULATED DURING THE       *
+      *              EXECUTION OF THE PROGRAM                        *
+      *                                                              *
+      * REPORT-TOTALS-LINE: THE PRINT STRUCTURE FOR THE DETAIL LINE  *
+      *                    OF THE TITAL SUMMARY REPORT WHICH DISPLAYS*
+      *                    THE NUMBER OF BROKER PROCESSED, AVERAGE   *
+      *                    DEPOSIT AMOUNT, AND TOTAL DEPOSIT AMOUNT  *
+      *                                                              *
+      * CURRENT-DATE-FIELDS: THIS HOLDS THE DATE AND TIME DATA WHICH *
+      *                     IS RETRIEVED FROM THE SYSTEM FUNCTION    *
+      *                     WHEN CALLED                              *
+      *                                                              *
+      ****************************************************************
+       WORKING-STORAGE SECTION.
+
+       01  EOF-FLAG                          PIC X VALUE 'N'.            40000
+       01  EOF-FLAG2                         PIC X VALUE 'N'.
+       01  EOF-FLAG3                         PIC X VALUE 'N'.
+
+       01  TABLE-FUNDS.
+           05  FUND-SIZE                     PIC S9(3) BINARY SYNC
+                                             VALUE 0.
+           05  FUND-TABLE OCCURS 1 TO 99 DEPENDING ON FUND-SIZE
+                                             ASCENDING KEY TBL-FUND-NBR
+                                             INDEXED BY FUND-NDX.
+           COPY FUNDTBL.
+
+       01  SUBSCRIPT.
+           05  PRCSUB                        PIC S9 BINARY SYNC
+                                             VALUE 0.
+
+       01  COUNTERS.
+           05  LINECTR                       PIC S9(2) BINARY SYNC
+                                             VALUE 99.
+           05  PAGECTR                       PIC S9(3) PACKED-DECIMAL
+                                             VALUE 0.
+           05  BROKERCTR                     PIC S9(3) PACKED-DECIMAL
+                                             VALUE 0.
+
+       01  VARIABLES.
+           05  CALCSHRAMT                    PIC S9(10)V9(3)
+                                             PACKED-DECIMAL
+                                             VALUE 0.
+           05  AVGDEPTAMT                    PIC S9(8)V9(2)
+                                             PACKED-DECIMAL
+                                             VALUE 0.
+           05  TOTDEPTAMT                    PIC S9(10)V9(2)
+                                             PACKED-DECIMAL
+                                             VALUE 0.
+       01  HEADER1.
+           05  OUT-CURRENT-DATE.
+               10  CURRENT-MONTH             PIC 9(2).
+               10  FILLER                    PIC X VALUE '/'.
+               10  CURRENT-DAY               PIC 9(2).
+               10  FILLER                    PIC X VALUE '/'.
+               10  CURRENT-YEAR              PIC 9(4).
+           05  FILLER                        PIC X(46) VALUE SPACES.
+           05  FILLER                        PIC X(23)
+                                    VALUE 'GETTYSBURG MUTUAL FUNDS'.
+           05  FILLER                        PIC X(44) VALUE SPACES.
+           05  FILLER                        PIC X(6) VALUE 'PAGE: '.
+           05  OUT-PGE-NBR                   PIC ZZ9.
+
+       01  HEADER2.
+           05  OUT-CURRENT-TIME.
+               10  CURRENT-HOUR              PIC 9(2).
+               10  FILLER                    PIC X VALUE ':'.
+               10  CURRENT-MINUTE            PIC 9(2).
+               10  FILLER                    PIC X VALUE ':'.
+               10  CURRENT-SECOND            PIC 9(2).
+           05  FILLER                        PIC X(45) VALUE SPACES.
+           05  FILLER                        PIC X(30)
+                             VALUE 'MUTUAL FUND DAILY SALES REPORT'.
+           05  FILLER                        PIC X(49).
+
+       01  COL-HDR1.
+           05  FILLER                        PIC X(54) VALUE SPACES.
+           05  FILLER                        PIC X(4) VALUE 'FUND'.
+           05  FILLER                        PIC X(39) VALUE SPACES.
+           05  FILLER                        PIC X(7) VALUE 'DEPOSIT'.
+           05  FILLER                        PIC X(2) VALUE SPACES.
+           05  FILLER                        PIC X(5) VALUE 'PRICE'.
+           05  FILLER                        PIC X(21) VALUE SPACES.
+
+       01  COL-HDR2.
+           05  FILLER                        PIC X(25)
+                                   VALUE 'BRANCH NAME              '.
+           05  FILLER                        PIC X(2) VALUE SPACES.
+           05  FILLER                        PIC X(25)
+                                   VALUE 'BROKER NAME              '.
+           05  FILLER                        PIC X(2) VALUE SPACES.
+           05  FILLER                        PIC X(4) VALUE ' NBR'.
+           05  FILLER                        PIC X(4) VALUE SPACES.
+           05  FILLER                        PIC X(25)
+                                   VALUE 'FUND NAME                '.
+           05  FILLER                        PIC X(5) VALUE SPACES.
+           05  FILLER                        PIC X(12)
+                                   VALUE '      AMOUNT'.
+           05  FILLER                        PIC X(2) VALUE SPACES.
+           05  FILLER                        PIC X(5) VALUE ' FLAG'.
+           05  FILLER                        PIC X(6) VALUE SPACES.
+           05  FILLER                        PIC X(15)
+                                           VALUE '    SHARES SOLD'.
+
+       01  COL-HYPHENS.
+           05  FILLER                        PIC X(25) VALUE ALL '-'.
+           05  FILLER                        PIC X(2) VALUE SPACES.
+           05  FILLER                        PIC X(25) VALUE ALL '-'.
+           05  FILLER                        PIC X(2) VALUE SPACES.
+           05  FILLER                        PIC X(4) VALUE ALL '-'.
+           05  FILLER                        PIC X(4) VALUE SPACES.
+           05  FILLER                        PIC X(25) VALUE ALL '-'.
+           05  FILLER                        PIC X(3) VALUE SPACES.
+           05  FILLER                        PIC X(14) VALUE ALL '-'.
+           05  FILLER                        PIC X(2) VALUE SPACES.
+           05  FILLER                        PIC X(5) VALUE ALL '-'.
+           05  FILLER                        PIC X(3) VALUE SPACES.
+           05  FILLER                        PIC X(18) VALUE ALL '-'.
+
+       01  REPORT-LINE.                                                 0350000
+           05  RPT-BRANCH-NME                PIC X(25).
+           05  FILLER                        PIC X(2) VALUE SPACES.
+           05  RPT-BROKER-NME                PIC X(25).
+           05  FILLER                        PIC X(4) VALUE SPACES.
+           05  RPT-FUND-NBR                  PIC 9(2).
+           05  FILLER                        PIC X(4) VALUE SPACES.
+           05  RPT-FUND-NME                  PIC X(25).
+           05  FILLER                        PIC X(3) VALUE SPACES.
+           05  RPT-DEPT-AMT                  PIC $$$,$$$,$$9.99.
+           05  RPT-PRCFLAG-SHR.
+               10  FILLER                    PIC X(6) VALUE SPACES.
+               10  RPT-PRC-FLAG              PIC 9.
+               10  FILLER                    PIC X(3) VALUE SPACES.
+               10  RPT-SHR-SOLD              PIC Z,ZZZ,ZZZ,ZZ9.9999.
+           05  NO-FUND-FOUND REDEFINES
+                       RPT-PRCFLAG-SHR       PIC X(28).
+
+       01  HEADER3.
+           05  FILLER                        PIC X(63) VALUE SPACES.
+           05  FILLER                        PIC X(13)
+                                             VALUE 'REPORT TOTALS'.
+           05  FILLER                        PIC X(58) VALUE SPACES.
+
+       01  COL-HDR3.
+           05  FILLER                        PIC X(30) VALUE SPACES.
+           05  FILLER                        PIC X(17)
+                                          VALUE 'NUMBER OF BROKERS'.
+           05  FILLER                        PIC X(12) VALUE SPACES.
+           05  FILLER                        PIC X(17)
+                                             VALUE '    TOTAL DEPOSIT'.
+           05  FILLER                        PIC X(11) VALUE SPACES.
+           05  FILLER                        PIC X(15)
+                                            VALUE 'AVERAGE DEPOSIT'.
+           05  FILLER                        PIC X(30) VALUE SPACES.
+
+       01  COL-HYPHEN2.
+           05  FILLER                        PIC X(30) VALUE SPACES.
+           05  FILLER                        PIC X(17) VALUE ALL '-'.
+           05  FILLER                        PIC X(12) VALUE SPACES.
+           05  FILLER                        PIC X(17) VALUE ALL '-'.
+           05  FILLER                        PIC X(11) VALUE SPACES.
+           05  FILLER                        PIC X(15) VALUE ALL '-'.
+           05  FILLER                        PIC X(30) VALUE SPACES.
+
+
+       01  REPORT-TOTALS-LINE.
+           05  FILLER                        PIC X(44) VALUE SPACES.
+           05  RPT-BROKER-CNT                PIC ZZ9.
+           05  FILLER                        PIC X(12) VALUE SPACES.
+           05  RPT-TOT-DEPT-AMT              PIC $$,$$$,$$$,$$9.99.
+           05  FILLER                        PIC X(12) VALUE SPACES.
+           05  RPT-AVG-DEPT-AMT              PIC $$$,$$$,$$9.99.
+           05  FILLER                        PIC X(31) VALUE SPACES.
+
+       01  CURRENT-DATE-FIELDS.
+           05  CURRENT-DATE.
+               10  CURRENT-YEAR              PIC 9(4).
+               10  CURRENT-MONTH             PIC 9(2).
+               10  CURRENT-DAY               PIC 9(2).
+           05  CURRENT-TIME.
+               10  CURRENT-HOUR              PIC 9(2).
+               10  CURRENT-MINUTE            PIC 9(2).
+               10  CURRENT-SECOND            PIC 9(2).
+               10  CURRENT-MS                PIC 9(2).
+           05  DIFF-FROM-GMT                 PIC S9(4).
+
+       PROCEDURE DIVISION.                                              00380000
+
+      *****************************************************************
+      *                                                               *
+      * 0000-MAIN                                                     *
+      *                                                               *
+      * THIS ROUTINE IS THE MAIN PROGRAM DRIVER WHICH OPENS TWO INPUT *
+      * FILES INPUT-FILE AND INPUT-FILE2 TO BUILD THE 2D TABLE OF DATA*
+      * IT THEN CLOSES THOSE FILES AND OPENS A THIRD INPUT FILE       *
+      * INPUT-FILE3 WHICH HOLDS THE SALES DATA TO BE USED TO PRINT    *
+      * THE SALES REPORT, AFTER PRINTING THE SALES REPORT THE PROGRAM *
+      * PRINTS A TOTALS SUMMARY REPORT                                *
+      *                                                               *
+      * (1)IT STARTS BY CALLING THE DATE-TIME ROUTINE TO GET THE      *
+      *    CURRENT SYSTEM TIME AND DATE PLACED INTO THE HEADER1 (2)   *
+      *    OPENS INPUT INPUT-FILE AND READS THE FIRST RECORD (3) CALLS*
+      *    THE SUBROUTINE 0200-BUILD-1DTBL TO BUILD THE FIRST LEVEL OF*
+      *    THE TABLE WITH UP TO 99 ENTRIES STARTING THE COUNT AT 1 (3)*
+      *    CLOSE THE INPUT-FILE AND OPEN INPUT INPUT-FILE2 THEN READ  *
+      *    THE FIRST RECORD OF INPUT-FILE2 (4) CALL THE SUBROUTINE    *
+      *    0300-BUILD-2DTBL TO BUILD THE SECOND LEVEL OF THE TABLE    *
+      *    WITH UP TO 99 ENTRIES STARTING AT 1 (5) CLOSE THE INPUT    *
+      *    INPUT-FILE2 AND OPEN INPUT INPUT-FILE3/OPEN OUTPUT         *
+      *    PRINT-FILE TO ENABLE PRINTING THE REPORT AND PROCESSING    *
+      *    THE SALES DATA (6) READ THE FIRST RECORD OF INPUT-FILE3    *
+      *    (7) CALL THE SUBROUTINE 0400-PROCESS-PRINT-REPORT IN ORDER *
+      *    TO PROCESS THE SALES RECORDS AND PRINT THE DETAIL REPORT   *
+      *    LINES (8) CALL THE SUBROUTINE 0700-PRINT-TOTALS TO PRINT   *
+      *    THE TOTALS SUMMARY REPORT (9) END PROGRAM                  *
+      *                                                               *
+      *****************************************************************
+       0000-MAIN.                                                       00390000
+
+           PERFORM 0100-DATE-TIME.
+
+           OPEN INPUT  INPUT-FILE.                                      00400000
+
+           READ INPUT-FILE                                              00420000
+             AT END MOVE 'Y' TO EOF-FLAG                                00430000
+           END-READ.                                                    00440000
+
+           PERFORM 0200-BUILD-1DTBL VARYING FUND-NDX
+             FROM 1 BY 1 UNTIL FUND-NDX > 99 OR
+             EOF-FLAG = 'Y'.
+
+           CLOSE INPUT-FILE.                                            00470000
+
+           OPEN INPUT INPUT-FILE2.
+
+           READ INPUT-FILE2                                             00420000
+             AT END MOVE 'Y' TO EOF-FLAG                                00430000
+           END-READ.                                                    00440000
+
+           PERFORM 0300-BUILD-2DTBL VARYING FUND-NDX
+             FROM 1 BY 1 UNTIL FUND-NDX > 99 OR
+             EOF-FLAG2 = 'Y'.
+
+           CLOSE INPUT-FILE2.
+
+           OPEN INPUT INPUT-FILE3
+                OUTPUT PRINT-FILE.
+
+           READ INPUT-FILE3
+             AT END MOVE 'Y' TO EOF-FLAG3
+           END-READ.
+
+           PERFORM 0400-PROCESS-PRINT-REPORT
+             UNTIL EOF-FLAG3 = 'Y'.
+
+           PERFORM 0700-PRINT-TOTALS.
+
+           CLOSE INPUT-FILE3                                            00480000
+                 PRINT-FILE.
+
+           GOBACK.                                                      00490000
+
+       0000-EXIT. EXIT.                                                 00500000
+
+      *****************************************************************
+      *                                                               *
+      * 0100-DATE-TIME                                                *
+      *                                                               *
+      * CALLS THE SYSTEM FUNCTION CURRENT-DATE AND MOVES THE DATA INTO*
+      * THE CURRENT-DATE-FIELDS STORAGE WHICH IS THEN MOVED TO THE    *
+      * CORRESPONDING AREAS IN THE HEADER1 PRINT LINE                 *
+      *                                                               *
+      *****************************************************************
+
+       0100-DATE-TIME.
+
+           MOVE FUNCTION CURRENT-DATE TO CURRENT-DATE-FIELDS.
+           MOVE CORRESPONDING CURRENT-DATE TO OUT-CURRENT-DATE.
+           MOVE CORRESPONDING CURRENT-TIME TO OUT-CURRENT-TIME.
+
+       0100-EXIT. EXIT.
+
+      *****************************************************************
+      *                                                               *
+      * 0200-BUILD-1DTBL                                              *
+      *                                                               *
+      * BUILDS THE FIRST TABLE LEVEL: INCREMENT FUND-SIZE THEN MOVE   *
+      * THE DATA FROM INPUT-FILE INTO THE TABLE AND READS THE NEXT    *
+      * RECORD                                                        *
+      *                                                               *
+      *****************************************************************
+
+       0200-BUILD-1DTBL.
+
+           ADD 1 TO FUND-SIZE.
+
+           MOVE IN-FUND-NBR TO TBL-FUND-NBR(FUND-NDX).
+           MOVE IN-FUND-NME TO TBL-FUND-NME(FUND-NDX).
+
+           READ INPUT-FILE
+             AT END MOVE 'Y' TO EOF-FLAG
+           END-READ.
+
+       0200-EXIT. EXIT.
+
+      *****************************************************************
+      *                                                               *
+      * 0300-BUILD-2DTBL                                              *
+      *                                                               *
+      * BUILDS THE SECOND LEVEL OF THE TABLE: MOVE 1 TO THE PRICE     *
+      * SUBSCRIPT, START LOOP AT TBL-PRC-NDX = 1 AND LOOP TILL THE    *
+      * TBL-PRC-NDX > 3: IN THE LOOP MOVE THE THE FUND PRICE IN THE   *
+      * DATA INTO THE TABLE AND INCREMENT THE PRICE SUBSCRIPT: END    *
+      * LOOP AND READ THE NEXT RECORD                                 *
+      *                                                               *
+      *****************************************************************
+
+       0300-BUILD-2DTBL.
+
+           MOVE 1 TO PRCSUB.
+
+           PERFORM VARYING TBL-PRC-NDX FROM 1 BY 1
+                     UNTIL TBL-PRC-NDX > 3
+
+             MOVE IN-FUND-PRC(PRCSUB) TO
+                  TBL-FUND-PRC(FUND-NDX, TBL-PRC-NDX)
+
+             ADD 1 TO PRCSUB
+
+           END-PERFORM.
+
+           READ INPUT-FILE2
+             AT END MOVE 'Y' TO EOF-FLAG2
+           END-READ.
+
+       0300-EXIT. EXIT.
+
+      *****************************************************************
+      *                                                               *
+      * 0400-PROCESS-PRINT-REPORT                                     *
+      *                                                               *
+      * THIS ROUTINE BEGINS THE PROCESS OF PRINTING THE DETAIL REPORT *
+      * MOVE THE BROKER NAME AND BRANCH NAME TO THE DETAIL LINE (1)   *
+      * CALL THE SUBROUTINE 0500-PRINT-DETAILS IN ORDER TO PRINT THE  *
+      * FUND DETAILS OF EACH FUND NUMBER FOR A BROKER (UP TO 4) THEN  *
+      * ADD 1 TO BROKERCTR AFTER ALL THE SALES RECORDS ARE PRINTED    *
+      * THEN READ THE NEXT RECORD                                     *
+      *                                                               *
+      *****************************************************************
+
+       0400-PROCESS-PRINT-REPORT.
+
+           MOVE SALES-BRANCH-NME TO RPT-BRANCH-NME.
+           MOVE SALES-BROKER-NME TO RPT-BROKER-NME.
+
+           PERFORM 0500-PRINT-DETAILS VARYING SALE-NDX FROM 1 BY 1
+                   UNTIL SALE-NDX > 4 OR SALE-FUND-NBR(SALE-NDX) = 0.
+
+           ADD 1 TO BROKERCTR.
+
+           READ INPUT-FILE3
+             AT END MOVE 'Y' TO EOF-FLAG3
+           END-READ.
+
+       0400-EXIT. EXIT.
+
+      *****************************************************************
+      *                                                               *
+      * MOVE THE FUND NBR AND DEPOSIT AMOUNT TO THE REPORT DETAIL     *
+      * LINE TO BE PRINTED, CALL THE SEARCH FUNCTION TO SEARCH THE    *
+      * 2D TABLE. AT THE END OF THE SEARCH IF THE FUND ISN'T FOUND    *
+      * THEN MOVE INFORMATIONAL MESSAGE TO THE PRINT LINE; IF THE     *
+      * SEARCH TABLE HAS FOUND THE FUND NUMBER, IN THE SALES RECORD   *
+      * THAT EQUALS THE FUND NBR IN THE TABLE THEN MOVE THE PRICE     *
+      * FLAG AND FUND NAME TO THE REPORT DETAIL LINE, SET THE         *
+      * TBL-PRC-NDX TO THE LOCATION OF THE SALE-FUND-NBR AT THE       *
+      * CURRENT SALE INDEX, THEN COMPUTE THE SHARES SOLD BY DIVIDING  *
+      * THE SALE DEPOSIT AMOUNT BY THE FUND PRICE AT THE FOUND PLACE  *
+      * IN THE TABLE. MOVE THE SHOARES SOLD AMOUNT INTO THE DETIAL    *
+      * PRINT LINE AND END THE SEARCH. IF THE LINE COUNTER IS > 16    *
+      * THEN CALL THE ROUTINEN 0600-PRINT-HEADER TO PRINT THE REPORT  *
+      * HEADERS; ELSE IF < 16 THEN PRINT THE REPORT DETAIL LINE TO    *
+      * PRINT THE NEXT LINE OF THE REPORT, ADD 1 TO THE LINE CTR THEN *
+      * COMPUTE THE TOTAL DEPOSIT AMOUNT BY ADDING ON THE NEXT DEPOSIT*
+      * AMOUNT PROCESSED AND MOVE SPACES TO THE BRANCH NAME AND BROKER*
+      * NAME TO CLEAR ANY INFORMATION THAT WAS PRINTED AFTER THE FIRST*
+      * RECORD FOR THAT BROKER IS SHOWN                               *
+      *                                                               *
+      *****************************************************************
+
+       0500-PRINT-DETAILS.
+
+           MOVE SALE-FUND-NBR(SALE-NDX) TO RPT-FUND-NBR.
+           MOVE SALE-DEP-AMT(SALE-NDX) TO RPT-DEPT-AMT.
+
+           SEARCH ALL FUND-TABLE
+
+             AT END
+               MOVE '**** FUND NOT FOUND *****' TO RPT-FUND-NME
+               MOVE SPACES TO NO-FUND-FOUND
+
+             WHEN TBL-FUND-NBR(FUND-NDX) = SALE-FUND-NBR(SALE-NDX)
+
+               MOVE SALE-PRC-FLG(SALE-NDX) TO RPT-PRC-FLAG
+               MOVE TBL-FUND-NME(FUND-NDX) TO RPT-FUND-NME
+
+               SET TBL-PRC-NDX TO SALE-PRC-FLG(SALE-NDX)
+               COMPUTE CALCSHRAMT ROUNDED = SALE-DEP-AMT(SALE-NDX) /
+                               TBL-FUND-PRC(FUND-NDX, TBL-PRC-NDX)
+
+               MOVE CALCSHRAMT TO RPT-SHR-SOLD
+
+           END-SEARCH.
+
+           IF LINECTR > 16
+             PERFORM 0600-PRINT-HEADER
+           END-IF.
+
+           WRITE PRINT-RECORD FROM REPORT-LINE AFTER 2.
+
+           ADD 1 TO LINECTR.
+
+           COMPUTE TOTDEPTAMT ROUNDED = TOTDEPTAMT +
+                   SALE-DEP-AMT(SALE-NDX).
+
+           MOVE SPACES TO RPT-BRANCH-NME.
+           MOVE SPACES TO RPT-BROKER-NME.
+
+       0500-EXIT. EXIT.
+
+      *****************************************************************
+      *                                                               *
+      * 0600-PRINT-HEADER                                             *
+      *                                                               *
+      * PRINTS THE HEADERS OF THE DETAIL REPORT                       *
+      * ADD 1 TO THE PAGE COUNT SINCE THE HEADERS ARE PRINTED AT THE  *
+      * TOP OF THE PAGE AND MOVE 1 TO THE LINE COUNTER VALUE          *
+      * PLACE THE BRANCH NAME AND BROKER NAME ONTO THE FIRST DETAIL   *
+      * LINE OF THE REPORT AND MOVE THE PAGE COUNT TO THE HEADER PRINT*
+      * LINE.                                                         *
+      *                                                               *
+      * WRITE THE HEADER1, HEADER2, COL-HDR1, COL-HDR2, AND           *
+      *       COL-HYPHENS REPORT HEADER LINES OUT TO STANDARD OUTPUT  *
+      *                                                               *
+      *****************************************************************
+
+       0600-PRINT-HEADER.
+
+           ADD 1 TO PAGECTR.
+           MOVE 1 TO LINECTR.
+
+           MOVE SALES-BRANCH-NME TO RPT-BRANCH-NME
+           MOVE SALES-BROKER-NME TO RPT-BROKER-NME
+           MOVE PAGECTR TO OUT-PGE-NBR.
+
+           WRITE PRINT-RECORD FROM HEADER1 AFTER PAGE.
+           WRITE PRINT-RECORD FROM HEADER2 AFTER 1.
+           WRITE PRINT-RECORD FROM COL-HDR1 AFTER 2.
+           WRITE PRINT-RECORD FROM COL-HDR2 AFTER 1.
+           WRITE PRINT-RECORD FROM COL-HYPHENS AFTER 1.
+
+       0600-EXIT. EXIT.
+
+      *****************************************************************
+      *                                                               *
+      * 0700-PRINT-TOTALS                                             *
+      *                                                               *
+      * THIS ROUTINE PRINTS THE TOTAL SUMMARY REPORT                  *
+      * ADD 1 TO THE PAGE COUNTER AND MOVE THE PAGE NUMBER TO         *
+      * THE PAGE NUMBER FIELD IN THE HEADER LINE                      *
+      * MOVE THE TOTAL DEPOSIT AMOUNT ONTO THE TOTALS SUMMARY REPORT  *
+      * LINE, CALCULATE THE AVERAGE DEPOSIT AMOUNT AND MOVE THE AMOUNT*
+      * OF THE AVERAGE DEPOSIT TO THE TOTALS REPORT LINE TO PRINT     *
+      * MOVE NUMBER OF BROKERS PROCESSED TO THE TOTALS REPORT LINE    *
+      * WRITE THE HEADER1, HEADER2, HEADER3, COL-HDR3, COL-HYPHEN2    *
+      * , AND REPORT-TOTALS-LINE TO THE PRINT-FILE IN ORDER TO PRINT  *
+      * THE DETAIL/HEADER LINES TO STANDARD OUTPUT                    *
+      *                                                               *
+      *****************************************************************
+
+       0700-PRINT-TOTALS.
+
+           ADD 1 TO PAGECTR.
+           MOVE PAGECTR TO OUT-PGE-NBR.
+
+           MOVE TOTDEPTAMT TO RPT-TOT-DEPT-AMT.
+
+           COMPUTE AVGDEPTAMT ROUNDED = TOTDEPTAMT / BROKERCTR.
+           MOVE AVGDEPTAMT TO RPT-AVG-DEPT-AMT.
+
+           MOVE BROKERCTR TO RPT-BROKER-CNT.
+
+           WRITE PRINT-RECORD FROM HEADER1 AFTER PAGE.
+           WRITE PRINT-RECORD FROM HEADER2 AFTER 1.
+           WRITE PRINT-RECORD FROM HEADER3 AFTER 1.
+           WRITE PRINT-RECORD FROM COL-HDR3 AFTER 2.
+           WRITE PRINT-RECORD FROM COL-HYPHEN2 AFTER 1.
+           WRITE PRINT-RECORD FROM REPORT-TOTALS-LINE AFTER 2.
+
+       0700-EXIT. EXIT.
+/*
+//*
+//SYSLIN   DD DSN=&&OBJMOD,SPACE=(CYL,(1,1)),DISP=(MOD,PASS)
+//*
+//SYSPRINT DD SYSOUT=*
+//*
+//SYSUT1   DD SPACE=(CYL,(1,1))
+//SYSUT2   DD SPACE=(CYL,(1,1))
+//SYSUT3   DD SPACE=(CYL,(1,1))
+//SYSUT4   DD SPACE=(CYL,(1,1))
+//SYSUT5   DD SPACE=(CYL,(1,1))
+//SYSUT6   DD SPACE=(CYL,(1,1))
+//SYSUT7   DD SPACE=(CYL,(1,1))
+//SYSUT8   DD SPACE=(CYL,(1,1))
+//SYSUT9   DD SPACE=(CYL,(1,1))
+//SYSUT10  DD SPACE=(CYL,(1,1))
+//SYSUT11  DD SPACE=(CYL,(1,1))
+//SYSUT12  DD SPACE=(CYL,(1,1))
+//SYSUT13  DD SPACE=(CYL,(1,1))
+//SYSUT14  DD SPACE=(CYL,(1,1))
+//SYSUT15  DD SPACE=(CYL,(1,1))
+//*
+//SYSMDECK DD SPACE=(CYL,(1,1))
+//*
+//********************************************************************
+//*                                                                  *
+//* JSTEP03: THIS JOB STEP TAKES THE OBJECT MODULE CREATED FROM      *
+//*          THE PREVIOUS COBOL JSTEP AND BINDS IT TO A LOAD MODULE  *
+//*          WHICH IS THEN PASSED TO THE NEXT JSTEP - JSTEP03        *
+//*                                                                  *
+//* SYSLIB: INDICATES THE DATA SETS WHERE IBM MACROS ARE FOUND       *
+//*                                                                  *
+//* SYSLIN: TEMPORARY OUTPUT OBJECT TO HOLD AND PASS COBOL PROGRAM   *
+//*                                                                  *
+//* SYSLMOD: PROGRAM OBJECT CREATED BY THE BINDER                    *
+//*                                                                  *
+//* SYSPRINT: MESSAGES FROM BINDER JSTEP                             *
+//*                                                                  *
+//********************************************************************
+//*
+//JSTEP03  EXEC PGM=HEWL,COND=(0,LT)
+//*
+//SYSLIB   DD DSN=CEE.SCEELKED,DISP=SHR
+//*
+//SYSLIN   DD DSN=&&OBJMOD,DISP=(MOD,PASS)
+//*
+//SYSLMOD  DD DSN=KC03LF7.CSCI465.LOADLIB(ASSIGN7),
+//            SPACE=(1024,(50,20,1)),
+//            DSNTYPE=LIBRARY,
+//            DISP=(MOD,KEEP,KEEP)
+//*
+//SYSPRINT DD SYSOUT=*
+//*
+//********************************************************************
+//*                                                                  *
+//* JSTEP04: THIS JOB STEP TAKES THE LOAD MODULE CREATED FROM THE    *
+//*          PREVIOUS STEP AND FETCHES THE PROGRAM TO BE RUN, THEN   *
+//*          EXECUTES IT.                                            *
+//*                                                                  *
+//* STEPLIB: THE PATH TO THE PDSE WHICH HOLDS THE LOAD MODULE        *
+//*          CREATED BY THE BINDER STEP                              *
+//*                                                                  *
+//* COBIN:   THE INPUT TO BE USED FOR THE FETCH STEP                 *
+//*                                                                  *
+//* COBOUT:  PRINTS ANY OUTPUT TO STANDARD OUTPUT                    *
+//*                                                                  *
+//* SYSUDUMP: PRINTS A COMPLETE DUMP IF AN ABEND OCCURS              *
+//*                                                                  *
+//********************************************************************
+//*
+//JSTEP04  EXEC PGM=ASSIGN7,COND=(0,LT)
+//*
+//STEPLIB  DD  DSN=KC03LF7.CSCI465.LOADLIB,DISP=SHR
+//*
+//SORTEDO  DD  DSN=&&SORTED,DISP=(OLD,DELETE,DELETE)
+//*
+//COBIN2   DD  DSN=KC02322.CSCI465.DATASP18(DATA7B),DISP=SHR
+//*
+//COBIN3   DD  DSN=KC02322.CSCI465.DATA7(SALES),DISP=SHR
+//*
+//COBOUT   DD  SYSOUT=*
+//*
+//SYSUDUMP DD  SYSOUT=*
+//

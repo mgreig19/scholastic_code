@@ -1,0 +1,84 @@
+mysql> use z1768935;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> source ~/csci466/Assign7/z1768935.sql
+Query OK, 0 rows affected (0.00 sec)
+
+Query OK, 0 rows affected (0.05 sec)
+
+Query OK, 0 rows affected (0.06 sec)
+
+Query OK, 0 rows affected (0.15 sec)
+
+Query OK, 5 rows affected (0.06 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
++----------+-----------------+
+| owner_id | owner_name      |
++----------+-----------------+
+|        1 | Josh Smith      |
+|        2 | Alex Parish     |
+|        3 | John Edwards    |
+|        4 | Candy Jones     |
+|        5 | Kyndra Deschain |
++----------+-----------------+
+5 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.05 sec)
+
+Query OK, 6 rows affected (0.05 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
++--------+----------+----------+
+| pet_id | pet_name | owner_id |
++--------+----------+----------+
+|      1 | Spot     |        1 |
+|      2 | Spike    |        2 |
+|      3 | Bruce    |        3 |
+|      4 | Tank     |        3 |
+|      5 | Garfield |        4 |
+|      6 | Oliver   |        5 |
++--------+----------+----------+
+6 rows in set (0.00 sec)
+
+Query OK, 6 rows affected (0.33 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+Query OK, 2 rows affected (0.04 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+Query OK, 2 rows affected (0.05 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+Query OK, 2 rows affected (0.01 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
++--------+----------+----------+----------+
+| pet_id | pet_name | owner_id | pet_type |
++--------+----------+----------+----------+
+|      1 | Spot     |        1 | dog      |
+|      2 | Spike    |        2 | dog      |
+|      3 | Bruce    |        3 | fish     |
+|      4 | Tank     |        3 | fish     |
+|      5 | Garfield |        4 | cat      |
+|      6 | Oliver   |        5 | cat      |
++--------+----------+----------+----------+
+6 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.07 sec)
+
++-----------------+----------+
+| Owner           | Pet      |
++-----------------+----------+
+| Josh Smith      | Spot     |
+| Alex Parish     | Spike    |
+| John Edwards    | Bruce    |
+| John Edwards    | Tank     |
+| Candy Jones     | Garfield |
+| Kyndra Deschain | Oliver   |
++-----------------+----------+
+6 rows in set (0.00 sec)
+
+mysql> \t

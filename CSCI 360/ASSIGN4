@@ -1,0 +1,215 @@
+//KC03KA9K JOB ,'MASON GREIG',MSGCLASS=H                                00010000
+//STEP1 EXEC PGM=ASSIST                                                 00020007
+//STEPLIB DD DSN=KC02293.ASSIST.LOADLIB,DISP=SHR                        00030007
+//SYSPRINT DD SYSOUT=*                                                  00040007
+//SYSIN DD *                                                            00050006
+********************************************                            00060000
+*                                                                       00070000
+* ASSIGNMENT 4                                                          00080000
+*                                                                       00090000
+* NAME: MASON GREIG                                                     00100000
+*                                                                       00110000
+* FUNCTION: THIS PROGRAM CALLS THRE SUBROUTINES                         00111003
+*           WHICH LOAD A LIST WITH NUMBERS FROM                         00112003
+*           A FILE AND PRINT THEM IN TWO WAYS                           00113003
+*           ALL NUMBER AND THEN JUST ODD NUMBERS                        00114003
+*                                                                       00115003
+* INPUT:    DATA FILE SUPPLIED BY PROFESSOR                             00116003
+*                                                                       00117003
+* OUTPUT:   TWO NUMBER TABLES                                           00118003
+*                                                                       00119003
+* REGISTER USAGE                                                        00120000
+*                                                                       00121003
+* 15   BASE REGISTER                                                    00130000
+*  1   PARAMETERLIST                                                    00140003
+* 10   RETURN REGISTER                                                  00150003
+* 14   EXIT PROGRAM                                                     00160003
+*                                                                       00180000
+********************************************                            00190000
+MAIN     CSECT                                                          00191000
+         USING MAIN,15                                                  00192000
+*                                                                       00192101
+         XPRNT HEADER,44             PRINTS THE HEADER LINE             00192227
+         XPRNT HEADSPCE,1            PRINTS SPACING LINE                00192337
+         LA    1,PARAMLST            LOADS THE PARAMETERS INTO REG 1    00192404
+         BAL   10,BUILD              CALLS THE BUILD SUBROUTINE         00192504
+         LA    1,PARAMLST            LOADS THE PARAMETERS INTO REG 1    00192604
+         BAL   10,PRINT              CALLS THE PRINT SUBROUTINE         00192704
+*                                                                       00193002
+         XPRNT HEADER2,46                   PRINTS OUT SECOND HEADER    00193134
+         XPRNT HEADSPCE,1                   PRINTS SPACING LINE         00193237
+         LA    1,PARAMLST                   LOADS PARAMETER LIST        00193304
+         BAL   10,PRINTODD                  CALLS THE PRINTODD SUBRTNE  00193408
+         BR    14                           GO TO END OF PROGRAM        00193504
+         LTORG                                                          00193605
+*                                                                       00193701
+TABLE    DC    49F'-16'                     START OF TABLE              00193804
+EOT      DS    F                            END OF TABLE                00193917
+PARAMLST DC    A(TABLE)                     PARAMETER LIST              00194004
+         DC    A(EOT)                                                   00194101
+HEADER   DC    C'1'                         HEADER FOR FIRST TABLE PRNT 00194208
+         DC    CL28' '                                                  00195026
+         DC    CL15'LIST OF NUMBERS'                                    00196034
+HEADER2  DC    C'1'                         HEADER FOR SECOND TBLE PRNT 00197027
+         DC    CL26' '                                                  00198023
+         DC    CL20'LIST OF ODD NUMBERS'                                00199034
+HEADSPCE DC    C'0'                         FORMATTING LABEL            00199137
+*********************************************                           00199202
+*  BUILD                                                                00199301
+*                                                                       00199401
+*  FUNCTION: THIS SUBROUTINE WILL READ FROM                             00199501
+*            STANDARD INPUT AND STORE THE DATA IN                       00199601
+*            THE TABLE, WHICH IS PASSED AS A                            00199701
+*            PARAMETER UNTILL IT REACHES THE END                        00199801
+*            OF THE INPUT FILE OR UNTILL THE TABLE IS FULL              00199901
+*                                                                       00200001
+*  INPUT:    A TABLE OF 48 FULLWORDS                                    00200101
+*            EOT IS A POINTER TO THE END OF TABLE                       00200201
+*                                                                       00200301
+*  OUTPUT:   N/A                                                        00200402
+*                                                                       00200502
+*  REGITER USAGE                                                        00200602
+*   9    TABLE                                                          00200702
+*  10    EOT                                                            00200802
+*  11    COUNTER                                                        00200902
+*  12    NEXT VALUE IN FROM INPUT FILE                                  00201002
+*********************************************                           00201102
+BUILD    STM   0,15,BLDSAVE                 SAVE REGISTERS              00201204
+         LM    9,10,0(1)                    UNLOAD PARAMETERS           00201304
+         SR    11,11                        SET R11 TO 0                00201404
+BLDLOOP  XREAD BUFFER,80                    STORES THE LINE INTO BUFFR  00201508
+         BC    B'0100',ENDBLD               IF AT EOF GO TO ENDBLD1     00201604
+         C     11,=F'49'                    COMPARE REG11 TO 49         00201704
+         BC    B'1000',ENDBLD               IF EQUAL GO TO ENDBLD1      00201804
+         XDECI 12,BUFFER                    STORE THE NUMBER INTO REG12 00201904
+         BC    B'0001’,BLDLOOP              IF NO NUMBER FOUND GOTO END 00202015
+         ST    12,0(0,9)                    STORES REG12 INTO TABLE     00202104
+         LA    9,4(0,9)                     INCREMENTS TABLE POINTER    00202204
+         A     11,=F'1'                     INCREMENTS SIZE COUNTER     00202304
+BLDLOOP2 C     11,=F'49'                    COMPARE REG11 TO 49         00202404
+         BC    B'1000',ENDBLD               IF REG 12 EQUALS 49, ENDBLD 00202504
+         XDECI 12,0(0,1)                    STORES SECOND NUMBER IN  12 00202608
+         BC    B'0001',BLDLOOP              IF NO NUMBER GO BLDLOOP     00202715
+         ST    12,0(0,9)                    STORE THE NUMBER INTO TABLE 00202804
+         LA    9,4(0,9)                     INCREMNET TABLE PONTER      00202904
+         A     11,=F'1'                     INCREMENT SIZE PONTER       00203004
+         BC    B'1111',BLDLOOP2             GO TO BLDLOOP2              00203104
+ENDBLD   ST    9,0(0,10)                    SET EOT POINTER             00203204
+         LM    0,15,BLDSAVE                 RESTORE REGISTERS           00203304
+         BR    10                           BRANCH BACK TO MAIN         00203404
+BLDSAVE  DS    16F                          SAVED REGISTERS             00203504
+BUFFER   DS    80C                          READ IN BUFFER              00203604
+         DC    C'*'                         END OF BUFFER SYMBOL        00203704
+*********************************************                           00203803
+* PRINT                                                                 00203903
+*                                                                       00204003
+* FUNCTION: THIS SUBROUTINE PRINTS THE VALUES                           00204103
+*           STORED IN THE TABLE. THE FORMAT                             00204203
+*           IS 5 NUMBERS PER LINE.                                      00204303
+*                                                                       00204403
+* INPUT:    TABLE - THE TABLE OF INTEGERS TO                            00204503
+*                   BE PRINTED.                                         00204603
+*           EOT - THE POINTER TO THE END OF                             00204703
+*                 THE TABLE.                                            00204803
+*                                                                       00204903
+* OUTPUT:   THE VALUES HELD IN THE TABLE ARE                            00205003
+*           PRINTED OUT 5 PER LINE IN STANDARD                          00205103
+*           OUTPUT.                                                     00205203
+*                                                                       00205303
+* REGISTER USAGE                                                        00205403
+*                                                                       00205503
+*  9   TABLE                                                            00205603
+*  10  EOT                                                              00205703
+*  11  TABLE VALUE                                                      00205803
+*  12  LINE LOCATION                                                    00205903
+*  13  LINE COUNTER                                                     00206003
+*                                                                       00206103
+*********************************************                           00206203
+PRINT    STM   0,15,PRINTSVE                SAVE REGISTERS              00206304
+         LM    9,10,0(1)                    UNLOAD PARAMETERS           00206404
+PLOOP    C     9,0(0,10)                    COMPARE REG 9 TO EOT        00206504
+         BC    B'1000',ENDPRNT              IF AT EOT GO TO ENDPRNT     00206604
+         MVC   LINE+2(72),LINE+1            DESTRUCTIVE OVERLAP ON LINE 00206726
+         LA    12,LINE                      STORE ADDRESS OF LINE IN 12 00206808
+         LA    12,1(0,12)                   ADD 1 TO R12                00206904
+         SR    13,13                        SET R13 TO 0                00207004
+PLOOP2   C     9,0(0,10)                    COMPARE REG9 TO EOT         00207104
+         BC    B'1000',ENDPRNT2             IF EQUAL GO TO ENDPRNT2     00207204
+         C     13,=F'6'                     COMPARE REG 13 TO 5         00207325
+         BC    B'1000',ENDPRNT2             IF EQUAL GO TO ENDPRNT2     00207404
+         L     11,0(0,9)                    LOAD NEXT VALUE INTO REG11  00207904
+         XDECO 11,VALUE                     STORE REG11 INTO VALUE      00208004
+         MVC   0(12,12),VALUE               PUT VALUES ONTO LINE        00208104
+         LA    12,12(0,12)                  INCREMENT LINE COUNT        00208204
+         A     13,=F'1'                     INCREMENT TABLE VALUE       00208304
+         LA    9,4(0,9)                     INCREMENT TABLE COUNTER     00208424
+         BC    B'1111',PLOOP2               GO TO PLOOP2                00208504
+ENDPRNT2 XPRNT LINE,73                      PRINT LINE OF 73 CHARACTERS 00208626
+         BC    B'1111',PLOOP                GO TO PLOOP                 00208704
+ENDPRNT  LM    0,15,PRINTSVE                RESTORE REGISTERS           00208804
+         BR    10                           RETURN TO MAIN PROGRAM      00208904
+PRINTSVE DS    16F                          16 FULLWORDS FOR REGISTERS  00209004
+LINE     DC    C'-'                         DOUBLE SPACED LINE START    00209132
+         DS    73C                          61 CHARACTERS LENGTH        00209226
+VALUE    DS    12C                          VALUE IN TABLE 12 CHAR LNGH 00209308
+*********************************************                           00209403
+* PRINTODD                                                              00209504
+*                                                                       00209603
+* FUNCTION: THIS SUBROUTINE WILL PRINT OUT ONLY                         00209703
+*           THE ODD NUMBERS IN THE TABLE.                               00209803
+*                                                                       00209903
+* INPUT:    TABLE - THE TABLE OF INTEGERS TO BE                         00210003
+*           PRINTED.                                                    00210103
+*           EOT - A POINTER TO THE LOCATION OF                          00210203
+*           THE END OF THE TABLE.                                       00210303
+*                                                                       00210403
+* OUTPUT:   PRINTS OUT ALL THE ODD VALUES IN THE                        00210503
+*           TABLE. PRINTS                                               00210603
+*                                                                       00210703
+* REGISTER USAGE                                                        00210803
+*  2    TABLE                                                           00210903
+*  3    EOT                                                             00211003
+*  4    TABLE VALUE                                                     00211103
+*  5    LINE LOCATION                                                   00211203
+*  6    LINE COUNTER                                                    00211303
+*  8,9  ODD CHECKER                                                     00211403
+*                                                                       00211503
+*********************************************                           00211603
+PRINTODD STM   0,15,PRNTOSVE                SAVE REGISTERS              00211704
+         LM    2,3,0(1)                     UNLOAD PARAMETERS           00211804
+POLOOP   C     2,0(0,3)                     COMPARE R2 TO EOT           00211904
+         BC    B'1000',ENDPO                IF EQUAL GO TO ENDPO        00212004
+         MVC   LINEO+2(60),LINEO+1          DESTRUCTIVE OVERLAP         00212126
+         LA    5,LINEO                      STORE ADDRESS OF LINEO IN 5 00212208
+         LA    5,1(0,5)                     ADD 1 TO R5                 00212304
+         SR    6,6                          SET R6 TO 0                 00212404
+POLOOP2  C     2,0(0,3)                     COMPARE R2 TO EOT           00212504
+         BC    B'1000',ENDPO2               IF EQUAL GO TO ENDPO2       00212604
+         C     6,=F'5'                      COMPARE REG6 WITH 6         00212725
+         BC    B'1000',ENDPO2               IF EQUAL GO TO ENDPO2       00212804
+         L     4,0(0,2)                     LOAD TABLE VALUE INTO REG4  00212904
+         L     9,0(0,2)                     LOAD TABLE VALUE INTO REG9  00213004
+         M     8,=F'1'                      MULTIPLY REG9 BY 1          00213104
+         D     8,=F'2'                      DIVIDE REG9 BY 2            00213204
+         C     8,=F'0'                      COMPARE REG8 WITH 0         00213304
+         BC    B'1000',NOTODD               IF EQUAL GO TO NOT ODD      00213404
+         XDECO 4,ODDVAL                     STORE REG4 INTO ODDVAL      00213504
+         MVC   0(12,5),ODDVAL               PUT ODDVAL INTO LINE        00213604
+         LA    5,12(0,5)                    INCREMENT LINE LOC BY 12    00213708
+         A     6,=F'1'                      INCREMENT LINE COUNT  BY 1  00213804
+NOTODD   LA    2,4(0,2)                     INCREMENT TABLE POINTER     00213904
+         BC    B'1111',POLOOP2              GO TO POLOOP2               00214004
+ENDPO2   XPRNT LINEO,61                     PRINT 73 CHAR LINEO         00214126
+         BC    B'1111',POLOOP               GO TO POLOOP                00214204
+ENDPO    LM    0,15,PRNTOSVE                RESTORE REGISTERS           00214310
+         BR    10                           RETURN TO MAIN PROGRAM      00214404
+*                                                                       00214504
+PRNTOSVE DS    16F                          16 FULLWORDS FOR REGISTERS  00214604
+LINEO    DC    C'-'                         DOUBLE SPACE START OF LINE  00214732
+         DS    61C                          61 CHARATERS ALLOCATED      00214826
+ODDVAL   DS    12C                          12 CHARACTERS ALLOCATED     00214904
+         END   MAIN                                                     00215003
+/*                                                                      00215100
+//FT05F001 DD DSN=KC02314.AUTUMN17.CSCI360.HW4DATA,DISP=SHR             00216000
+/*                                                                      00220000
+//                                                                      00230000

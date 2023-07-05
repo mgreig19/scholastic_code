@@ -1,0 +1,169 @@
+1                    J E S 2  J O B  L O G  --  S Y S T E M  S 0 W 1  --  N O D E  Z O S K C T R         
+0 
+ 15.03.09 JOB09028 ---- THURSDAY,  29 JUN 2017 ----
+ 15.03.09 JOB09028  IRR010I  USERID KC03OA0  IS ASSIGNED TO THIS JOB.
+ 15.03.09 JOB09028  ICH70001I KC03OA0  LAST ACCESS AT 14:31:56 ON THURSDAY, JUNE 29, 2017
+ 15.03.09 JOB09028  $HASP373 KC03OA0A STARTED - INIT 2    - CLASS A        - SYS S0W1
+ 15.03.10 JOB09028  -                                         --TIMINGS (MINS.)--            ----PAGING COUNTS---
+ 15.03.10 JOB09028  -JOBNAME  STEPNAME PROCSTEP    RC   EXCP    TCB    SRB  CLOCK   SERV  PG   PAGE   SWAP    VIO SWAPS
+ 15.03.10 JOB09028  -KC03OA0A                      00     49 ******    .00     .0    108   0      0      0      0     0
+ 15.03.10 JOB09028  -KC03OA0A ENDED.  NAME-Kevin White          TOTAL TCB CPU TIME=   .00  TOTAL ELAPSED TIME=    .0
+ 15.03.10 JOB09028  $HASP395 KC03OA0A ENDED
+0------ JES2 JOB STATISTICS ------
+-  29 JUN 2017 JOB EXECUTION DATE
+-          117 CARDS READ
+-          169 SYSOUT PRINT RECORDS
+-            0 SYSOUT PUNCH RECORDS
+-           17 SYSOUT SPOOL KBYTES
+-         0.00 MINUTES EXECUTION TIME
+         1 //KC03OA0A JOB ,'Kevin White',MSGCLASS=H                                JOB09028
+         2 //STEP1   EXEC  PGM=ASSIST                                              00020000
+         3 //STEPLIB   DD  DSN=KC02293.ASSIST.LOADLIB,DISP=SHR                     00030000
+         4 //SYSPRINT  DD  SYSOUT=*                                                00040000
+         5 //SYSIN     DD  *                                                       00050000
+         6 //FT05F001   DD  *                                                      00200003
+         7 //FT06F001   DD SYSOUT=*                                                00320003
+ ICH70001I KC03OA0  LAST ACCESS AT 14:31:56 ON THURSDAY, JUNE 29, 2017
+ IEF236I ALLOC. FOR KC03OA0A STEP1
+ IGD103I SMS ALLOCATED TO DDNAME STEPLIB
+ IEF237I JES2 ALLOCATED TO SYSPRINT
+ IEF237I JES2 ALLOCATED TO SYSIN
+ IEF237I JES2 ALLOCATED TO FT05F001
+ IEF237I JES2 ALLOCATED TO FT06F001
+ IEF142I KC03OA0A STEP1 - STEP WAS EXECUTED - COND CODE 0000
+ IGD104I KC02293.ASSIST.LOADLIB                       RETAINED,  DDNAME=STEPLIB 
+ IEF285I   KC03OA0.KC03OA0A.JOB09028.D0000103.?         SYSOUT        
+ IEF285I   KC03OA0.KC03OA0A.JOB09028.D0000101.?         SYSIN         
+ IEF285I   KC03OA0.KC03OA0A.JOB09028.D0000102.?         SYSIN         
+ IEF285I   KC03OA0.KC03OA0A.JOB09028.D0000104.?         SYSOUT        
+ IEF373I STEP/STEP1   /START 2017180.1503
+ IEF032I STEP/STEP1   /STOP  2017180.1503 
+         CPU:     0 HR  00 MIN  00.00 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+         VIRT:   584K  SYS:   268K  EXT:        0K  SYS:    11484K
+         ATB- REAL:                     0K  SLOTS:                     0K
+              VIRT- ALLOC:       0M SHRD:       0M
+ IEF375I  JOB/KC03OA0A/START 2017180.1503
+ IEF033I  JOB/KC03OA0A/STOP  2017180.1503 
+         CPU:     0 HR  00 MIN  00.00 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+1*** ASSIST 4.0/A2-05/15/82  470/V7A/0:OS/VS2  INS=SDFP7/X=BGHO, CHECK/TRC/=1180, OPTS=CDKMPR FROM PENN ST*NIU COMPSCI*LT         
+0                                                                                                                                 
+0                                                                                                               PAGE    1         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                       1 *******************************************************                 00060015         
+                                       2 *                                                                       00070000         
+                                       3 * PROGRAM:     ASSIGN2                                                  00080015         
+                                       4 * PROGRAMMER:  Kevin White                                              00090015         
+                                       5 *                                                                       00100000         
+                                       6 * FUNCTION: This program will read from the instream                    00101015         
+                                       7 *           data and print out the first number as X,                   00102015         
+                                       8 *           the second number as Y, and the last                        00103015         
+                                       9 *           number as Z. It will then calculate the                     00104015         
+                                      10 *           value of X+Y-Z and print it as the result.                  00105015         
+                                      11 *           After all lines have been read it will                      00106015         
+                                      12 *           print out the number of lines read as well                  00107015         
+                                      13 *           as the sum of the results.                                  00108015         
+                                      14 *                                                                       00109015         
+                                      15 * INPUT:    The instream data.                                          00109115         
+                                      16 *                                                                       00109215         
+                                      17 * OUTPUT:   the X, Y, and Z values as well as the                       00109315         
+                                      18 *           result from the calculation. At the bottom                  00109415         
+                                      19 *           will be the total number of lines read and                  00109515         
+                                      20 *           the sum of the results.                                     00109615         
+                                      21 *                                                                       00109715         
+                                      22 * ENTRY CONDS: NONE                                                     00109815         
+                                      23 *                                                                       00109915         
+                                      24 * EXIT CONDS: NONE                                                      00110015         
+                                      25 *                                                                       00110115         
+                                      26 * REGISTER USAGE:                                                       00110215         
+                                      27 *                                                                       00111001         
+                                      28 *    3     Sum                                                          00112015         
+                                      29 *    4     Counter                                                      00113015         
+                                      30 *    5     value of X and result of X+Y-Z                               00114015         
+                                      31 *    6     value of Y                                                   00115015         
+                                      32 *    7     value of Z                                                   00116015         
+                                      33 *                                                                       00117015         
+                                      34 * PSEUDOCODE:                                                           00118015         
+                                      35 *                                                                       00119015         
+                                      36 *    <1> Initalize sum and counter to 0                                 00119115         
+                                      37 *    <2> Read from the file                                             00119215         
+                                      38 *    <3> While not end of file                                          00119315         
+                                      39 *          Increment counter by 1                                       00119415         
+                                      40 *          Display X, Y, and Z                                          00119515         
+                                      41 *          Display Result of X+Y-Z                                      00119615         
+                                      42 *          Add result to sum                                            00119715         
+                                      43 *    <4> If end of file                                                 00119815         
+                                      44 *          Display lines read and sum                                   00119915         
+                                      45 *                                                                       00120000         
+                                      46 *******************************************************                 00130015         
+ 000000                               47 MAIN     CSECT                                                          00140000         
+ 000000                               48          USING MAIN,15                                                  00150000         
+                                      49 *                                                                       00151006         
+ 000000 1B33                          50          SR    3,3              Initalize Sum                           00160015         
+ 000002 1B44                          51          SR    4,4              Initalize Counter                       00160115         
+                                      52 *                                                                       00160206         
+1                                                                                                               PAGE    2         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+ 000004 E000 F04E 0050 0004E          53 LOOP     XREAD BUFFER,80        Reads line from file                    00160315         
+ 00000A 4740 F03E            0003E    54          BC    B'0100',ENDLOOP  If end of file, ends loop               00160415         
+ 00000E 5A40 F160            00160    55          A     4,=F'1'          Increments counter by 1                 00160515         
+ 000012 5350 F04E            0004E    56          XDECI 5,BUFFER         Set R5 to first number                  00160615         
+ 000016 5361 0000            00000    57          XDECI 6,0(1)           Set R6 to second number                 00160715         
+ 00001A 5371 0000            00000    58          XDECI 7,0(1)           Set R7 to third number                  00160815         
+ 00001E 5250 F0A3            000A3    59          XDECO 5,X              Stores first number in X                00160915         
+ 000022 5260 F0BB            000BB    60          XDECO 6,Y              Stores second number in Y               00161015         
+ 000026 5270 F0D3            000D3    61          XDECO 7,Z              Stores third number in Z                00161115         
+ 00002A 1A56                          62          AR    5,6              Adds R5(X) to R6(Y)                     00161215         
+ 00002C 1B57                          63          SR    5,7              Subtracts R5(X+Y) by R7(Z)              00161315         
+ 00002E 1A35                          64          AR    3,5              Adds R5(X+Y-Z) to R3(SUM)               00161415         
+ 000030 5250 F0F0            000F0    65          XDECO 5,RESULT         Stores R5(X+Y-Z) to RESULT              00161515         
+ 000034 E020 F09E 0060 0009E          66          XPRNT LINE,96          Prints out LINE to 96 characters        00161715         
+ 00003A 47F0 F004            00004    67          B     LOOP             Returns to XREAD                        00161815         
+                                      68 *                                                                       00162012         
+ 00003E 5230 F136            00136    69 ENDLOOP  XDECO 3,SUM            Stores R3 into SUM                      00162115         
+ 000042 5240 F111            00111    70          XDECO 4,CNT            Stores R4 into CNT                      00162215         
+ 000046 E020 F0FE 0060 000FE          71          XPRNT FNLLINE,96       Prints out FNLINE to 96 characters      00163015         
+ 00004C 07FE                          72          BR    14                                                       00170000         
+                                      73 *                                                                       00170111         
+ 00004E                               74 BUFFER   DS    80C                                                      00170212         
+                                      75 *                                                                       00170312         
+ 00009E 40                            76 LINE     DC    C' '             Single space carriage control           00170415         
+ 00009F E7407E40                      77          DC    CL4'X = '                                                00170511         
+ 0000A3                               78 X        DS    12C              Allocates 12 characters to X            00170615         
+ 0000AF 4040404040404040              79          DC    CL8' '           8 characters of spaces                  00170715         
+ 0000B7 E8407E40                      80          DC    CL4'Y = '                                                00170811         
+ 0000BB                               81 Y        DS    12C              Allocates 12 characters to Y            00170915         
+ 0000C7 4040404040404040              82          DC    CL8' '           8 characters of spaces                  00171015         
+ 0000CF E9407E40                      83          DC    CL4'Z = '                                                00171111         
+ 0000D3                               84 Z        DS    12C              Allocates 12 characters to Z            00171215         
+ 0000DF 4040404040404040              85          DC    CL8' '           8 characters of spaces                  00171315         
+ 0000E7 D985A2A493A3407E              86          DC    CL9'Result = '                                           00171411         
+ 0000F0                               87 RESULT   DS    12C              Allocates 12 characters to Z            00171515         
+ 0000FC 4040                          88          DC    CL2' '                                                   00171611         
+                                      89 *                                                                       00171704         
+ 0000FE 40                            90 FNLLINE  DC    C' '                                                     00172004         
+ 0000FF D5A4948285994096              91          DC    CL18'Number of Lines = '                                 00172109         
+ 000111                               92 CNT      DS    12C                        Allocates 12 char to CNT      00172215         
+ 00011D 4040404040404040              93          DC    CL8' '                     8 characters of spaces        00172315         
+ 000125 E2A49440968640D9              94          DC    CL17'Sum of Results = '                                  00172409         
+ 000136                               95 SUM      DS    12C                        Allocates 12 char to SUM      00172515         
+ 000142 4040404040404040              96          DC    CL28' '                                                  00172609         
+                                      97 *                                                                       00173004         
+                                      98          END   MAIN                                                     00180000         
+ 000160 00000001                      99                =F'1'                                                                     
+0***  NO   STATEMENTS FLAGGED -  NO   WARNINGS,  NO   ERRORS                                                                      
+0*** DYNAMIC CORE AREA USED:  LOW:    3644 HIGH:     532 LEAVING:  489392 FREE BYTES. AVERAGE:       41 BYTES/STMT ***            
+0*** ASSEMBLY TIME =    0.000 SECS,   100000 STATEMENTS/SEC ***                                                                   
+0*** PROGRAM EXECUTION BEGINNING - ANY OUTPUT BEFORE EXECUTION TIME MESSAGE IS PRODUCED BY USER PROGRAM ***                       
+ X =         8163        Y =         2529        Z =         2805        Result =         7887                                    
+ X =         4536        Y =         1839        Z =         5741        Result =          634                                    
+ X =          591        Y =         7843        Z =         9487        Result =        -1053                                    
+ X =         4190        Y =         3057        Z =         2775        Result =         4472                                    
+ X =         2399        Y =          667        Z =         4129        Result =        -1063                                    
+1X =         8118        Y =         3961        Z =         6535        Result =         5544                                    
+ X =         4765        Y =          498        Z =         1111        Result =         4152                                    
+ X =         9056        Y =         2345        Z =         1110        Result =        10291                                    
+ X =            1        Y =            2        Z =            3        Result =            0                                    
+ X =         9999        Y =         9998        Z =         9997        Result =        10000                                    
+ Number of Lines =           10        Sum of Results =        40864                                                              
+0*** EXECUTION TIME =    0.000 SECS.       158 INSTRUCTIONS EXECUTED -   158000 INSTRUCTIONS/SEC ***                              
+0*** AM004 - NORMAL USER TERMINATION BY RETURN ***                                                                                

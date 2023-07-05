@@ -1,0 +1,31 @@
+//KC03KA9 JOB ,'MASON GREIG',MSGCLASS=H                                 00010002
+//STEP1 EXEC PGM=ASSIST                                                 00011000
+//STEPLIB DD DSN=KC02293.ASSIST.LOADLIB,DISP=SHR                        00020000
+//SYSPRINT DD SYSOUT=*                                                  00030000
+//SYSIN DD *                                                            00040000
+********************************************                            00050000
+* WRITTEN ASSIGNMENT 2                                                  00060003
+*                                                                       00070000
+* NAME: MASON GREIG                                                     00080000
+********************************************                            00160000
+WRITTEN2 CSECT                                                          00170003
+         USING WRITTEN2,15                                              00180003
+         L     7,FIRST                                                  00190003
+         L     8,SECOND                                                 00191003
+         AR    7,8                                                      00192003
+         LA    3,THIRD                                                  00193003
+         ST    7,0(0,3)                                                 00194003
+         SR    10,10                                                    00195003
+         ST    10,RVALUE                                                00196003
+         XDUMP THIRD,4                                                  00197003
+         BCR   B'1111',14                                               00198003
+*                                                                       00199004
+NOTE     DC    CL2'OK'                                                  00199104
+FIRST    DC    F'295'                                                   00199204
+SECOND   DC    F'78'                                                    00199304
+RVALUE   DS    F                                                        00199404
+ID       DC    CL7'CSCI360'                                             00199504
+THIRD    DS    F'00'                                                    00199606
+         END   WRITTEN2                                                 00200003
+/*                                                                      00210003
+//                                                                      00220003

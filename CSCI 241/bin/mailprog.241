@@ -1,0 +1,190 @@
+#!/bin/bash
+
+# Some initial commands
+RM=/bin/rm
+
+# Shar and mail program files to your TA and to yourself.
+
+cn=241               # course number
+TA0=empty_section    # No TA
+TA1=z1775800 # logon id of a TA (Sufiyan Abdus Sadiq)
+TA2=z1779016 # logon id of a TA (Suharma Bodagala)
+TA3=z1778587 # logon id of a TA (Karthik Kondagalla)
+TA4=z1797942 # logon id of a TA (Dinesh Sandadi)
+IN1=t90kjm1  # logon id of an instructor (Kurt McMahon)
+IN2=a1560953 # logon id of an instructor (Daniel Rogness)
+IN3=t90mbm1  # logon id of an instructor (Margie Musich)
+TA_01="$TA1 $IN1"   # logon ids of Section 1 TAs
+TA_02="$TA2 $IN1"   # logon ids of Section 2 TAs
+TA_03="$TA3 $IN2"   # logon ids of Section 3 TAs
+TA_04="$TA4 $IN3"   # logon ids of Section 4 TAs
+TA_05=$TA0   # logon ids of Section 5 TAs
+TA_06=$TA0   # logon ids of Section 6 TAs
+TA_07=$TA0   # logon ids of Section 7 TAs
+TA_08=$TA0   # logon ids of Section 8 TAs
+TA_09=$TA0   # logon ids of Section 9 TAs
+TA_10=$TA0   # logon ids of Section 10 TAs
+TA_11=$TA0   # logon ids of Section 11 TAs
+TA_12=$TA0   # logon ids of Section 12 TAs
+TAs=($TA_01 $TA_02 $TA_03 $TA_04 $TA_05 $TA_06 $TA_07 $TA_08 $TA_09 $TA_10 $TA_11 $TA_12) # logon ids of all TAs
+nTAs=2        # total no of TAS in a section
+maxSec=4      # the highest section number
+
+ca='cs241_2017_1@graphics.cs.niu.edu'  # Course archive address
+
+echo ""
+echo "**********************************************************************"
+echo "* WARNING : Do NOT use this program to mail notes to your Instructor *"
+echo "*           Doing so may result in the loss of your program !!       *"
+echo "**********************************************************************"
+echo ""
+
+# Source and header files of a program can either be entered from
+# the keyboard or they can be supplied on the command line.
+
+if (( $# != 1 )) ; then
+	echo "Usage: " $0  "  assignment_directory"
+	echo ""
+	echo "When executing this command give as an argument the directory"
+        echo "containing the project to be mailed."
+	exit 0
+fi
+
+fdir=$1
+
+# Test for a directory
+
+if [ ! -d $fdir ] ; then
+        echo  $fdir "is not a directory."
+        echo  "You must give the name of the assignment directory."
+	exit 0
+fi
+
+flist=`ls $fdir`
+
+# Check the directory for subdirectories
+for i in $flist ; do
+    if [ -d $fdir/$i ] ; then
+	echo "You must remove all subdirectories from directory "$fdir" before submitting."
+	exit 0
+    fi
+done
+
+# Check the directory for executable files
+for i in $flist ; do 
+    if [ -x $fdir/$i ] ; then
+        echo "You must remove all executable files from directory "$fdir" before submitting."
+	echo "(And remove the execute permissions on your source code files.)"
+	exit 0
+    fi
+    if [[ ${i: -4} == ".exe" ]] ; then
+	echo "You must remove all .exe files from directory "$fdir" before submitting"
+	exit 0
+    fi
+done
+
+# Check the directory for object files
+for i in $flist ; do
+    if [[ ${i: -2} == ".o" ]] ; then
+	echo "You must remove all object files from directory "$fdir" before submitting"
+	exit 0
+    fi
+done
+
+
+# Check the directory for data files
+for i in $flist ; do
+    if [[ ${i: -4} == ".dat" ]] ; then
+	echo "You must remove all data files from directory "$fdir" before submitting"
+	exit 0
+    fi
+done
+
+# Check the directory for core files
+if [ -s $fdir/core ] ; then
+    echo "You must remove all core files from directory "$fdir" before submitting."
+    exit 0
+fi
+
+# Check the directory for compiled header files
+for i in $flist ; do
+    if [[ ${i: -4} == ".gch" ]] ; then
+	echo "You must remove all compiled header files (.gch) from directory "$fdir" before submitting"
+	exit 0
+    fi
+done
+
+echo -n "Enter program number for your assignment : "
+read pn
+
+echo ""
+echo "**************************************************"
+echo "* Section  1 : McMahon / Sadiq       MWF   9:00  *"
+echo "* Section  2 : McMahon / Bodagala    MWF  11:00  *"
+echo "* Section  3 : Rogness / Kondagalla  TTh  11:00  *" 
+echo "* Section  4 : Musich  / Sandadi     MWF   1:00  *" 
+echo "**************************************************"
+echo ""
+
+echo -n "Enter your section number : "
+read sn
+
+# Do initial error checking on the section number
+
+if (( $sn > $maxSec || $sn < 0 )) ;  then
+         echo "This is not a valid section of the course."
+         echo "Check your section number and try again."
+	 exit 0
+fi
+
+# Create a list of TA mailboxes of a given section
+
+k=$(( ($sn - 1) * $nTAs ))
+n=0; 
+declare -a TA
+while (( $n < $nTAs )) ; do
+    TA[$n]=${TAs[$k]}
+    k=$(( $k + 1 )) ; n=$(( $n + 1 ))
+done
+
+# Error checking on the TA and section number
+
+if [ $TA == empty_section ] ; then
+         echo "This is not a valid section of the course."
+         echo "Check your section number and try again."
+	 exit 0
+fi
+
+
+# Wrap up the files using tar, compress them using gzip, make them
+# e-mail compatible using shar, and send the result to the TA.
+# send a copy to the user and to a course repository as well.
+
+tf=mailprog  # : modifiers don't work on argument variables, argument
+             # not wanted here anyway
+ts=/tmp/$tf.$$    # a temporary source file
+tm=/tmp/mprog.$$  # the mail file
+
+# Get full user name
+sname=`getent passwd $USER`
+sname=`echo $sname | sed -n "s/.*:.*:.*:.*:\(.*\):.*:.*/\1/p"`
+#sname = `echo $sname | sed -n "s/\,//gp"`
+
+# Output header
+cat > $tm <<EOF
+Course: $cn
+Program: $pn
+Section: $sn
+User: $USER
+Name: $sname
+EOF
+
+cd $fdir
+#echo $ca
+# I know this is not the cleanest way to tar up a directory, but
+# it's compatible with other course scripts.  To be fixed later.
+tar -cf - * | gzip -c9 > $ts
+shar -fm $ts >> $tm
+cat $tm | mailx -b $ca -s "HW: CSCI $cn : Program $pn Section $sn" ${TA[@]} $USER
+# Remove the temporary file
+$RM $ts $tm

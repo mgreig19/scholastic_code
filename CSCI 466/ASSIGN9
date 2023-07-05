@@ -1,0 +1,120 @@
+//KC03KA9A JOB ,'MASON GREIG',MSGCLASS=H                                00010000
+//STEP1    EXEC PGM=ASSIST,PARM='MACRO=H'                               00020007
+//STEPLIB    DD DSN=KC02293.ASSIST.LOADLIB,DISP=SHR                     00030007
+//SYSPRINT   DD SYSOUT=*                                                00040007
+//SYSIN      DD *                                                       00041007
+***************************************************                     00050000
+*                                                                       00051000
+* ASSIGNMENT 9                                                          00052000
+*                                                                       00052101
+* NAME: MASON GREIG                                                     00052201
+*                                                                       00052301
+***************************************************                     00053001
+*                                                                       00053101
+* STRCMP MACRO                                                          00053201
+*                                                                       00053301
+* MACRO FUNCTION: COMPARES TWO C STRINGS                                00054062
+*                 CC 0 IF STRINGS EQUAL                                 00055062
+*                 CC 1 IF FIRST < SECOND                                00056062
+*                 CC 2 IF FIRST > SECOND                                00056162
+*                                                                       00056262
+* ARGUMENTS: &FIRST, &SECOND                                            00057062
+*                                                                       00057162
+* ERRORS: ERROR HANDLING OCCURS WHEN THE ARGUMENTS                      00057262
+*         ARE EMPTY                                                     00058062
+*                                                                       00058162
+* REGISTER USAGE:                                                       00058262
+*                                                                       00058362
+*  4    FIRST STRING                                                    00058462
+*  5    FIRST STRING LENGTH                                             00058562
+*  6    SECOND STRING                                                   00058662
+*  7    SECOND STRING LENGTH                                            00058762
+*                                                                       00059000
+***************************************************                     00059100
+*                                                                       00059200
+         MACRO                                 STRCMP MACRP             00059410
+         STRCMP &FIRST,&SECOND                 CHECK FOR PROPER         00059510
+         AIF    ('&FIRST' EQ '').ERROR         ARGUMENTS                00059910
+         AIF    ('&SECOND' EQ '').ERROR        GO TO ERROR IF NONE      00060010
+         STM    4,7,S&SYSNDX                   SAVE REGISTER            00060310
+         LA     4,&FIRST                       LOAD FIRST ARG           00060479
+         SR     5,5                            ZERO LENGTH COUNT        00060579
+         LA     6,&SECOND                      LOAD SECOND ARG          00060679
+         SR     7,7                            ZERO 2ND LENGTH          00060779
+         CR     4,6                            COMPARE WORDS            00060810
+         BE     R&SYSNDX                       IF EQUAL GO TO R&SYSNDX  00060979
+A&SYSNDX CLI    0(4),X'00'                     CHECK FOR END OF STRING  00061377
+         BE     B&SYSNDX                       IF EQUAL GO TO B&SYSNDX  00061550
+         A      5,=F'1'                        INCREMENT LENGTH COUNT   00061772
+         LA     4,1(0,4)                       GO TO NEXT LETTER        00061810
+         B      A&SYSNDX                       RETURN TO TOP OF LOOP    00061910
+B&SYSNDX CLI    0(6),X'00'                     CHECK FOR END OF STRING  00062077
+         BE     L&SYSNDX                       IF EQUAL GO TO L&SYSNDXX 00062146
+         A      7,=F'1'                        INCREMENT LENGTH COUNT   00062372
+         LA     6,1(0,6)                       GO TO NEXT LETTER        00062410
+         B      B&SYSNDX                       RETURN TO TOP OF LOOP    00062510
+         DS     D                              FILLER                   00062679
+L&SYSNDX CR     5,7                            COMPARE LENGTHS          00062779
+         BE     C&SYSNDX                       IF EQUAL GO TO C&SYSNDX  00063110
+         B      R&SYSNDX                       ELSE GO TO R&SYSNDX      00063210
+C&SYSNDX LA     4,&FIRST                       LOAD WORDS INTO REGS     00063310
+         LA     6,&SECOND                                               00063404
+         CLCL   4,6                            COMPARE WORDS            00063510
+         B      R&SYSNDX                       SKIP STORAGE             00063679
+S&SYSNDX DS     4F                             STORAGE                  00063755
+R&SYSNDX LM     4,7,S&SYSNDX                   RESTORE REGISTERS        00063810
+         MEXIT                                                          00063912
+.ERROR   MNOTE  'MISSING ARGUMENTS'            ERROR HANDLING           00064061
+         MEND                                  END OF MACRO             00064161
+***************************************************                     00064201
+*                                                                       00064301
+* MAX MACRO                                                             00064401
+*                                                                       00064501
+* MACRO FUNCTION: FINDS THE MAX NUMBER IN A LIST                        00064662
+*                                                                       00064701
+* RETURNS: THE GREATEST VALUE NUMBER IN A LIST                          00064862
+*                                                                       00064962
+* ERROR HANDLING: PRODUCES AN ERROR IF THE ARGUMENTS                    00065062
+*                 OR LIST SET ARE EMPTY                                 00065162
+*                                                                       00065262
+* REGISTER USAGE                                                        00065301
+*                                                                       00065401
+*  8    CURRENT NUMBER                                                  00065562
+*  9    MAX NUMBER                                                      00065662
+*                                                                       00065762
+***************************************************                     00065801
+*                                                                       00065901
+         MACRO                                 BEGIN MAX MACRO          00066061
+         MAX &RESULT,&LIST                                              00066104
+         LCLA   &COUNT,&TOTAL                  CREATE & INIT VARIABLES  00066261
+&COUNT   SETA   1                              SET COUNT TO 1           00066361
+         AIF    ('&RESULT' EQ '').MISSARG      CHECK FOR MISSING        00066461
+         AIF    ('&LIST' EQ '').MISSARG        ARGUMENTS AND LIST       00066561
+         AIF    ('&LIST' EQ '()').EMPTLST                               00066604
+&TOTAL   SETA   N'&SYSLIST(2)                  INTIALIZE TOTAL          00066761
+         STM    8,9,Y&SYSNDX                   SAVE REGISTERS           00066861
+         L      8,&SYSLIST(2,&COUNT)           LOAD FIRST ELEMENT       00066961
+         LR     9,8                            LOAD FIRST ELEMENT       00067061
+.BLOOP   ANOP                                  BEGIN OF LOOP            00067161
+&COUNT   SETA   &COUNT+1                       INCRMNT COUNT            00067261
+         AIF    (&TOTAL LT &COUNT).FOUND       IF TOTAL < COUNT->FOUND  00067361
+         L      8,&SYSLIST(2,&COUNT)           LOAD NEXT ELEMENT        00067461
+         CR     8,9                            COMPARE NUMBERS          00067561
+         BH     A&COUNT&SYSNDX                 GO TO SWAP               00067661
+         B      B&COUNT&SYSNDX                 SKIP SWAP                00067761
+A&COUNT&SYSNDX   LR    9,8                     SET 9 TO MAX             00067861
+B&COUNT&SYSNDX   DS    0H                                               00067935
+         AGO    .BLOOP                         GO TO BEGIN OF BLOOP     00068061
+.FOUND   ANOP                                  MAX FOUND                00068161
+         ST     9,&RESULT                      SAVE FOUND RESULT        00068261
+         B      O&SYSNDX                       GO TO END                00068361
+Y&SYSNDX DS     2F                                                      00068409
+O&SYSNDX LM     8,9,Y&SYSNDX                   RESTORE REGISTERS        00068561
+         MEXIT                                                          00068604
+.MISSARG MNOTE  'MISSING ARGUMENTS'                                     00068744
+.EMPTLST MNOTE  'PRARAMETER LIST EMPTY'        ERROR HANDLING           00068861
+         MEND                                  END OF PROGRAM           00068961
+//         DD DSN=KC02314.AUTUMN17.CSCI360.HW9DRVR,DISP=SHR             00069007
+//FT05F001 DD DUMMY                                                     00070000
+//FT06F001 DD SYSOUT=*                                                  00080000
+//                                                                      00090000

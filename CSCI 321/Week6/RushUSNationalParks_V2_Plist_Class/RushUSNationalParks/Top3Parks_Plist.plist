@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>parkName</key>
+		<string>Great Smoky Mountain</string>
+		<key>state</key>
+		<string>Tennessee</string>
+		<key>visitors</key>
+		<string>10.7 Million Annual Visitors</string>
+		<key>parkHours</key>
+		<string>All day, every day</string>
+		<key>fee</key>
+		<string>None</string>
+		<key>cell_image</key>
+		<string>GSMountain_cell.jpg</string>
+		<key>park_image</key>
+		<string>GSMountain_image_1.jpg</string>
+	</dict>
+	<dict>
+        <key>parkName</key>
+        <string>Grand Canyon</string>
+        <key>state</key>
+        <string>Arizona</string>
+        <key>visitors</key>
+        <string>5.5 Million Annual Visitors</string>
+        <key>parkHours</key>
+        <string>All day, every day</string>
+        <key>fee</key>
+        <string>$30/vehicle, $15/individual</string>
+        <key>cell_image</key>
+        <string>GCanyon_cell.jpg</string>
+        <key>park_image</key>
+        <string>GCanyon_image_1.jpg</string>
+	</dict>
+    <dict>
+        <key>parkName</key>
+        <string>Yosemite</string>
+        <key>state</key>
+        <string>California</string>
+        <key>visitors</key>
+        <string>4.1 Million Annual Visitors</string>
+        <key>parkHours</key>
+        <string>All day, every day</string>
+        <key>fee</key>
+        <string>$30/vehicle, $15/individual</string>
+        <key>cell_image</key>
+        <string>Yosemite_cell.jpg</string>
+        <key>park_image</key>
+        <string>Yosemite_image_1.jpg</string>
+    </dict>
+
+</array>
+</plist>

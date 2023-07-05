@@ -1,0 +1,37 @@
+Flightnum: 1
+Origination: Chicago
+Destination: Denver
+Total Miles: 919
+	->Doe John
+	->Grimes Michonne
+	->Winchester Dean
+	->Dixon Daryl
+	Total Passengers:4
+
+Flightnum: 2
+Origination: Chicago
+Destination: Laredo
+Total Miles: 1361
+	->Brown Mary
+	->Peletier Sophia
+	Total Passengers:2
+
+Flightnum: 3
+Origination: Saint Louis
+Destination: Chicago
+Total Miles: 298
+	Total Passengers:0
+
+Flightnum: 4
+Origination: Miami
+Destination: Denver
+Total Miles: 2060
+	Total Passengers:0
+
+Flightnum: 5
+Origination: Denver
+Destination: Miami
+Total Miles: 2060
+	Total Passengers:0
+
+

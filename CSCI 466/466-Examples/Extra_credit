@@ -1,0 +1,82 @@
+CONCAT :    combines two or more strings into one string
+            needs at least one parameter to use CONCAT
+            MySQL Statement:
+                SELECT CONCAT('CSCI','466') FROM;
+
+LENGTH :    get the length of strings in bytes and in characters
+            MySQL Statement:
+                SELECT LENGTH('How are you?') FROM;
+
+REPLACE :   searches and replaces a string in a column of a table by a new string
+            has three parameters and replaces the old_string by the new_string in the string
+            MySQL Statement:
+                UPDATE tableA SET options = REPLACE (options,'Apple','New Apple');
+
+
+SUBSTRING : extracts a substring from a string
+            returns a substring with a given length from the string at a specific position
+            has two arguments 1) a string that you want to extract the substring
+                              2) a integer that you want to start extract the substring
+            can also specify the length of substring
+            MySQL Statement:
+                SELECT SUBSTRING('Database is fun',13);
+            Result: fun              
+
+LEFT    :   gets the left part of the string with a specified length
+            accepts two arguments 1) a string that you want to extract the substring
+                                  2) positive integer that specifies the number of characters   to return
+            MySQL Statement:
+                SELECT LEFT('left test',4);
+            Result: left
+
+TRIM    :   removes the unwanted leading and trailing characters
+            helps you to clean up the data
+            by default, it removes space
+            MySQL Statement:
+                SELECT TRIM (' May-Myo Khine      ');
+            Result: May-Myo Khine
+
+INSTR   :   returns the position of the first occurrence of a substring in a string
+            is used to locate a substring in a string or 
+            to check if a substring exists in a string
+            accepts two arguments 1) a string that you want to search
+                                  2) a substring that you want to search
+            MySQL Statement:
+                SELECT INSTR('Test string', 'r');
+            Result: 1
+
+FORMAT  :   formats decimal numbers by rounding up
+            accepts three arguments 1) the number to be formatted
+                                    2) the number of decimal to round
+                                    3) an optional argument that determines the thousand separators and grouping between separators
+            MySQL Statement:
+                SELECT FORMAT(1995.201, 2);
+            Result: 1995.20
+
+DATEDIFF:   calcuates the number of days between two date values
+            calculates date difference 
+            MySQL Statement:
+                SELECT DATEDIFF('2017-03-25','2017-03-27');
+            Result: 2 days
+
+DATE_FORMAT :   formats a date value as a specified date format
+                takes two arguments 1) a valid date value to format
+                                    2) a format string consisted predefined specifers
+                MySQL Statement:
+                    SELECT examNo DATE_FORMAT (examdate, '%Y-%m-%d') examDate FROM ;
+                Result: examNo   examDate
+                        001      2017-02-15
+                        002      2017-03-27   
+
+
+STR_TO_DATE :   converts a string into a date and time value based on a specified format
+                is very useful in data migration because it involves temporal data conversion  
+                    from an external format to MySQL temporal data forma
+            MySQL Statement:
+                SELECT STR_TO_DATE('21,3,2017','%d,%m,%Y');
+            Resut:  2017-03-21
+
+NOW     :   returns the current date and time when the statement is executed
+            MySQL Statement:
+                SELECT NOW();
+            Result: 2017-03-27 9:59:21

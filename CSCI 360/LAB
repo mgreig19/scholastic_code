@@ -1,0 +1,26 @@
+//KC03KA9 JOB ,'MASON GREIG',MSGCLASS=H                                 00010002
+//STEP1 EXEC PGM=ASSIST                                                 00011000
+//STEPLIB DD DSN=KC02293.ASSIST.LOADLIB,DISP=SHR                        00020000
+//SYSPRINT DD SYSOUT=*                                                  00030000
+//SYSIN DD *                                                            00040000
+********************************************                            00050000
+* EXAMPLE PROGRAM                                                       00060000
+*                                                                       00070000
+* NAME: MASON GREIG                                                     00080000
+*                                                                       00090000
+* REGISTER USAGE                                                        00100000
+*                                                                       00110000
+*  2    Total                                                           00120000
+*  5    Counter                                                         00130000
+* 15    Base register                                                   00140000
+*                                                                       00150000
+********************************************                            00160000
+MAIN    CSECT                                                           00170000
+        USING MAIN,15                                                   00180000
+        SR    2,2     ZERO FOR TOTAL                                    00190001
+        SR    5,5     ZERO FOR COUNTER                                  00200001
+        XDUMP                                                           00210000
+        BR    14                                                        00220000
+        END   MAIN                                                      00230000
+/*                                                                      00240000
+//                                                                      00250000

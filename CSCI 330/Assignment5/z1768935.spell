@@ -1,0 +1,29 @@
+#! /bin/bash
+
+cat $1 | aspell list > spellingError
+
+touch ~/.memory corrected preCorrection
+
+for word in `cat spellingError`
+
+	do
+		if grep -q $word ~/.memory
+		then continue
+		fi
+
+		echo -ne "\n"
+		read -p "'$word' is misspelled! Press 'Enter' to keep the current spelling or type a correction: " nextWord
+
+		if [ "$nextWord" = '' ]; then
+			echo "$word" >> ~/.memory
+
+		elif [ "$nextWord" != '' ]; then
+			echo "$nextWord" >> corrected; echo "$word" >> preCorrection
+		fi
+	done
+
+echo -ne "\nMisspelled:"; echo -e "\t\t\tCorrections:\n"
+paste preCorrection corrected | expand --tabs=32
+echo -e "\n"
+
+rm spellingError preCorrection corrected

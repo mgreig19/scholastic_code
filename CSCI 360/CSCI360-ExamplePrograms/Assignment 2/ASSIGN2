@@ -1,0 +1,118 @@
+//KC03OA0A JOB ,'Kevin White',MSGCLASS=H                                00010002
+//STEP1   EXEC  PGM=ASSIST                                              00020000
+//STEPLIB   DD  DSN=KC02293.ASSIST.LOADLIB,DISP=SHR                     00030000
+//SYSPRINT  DD  SYSOUT=*                                                00040000
+//SYSIN     DD  *                                                       00050000
+*******************************************************                 00060015
+*                                                                       00070000
+* PROGRAM:     ASSIGN2                                                  00080015
+* PROGRAMMER:  Kevin White                                              00090015
+*                                                                       00100000
+* FUNCTION: This program will read from the instream                    00101015
+*           data and print out the first number as X,                   00102015
+*           the second number as Y, and the last                        00103015
+*           number as Z. It will then calculate the                     00104015
+*           value of X+Y-Z and print it as the result.                  00105015
+*           After all lines have been read it will                      00106015
+*           print out the number of lines read as well                  00107015
+*           as the sum of the results.                                  00108015
+*                                                                       00109015
+* INPUT:    The instream data.                                          00109115
+*                                                                       00109215
+* OUTPUT:   the X, Y, and Z values as well as the                       00109315
+*           result from the calculation. At the bottom                  00109415
+*           will be the total number of lines read and                  00109515
+*           the sum of the results.                                     00109615
+*                                                                       00109715
+* ENTRY CONDS: NONE                                                     00109815
+*                                                                       00109915
+* EXIT CONDS: NONE                                                      00110015
+*                                                                       00110115
+* REGISTER USAGE:                                                       00110215
+*                                                                       00111001
+*    3     Sum                                                          00112015
+*    4     Counter                                                      00113015
+*    5     value of X and result of X+Y-Z                               00114015
+*    6     value of Y                                                   00115015
+*    7     value of Z                                                   00116015
+*                                                                       00117015
+* PSEUDOCODE:                                                           00118015
+*                                                                       00119015
+*    <1> Initalize sum and counter to 0                                 00119115
+*    <2> Read from the file                                             00119215
+*    <3> While not end of file                                          00119315
+*          Increment counter by 1                                       00119415
+*          Display X, Y, and Z                                          00119515
+*          Display Result of X+Y-Z                                      00119615
+*          Add result to sum                                            00119715
+*    <4> If end of file                                                 00119815
+*          Display lines read and sum                                   00119915
+*                                                                       00120000
+*******************************************************                 00130015
+MAIN     CSECT                                                          00140000
+         USING MAIN,15                                                  00150000
+*                                                                       00151006
+         SR    3,3              Initalize Sum                           00160015
+         SR    4,4              Initalize Counter                       00160115
+*                                                                       00160206
+LOOP     XREAD BUFFER,80        Reads line from file                    00160315
+         BC    B'0100',ENDLOOP  If end of file, ends loop               00160415
+         A     4,=F'1'          Increments counter by 1                 00160515
+         XDECI 5,BUFFER         Set R5 to first number                  00160615
+         XDECI 6,0(1)           Set R6 to second number                 00160715
+         XDECI 7,0(1)           Set R7 to third number                  00160815
+         XDECO 5,X              Stores first number in X                00160915
+         XDECO 6,Y              Stores second number in Y               00161015
+         XDECO 7,Z              Stores third number in Z                00161115
+         AR    5,6              Adds R5(X) to R6(Y)                     00161215
+         SR    5,7              Subtracts R5(X+Y) by R7(Z)              00161315
+         AR    3,5              Adds R5(X+Y-Z) to R3(SUM)               00161415
+         XDECO 5,RESULT         Stores R5(X+Y-Z) to RESULT              00161515
+         XPRNT LINE,96          Prints out LINE to 96 characters        00161715
+         B     LOOP             Returns to XREAD                        00161815
+*                                                                       00162012
+ENDLOOP  XDECO 3,SUM            Stores R3 into SUM                      00162115
+         XDECO 4,CNT            Stores R4 into CNT                      00162215
+         XPRNT FNLLINE,96       Prints out FNLINE to 96 characters      00163015
+         BR    14                                                       00170000
+*                                                                       00170111
+BUFFER   DS    80C                                                      00170212
+*                                                                       00170312
+LINE     DC    C' '             Single space carriage control           00170415
+         DC    CL4'X = '                                                00170511
+X        DS    12C              Allocates 12 characters to X            00170615
+         DC    CL8' '           8 characters of spaces                  00170715
+         DC    CL4'Y = '                                                00170811
+Y        DS    12C              Allocates 12 characters to Y            00170915
+         DC    CL8' '           8 characters of spaces                  00171015
+         DC    CL4'Z = '                                                00171111
+Z        DS    12C              Allocates 12 characters to Z            00171215
+         DC    CL8' '           8 characters of spaces                  00171315
+         DC    CL9'Result = '                                           00171411
+RESULT   DS    12C              Allocates 12 characters to Z            00171515
+         DC    CL2' '                                                   00171611
+*                                                                       00171704
+FNLLINE  DC    C' '                                                     00172004
+         DC    CL18'Number of Lines = '                                 00172109
+CNT      DS    12C                        Allocates 12 char to CNT      00172215
+         DC    CL8' '                     8 characters of spaces        00172315
+         DC    CL17'Sum of Results = '                                  00172409
+SUM      DS    12C                        Allocates 12 char to SUM      00172515
+         DC    CL28' '                                                  00172609
+*                                                                       00173004
+         END   MAIN                                                     00180000
+/*                                                                      00190003
+//FT05F001   DD  *                                                      00200003
+8163   2529  2805                                                       00210003
+4536   1839  5741                                                       00220003
+0591   7843  9487                                                       00230003
+4190   3057  2775                                                       00240003
+2399   0667  4129                                                       00250003
+8118   3961  6535                                                       00260003
+4765   0498  1111                                                       00270003
+9056   2345  1110                                                       00280003
+0001   0002  0003                                                       00290003
+9999   9998  9997                                                       00300003
+/*                                                                      00310003
+//FT06F001   DD SYSOUT=*                                                00320003
+//                                                                      00330003

@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>location_number</key>
+		<integer>0</integer>
+		<key>city</key>
+		<string>Naperville</string>
+		<key>street</key>
+		<string>1975 Springbrook Square Dr.</string>
+		<key>state_zip</key>
+		<string>Illinois, 60544</string>
+		<key>phone</key>
+		<string>630-555-5000</string>
+		<key>website</key>
+        <string>http://www.niu.edu</string>
+		<key>hours_1</key>
+		<string>Sun-Thurs: 11:00 a.m. to 9:00 p.m.</string>
+		<key>hours_2</key>
+		<string>Fri-Sat: 11:00 a.m. to 10:00 p.m.</string>
+		<key>latitude</key>
+		<string>41.730732</string>
+		<key>longitude</key>
+		<string>-88.204634</string>
+		<key>logo</key>
+		<string>logo_image.png</string>
+	</dict>
+	<dict>
+		<key>location_number</key>
+		<integer>1</integer>
+		<key>city</key>
+		<string>Woddridge</string>
+		<key>street</key>
+		<string>6430 Main Street, Suite 130</string>
+		<key>state_zip</key>
+		<string>Illinois, 60517</string>
+		<key>phone</key>
+		<string>815-753-6936</string>
+		<key>website</key>
+		<string>http://www.clas.niu.edu</string>
+		<key>hours_1</key>
+		<string>Sun-Thurs: 11:00 a.m. to 9:00 p.m.</string>
+		<key>hours_2</key>
+		<string>Fri-Sat: 11:00 a.m. to 10:00 p.m.</string>
+		<key>latitude</key>
+		<string>41.768976</string>
+		<key>longitude</key>
+		<string>-88.070682</string>
+		<key>logo</key>
+		<string>logo_image.png</string>
+	</dict>
+	<dict>
+		<key>location_number</key>
+		<integer>2</integer>
+		<key>city</key>
+		<string>Geneva</string>
+		<key>street</key>
+		<string>330 W. State St.</string>
+		<key>state_zip</key>
+		<string>Illinois, 60441</string>
+		<key>phone</key>
+		<string>630-555-5000</string>
+		<key>website</key>
+		<string>http://www.cs.niu.edu</string>
+		<key>hours_1</key>
+		<string>Sun-Thurs: 11:00 a.m. to 9:00 p.m.</string>
+		<key>hours_2</key>
+		<string>Fri-Sat: 11:00 a.m. to 10:00 p.m.</string>
+		<key>latitude</key>
+		<string>41.887838</string>
+		<key>longitude</key>
+		<string>-88.309039</string>
+		<key>logo</key>
+		<string>logo_image.png</string>
+	</dict>
+	<dict>
+		<key>location_number</key>
+		<integer>3</integer>
+		<key>city</key>
+		<string>Downers Grove</string>
+		<key>street</key>
+		<string>940 Warren Avenue</string>
+		<key>state_zip</key>
+		<string>Illinois, 60515</string>
+		<key>phone</key>
+		<string>815-753-6936</string>
+		<key>website</key>
+		<string>http://www.niu.edu/krush</string>
+		<key>hours_1</key>
+		<string>Sun-Thurs: 11:00 a.m. to 9:00 p.m.</string>
+		<key>hours_2</key>
+		<string>Fri-Sat: 11:00 a.m. to 10:00 p.m.</string>
+		<key>latitude</key>
+		<string>41.795890</string>
+		<key>longitude</key>
+		<string>-88.009149</string>
+		<key>logo</key>
+		<string>logo_image.png</string>
+	</dict>
+	<dict>
+		<key>location_number</key>
+		<integer>4</integer>
+		<key>city</key>
+		<string>Plainfield</string>
+		<key>street</key>
+		<string>14421 Wallin Drive</string>
+		<key>state_zip</key>
+		<string>Illinois, 60544</string>
+		<key>phone</key>
+		<string>630-555-5000</string>
+		<key>website</key>
+		<string>http://www.niu.edu</string>
+		<key>hours_1</key>
+		<string>Sun-Thurs: 11:00 a.m. to 9:00 p.m.</string>
+		<key>hours_2</key>
+		<string>Fri-Sat: 11:00 a.m. to 10:00 p.m.</string>
+		<key>latitude</key>
+		<string>41.619626</string>
+		<key>longitude</key>
+		<string>-88.221175</string>
+		<key>logo</key>
+		<string>logo_image.png</string>
+	</dict>
+	<dict>
+		<key>location_number</key>
+		<integer>5</integer>
+        <key>city</key>
+		<string>Addison</string>
+		<key>street</key>
+		<string>1455 West Lake Street</string>
+		<key>state_zip</key>
+		<string>Illinois, 60101</string>
+		<key>phone</key>
+		<string>815-753-6936</string>
+		<key>website</key>
+		<string>http://www.clas.niu.edu</string>
+		<key>hours_1</key>
+		<string>Sun-Thurs: 11:00 a.m. to 9:00 p.m.</string>
+		<key>hours_2</key>
+		<string>Fri-Sat: 11:00 a.m. to 10:00 p.m.</string>
+		<key>latitude</key>
+		<string>41.945325</string>
+		<key>longitude</key>
+		<string>-88.024010</string>
+		<key>logo</key>
+		<string>logo_image.png</string>
+	</dict>
+	<dict>
+		<key>location_number</key>
+		<integer>6</integer>
+		<key>city</key>
+		<string>Lockport</string>
+		<key>street</key>
+		<string>16529 W. 159th St.</string>
+		<key>state_zip</key>
+		<string>Illinois, 60441</string>
+		<key>phone</key>
+		<string>630-555-5000</string>
+		<key>website</key>
+		<string>http://www.cs.niu.edu</string>
+		<key>hours_1</key>
+		<string>Sun-Thurs: 11:00 a.m. to 9:00 p.m.</string>
+		<key>hours_2</key>
+		<string>Fri-Sat: 11:00 a.m. to 10:00 p.m.</string>
+		<key>latitude</key>
+		<string>41.597874</string>
+		<key>longitude</key>
+		<string>-88.020233</string>
+		<key>logo</key>
+		<string>logo_image.png</string>
+	</dict>
+	<dict>
+		<key>location_number</key>
+		<integer>7</integer>
+		<key>city</key>
+		<string>LaGrange</string>
+		<key>street</key>
+		<string>11 Calendar Court</string>
+		<key>state_zip</key>
+		<string>Illinois, 60525</string>
+		<key>phone</key>
+		<string>815-753-6936</string>
+		<key>website</key>
+		<string>http://www.niu.edu/krush</string>
+		<key>hours_1</key>
+		<string>Sun-Thurs: 11:00 a.m. to 9:00 p.m.</string>
+		<key>hours_2</key>
+		<string>Fri-Sat: 11:00 a.m. to 10:00 p.m.</string>
+		<key>latitude</key>
+		<string>41.815115</string>
+		<key>longitude</key>
+		<string>-87.870385</string>
+		<key>logo</key>
+		<string>logo_image.png</string>
+	</dict>
+	<dict>
+		<key>location_number</key>
+		<integer>8</integer>
+		<key>city</key>
+		<string>Joliet</string>
+		<key>street</key>
+		<string>3101 W. Jefferson</string>
+		<key>state_zip</key>
+		<string>Illinois, 60435</string>
+		<key>phone</key>
+		<string>630-555-5000</string>
+		<key>website</key>
+		<string>http://www.niu.edu</string>
+		<key>hours_1</key>
+		<string>Sun-Thurs: 11:00 a.m. to 9:00 p.m.</string>
+		<key>hours_2</key>
+		<string>Fri-Sat: 11:00 a.m. to 10:00 p.m.</string>
+		<key>latitude</key>
+		<string>41.522739</string>
+		<key>longitude</key>
+		<string>-88.158182</string>
+		<key>logo</key>
+		<string>logo_image.png</string>
+	</dict>
+	<dict>
+		<key>location_number</key>
+		<integer>9</integer>
+		<key>city</key>
+		<string>Arlington Heights</string>
+		<key>street</key>
+		<string>2944 W. Euclid Avenue</string>
+		<key>state_zip</key>
+		<string>Illinois, 60005</string>
+		<key>phone</key>
+		<string>815-753-6936</string>
+		<key>website</key>
+		<string>http://www.clas.niu.edu</string>
+		<key>hours_1</key>
+		<string>Sun-Thurs: 11:00 a.m. to 9:00 p.m.</string>
+		<key>hours_2</key>
+		<string>Fri-Sat: 11:00 a.m. to 10:00 p.m.</string>
+		<key>latitude</key>
+		<string>42.089089</string>
+		<key>longitude</key>
+		<string>-88.019897</string>
+		<key>logo</key>
+		<string>logo_image.png</string>
+	</dict>
+	<dict>
+		<key>location_number</key>
+		<integer>10</integer>
+		<key>city</key>
+		<string>New Lenox</string>
+		<key>street</key>
+		<string>320 W. Maple St.</string>
+		<key>state_zip</key>
+		<string>Illinois, 60451</string>
+		<key>phone</key>
+		<string>630-555-5000</string>
+		<key>website</key>
+		<string>http://www.cs.niu.edu</string>
+		<key>hours_1</key>
+		<string>Sun-Thurs: 11:00 a.m. to 9:00 p.m.</string>
+		<key>hours_2</key>
+		<string>Fri-Sat: 11:00 a.m. to 10:00 p.m.</string>
+		<key>latitude</key>
+		<string>41.514141</string>
+		<key>longitude</key>
+		<string>-87.970536</string>
+		<key>logo</key>
+		<string>logo_image.png</string>
+	</dict>
+	<dict>
+		<key>location_number</key>
+		<integer>11</integer>
+		<key>city</key>
+		<string>Oakis Heights</string>
+		<key>street</key>
+		<string>6543 W. 127th St.</string>
+		<key>state_zip</key>
+		<string>Illinois, 60463</string>
+		<key>phone</key>
+		<string>815-753-6936</string>
+		<key>website</key>
+		<string>http://www.niu.edu/krush</string>
+		<key>hours_1</key>
+		<string>Sun-Thurs: 11:00 a.m. to 9:00 p.m.</string>
+		<key>hours_2</key>
+		<string>Fri-Sat: 11:00 a.m. to 10:00 p.m.</string>
+		<key>latitude</key>
+		<string>41.660657</string>
+		<key>longitude</key>
+		<string>-87.780732</string>
+		<key>logo</key>
+		<string>logo_image.png</string>
+	</dict>
+	<dict>
+		<key>location_number</key>
+		<integer>12</integer>
+		<key>city</key>
+		<string>Mokena</string>
+		<key>street</key>
+		<string>19836 Wolf Rd.</string>
+		<key>state_zip</key>
+		<string>Illinois, 60448</string>
+		<key>phone</key>
+		<string>630-555-5000</string>
+		<key>website</key>
+		<string>http://www.niu.edu</string>
+		<key>hours_1</key>
+		<string>Sun-Thurs: 11:00 a.m. to 9:00 p.m.</string>
+		<key>hours_2</key>
+		<string>Fri-Sat: 11:00 a.m. to 10:00 p.m.</string>
+		<key>latitude</key>
+		<string>41.528332</string>
+		<key>longitude</key>
+		<string>-87.889749</string>
+		<key>logo</key>
+		<string>logo_image.png</string>
+	</dict>
+	<dict>
+		<key>location_number</key>
+		<integer>13</integer>
+		<key>city</key>
+		<string>Tinley Park</string>
+		<key>street</key>
+		<string>15901 Oak Park Ave.</string>
+		<key>state_zip</key>
+		<string>Illinois, 60477</string>
+		<key>phone</key>
+		<string>815-753-6936</string>
+		<key>website</key>
+		<string>http://www.clas.niu.edu</string>
+		<key>hours_1</key>
+		<string>Sun-Thurs: 11:00 a.m. to 9:00 p.m.</string>
+		<key>hours_2</key>
+		<string>Fri-Sat: 11:00 a.m. to 10:00 p.m.</string>
+		<key>latitude</key>
+		<string>41.601731</string>
+		<key>longitude</key>
+		<string>-87.784816</string>
+		<key>logo</key>
+		<string>logo_image.png</string>
+	</dict>
+	<dict>
+		<key>location_number</key>
+		<integer>14</integer>
+		<key>city</key>
+		<string>Frankfort</string>
+		<key>street</key>
+		<string>9901 West Lincoln Highway</string>
+		<key>state_zip</key>
+		<string>Illinois, 60423</string>
+		<key>phone</key>
+		<string>630-555-5000</string>
+		<key>website</key>
+		<string>http://www.cs.niu.edu</string>
+		<key>hours_1</key>
+		<string>Sun-Thurs: 11:00 a.m. to 9:00 p.m.</string>
+		<key>hours_2</key>
+		<string>Fri-Sat: 11:00 a.m. to 10:00 p.m.</string>
+		<key>latitude</key>
+		<string>41.505769</string>
+		<key>longitude</key>
+		<string>-87.857449</string>
+		<key>logo</key>
+		<string>logo_image.png</string>
+	</dict>
+	<dict>
+		<key>location_number</key>
+		<integer>15</integer>
+		<key>city</key>
+		<string>Chicago-South Loop</string>
+		<key>street</key>
+		<string>1212 S. Michigan Ave.</string>
+		<key>state_zip</key>
+		<string>Illinois, 60605</string>
+		<key>phone</key>
+		<string>815-753-6936</string>
+		<key>website</key>
+		<string>http://www.niu.edu/krush</string>
+		<key>hours_1</key>
+		<string>Sun-Thurs: 11:00 a.m. to 9:00 p.m.</string>
+		<key>hours_2</key>
+		<string>Fri-Sat: 11:00 a.m. to 10:00 p.m.</string>
+		<key>latitude</key>
+		<string>41.866939</string>
+		<key>longitude</key>
+		<string>-87.624616</string>
+		<key>logo</key>
+		<string>logo_image.png</string>
+	</dict>
+	<dict>
+		<key>location_number</key>
+		<integer>16</integer>
+		<key>city</key>
+		<string>Morris</string>
+		<key>street</key>
+		<string>1505 Creek Drive</string>
+		<key>state_zip</key>
+		<string>Illinois, 60450</string>
+		<key>phone</key>
+		<string>630-555-5000</string>
+		<key>website</key>
+		<string>http://www.niu.edu</string>
+		<key>hours_1</key>
+		<string>Sun-Thurs: 11:00 a.m. to 9:00 p.m.</string>
+		<key>hours_2</key>
+		<string>Fri-Sat: 11:00 a.m. to 10:00 p.m.</string>
+		<key>latitude</key>
+		<string>41.372575</string>
+		<key>longitude</key>
+		<string>-88.438949</string>
+		<key>logo</key>
+		<string>logo_image.png</string>
+	</dict>
+	<dict>
+		<key>location_number</key>
+		<integer>17</integer>
+		<key>city</key>
+		<string>Homewood</string>
+		<key>street</key>
+		<string>18162 Harwood Ave.</string>
+		<key>state_zip</key>
+		<string>Illinois, 60430</string>
+		<key>phone</key>
+		<string>815-753-6936</string>
+		<key>website</key>
+		<string>http://www.clas.niu.edu</string>
+		<key>hours_1</key>
+		<string>Sun-Thurs: 11:00 a.m. to 9:00 p.m.</string>
+		<key>hours_2</key>
+		<string>Fri-Sat: 11:00 a.m. to 10:00 p.m.</string>
+		<key>latitude</key>
+		<string>41.559516</string>
+		<key>longitude</key>
+		<string>-87.668968</string>
+		<key>logo</key>
+		<string>logo_image.png</string>
+	</dict>
+	<dict>
+		<key>location_number</key>
+		<integer>18</integer>
+		<key>city</key>
+		<string>Richton Park</string>
+		<key>street</key>
+		<string>3740 Sauk Trail</string>
+		<key>state_zip</key>
+		<string>Illinois, 60471</string>
+		<key>phone</key>
+		<string>630-555-5000</string>
+		<key>website</key>
+		<string>http://www.cs.niu.edu</string>
+		<key>hours_1</key>
+		<string>Sun-Thurs: 11:00 a.m. to 9:00 p.m.</string>
+		<key>hours_2</key>
+		<string>Fri-Sat: 11:00 a.m. to 10:00 p.m.</string>
+		<key>latitude</key>
+		<string>41.484679</string>
+		<key>longitude</key>
+		<string>-87.706690</string>
+		<key>logo</key>
+		<string>logo_image.png</string>
+	</dict>
+	<dict>
+		<key>location_number</key>
+		<integer>19</integer>
+		<key>city</key>
+		<string>Chicago Heights</string>
+		<key>street</key>
+		<string>1545 S. Western Ave.</string>
+		<key>state_zip</key>
+		<string>Illinois, 60411</string>
+		<key>phone</key>
+		<string>815-753-6936</string>
+		<key>website</key>
+		<string>http://www.niu.edu/krush</string>
+		<key>hours_1</key>
+		<string>Sun-Thurs: 11:00 a.m. to 9:00 p.m.</string>
+		<key>hours_2</key>
+		<string>Fri-Sat: 11:00 a.m. to 10:00 p.m.</string>
+		<key>latitude</key>
+		<string>41.860612</string>
+		<key>longitude</key>
+		<string>-87.685880</string>
+		<key>logo</key>
+		<string>logo_image.png</string>
+	</dict>
+</array>
+</plist>

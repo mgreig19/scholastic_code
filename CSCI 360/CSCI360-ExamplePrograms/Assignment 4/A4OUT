@@ -1,0 +1,351 @@
+1                    J E S 2  J O B  L O G  --  S Y S T E M  S 0 W 1  --  N O D E  Z O S K C T R         
+0 
+ 20.42.20 JOB01375 ---- TUESDAY,   11 JUL 2017 ----
+ 20.42.20 JOB01375  IRR010I  USERID KC03OA0  IS ASSIGNED TO THIS JOB.
+ 20.42.20 JOB01375  ICH70001I KC03OA0  LAST ACCESS AT 20:38:17 ON TUESDAY, JULY 11, 2017
+ 20.42.20 JOB01375  $HASP373 KC03OA0A STARTED - INIT 2    - CLASS A        - SYS S0W1
+ 20.42.20 JOB01375  -                                         --TIMINGS (MINS.)--            ----PAGING COUNTS---
+ 20.42.20 JOB01375  -JOBNAME  STEPNAME PROCSTEP    RC   EXCP    TCB    SRB  CLOCK   SERV  PG   PAGE   SWAP    VIO SWAPS
+ 20.42.20 JOB01375  -KC03OA0A                      00     63 ******    .00     .0    185   0      0      0      0     0
+ 20.42.20 JOB01375  -KC03OA0A ENDED.  NAME-Kevin White          TOTAL TCB CPU TIME=   .00  TOTAL ELAPSED TIME=    .0
+ 20.42.20 JOB01375  $HASP395 KC03OA0A ENDED
+0------ JES2 JOB STATISTICS ------
+-  11 JUL 2017 JOB EXECUTION DATE
+-          273 CARDS READ
+-          351 SYSOUT PRINT RECORDS
+-            0 SYSOUT PUNCH RECORDS
+-           39 SYSOUT SPOOL KBYTES
+-         0.00 MINUTES EXECUTION TIME
+         1 //KC03OA0A JOB ,'Kevin White',MSGCLASS=H                                JOB01375
+         2 //STEP1 EXEC PGM=ASSIST                                                 00020000
+         3 //STEPLIB DD DSN=KC02293.ASSIST.LOADLIB,DISP=SHR                        00030000
+         4 //SYSPRINT DD SYSOUT=*                                                  00040000
+         5 //SYSIN DD *                                                            00050000
+         6 //FT05F001 DD DSN=KC02314.SUMMER17.CSCI360.HW4DATA,DISP=SHR             00367000
+ ICH70001I KC03OA0  LAST ACCESS AT 20:38:17 ON TUESDAY, JULY 11, 2017
+ IEF236I ALLOC. FOR KC03OA0A STEP1
+ IGD103I SMS ALLOCATED TO DDNAME STEPLIB
+ IEF237I JES2 ALLOCATED TO SYSPRINT
+ IEF237I JES2 ALLOCATED TO SYSIN
+ IGD103I SMS ALLOCATED TO DDNAME FT05F001
+ IEF142I KC03OA0A STEP1 - STEP WAS EXECUTED - COND CODE 0000
+ IGD104I KC02293.ASSIST.LOADLIB                       RETAINED,  DDNAME=STEPLIB 
+ IEF285I   KC03OA0.KC03OA0A.JOB01375.D0000102.?         SYSOUT        
+ IEF285I   KC03OA0.KC03OA0A.JOB01375.D0000101.?         SYSIN         
+ IGD104I KC02314.SUMMER17.CSCI360.HW4DATA             RETAINED,  DDNAME=FT05F001
+ IEF373I STEP/STEP1   /START 2017192.2042
+ IEF032I STEP/STEP1   /STOP  2017192.2042 
+         CPU:     0 HR  00 MIN  00.01 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+         VIRT:   584K  SYS:   268K  EXT:        4K  SYS:    11540K
+         ATB- REAL:                     0K  SLOTS:                     0K
+              VIRT- ALLOC:       0M SHRD:       0M
+ IEF375I  JOB/KC03OA0A/START 2017192.2042
+ IEF033I  JOB/KC03OA0A/STOP  2017192.2042 
+         CPU:     0 HR  00 MIN  00.01 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+1*** ASSIST 4.0/A2-05/15/82  470/V7A/0:OS/VS2  INS=SDFP7/X=BGHO, CHECK/TRC/=1180, OPTS=CDKMPR FROM PENN ST*NIU COMPSCI*LT         
+0                                                                                                                                 
+0                                                                                                               PAGE    1         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                       1 **************************************************                      00060000         
+                                       2 *                                                                       00070000         
+                                       3 * PROGRAM:     ASSIGN4                                                  00080000         
+                                       4 * PROGRAMMER:  Kevin White                                              00090000         
+                                       5 *                                                                       00091000         
+                                       6 * FUNCTION: This program will read integers from                        00100000         
+                                       7 *           a file of 80-byte records and store                         00110000         
+                                       8 *           them into a table. It will then print                       00120000         
+                                       9 *           out the table 5 numbers per line.                           00130000         
+                                      10 *           It will then only print out the even                        00140000         
+                                      11 *           integers in the table.                                      00150000         
+                                      12 *                                                                       00160000         
+                                      13 * INPUT:    The 80-byte records data file.                              00170000         
+                                      14 *                                                                       00180000         
+                                      15 * OUTPUT:   The table of integers. 5 integers per                       00190000         
+                                      16 *           line. And it will print only the even                       00200064         
+                                      17 *           integers with 6 integers per line.                          00201064         
+                                      18 *                                                                       00210000         
+                                      19 * ENTRY CONDS: NONE                                                     00220000         
+                                      20 *                                                                       00230000         
+                                      21 * EXIT CONDS: NONE                                                      00240000         
+                                      22 *                                                                       00250000         
+                                      23 * REGISTER USAGE:                                                       00260000         
+                                      24 *                                                                       00270000         
+                                      25 *    1     Parameter List                                               00280003         
+                                      26 *                                                                       00290000         
+                                      27 * PSEUDOCODE:                                                           00300000         
+                                      28 *                                                                       00310000         
+                                      29 *    <1> Print table header 1                                           00320064         
+                                      30 *    <2> Call BUILD Subroutine                                          00321064         
+                                      31 *    <3> Call PRINT Subroutine                                          00322064         
+                                      32 *    <4> Print table header 2                                           00322164         
+                                      33 *    <4> Call PRINTE Subroutine                                         00323064         
+                                      34 *                                                                       00330000         
+                                      35 **************************************************                      00340000         
+ 000000                               36 MAIN     CSECT                                                          00341000         
+ 000000                               37          USING MAIN,15                                                  00342000         
+                                      38 *                                                                       00343000         
+ 000000 E020 F0F4 0026 000F4          39          XPRNT HEAD1,38      Prints out header 1                        00343164         
+                                      40 *                                                                       00343202         
+ 000006 4110 F0EC            000EC    41          LA    1,PLIST       Loads Parameter list into R1               00343364         
+ 00000A 45A0 F14A            0014A    42          BAL   10,BUILD      Calls Subroutine BUILD                     00343464         
+                                      43 *                                                                       00343606         
+ 00000E 4110 F0EC            000EC    44          LA    1,PLIST       Loads Parameter list into R1               00343764         
+ 000012 45A0 F23A            0023A    45          BAL   10,PRINT      Calls Subroutine PRINT                     00343864         
+                                      46 *                                                                       00343951         
+ 000016 E020 F11A 002F 0011A          47          XPRNT HEAD2,47      Prints out header 2                        00344064         
+                                      48 *                                                                       00344151         
+ 00001C 4110 F0EC            000EC    49          LA    1,PLIST       Loads Parameter list into R1               00344264         
+ 000020 45A0 F322            00322    50          BAL   10,PRINTE     Calls Subroutine PRINTE                    00344364         
+                                      51 *                                                                       00344403         
+ 000024 07FE                          52          BR    14                                                       00344500         
+1                                                                                                               PAGE    2         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                      53 *                                                                       00344600         
+ 000028 0000000000000000              54 TABLE    DC    48F'0'        Creates a table initialized to 0           00344764         
+ 0000E8                               55 EOT      DS    F                                                        00344802         
+ 0000EC 00000028                      56 PLIST    DC    A(TABLE)      Creates the Parameter List                 00344964         
+ 0000F0 000000E8                      57          DC    A(EOT)                                                   00345003         
+                                      58 *                                                                       00345102         
+ 0000F4 F1                            59 HEAD1    DC    C'1'          New page carriage control                  00345264         
+ 0000F5 4040404040404040              60          DC    CL22' '                                                  00345302         
+ 00010B D389A2A340968640              61          DC    CL15'List of Numbers'                                    00345402         
+ 00011A F1                            62 HEAD2    DC    C'1'          New page carriage control                  00345564         
+ 00011B 4040404040404040              63          DC    CL26' '                                                  00345651         
+ 000135 D389A2A340968640              64          DC    CL20'List of Even Numbers'                               00345751         
+                                      65 *                                                                       00345802         
+                                      66 **************************************************                      00345903         
+                                      67 *  BUILD                                                                00346004         
+                                      68 *                                                                       00346163         
+                                      69 *  FUNCTION: This subroutine will read from the                         00346263         
+                                      70 *            standard input and store the data in                       00346363         
+                                      71 *            the table passed as a parameter until                      00346463         
+                                      72 *            it reaches the end of the data or                          00346563         
+                                      73 *            until the table is full.                                   00346663         
+                                      74 *                                                                       00346763         
+                                      75 *  INPUT:    TABLE of 48 fullwords.                                     00346863         
+                                      76 *            EOT pointer to the end of the table.                       00346963         
+                                      77 *                                                                       00347063         
+                                      78 *  OUTPUT:   NONE                                                       00347163         
+                                      79 *                                                                       00347304         
+                                      80 *  REGISTER USAGE                                                       00347404         
+                                      81 *                                                                       00347513         
+                                      82 *     2     Table                                                       00347604         
+                                      83 *     3     End of table                                                00347704         
+                                      84 *     4     Counter                                                     00347804         
+                                      85 *     5     Integer                                                     00347910         
+                                      86 *                                                                       00348004         
+                                      87 *  PSEUDOCODE:                                                          00348164         
+                                      88 *                                                                       00348264         
+                                      89 *     <1> Save registers, unload parameters                             00348364         
+                                      90 *     <2> Read from file                                                00348464         
+                                      91 *     <3> While not end of file                                         00348564         
+                                      92 *           End loop if table is full                                   00348664         
+                                      93 *           While not at end of line                                    00348764         
+                                      94 *             Store data into table                                     00348864         
+                                      95 *             increment table counter                                   00348964         
+                                      96 *     <4> Restore registers                                             00349064         
+                                      97 *     <5> Branch back to MAIN                                           00349165         
+                                      98 *                                                                       00349264         
+                                      99 **************************************************                      00349303         
+ 00014A 900F F1A8            001A8   100 BUILD    STM   0,15,BSAVE         Save registers                        00349403         
+ 00014E 9823 1000            00000   101          LM    2,3,0(1)           Unload parameters                     00349503         
+ 000152 1B44                         102          SR    4,4                Set R4 to 0                           00349664         
+                                     103 *                                                                       00349703         
+ 000154 E000 F1E8 0050 001E8         104 BLOOP1   XREAD BUFFER,80          Stores line into BUFFER               00349864         
+ 00015A 4740 F19E            0019E   105          BC    B'0100',ENDBLP1    If end of file end BLOOP1             00349964         
+ 00015E 5940 F430            00430   106          C     4,=F'48'           Compare R4 to 48                      00350064         
+ 000162 4780 F19E            0019E   107          BE    ENDBLP1            If R4 equals 48 end BLOOP1            00350164         
+ 000166 5350 F1E8            001E8   108          XDECI 5,BUFFER           Store first number into R5            00350264         
+ 00016A 4710 F19A            0019A   109          BC    B'0001',ENDBLP2    If no number found return to start    00350365         
+1                                                                                                               PAGE    3         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+ 00016E 5050 2000            00000   110          ST    5,0(0,2)           Stores R5 into table                  00350465         
+ 000172 4120 2004            00004   111          LA    2,4(0,2)           Increments table pointer              00350565         
+ 000176 5A40 F434            00434   112          A     4,=F'1'            Increments size counter               00350665         
+ 00017A 5940 F430            00430   113 BLOOP2   C     4,=F'48'           Compare R4 to 48                      00350765         
+ 00017E 4780 F19E            0019E   114          BE    ENDBLP1            If R4 equals 48 end BLOOP1            00350865         
+ 000182 5350 1000            00000   115          XDECI 5,0(0,1)           Store next number into R5             00350965         
+ 000186 4710 F19A            0019A   116          BC    B'0001',ENDBLP2    If no next number end BLOOP2          00351065         
+ 00018A 5050 2000            00000   117          ST    5,0(0,2)           Store number into table               00351165         
+ 00018E 4120 2004            00004   118          LA    2,4(0,2)           Increment table pointer               00351265         
+ 000192 5A40 F434            00434   119          A     4,=F'1'            Increment size counter                00351365         
+ 000196 47F0 F17A            0017A   120          B     BLOOP2             Return to start of BLOOP2             00351465         
+ 00019A 47F0 F154            00154   121 ENDBLP2  B     BLOOP1             Return to start of BLOOP1             00351565         
+ 00019E 5020 3000            00000   122 ENDBLP1  ST    2,0(0,3)           Set end of table pointer              00351665         
+ 0001A2 980F F1A8            001A8   123          LM    0,15,BSAVE         Restore registers                     00351765         
+ 0001A6 07FA                         124          BR    10                 Branch back to main                   00351865         
+                                     125 *                                                                       00351906         
+ 0001A8                              126 BSAVE    DS    16F                16 fullwords to store registers       00352065         
+ 0001E8                              127 BUFFER   DS    80C                                                      00352103         
+ 000238 5C                           128          DC    C'*'               To create error if no more numbers    00352265         
+                                     129 *                                                                       00352313         
+                                     130 **************************************************                      00352413         
+                                     131 *  PRINT                                                                00352513         
+                                     132 *                                                                       00352663         
+                                     133 *  FUNCTION: This subroutine will print out the                         00352763         
+                                     134 *            data held within the table given. It                       00352863         
+                                     135 *            will print out 5 integers per line.                        00352963         
+                                     136 *                                                                       00353063         
+                                     137 *  INPUT:    TABLE the table of integers to be                          00353163         
+                                     138 *                  printed out.                                         00353263         
+                                     139 *            EOT   the pointer to the end of the                        00353363         
+                                     140 *                  table.                                               00353463         
+                                     141 *                                                                       00353563         
+                                     142 *  OUTPUT:   The values held within the table, 5                        00353663         
+                                     143 *            integers per line.                                         00353763         
+                                     144 *                                                                       00353813         
+                                     145 *  REGISTER USAGE                                                       00353913         
+                                     146 *                                                                       00354065         
+                                     147 *     2     TABLE                                                       00354113         
+                                     148 *     3     End of Table                                                00354213         
+                                     149 *     4     Integer                                                     00354328         
+                                     150 *     5     Line Address                                                00354440         
+                                     151 *     6     Line Counter                                                00354540         
+                                     152 *                                                                       00354665         
+                                     153 *  PSEUDOCODE:                                                          00354765         
+                                     154 *                                                                       00354865         
+                                     155 *     <1> Store Registers, Unload parameters                            00354965         
+                                     156 *     <2> While not end of table                                        00355065         
+                                     157 *           Print out table contents                                    00355165         
+                                     158 *             If 5 on line                                              00355265         
+                                     159 *               Start new line                                          00355365         
+                                     160 *     <3> Restore Registers                                             00355465         
+                                     161 *     <4> Branch back to MAIN                                           00355565         
+                                     162 *                                                                       00355665         
+                                     163 *                                                                       00355765         
+                                     164 **************************************************                      00355813         
+ 00023A 900F F298            00298   165 PRINT    STM   0,15,PSAVE         Saves Registers                       00355966         
+ 00023E 9823 1000            00000   166          LM    2,3,0(1)           Unloads Parameters                    00356066         
+1                                                                                                               PAGE    4         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                     167 *                                                                       00356120         
+ 000242 5920 3000            00000   168 PLOOP    C     2,0(0,3)           Compare R2 to EOT                     00356266         
+ 000246 4780 F292            00292   169          BE    PLPEND             If R2 equals EOT end PLOOP            00356366         
+ 00024A D23B F2DA F2D9 002DA 002D9   170          MVC   LINE+2(60),LINE+1  Destructive Overlap on LINE           00356466         
+ 000250 4150 F2D8            002D8   171          LA    5,LINE             Store address of LINE in R5           00356566         
+ 000254 4150 5001            00001   172          LA    5,1(0,5)           Add 1 to R5                           00356666         
+ 000258 1B66                         173          SR    6,6                Set R6 to 0                           00356766         
+ 00025A 5920 3000            00000   174 PLOOP2   C     2,0(0,3)           Compare R2 to EOT                     00356866         
+ 00025E 4780 F288            00288   175          BE    PLP2END            if R2 equals EOT end PLOOP2           00356966         
+ 000262 5960 F438            00438   176          C     6,=F'5'            Compare R6 to 5                       00357066         
+ 000266 4780 F288            00288   177          BE    PLP2END            if R6 equals 5 end PLOOP2             00357166         
+ 00026A 5840 2000            00000   178          L     4,0(0,2)           Load table data to R4                 00357266         
+ 00026E 5240 F316            00316   179          XDECO 4,DATA             Store R4 to DATA                      00357366         
+ 000272 D20B 5000 F316 00000 00316   180          MVC   0(12,5),DATA       Put DATA into LINE                    00357466         
+ 000278 4150 500C            0000C   181          LA    5,12(0,5)          Increment R5 by 12                    00357566         
+ 00027C 5A60 F434            00434   182          A     6,=F'1'            Increment R6 by 1                     00357666         
+ 000280 4120 2004            00004   183          LA    2,4(0,2)           Increment table counter               00357766         
+ 000284 47F0 F25A            0025A   184          B     PLOOP2             Return to start of PLOOP2             00357866         
+ 000288 E020 F2D8 003D 002D8         185 PLP2END  XPRNT LINE,61            Print out line to 61 characters       00357966         
+ 00028E 47F0 F242            00242   186          B     PLOOP              Return to start of PLOOP              00358066         
+                                     187 *                                                                       00358120         
+ 000292 980F F298            00298   188 PLPEND   LM    0,15,PSAVE         Restore registers                     00358266         
+ 000296 07FA                         189          BR    10                 Branch back to MAIN                   00358366         
+                                     190 *                                                                       00358413         
+ 000298                              191 PSAVE    DS    16F                Allocate 16 fullwords for Registers   00358566         
+ 0002D8 F0                           192 LINE     DC    C'0'               Double space carriage control         00358666         
+ 0002D9                              193          DS    61C                Allocate 61 characters to LINE        00358766         
+ 000316                              194 DATA     DS    12C                Allocate 12 characters to DATA        00358866         
+                                     195 *                                                                       00358953         
+                                     196 **************************************************                      00359053         
+                                     197 * PRINTE                                                                00359153         
+                                     198 *                                                                       00359263         
+                                     199 * FUNCTION: This subroutine will print out only                         00359363         
+                                     200 *           the even numbers within the table.                          00359463         
+                                     201 *                                                                       00359563         
+                                     202 * INPUT:    TABLE The table of values to be                             00359663         
+                                     203 *                 printed                                               00359763         
+                                     204 *           EOT   The pointer to the end of the                         00359863         
+                                     205 *                 table.                                                00359963         
+                                     206 *                                                                       00360063         
+                                     207 * OUTPUT:   Prints out the even values inside the                       00360163         
+                                     208 *           table. Prints out 6 integers per line.                      00360263         
+                                     209 *                                                                       00360353         
+                                     210 * REGISTER USAGE                                                        00360453         
+                                     211 *                                                                       00360567         
+                                     212 *    2     Table                                                        00360653         
+                                     213 *    3     End-of-Table                                                 00360753         
+                                     214 *    4     Integer                                                      00360858         
+                                     215 *    5     Line Address                                                 00360958         
+                                     216 *    6     Line Counter                                                 00361058         
+                                     217 *    8,9   Even checker                                                 00361158         
+                                     218 *                                                                       00361267         
+                                     219 * PSEUDOCODE:                                                           00361367         
+                                     220 *    <1> Store Registers, Unload parameters                             00361467         
+                                     221 *    <2> While not end of table                                         00361567         
+                                     222 *          If integer is even                                           00361667         
+                                     223 *            Print out integer                                          00361767         
+1                                                                                                               PAGE    5         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                     224 *          If 6 on line                                                 00361867         
+                                     225 *            Start new line                                             00361967         
+                                     226 *    <3> Restore Registers                                              00362067         
+                                     227 *    <4> Branch back to MAIN                                            00362167         
+                                     228 *                                                                       00362253         
+                                     229 **************************************************                      00362353         
+ 000322 900F F394            00394   230 PRINTE   STM   0,15,PESAVE             Saves Registers                  00362467         
+ 000326 9823 1000            00000   231          LM    2,3,0(1)                Unloads Parameters               00362567         
+                                     232 *                                                                       00362654         
+ 00032A 5920 3000            00000   233 PELOOP   C     2,0(0,3)                Compare R2 to EOT                00362767         
+ 00032E 4780 F38E            0038E   234          BE    PELPEND                 IF R2 equals EOT end PELOOP      00362867         
+ 000332 D247 F3D6 F3D5 003D6 003D5   235          MVC   LINEEV+2(72),LINEEV+1   Destructive Overlap on LINEEV    00362967         
+ 000338 4150 F3D4            003D4   236          LA    5,LINEEV                Store address of LINEEV in R5    00363067         
+ 00033C 4150 5001            00001   237          LA    5,1(0,5)                Add 1 to R5                      00363167         
+ 000340 1B66                         238          SR    6,6                     Set R6 to 0                      00363267         
+ 000342 5920 3000            00000   239 PELOOP2  C     2,0(0,3)                Compare R2 to EOT                00363367         
+ 000346 4780 F384            00384   240          BE    PELP2END                If R2 equals EOT end PELOOP2     00363467         
+ 00034A 5960 F43C            0043C   241          C     6,=F'6'                 Compare R6 to 6                  00363567         
+ 00034E 4780 F384            00384   242          BE    PELP2END                If R6 equals 6 end PELOOP2       00363667         
+ 000352 5840 2000            00000   243          L     4,0(0,2)                Load table data into R4          00363767         
+ 000356 5890 2000            00000   244          L     9,0(0,2)                Load table data into R9          00363867         
+ 00035A 5C80 F434            00434   245          M     8,=F'1'                 Multiply R9 by 1                 00363967         
+ 00035E 5D80 F440            00440   246          D     8,=F'2'                 Divide R9 by 2                   00364067         
+ 000362 5980 F444            00444   247          C     8,=F'0'                 Compare remainder to 0           00364167         
+ 000366 4770 F37C            0037C   248          BNE   NOTEVEN                 If remainder equals 0 branch     00364267         
+ 00036A 5240 F41E            0041E   249          XDECO 4,DATAEV                Store R4 into DATAEV             00364368         
+ 00036E D20B 5000 F41E 00000 0041E   250          MVC   0(12,5),DATAEV          Put DATAEV into line             00364468         
+ 000374 4150 500C            0000C   251          LA    5,12(0,5)               Increment R5 by 12               00364568         
+ 000378 5A60 F434            00434   252          A     6,=F'1'                 Increment R6 by 1                00364668         
+ 00037C 4120 2004            00004   253 NOTEVEN  LA    2,4(0,2)                Increment table pointer          00364768         
+ 000380 47F0 F342            00342   254          B     PELOOP2                 Return to start of PELOOP2       00364868         
+ 000384 E020 F3D4 0049 003D4         255 PELP2END XPRNT LINEEV,73               Print out LINEEV to 73 char      00364968         
+ 00038A 47F0 F32A            0032A   256          B     PELOOP                  Return to start of PELOOP        00365068         
+                                     257 *                                                                       00365153         
+ 00038E 980F F394            00394   258 PELPEND  LM    0,15,PESAVE             Restore Registers                00365268         
+ 000392 07FA                         259          BR    10                      Branch back to MAIN              00365368         
+                                     260 *                                                                       00365454         
+ 000394                              261 PESAVE   DS    16F                     Allocate 16F for Registers       00365568         
+ 0003D4 F0                           262 LINEEV   DC    C'0'                    Double space carriage control    00365668         
+ 0003D5                              263          DS    73C                     Allocate 73 characters to LINEEV 00365768         
+ 00041E                              264 DATAEV   DS    12C                     Allocate 12 characters to DATAEV 00365868         
+                                     265 *                                                                       00365903         
+                                     266          END   MAIN                                                     00366001         
+ 000430 00000030                     267                =F'48'                                                                    
+ 000434 00000001                     268                =F'1'                                                                     
+ 000438 00000005                     269                =F'5'                                                                     
+ 00043C 00000006                     270                =F'6'                                                                     
+ 000440 00000002                     271                =F'2'                                                                     
+ 000444 00000000                     272                =F'0'                                                                     
+0***  NO   STATEMENTS FLAGGED -  NO   WARNINGS,  NO   ERRORS                                                                      
+0*** DYNAMIC CORE AREA USED:  LOW:   14428 HIGH:    1008 LEAVING:  478132 FREE BYTES. AVERAGE:       56 BYTES/STMT ***            
+0*** ASSEMBLY TIME =    0.001 SECS,   273000 STATEMENTS/SEC ***                                                                   
+0*** PROGRAM EXECUTION BEGINNING - ANY OUTPUT BEFORE EXECUTION TIME MESSAGE IS PRODUCED BY USER PROGRAM ***                       
+1                      List of Numbers                                                                                            
+0         218         111          46         -84         131                                                                     
+0         402        5106         121         -89          15                                                                     
+0       95221         -80       -1000        2578           6                                                                     
+0           1       -2005         515          90          50                                                                     
+0          -1          19      172219       60205           3                                                                     
+0        7534      204914         141           0      606031                                                                     
+0        -419         999        9001      312909        -517                                                                     
+0           9          62          89         305         250                                                                     
+0         305         118        4444        8888           0                                                                     
+0        -999           2        6509                                                                                             
+1                          List of Even Numbers                                                                                   
+0         218          46         -84         402        5106         -80                                                         
+0       -1000        2578           6          90          50        7534                                                         
+0      204914           0          62         250         118        4444                                                         
+0        8888           0           2                                                                                             
+0*** EXECUTION TIME =    0.002 SECS.      1814 INSTRUCTIONS EXECUTED -   907000 INSTRUCTIONS/SEC ***                              
+0*** FIRST CARD NOT READ:                                                                                                         
+0*** AM004 - NORMAL USER TERMINATION BY RETURN ***                                                                                

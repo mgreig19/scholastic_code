@@ -1,0 +1,504 @@
+//KC03OA0A JOB ,'Kevin White',MSGCLASS=H                                00010000
+//STEP1 EXEC PGM=ASSIST,PARM='MACRO=F'                                  00020007
+//STEPLIB DD DSN=KC02293.ASSIST.LOADLIB,DISP=SHR                        00030000
+//SYSPRINT DD SYSOUT=*                                                  00040000
+//SYSIN DD *                                                            00050000
+**************************************************                      00060000
+*                                                *                      00070000
+* PROGRAM:     ASSIGN7                           *                      00080000
+* PROGRAMMER:  Kevin White                       *                      00090000
+*                                                *                      00100000
+* FUNCTION: This program will read from the      *                      00110099
+*           give file and create a table. It     *                      00111099
+*           will then do the given transaction   *                      00112099
+*           on the created table. It will print  *                      00113099
+*           out the table both before and after  *                      00114099
+*           the transactions are called.         *                      00115099
+*                                                *                      00120000
+* INPUT:    The records of data in standard      *                      00130099
+*           input.                               *                      00131099
+*                                                *                      00140000
+* OUTPUT:   The contents of the table as well as *                      00150099
+*           the transactions acted on the table  *                      00151099
+*                                                *                      00160000
+* ENTRY CONDS: NONE                              *                      00170000
+*                                                *                      00180000
+* EXIT CONDS: NONE                               *                      00190000
+*                                                *                      00200000
+* REGISTER USAGE:                                *                      00210000
+*    1     Parameter List                        *                      00220000
+*                                                *                      00230000
+* PSEUDOCODE:                                    *                      00240000
+*    <1> Standard Entry Linkage                  *                      00250099
+*    <2> Call BUILD subroutine                   *                      00251099
+*    <3> Call PRINT subroutine                   *                      00252099
+*    <4> Call TRANS subroutine                   *                      00253099
+*    <5> Call PRINT subroutine again             *                      00254099
+*                                                *                      00260000
+**************************************************                      00270000
+*                                                                       00280008
+         MACRO                     Standard Entry Link MACRO            00281015
+         SENL  &SUBRTN,&SAVE                                            00282015
+         STM   14,12,12(13)        Save the registers                   00283014
+         LR    12,15               Set R12 as the base register         00284014
+         USING &SUBRTN,12                                               00285010
+         LA    14,&SAVE            Point R14 at save area               00286014
+         ST    13,4(0,14)          Save forward pointer                 00287014
+         ST    14,8(0,13)          Save backward pointer                00288014
+         LR    13,14               Point R13 at save area               00289014
+         MEND                      End MACRO                            00289114
+*                                                                       00289213
+         MACRO                     Standard Exit Link MACRO             00289315
+         SEXL                                                           00289415
+         L     13,4(0,13)          Point R13 to caller save area        00289514
+         LM    14,12,12(13)        Restore registers                    00289614
+         BR    14                  Return to caller                     00289714
+         MEND                      End Macro                            00289814
+*                                                                       00290008
+MAIN     CSECT                                                          00460000
+         SENL  MAIN,MAINSAVE       Call SENL macro                      00470099
+*                                                                       00504005
+         LA    1,PARMS             Sets parameters for BUILD            00504499
+         L     15,=V(BUILD)        Points R15 at BUILD                  00504599
+         BALR  14,15               Branch to BUILD                      00504699
+*                                                                       00504799
+         LA    1,PARMS2            Sets parameters for PRINT            00504899
+         L     15,=V(PRINT)        Points R15 at PRINT                  00504999
+         BALR  14,15               Branch to PRINT                      00505099
+*                                                                       00505199
+         LA    1,PARMS2            Sets parameters for TRANS            00505299
+         L     15,=V(TRANS)        Points R15 to TRANS                  00505399
+         BALR  14,15               Branch to TRANS                      00505499
+*                                                                       00505516
+         LA    1,PARMS2            Sets parameters for PRINT            00505699
+         L     15,=V(PRINT)        Points R15 to PRINT                  00505799
+         BALR  14,15               Branch to PRINT                      00505899
+*                                                                       00505999
+         SEXL                      Call SEXL macro                      00506099
+*                                                                       00508005
+         LTORG                                                          00510000
+MAINSAVE DS    18F                 Allocate 18F for save area           00520099
+         ORG   MAIN+((*-MAIN+31)/32)*32     For XDUMP check             00520199
+TABLE    DS    50CL36              Allocate space for TABLE             00521099
+EOT      DS    F                   Allocate F for End-of-TABLE          00521199
+BUFFER   DS    80C                 Allocates 80 characters for BUFFER   00522099
+         DC    CL80' '             Allocates extra 80 for checking      00522199
+PAGENO   DC    PL1'1'              Allocates 1 packed for page number   00522299
+PARMS    DC    A(TABLE)            Parameters for BUILD                 00523099
+         DC    A(EOT)                                                   00524018
+         DC    A(BUFFER)                                                00525018
+PARMS2   DC    A(TABLE)            Parameters for PRINT and TRANS       00526099
+         DC    A(EOT)                                                   00527099
+         DC    A(PAGENO)                                                00528099
+         DC    A(BUFFER)                                                00529099
+*                                                                       00530000
+ENTRY    DSECT                     Dummy section for table              00531099
+ID       DS    F                   Fullword for ID                      00532099
+LNAME    DS    CL12                12 characters for last name          00533099
+FNAME    DS    CL10                10 characters for first name         00534099
+SCORE1   DS    PL2                 2 packed decimals for score 1        00535099
+SCORE2   DS    PL2                 2 packed decimals for score 2        00536099
+SCORE3   DS    PL2                 2 packed decimals for score 3        00537099
+*                                                                       00538018
+**************************************************                      00540000
+*                                                *                      00541016
+* BUILD                                          *                      00542016
+*                                                *                      00543016
+* FUNCTION: This subroutine will build the table *                      00543199
+*           of data based on the data supplied   *                      00543299
+*           in the standard input.               *                      00543399
+*                                                *                      00543499
+* INPUT:    Records of data stored in standard   *                      00543599
+*           input.                               *                      00543699
+*                                                *                      00543799
+* OUTPUT:   NONE                                 *                      00543899
+*                                                *                      00543999
+* ENTRY CONDS: 0(1) -- Address of the table to   *                      00544099
+*                      store the data            *                      00544199
+*              1(1) -- Address of the first      *                      00544299
+*                      unused data in the table  *                      00544399
+*              2(1) -- Address of the input      *                      00544499
+*                      buffer                    *                      00544599
+*                                                *                      00544699
+* EXIT CONDS: NONE                               *                      00544799
+*                                                *                      00544899
+* REGISTER USAGE:                                *                      00544999
+*   3      Table of data                         *                      00545099
+*   4      Pointer to end of table               *                      00545199
+*   5      BUFFER                                *                      00545299
+*   6      First nonspace or digit               *                      00545399
+*   7      Next empty space                      *                      00545499
+*   8      Counter                               *                      00545599
+*   9      Store binary of ID                    *                      00545699
+*  10      Address of EX instruction             *                      00545799
+*                                                *                      00545899
+* PSUEDOCODE:                                    *                      00545999
+*    <1> Standard Entry Linkage                  *                      00546099
+*    <2> Unload parameters                       *                      00546199
+*    <3> While ID does not equal 0               *                      00546299
+*          Store data into the table             *                      00546399
+*          increment table                       *                      00546499
+*    <4> Set EOT to last unused data             *                      00546599
+*                                                *                      00546699
+**************************************************                      00546716
+BUILD    CSECT                                                          00546817
+         SENL BUILD,BSAVE            Call SENL macro                    00546999
+         USING ENTRY,3               Use ENTRY dummy section for TABLE  00547099
+         LM    3,5,0(1)              Unload parameters                  00548099
+         L     8,=F'2'               Sets R8 to 2                       00548199
+*                                                                       00548219
+BLOOP1   XREAD 0(0,5),80             Read from file to 80 characters    00548399
+         PACK  TEMPID(8),0(8,5)      Pack the ID into TEMPID            00548499
+         CVB   9,TEMPID              Convert TEMPID to binary           00548599
+         C     9,=F'0'               Compare ID to 0                    00548699
+         BE    ENDBLP                If ID = 0 then end loop            00548799
+         ST    9,ID                  Store ID into table                00548899
+         LA    1,8(0,5)              Increment input buffer             00549499
+BLOOP2   TRT   0(80,1),NOTSPACE      Find first non-emtpy               00549599
+         LR    6,1                   points R6 to non-empty location    00549699
+         TRT   0(80,1),SPACES        Find first empty space             00549799
+         LR    7,1                   points R7 to empty space location  00549899
+         SR    7,6                   Set R7 to length of data           00549999
+         BCTR  7,0                   Decrement R7 to real length        00550099
+*                                                                       00550197
+         C     8,=F'2'               If not first data                  00550299
+         BNE   LASTNM                Branch to last name                00550399
+         MVC   FNAME(10),=CL10' '    Initialize first name              00550499
+         EX    7,TFIRST              Put first name into TABLE          00550599
+         BCT   8,BLOOP2                                                 00550699
+*                                                                       00550797
+LASTNM   MVC   LNAME(12),=CL12' '    Initialize last name               00550899
+         EX    7,TLAST               Put last name into TABLE           00550999
+         L     8,=F'2'               Set R8 to 2                        00551099
+         LA    10,TNUM1              Load address of 1st EX statement   00551199
+*                                                                       00551297
+BLOOP3   TRT   0(80,1),DIGITS        Find the next digit                00551399
+         BC    B'1000',ENDBLP3       If no digit is found end BLOOP3    00551499
+         LR    6,1                   Set R6 to location of digit        00551599
+         TRT   0(80,1),SPACES        Find next empty space              00551699
+         LR    7,1                   Set R7 to location of empty space  00551799
+         SR    7,6                   Set R7 to length of number         00551899
+         BCTR  7,0                   Decrement R7 to actual length      00551999
+         EX    7,0(0,10)             Put number into table              00552099
+         LA    10,6(0,10)            Increment EX counter               00552499
+         B     BLOOP3                Return to start of BLOOP3          00552599
+ENDBLP3  LA    3,32(0,3)             Increment table pointer            00552699
+         B     BLOOP1                Return to start of BLOOP1          00552799
+ENDBLP   ST    4,0(0,3)              Set EOT to correct address         00552899
+*                                                                       00552916
+         SEXL                        Call SEXL macro                    00553099
+*                                                                       00553116
+         LTORG                                                          00553216
+BSAVE    DS    18F                   Allocate 18F for save area         00553399
+TEMPID   DS    D                     Allocate doubleword for TEMPID     00553699
+NOTSPACE DC    256X'FF'              Create search table to             00553799
+         ORG   NOTSPACE+C' '         search for first non-empty         00553899
+         DC    X'00'                 space                              00553999
+         ORG                                                            00554070
+SPACES   DC    256X'00'              Create search table to             00554199
+         ORG   SPACES+C' '           search for first empty             00554299
+         DC    X'FF'                 space                              00554399
+         ORG                                                            00554470
+DIGITS   DC    256X'00'              Create search table to             00554599
+         ORG   DIGITS+X'F0'          search for first digit             00554699
+         DC    10X'01'                                                  00554797
+         ORG                                                            00554897
+TFIRST   MVC   FNAME(0),0(6)         EX for first name                  00554999
+TLAST    MVC   LNAME(0),0(6)         EX for last name                   00555099
+TNUM1    PACK  SCORE1(2),0(0,6)      EX for first score                 00555199
+TNUM2    PACK  SCORE2(2),0(0,6)      EX for second score                00555299
+TNUM3    PACK  SCORE3(2),0(0,6)      EX for third score                 00555399
+*                                                                       00556006
+**************************************************                      00557099
+*                                                *                      00558099
+* PRINT                                          *                      00559099
+*                                                *                      00559199
+* FUNCTION: This subroutine will print out the   *                      00559299
+*           data held within the table passed as *                      00559399
+*           a parameter.                         *                      00559499
+*                                                *                      00559599
+* INPUT: NONE                                    *                      00559699
+*                                                *                      00559799
+* OUTPUT: Will print out everything inside the   *                      00559899
+*         table given, will only print 20 lines  *                      00559999
+*         per page.                              *                      00560099
+*                                                *                      00560199
+* ENTRY CONDS: 0(1) -- Address of the table      *                      00560299
+*                      holding the data          *                      00560399
+*              1(1) -- Address of the end of the *                      00560499
+*                      table                     *                      00560599
+*              2(1) -- Address of the page       *                      00560699
+*                      counter                   *                      00560799
+*                                                *                      00560899
+* EXIT CONDS: NONE                               *                      00560999
+*                                                *                      00561099
+* REGISTER USAGE                                 *                      00561199
+*    3     Table of data                         *                      00561299
+*    4     Pointer to end of table               *                      00561399
+*    5     Page number                           *                      00561499
+*    6     Used for conversion to decimal        *                      00561599
+*    7     Counter                               *                      00561699
+*                                                *                      00561799
+* PSEUDOCODE:                                    *                      00561899
+*    <1> Standard Entry Link                     *                      00561999
+*    <2> Unload parameters                       *                      00562099
+*    <3> While not end of table                  *                      00562199
+*          Print out table contents              *                      00562299
+*          If 20 lines                           *                      00562399
+*            Start a new page                    *                      00562499
+*            increment page counter              *                      00562599
+*                                                *                      00562699
+**************************************************                      00562799
+PRINT    CSECT                                                          00562899
+         SENL PRINT,PSAVE              Call SENL macro                  00562999
+         USING ENTRY,3                 Use ENTRY dsect for TABLE        00563099
+         LM    3,5,0(1)                Unload parameters                00563199
+         SR    7,7                     Sets R7 to 0                     00563299
+         MVC   HEADER+69(2),=X'4021'   Puts the page number in HEADER   00563399
+         ED    HEADER+69(2),0(5)                                        00563499
+         XPRNT HEADER,71               Prints out HEADER                00563599
+         XPRNT HEADER2,71              Prints out HEADER2               00563699
+*                                                                       00563799
+PLOOP    C     4,0(0,3)                If end of table                  00563899
+         BE    PLPEND                  Branch to PLPEND                 00563999
+         C     7,=F'20'                If R7 does not equal 20          00564099
+         BNE   NOTNEW                  Branch to NOTNEW                 00564199
+         AP    0(0,5),=P'1'            Increment page counter           00564299
+         MVC   HEADER+69(2),=X'4021'   Puts page number in HEADER       00564399
+         ED    HEADER+69(2),0(5)                                        00564499
+         XPRNT HEADER,71               Prints out HEADER                00564599
+         XPRNT HEADER2,71              Prints out HEADER2               00564699
+         SR    7,7                     Sets R7 to 0                     00564799
+NOTNEW   MVI   PLINE+1,C' '            Destructive overlap on PLINE     00564899
+         MVC   PLINE+2(69),PLINE+1                                      00564999
+*                                                                       00565099
+         L     6,ID                    Sets R6 to ID                    00565199
+         CVD   6,TEMPID2               Converts R6 to decimal           00565299
+         MVC   OUTID(10),=X'40212020202020202020'                       00565399
+         ED    OUTID(10),TEMPID2+3     Puts ID on PLINE                 00565499
+         MVC   PLINE+1(10),OUTID                                        00565599
+*                                                                       00565699
+         MVC   PLINE+13(12),LNAME      Puts last name on PLINE          00565799
+         MVC   PLINE+28(10),FNAME      Puts first name onf PLINE        00565899
+*                                                                       00565999
+         MVC   PLINE+43(4),=X'40202120'                                 00566099
+         ED    PLINE+43(4),SCORE1      Puts 1st score on PLINE          00566199
+         MVC   PLINE+54(4),=X'40202120'                                 00566299
+         ED    PLINE+54(4),SCORE2      Puts 2nd score on PLINE          00566399
+         MVC   PLINE+65(4),=X'40202120'                                 00566499
+         ED    PLINE+65(4),SCORE3      Puts 3rd score on PLINE          00566599
+*                                                                       00566699
+         XPRNT PLINE,71                Prints out PLINE                 00566799
+*                                                                       00566899
+         A     7,=F'1'                 Increment R7                     00566999
+         LA    3,32(0,3)               Increment table                  00567099
+         B     PLOOP                   Return to start of PLOOP         00567199
+*                                                                       00567299
+PLPEND   DS    0H                      PLPEND label                     00567399
+         SEXL                          Calls SEXL macro                 00567499
+*                                                                       00567599
+         LTORG                                                          00567699
+PSAVE    DS    18F                     Allocates 18F for save area      00567799
+TEMPID2  DS    D                       Allocates D for TEMPID2          00567899
+OUTID    DS    CL10                    10 characters for OUTID          00567999
+PLINE    DC    C'0'                    Double space carriage control    00568099
+         DC    CL70' '                 70 characters of spaces          00568199
+HEADER   DC    C'1'                    New page carriage control        00568299
+         DC    CL70' '                 70 characters of spaces          00568399
+         ORG   HEADER+27                                                00568499
+         DC    CL14'Table Contents'                                     00568599
+         ORG   HEADER+64                                                00568699
+         DC    CL4'Page'                                                00568799
+         ORG                                                            00568899
+HEADER2  DC    C'-'                    Triple space carriage control    00568999
+         DC    CL70' '                 70 characters of spaces          00569099
+         ORG   HEADER2+2                                                00569199
+         DC    CL9'ID Number'                                           00569299
+         ORG   HEADER2+13                                               00569399
+         DC    CL9'Last Name'                                           00569499
+         ORG   HEADER2+28                                               00569599
+         DC    CL10'First Name'                                         00569699
+         ORG   HEADER2+42                                               00569799
+         DC    CL7'Score 1'                                             00569899
+         ORG   HEADER2+53                                               00569999
+         DC    CL7'Score 2'                                             00570099
+         ORG   HEADER2+64                                               00570199
+         DC    CL7'Score 3'                                             00570299
+         ORG                                                            00570399
+*                                                                       00570499
+**************************************************                      00570599
+*                                                *                      00570699
+* TRANS                                          *                      00570799
+*                                                *                      00570899
+* FUNCTION: This function will read for the file *                      00570999
+*           and perform the given transactions   *                      00571099
+*           on the table passed as a parameter   *                      00571199
+*                                                *                      00571299
+* INPUT:    Records of data stored in standard   *                      00571399
+*           input.                               *                      00571499
+*                                                *                      00571599
+* OUTPUT:   Will print out the transaction       *                      00571699
+*           applied to the table along with any  *                      00571799
+*           relivent data.                       *                      00571899
+*                                                *                      00571999
+* ENTRY CONDS: 0(1) -- Address of the table of   *                      00572099
+*                      data                      *                      00572199
+*              1(1) -- Address of the first      *                      00572299
+*                      unused data in the table  *                      00572399
+*              2(1) -- Address of page counter   *                      00572499
+*              3(1) -- Address of the input      *                      00572599
+*                      buffer.                   *                      00572699
+*                                                *                      00572799
+* EXIT CONDS: NONE                               *                      00572899
+*                                                *                      00572999
+* REGISTER USAGE                                 *                      00573099
+*    3     Table of data                         *                      00573199
+*    4     Pointer to end of table               *                      00573299
+*    5     Page number                           *                      00573399
+*    6     Buffer                                *                      00573499
+*    7     Register used for conversion          *                      00573599
+*    8     Table counter                         *                      00573699
+*    9     Address of lowest score               *                      00573799
+*                                                *                      00573899
+*                                                *                      00573999
+* PSEUDOCODE:                                    *                      00574099
+*    <1> Standard Entry Linkage                  *                      00574199
+*    <2> Unload parameters                       *                      00574299
+*    <3> While not end of file                   *                      00574399
+*          While not end of table                *                      00574499
+*            Find given ID in table              *                      00574599
+*          Perform given transaction             *                      00574699
+*          Print out results                     *                      00574799
+*                                                *                      00574899
+**************************************************                      00574999
+TRANS    CSECT                                                          00575099
+         SENL TRANS,TSAVE            Call SENL macro                    00575199
+         USING ENTRY,8               Use ENTRY dsect for temp table     00575299
+         LM    3,6,0(1)              Unload parameters                  00575399
+         AP    0(1,5),=P'1'          Increment page counter             00575499
+         MVC   THEAD+69(2),=X'4021'  Put page number on THEAD           00575599
+         ED    THEAD+69(2),0(5)                                         00575699
+         XPRNT THEAD,71              Print THEAD                        00575799
+*                                                                       00575899
+TLOOP1   XREAD 0(0,6),80             Read from file                     00575999
+         BC    B'0100',TLPEND        If end of file branch to TLPEND    00576099
+         MVI   TLINE+1,C' '          Destructive overlap on TLINE       00576199
+         MVC   TLINE+2(69),TLINE+1                                      00576299
+         PACK  TEMPID3(8),0(8,6)     Pack ID to search for              00576399
+         CVB   7,TEMPID3             Convert ID to binary               00576499
+         LA    8,0(0,3)              Load address of table into R8      00576599
+*                                                                       00576699
+TLOOP2   C     7,ID                  Compare ID                         00576799
+         BE    TLPEND2               If found end TLOOP2                00576899
+         C     4,0(0,8)              If end of table                    00576999
+         BE    ERROR1                Branch to ERROR1                   00577099
+         LA    8,32(0,8)             Increment table                    00577199
+         B     TLOOP2                Branch to TLOOP2                   00577299
+*                                                                       00577399
+ERROR1   MVC   TLINE+1(4),IDOUT      Put IDOUT on TLINE                 00577499
+         MVC   TLINE+6(8),0(6)       Put ID on TLINE                    00577599
+         MVC   TLINE+18(6),TYPEOUT   Put TYPEOUT on TLINE               00577699
+         CLC   9(1,6),=C'S'          if type does not equal S           00577799
+         BNE   ERBR1                 Branch to ERBR1                    00577899
+         MVC   TLINE+25(10),=CL10'Statistics'                           00577999
+ERBR1    CLC   9(1,6),=C'N'          if type does not equal N           00578099
+         BNE   ERBR2                 Branch to ERBR2                    00578199
+         MVC   TLINE+25(9),=CL9'New Score'                              00578299
+         B     ERBR3                 Branch to ERBR3                    00578399
+ERBR2    MVC   TLINE+25(1),9(6)      Put type on TLINE                  00578499
+ERBR3    MVC   TLINE+39(12),=CL12'ID not found'                         00578599
+         XPRNT TLINE,71              Print TLINE                        00578699
+         B     TLOOP1                Branch to TLOOP1                   00578799
+*                                                                       00578899
+TLPEND2  CLC   9(1,6),=C'S'          Compare type to S                  00578999
+         BNE   NOTS                  if not S branch to NOTS            00579099
+         MVC   TLINE+1(4),IDOUT      Put IDOUT onto TLINE               00579199
+         MVC   TLINE+6(8),0(6)       Put ID onto TLINE                  00579299
+         MVC   TLINE+18(6),TYPEOUT   Put TYPEOUT onto TLINE             00579399
+         MVC   TLINE+25(10),=CL10'Statistics'                           00579499
+         MVC   TLINE+39(6),HIGHOUT   Put HIGHOUT onto TLINE             00579599
+*                                                                       00579699
+         CP    SCORE1(2),SCORE2(2)   If SCORE1 is lower then SCORE2     00579799
+         BL    HIGH2                 Branch to HIGH2                    00579899
+         ZAP   HIGH(2),SCORE1(2)     Store SCORE1 in HIGH               00579999
+         B     HIGH3                 Branch to HIGH3                    00580099
+HIGH2    ZAP   HIGH(2),SCORE2(2)     Store SCORE2 in HIGH               00580199
+HIGH3    CP    HIGH(2),SCORE3(2)     If High is greater then SCORE3     00580299
+         BH    ENDHIGH               Branch to ENDHIGH                  00580399
+         ZAP   HIGH(2),SCORE3(2)     Store SCORE3 in HIGH               00580499
+ENDHIGH  MVC   TLINE+47(4),=X'40202120'                                 00580599
+         ED    TLINE+47(4),HIGH      Put HIGH on TLINE                  00580699
+*                                                                       00580799
+         MVC   TLINE+56(9),AVGOUT    Put AVGOUT on TLINE                00580899
+         ZAP   AVG(3),SCORE1(2)      Store SCORE1 in AVG                00580999
+         AP    AVG(3),SCORE2(2)      Add SCORE2 to AVG                  00581099
+         AP    AVG(3),SCORE3(2)      Add SCORE3 to AVG                  00581199
+         DP    AVG(3),=PL1'3'        Divide AVG by 3                    00581299
+         MVC   TLINE+66(4),=X'40202120'                                 00581399
+         ED    TLINE+66(4),AVG       Put AVG on TLINE                   00581499
+         XPRNT TLINE,71              Print TLINE                        00581599
+         B     TLOOP1                Branch to TLOOP1                   00581699
+*                                                                       00581799
+NOTS     CLC   9(1,6),=C'N'          If type does not equal N           00581899
+         BNE   NOTN                  Branch to NOTN                     00581999
+         MVC   TLINE+1(4),IDOUT      Put IDOUT on TLINE                 00582099
+         MVC   TLINE+6(8),0(6)       Put ID on TLINE                    00582199
+         MVC   TLINE+18(6),TYPEOUT   Put TYPEOUT on TLINE               00582299
+         MVC   TLINE+25(9),=CL9'New Score'                              00582399
+         MVC   TLINE+39(7),=CL7'Score ='                                00582499
+         MVC   TLINE+48(3),11(6)     Put new number on TLINE            00582599
+*                                                                       00582699
+         CP    SCORE1(2),SCORE2(2)   If SCORE1 higher then SCORE2       00582799
+         BH    LOW2                  Branch to LOW2                     00582899
+         CP    SCORE1(2),SCORE3(2)   If SCORE1 higher then SCORE3       00582999
+         BH    LOW3                  Branch to LOW3                     00583099
+         LA    9,SCORE1              Load SCORE1 address into R9        00583199
+         B     ENDLOW                Branch to ENDLOW                   00583299
+LOW2     CP    SCORE2(2),SCORE3(2)   If SCORE2 higher then SCORE3       00583399
+         BH    LOW3                  Branch to LOW3                     00583499
+         LA    9,SCORE2              Load SCORE2 address into R9        00583599
+         B     ENDLOW                Branch to ENDLOW                   00583699
+LOW3     LA    9,SCORE3              Load SCORE3 address into R9        00583799
+ENDLOW   PACK  LOW(2),11(3,6)        Pack new number into LOW           00583899
+         CP    LOW(2),0(2,9)         Compare LOW to lowest score        00583999
+         BL    NOTLOW                If LOW less branch to NOTLOW       00584099
+         ZAP   0(2,9),LOW(2)         Store LOW into lowest score        00584199
+         B     ENDLOW2               Branch to ENDLOW                   00584299
+NOTLOW   MVC   TLINE+56(9),=CL9'No change'                              00584399
+ENDLOW2  XPRNT TLINE,71              Print TLINE                        00584499
+         B     TLOOP1                Branch to TLOOP1                   00584599
+*                                                                       00584699
+NOTN     MVC   TLINE+1(4),IDOUT      Put IDOUT into TLINE               00584799
+         MVC   TLINE+6(8),0(6)       Put ID into TLINE                  00584899
+         MVC   TLINE+18(14),=CL14'Trans. Code = '                       00584999
+         MVC   TLINE+32(1),9(6)      Put trans code into TLINE          00585099
+         MVC   TLINE+39(24),=CL24'Invalid transaction code'             00585199
+         XPRNT TLINE,71              Print our TLINE                    00585299
+         B     TLOOP1                Branch to TLOOP1                   00585399
+*                                                                       00585499
+TLPEND   AP    0(1,5),=P'1'          Increment page counter             00585599
+         SEXL                        Call SEXL macro                    00585699
+*                                                                       00585799
+TSAVE    DS    18F                   Allocate 18F for save area         00585899
+TEMPID3  DS    D                     Allocate D for TEMPID3             00585999
+HIGH     DS    PL2                   2 packed decimal for HIGH          00586099
+LOW      DS    PL2                   2 packed decimal for LOW           00586199
+AVG      DS    PL3                   3 packed decimal for AVG           00586299
+IDOUT    DC    CL4'ID ='                                                00586399
+TYPEOUT  DC    CL6'Type ='                                              00586499
+HIGHOUT  DC    CL6'High ='                                              00586599
+AVGOUT   DC    CL9'Average ='                                           00586699
+TLINE    DC    C'0'                  Double space carraige control      00586799
+         DC    CL70' '               70 characters of spaces            00586899
+THEAD    DC    C'1'                  New Page carriage control          00586999
+         DC    CL70' '               70 characters of spaces            00587099
+         ORG   THEAD+25                                                 00587199
+         DC    CL23'Results of Transactions'                            00587299
+         ORG   THEAD+64                                                 00587399
+         DC    CL4'Page'                                                00587499
+         ORG                                                            00587599
+*                                                                       00587699
+         END   MAIN                                                     00587706
+/*                                                                      00587806
+//FT05F001 DD DSN=KC02314.SUMMER17.CSCI360.HW7DATA,DISP=SHR             00588057
+//                                                                      00590057

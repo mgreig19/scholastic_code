@@ -1,0 +1,371 @@
+1                    J E S 2  J O B  L O G  --  S Y S T E M  S 0 W 1  --  N O D E  Z O S K C T R         
+0 
+ 23.49.12 JOB09208 ---- MONDAY,    06 NOV 2017 ----
+ 23.49.12 JOB09208  IRR010I  USERID KC03KA9  IS ASSIGNED TO THIS JOB.
+ 23.49.12 JOB09208  ICH70001I KC03KA9  LAST ACCESS AT 23:43:59 ON MONDAY, NOVEMBER 6, 2017
+ 23.49.12 JOB09208  $HASP373 KC03KA9K STARTED - INIT 2    - CLASS A        - SYS S0W1
+ 23.49.12 JOB09208  -                                         --TIMINGS (MINS.)--            ----PAGING COUNTS---
+ 23.49.12 JOB09208  -JOBNAME  STEPNAME PROCSTEP    RC   EXCP    TCB    SRB  CLOCK   SERV  PG   PAGE   SWAP    VIO SWAPS
+ 23.49.12 JOB09208  -KC03KA9K                      00     80 ******    .00     .0    191   0      0      0      0     0
+ 23.49.12 JOB09208  -KC03KA9K ENDED.  NAME-MASON GREIG          TOTAL TCB CPU TIME=   .00  TOTAL ELAPSED TIME=    .0
+ 23.49.12 JOB09208  $HASP395 KC03KA9K ENDED
+0------ JES2 JOB STATISTICS ------
+-  06 NOV 2017 JOB EXECUTION DATE
+-          375 CARDS READ
+-          371 SYSOUT PRINT RECORDS
+-            0 SYSOUT PUNCH RECORDS
+-           40 SYSOUT SPOOL KBYTES
+-         0.00 MINUTES EXECUTION TIME
+         1 //KC03KA9K JOB ,'MASON GREIG',MSGCLASS=H                                JOB09208
+         2 //STEP1 EXEC PGM=ASSIST                                                 00020000
+         3 //STEPLIB DD DSN=KC02293.ASSIST.LOADLIB,DISP=SHR                        00030000
+         4 //SYSPRINT DD SYSOUT=*                                                  00040000
+         5 //SYSIN DD *                                                            00050000
+         6 //FT05F001  DD  DSN=KC02314.SPRING17.CSCI360.HW6DATA,DISP=SHR           00186000
+ ICH70001I KC03KA9  LAST ACCESS AT 23:43:59 ON MONDAY, NOVEMBER 6, 2017
+ IEF236I ALLOC. FOR KC03KA9K STEP1
+ IGD103I SMS ALLOCATED TO DDNAME STEPLIB
+ IEF237I JES2 ALLOCATED TO SYSPRINT
+ IEF237I JES2 ALLOCATED TO SYSIN
+ IGD103I SMS ALLOCATED TO DDNAME FT05F001
+ IEF142I KC03KA9K STEP1 - STEP WAS EXECUTED - COND CODE 0000
+ IGD104I KC02293.ASSIST.LOADLIB                       RETAINED,  DDNAME=STEPLIB 
+ IEF285I   KC03KA9.KC03KA9K.JOB09208.D0000102.?         SYSOUT        
+ IEF285I   KC03KA9.KC03KA9K.JOB09208.D0000101.?         SYSIN         
+ IGD104I KC02314.SPRING17.CSCI360.HW6DATA             RETAINED,  DDNAME=FT05F001
+ IEF373I STEP/STEP1   /START 2017310.2349
+ IEF032I STEP/STEP1   /STOP  2017310.2349 
+         CPU:     0 HR  00 MIN  00.01 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+         VIRT:   584K  SYS:   272K  EXT:        4K  SYS:    11404K
+         ATB- REAL:                     0K  SLOTS:                     0K
+              VIRT- ALLOC:       0M SHRD:       0M
+ IEF375I  JOB/KC03KA9K/START 2017310.2349
+ IEF033I  JOB/KC03KA9K/STOP  2017310.2349 
+         CPU:     0 HR  00 MIN  00.01 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+1*** ASSIST 4.0/A2-05/15/82  470/V7A/0:OS/VS2  INS=SDFP7/X=BGHO, CHECK/TRC/=1180, OPTS=CDKMPR FROM PENN ST*NIU COMPSCI*LT         
+0                                                                                                                                 
+0                                                                                                               PAGE    1         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                       1 *********************************************************               00060000         
+                                       2 *                                                                       00070000         
+                                       3 * ASSIGNMENT 6                                                          00080000         
+                                       4 *                                                                       00090000         
+                                       5 * NAME: MASON GREIG                                                     00100000         
+                                       6 *                                                                       00110000         
+                                       7 * FUNCTION: THIS PROGRAM BUILDS A TABLE WHICH HOLDS                     00120000         
+                                       8 *           CUSTOMER INFORMATION, TANSACTIONS, BALANCES,                00121000         
+                                       9 *           PAYMENTS, DATES.                                            00122000         
+                                      10 *                                                                       00123000         
+                                      11 * INPUT: THE INPUT IS A DATA FILE SUPPLIED BY THE PROFESSOR             00124000         
+                                      12 *                                                                       00125000         
+                                      13 * REGISTER USAGE                                                        00126000         
+                                      14 *                                                                       00127000         
+                                      15 *  13   MAINSAVE REGISTER                                               00128000         
+                                      16 *  12   MAIN BASE REGISTER                                              00129000         
+                                      17 *  14   EXIT PROGRAM                                                    00129100         
+                                      18 *   1   RETURN REGISTER                                                 00129200         
+                                      19 *  10   FILE DATA                                                       00129300         
+                                      20 *                                                                       00129400         
+                                      21 *********************************************************               00130000         
+                                      22 *                                                                       00131000         
+ 000000                               23 MAIN     CSECT                               STANDARD ENTRY LINKAGE     00140065         
+ 000000 90EC D00C            0000C    24          STM   14,12,12(13)                                             00150000         
+ 000004 18CF                          25          LR    12,15                                                    00150101         
+ 000000                               26          USING MAIN,12                                                  00150201         
+ 000006 41E0 C590            00590    27          LA    14,MAINSAVE                                              00150301         
+ 00000A 50D0 E004            00004    28          ST    13,4(0,14)                                               00150401         
+ 00000E 50E0 D008            00008    29          ST    14,8(0,13)                                               00150501         
+ 000012 18DE                          30          LR    13,14                                                    00150601         
+                                      31 *                                                                       00150701         
+ 000014 4110 C564            00564    32          LA    1,BPARAMS                    LOAD BUILD PARAMS           00150865         
+ 000018 58F0 C040            00040    33          L     15,=V(BUILD)                 LOAD BUILD INTO 15          00150966         
+ 00001C 05EF                          34          BALR  14,15                        BRANCH TO EXTERNAL SUBRTNE  00151066         
+                                      35 *                                                                       00151101         
+                                      36 *        XDUMP TABLE,960                                                00151248         
+ 00001E E020 C629 004B 00629          37          XPRNT HEADER,75                    PRINTS OUT INITIAL HEADER   00151366         
+ 000024 E020 C674 004A 00674          38          XPRNT HEAD2,74                     PRINTS COLUMN LABELS        00151472         
+ 00002A 4110 C570            00570    39          LA    1,PPARAMS                    LOAD PRNT PARAMS INTO 1     00151566         
+ 00002E 58F0 C044            00044    40          L     15,=V(PRINT)                 LOAD PRINT INTO 15          00151666         
+ 000032 05EF                          41          BALR  14,15                        BRANCH TO EXTERNAL SUBRTNE  00151766         
+                                      42 *                                                                       00151801         
+                                      43 *        LA    1,TPARAMS                    LOAD TPARAMS INTO 1         00151998         
+                                      44 *        L     15,=V(TRANS)                 LOAD TRANS INTO 15          00152098         
+                                      45 *        BALR  14,15                        BRANCH TO EXTERNAL SUBRTNE  00152198         
+                                      46 *                                                                       00152201         
+ 000034 58D0 D004            00004    47          L     13,4(0,13)                   STANDARD EXIT LINKAGE       00152366         
+ 000038 98EC D00C            0000C    48          LM    14,12,12(13)                                             00152401         
+ 00003C 07FE                          49          BR    14                                                       00152501         
+                                      50          LTORG                                                          00152601         
+ 000040 000006F8                      51                =V(BUILD)                                                                 
+ 000044 000007C0                      52                =V(PRINT)                                                                 
+1                                                                                                               PAGE    2         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                      53 *                                                                       00152701         
+ 000060                               54          ORG   MAIN+((*-MAIN+31)/32)*32                                 00152801         
+ 000060                               55 TABLE    DS    40CL32                       TABLE OF 40CNT 32LENGTH     00152966         
+ 000560                               56 EOT      DS    F                            EOT POINTER                 00153066         
+ 000564 00000060                      57 BPARAMS  DC    A(TABLE)                     BUILD PARAM LIST            00153566         
+ 000568 00000560                      58          DC    A(EOT)                                                   00153601         
+ 00056C 000005D8                      59          DC    A(BUFFER)                                                00153723         
+ 000570 00000060                      60 PPARAMS  DC    A(TABLE)                     PRINT PARAM LIST            00153966         
+ 000574 00000560                      61          DC    A(EOT)                                                   00154023         
+ 000578 00000629                      62          DC    A(HEADER)                                                00154123         
+ 00057C 00000672                      63          DC    A(PAGECNT)                                               00154223         
+ 000580 00000060                      64 TPARAMS  DC    A(TABLE)                     TRANS PARAMS LIST           00154366         
+ 000584 00000560                      65          DC    A(EOT)                                                   00154423         
+ 000588 000005D8                      66          DC    A(BUFFER)                                                00154523         
+ 00058C 00000672                      67          DC    A(PAGECNT)                                               00154623         
+ 000590                               68 MAINSAVE DS    18F                           MAINSAVE SPACE             00154766         
+ 0005D8                               69 BUFFER   DS    80C                           INPUT BUFFER               00154966         
+ 000628 5C                            70          DC    C'*'                          END OF BUFFER MARKER       00155066         
+ 000629 F1                            71 HEADER   DC    C'1'                           BEGIN OF HEADER           00155166         
+ 00062A 4040404040404040              72          DC    CL26' '                        PADDING                   00155266         
+ 000644 D6C4C4E240C1D5C4              73          DC    CL28'ODDS AND ENDS CUSTOMER DATA'  MAIN HEADER           00155366         
+ 000660 4040404040404040              74          DC    CL12' '                        PADDING                   00155466         
+ 00066C D7C1C7C57A40                  75          DC    CL6'PAGE: '                    PAGE COUNT LABEL          00155589         
+ 000672 F140                          76 PAGECNT  DC    CL2'1'                         PAGECOUNT                 00155689         
+ 000674 F0                            77 HEAD2    DC    C'0'                           COLUMN LABELS             00155766         
+ 000675 C6C9D9E2E340D5C1              78          DC    CL10'FIRST NAME'                                         00155823         
+ 00067F 4040404040404040              79          DC    CL11' '                                                  00155904         
+ 00068A D3C1E2E340D5C1D4              80          DC    CL9'LAST NAME'                                           00156004         
+ 000693 4040404040404040              81          DC    CL12' '                                                  00156171         
+ 00069F C9C440D5E4D4C2C5              82          DC    CL9'ID NUMBER'                                           00156204         
+ 0006A8 4040404040404040              83          DC    CL15' '                                                  00156372         
+ 0006B7 C2C1D3C1D5C3C5                84          DC    CL7'BALANCE'                                             00156404         
+ 0006BE F0                            85 TRANHEAD DC    C'0'                           COLUMN LABELS FOR TRANS   00156566         
+ 0006BF 4040                          86          DC    CL2' '                                                   00156628         
+ 0006C1 C3E4E2E3D6D4C5D9              87          DC    CL11'CUSTOMER ID'                                        00156728         
+ 0006CC 40404040                      88          DC    CL4' '                                                   00156828         
+ 0006D0 E3D9C1D5E2C1C3E3              89          DC    CL11'TRANSACTION'                                        00156928         
+ 0006DB 40404040404040                90          DC    CL7' '                                                   00157028         
+ 0006E2 C1D4D6E4D5E3                  91          DC    CL6'AMOUNT'                                              00157128         
+ 0006E8 4040404040404040              92          DC    CL10' '                                                  00157228         
+ 0006F2 C4C1E3C5                      93          DC    CL4'DATE'                                                00157328         
+                                      94 *                                                                       00157601         
+ 000000                               95 ENTRYLNE DSECT                                BUILD AND PRNT DSECT      00157766         
+ 000000                               96 FNAME    DS    CL10                           TABLE FORMAT              00157866         
+ 00000A                               97 LNAME    DS    CL10                                                     00157923         
+ 000014                               98 IDNUM    DS    CL8                                                      00158023         
+ 00001C                               99 BALAN    DS    PL4                                                      00158147         
+                                     100 *                                                                       00158224         
+ 000000                              101 TRANSLNE DSECT                                TRANS DSECT               00158366         
+ 000000                              102 CUSID    DS    CL8                            TABLE FORMAT              00158466         
+ 000008                              103 TRAN     DS    CL1                                                      00158524         
+ 000009                              104 AMOUNT   DS    PL4                                                      00158647         
+ 00000D                              105 DATE     DS    PL4                                                      00158747         
+                                     106 *                                                                       00158824         
+                                     107 *********************************************************               00158900         
+                                     108 *                                                                       00159000         
+                                     109 * BUILD                                                                 00159100         
+1                                                                                                               PAGE    3         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                     110 *                                                                       00159200         
+                                     111 * FUNCTION: THIS FUNCTION BUILDS THE TABLE                              00159300         
+                                     112 *           FROM THE GIVEN INPUT FILE                                   00159400         
+                                     113 *                                                                       00159500         
+                                     114 * INPUT: INPUT FILE WHICH STORES CLIENT DATA AND TRANSACTIONS           00159600         
+                                     115 *                                                                       00159700         
+                                     116 * REGISTER USAGE                                                        00159800         
+                                     117 *                                                                       00159969         
+                                     118 *  7    TABLE                                                           00160023         
+                                     119 *  8    EOT                                                             00160123         
+                                     120 *  9    BUFFER                                                          00160223         
+                                     121 *                                                                       00160323         
+                                     122 *********************************************************               00160400         
+                                     123 *                                                                       00160500         
+ 0006F8                              124 BUILD    CSECT                        BEGINNING OF BUILD                00160666         
+ 0006F8 90EC D00C            0000C   125          STM   14,12,12(13)                                             00160700         
+ 0006FC 18CF                         126          LR    12,15                                                    00160801         
+ 0006F8                              127          USING BUILD,12               STANDARD ENTRY LINKAGE            00160966         
+ 0006FE 41E0 C07C            00774   128          LA    14,BUILDSVE                                              00161001         
+ 000702 50D0 E004            00004   129          ST    13,4(0,14)                                               00161101         
+ 000706 50E0 D008            00008   130          ST    14,8(0,13)                                               00161201         
+ 00070A 18DE                         131          LR    13,14                                                    00161301         
+                                     132 *                                                                       00161401         
+ 000000                              133          USING ENTRYLNE,7             USING ENTRYLNE DSECT              00161566         
+ 00070C 9879 1000            00000   134          LM    7,9,0(1)               UNLOAD BPARAMS                    00161666         
+ 000710 E000 9000 0050 00000         135 BLOOP    XREAD 0(0,9),80              READ FROM INPUT BUFFER            00161766         
+ 000716 4740 C05C            00754   136          BC    B'0100',ENDBLD         GO TO ENDBLD IF ERROR             00161866         
+ 00071A D507 9018 C070 00018 00768   137          CLC   24(8,9),=CL8'STOPHERE' COMPARE NEXT ID TO DELIMETER      00161966         
+ 000720 4780 C05C            00754   138          BC    B'1000',ENDBLD         IF EQUAL GO TO ENDBLD             00162066         
+ 000724 D209 700A 9000 0000A 00000   139          MVC   LNAME,0(9)             MOVE VALUES FROM INPUT BUFFER     00162166         
+ 00072A D209 7000 900C 00000 0000C   140          MVC   FNAME,12(9)                                              00162201         
+ 000730 D207 7014 9018 00014 00018   141          MVC   IDNUM,24(9)                                              00162301         
+ 000736 F236 701C 9022 0001C 00022   142          PACK  BALAN,34(7,9)                                            00162419         
+ 00073C D500 9029 C078 00029 00770   143          CLC   41(1,9),=C'+'          COMPARE LAST CHARACTER TO PLUS    00162566         
+ 000742 4780 C054            0074C   144          BC    B'1000',INCLOOP        IF EQUAL GO TO INCREMENT LOOP     00162666         
+ 000746 FC30 701C C079 0001C 00771   145          MP    BALAN,=P'-1'           IF NEG MULTIPLY BALANCE BY -1     00162766         
+ 00074C 4170 7020            00020   146 INCLOOP  LA    7,32(0,7)              INCREMENT LOOP                    00162866         
+ 000750 47F0 C018            00710   147          BC    B'1111',BLOOP          BRANCH TO BLOOP                   00162966         
+ 000754 5070 8000            00000   148 ENDBLD   ST    7,0(0,8)               PLACE ADDRESS OF EOT AT TABLE     00163066         
+ 000758                              149          DROP  7                      DROP DSECT                        00163166         
+ 000758 58D0 D004            00004   150          L     13,4(0,13)                                               00163201         
+ 00075C 98EC D00C            0000C   151          LM    14,12,12(13)           STANDARD EXIT LINKAGE             00163366         
+ 000760 07FE                         152          BR    14                                                       00163401         
+                                     153          LTORG                                                          00163501         
+ 000768 E2E3D6D7C8C5D9C5             154                =CL8'STOPHERE'                                                            
+ 000770 4E                           155                =C'+'                                                                     
+ 000771 1D                           156                =P'-1'                                                                    
+ 000774                              157 BUILDSVE DS    18F                    BUILDSAVE SPACE                   00163666         
+                                     158 *                                                                       00163701         
+                                     159 *********************************************************               00163800         
+                                     160 *                                                                       00163900         
+                                     161 * PRINT                                                                 00164000         
+                                     162 *                                                                       00164100         
+                                     163 * FUNCTION:                                                             00164200         
+                                     164 *                                                                       00164300         
+                                     165 *                                                                       00164400         
+                                     166 * REGISTER USAGE                                                        00164500         
+1                                                                                                               PAGE    4         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                     167 *                                                                       00164609         
+                                     168 *  4    CUSTOMER COUNT                                                  00164709         
+                                     169 *  5                                                                    00164823         
+                                     170 *  6    OBALANCE,OUTSUM,OUTTOTAL,OUTAVG                                 00164923         
+                                     171 *  7    TABLE                                                           00165009         
+                                     172 *  8    EOT                                                             00165109         
+                                     173 *  9    HEADER  PAGECNT IS HEADER +83                                   00165224         
+                                     174 *  10   LINE NUMBER                                                     00165392         
+                                     175 *  11   PAGECNT                                                         00165492         
+                                     176 *  12   PRNT MAIN REG                                                   00165566         
+                                     177 *                                                                       00165666         
+                                     178 *********************************************************               00165700         
+                                     179 *                                                                       00165800         
+ 0007C0                              180 PRINT    CSECT                                                          00165900         
+ 0007C0 90EC D00C            0000C   181          STM   14,12,12(13)                                             00166000         
+ 0007C4 18CF                         182          LR    12,15                  STANDARD ENTRY LINKAGE            00166166         
+ 0007C0                              183          USING PRINT,12                                                 00166202         
+ 0007C6 41E0 C14C            0090C   184          LA    14,PRNTSVE                                               00166302         
+ 0007CA 50D0 E004            00004   185          ST    13,4(0,14)                                               00166402         
+ 0007CE 50E0 D008            00008   186          ST    14,8(0,13)                                               00166502         
+ 0007D2 18DE                         187          LR    13,14                                                    00166602         
+                                     188 *                                                                       00166702         
+ 000000                              189          USING ENTRYLNE,7             USING ENTRYLNE DSECT              00166866         
+ 0007D4 987A 1000            00000   190          LM    7,10,0(1)              UNLOAD PRNTPARAMS                 00166966         
+ 0007D8 41B0 9053            00053   191          LA    11,83(0,9)                                               00167085         
+ 0007DC 1BAA                         192          SR    10,10                  ZERO OUT COUNT REGS               00167285         
+ 0007DE 1B44                         193          SR    4,4                                                      00167464         
+ 0007E0 5970 8000            00000   194 PRNTLOOP C     7,0(0,8)               COMPARE TABLE TO EOT              00167566         
+ 0007E4 4780 C0D4            00894   195          BC    B'1000',ENDPRNT        GO TO ENDPRNT IF EQUAL            00167666         
+ 0007E8 59A0 C128            008E8   196          C     10,=F'15'              COMPARE LINE COUNT TO 15          00167785         
+ 0007EC 47C0 C062            00822   197          BC    B'1100',NEWLINE        GO TO NEWLINE IF <= 15            00167866         
+ 0007F0 1BAA                         198          SR    10,10                  RESET LINE COUNT                  00167985         
+ 0007F2 5AB0 C130            008F0   199          A     11,=C'1'               ADD 1 TO PAGE COUNT               00168087         
+ 0007F6 9240 C194      00954         200          MVI   PRNTLINE,C' '            DESTRUCTIVE OVERLAP             00168166         
+ 0007FA D277 C195 C194 00955 00954   201          MVC   PRNTLINE+1(120),PRNTLINE                                 00168224         
+ 000800 D24A C194 9000 00954 00000   202          MVC   PRNTLINE(75),0(9)      PLACE HEADER ON PRNTLINE          00168366         
+ 000806 E020 C194 004B 00954         203          XPRNT PRNTLINE,75            PRINT HEADER LINE                 00168466         
+ 00080C 9240 C194      00954         204          MVI   PRNTLINE,C' '          DESTRUCTIVE OVERLAP               00168566         
+ 000810 D277 C195 C194 00955 00954   205          MVC   PRNTLINE+1(120),PRNTLINE                                 00168624         
+ 000816 D249 C194 904B 00954 0004B   206          MVC   PRNTLINE(74),75(9)     PLACE COLUMN LABELS ON LINE       00168772         
+ 00081C E020 C194 004A 00954         207          XPRNT PRNTLINE,74            PRINT PRNTLINE                    00168872         
+ 000822 9240 C194      00954         208 NEWLINE  MVI   PRNTLINE,C' '          DESTRUCTIVE OVERLAP               00168966         
+ 000826 D277 C195 C194 00955 00954   209          MVC   PRNTLINE+1(120),PRNTLINE                                 00169024         
+ 00082C 92F0 C194      00954         210          MVI   PRNTLINE,C'0'          PLACE NEW CCC                     00169166         
+ 000830 D209 C195 7000 00955 00000   211          MVC   PRNTLINE+1(10),FNAME   PLACE COLUMN VALUES ON LINE       00169266         
+ 000836 D209 C1AA 700A 0096A 0000A   212          MVC   PRNTLINE+22(10),LNAME                                    00169305         
+ 00083C D207 C1C0 7014 00980 00014   213          MVC   PRNTLINE+44(8),IDNUM                                     00169405         
+ 000842 5AA0 C12C            008EC   214          A     10,=F'1'               ADD 1 TO LINE COUNT               00169585         
+ 000846 F930 701C C131 0001C 008F1   215          CP    BALAN,=P'0'            COMAPRE BALAN TO 0                00169666         
+ 00084C 4740 C09A            0085A   216          BC    B'0100',NEGNUM         IF < 0 GO TO NEGNUM               00169766         
+ 000850 FA33 C145 701C 00905 0001C   217          AP    BALSUM,BALAN           ADD BALAN TO BALSUM               00169866         
+ 000856 47F0 C0A0            00860   218          BC    B'1111',SKIP           GO TO SKIP                        00169966         
+ 00085A FB33 C145 701C 00905 0001C   219 NEGNUM   SP    BALSUM,BALAN           SUBTRACT BALAN FROM BALSUM        00170066         
+ 000860 4110 C25C            00A1C   220 SKIP     LA    1,OUTBAL+6             LOAD STARTING SPOT FOR BALAN      00170166         
+ 000864 D20C C256 C132 00A16 008F2   221          MVC   OUTBAL(13),=X'4020206B2021204B202040C3D9'  FORMAT        00170266         
+ 00086A DF0C C256 701C 00A16 0001C   222          EDMK  OUTBAL(13),BALAN          PLACE BALAN INTO OUTBAL FRMT   00170367         
+ 000870 0610                         223          BCTR  1,0                       BRANCH TILL 0                  00170467         
+1                                                                                                               PAGE    5         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+ 000872 925B 1000      00000         224          MVI   0(1),C'$'                 PLACE $ AT BEGINOF OUTBAL      00170567         
+ 000876 D20C C1D4 C256 00994 00A16   225          MVC   PRNTLINE+64(13),OUTBAL    PLACE OUTBAL ON PRNTLINE       00170667         
+ 00087C 5A40 C12C            008EC   226          A     4,=F'1'                   ADD 1 TO CUSTOMER COUNT        00170774         
+                                     227 *        XDUMP                                                          00170879         
+ 000880 E020 C194 0079 00954         228          XPRNT PRNTLINE,121              PRINT PRNTLINE                 00170967         
+ 000886 4170 7020            00020   229          LA    7,32(0,7)                 INCREMENT TABLE                00171067         
+ 00088A FA10 C143 C13F 00903 008FF   230          AP    TOTALCUS,=P'1'                                           00171193         
+ 000890 47F0 C020            007E0   231          BC    B'1111',PRNTLOOP          BRANCH TO PRNTLOOP             00171267         
+ 000894 F311 C140 C143 00900 00903   232 ENDPRNT  UNPK  NUMOFCUS(2),TOTALCUS                                     00171396         
+ 00089A D201 C227 C140 009E7 00900   233          MVC   SUMMARY+26(2),NUMOFCUS    PLACE NUMOFCUS ON PRNTLINE     00171496         
+ 0008A0 E020 C20D 0026 009CD         234          XPRNT SUMMARY,38                PRINT SUMMARY LINE             00171598         
+ 0008A6 4110 C25C            00A1C   235          LA    1,OUTBAL+6                POINT TO FIRST SIG DIGIT       00171667         
+ 0008AA D20C C256 C132 00A16 008F2   236          MVC   OUTBAL(13),=X'4020206B2021204B202040C3D9'  FORMAT NUMBER 00171767         
+ 0008B0 DF0C C256 C145 00A16 00905   237          EDMK  OUTBAL(13),BALSUM         PLACE BAKSUM INTO OUTBAL       00171867         
+ 0008B6 0610                         238          BCTR  1,0                       BRANCH TILL 0                  00171967         
+ 0008B8 925B 1000      00000         239          MVI   0(1),C'$'                 PLACE A $ AT BEGIN OF NUM      00172067         
+ 0008BC E020 C233 0030 009F3         240          XPRNT OUTSUM,48                 PRINT OUTSUM                   00172198         
+                                     241 *        DP    BALSUM,TOTALCUS           DIVIDE THE BALSUM BY TOTALCUS  00172486         
+ 0008C2 4110 C288            00A48   242          LA    1,AVGAMNT+6               POINT TO SIG DIGIT OF AVG      00172567         
+ 0008C6 D20C C282 C132 00A42 008F2   243          MVC   AVGAMNT(13),=X'4020206B2021204B202040C3D9' FORMATING     00172667         
+ 0008CC DF0C C282 C145 00A42 00905   244          EDMK  AVGAMNT(13),BALSUM        PLACE BALSUM ONTO AVGAMNT      00172767         
+ 0008D2 0610                         245          BCTR  1,0                       BRANCH TILL 0                  00172867         
+ 0008D4 925B 1000      00000         246          MVI   0(1),C'$'                 PLACE $ AT BEGIN OF NUMBER     00172967         
+ 0008D8 E020 C263 002C 00A23         247          XPRNT OUTAVG,44                 PRINT OUTAVG                   00173098         
+ 0008DE 58D0 D004            00004   248          L     13,4(0,13)                STANDARD EXIT LINKAGE          00173167         
+ 0008E2 98EC D00C            0000C   249          LM    14,12,12(13)                                             00173202         
+ 0008E6 07FE                         250          BR    14                                                       00173302         
+                                     251          LTORG                                                          00173402         
+ 0008E8 0000000F                     252                =F'15'                                                                    
+ 0008EC 00000001                     253                =F'1'                                                                     
+ 0008F0 F1                           254                =C'1'                                                                     
+ 0008F1 0C                           255                =P'0'                                                                     
+ 0008F2 4020206B2021204B             256                =X'4020206B2021204B202040C3D9'                                            
+ 0008FF 1C                           257                =P'1'                                                                     
+                                     258 *                                        NOTSURE WHAT THESE WERE FOR    00173567         
+ 000900 F0F0C0                       259 NUMOFCUS DC    ZL3'0'                                                   00173696         
+ 000903 000C                         260 TOTALCUS DC    PL2'0'                                                   00173754         
+ 000905 0000000C                     261 BALSUM   DC    PL4'0'                                                   00173895         
+ 00090C                              262 PRNTSVE  DS    18F                       PRNT SAVE AREA                 00173967         
+ 000954 F0                           263 PRNTLINE DC    C'0'                      PRINT LINE                     00174067         
+ 000955 4040404040404040             264          DC    CL120' '                                                 00174105         
+ 0009CD 60                           265 SUMMARY  DC    C'-'                      BEGIN OF SUMMARY               00174267         
+ 0009CE D5E4D4C2C5D940D6             266          DC    CL25'NUMBER OF CUSTOMERS =    '                          00174398         
+ 0009E7 4040404040404040             267          DC    CL12' '                                                  00174425         
+ 0009F3 60                           268 OUTSUM   DC    C'-'                                                     00174525         
+ 0009F4 E2E4D440D6C640C1             269          DC    CL34'SUM OF ALL ACCOUNT BALANCES =     '                 00174698         
+ 000A16 4040404040404040             270 OUTBAL   DC    CL13' '                                                  00174831         
+ 000A23 60                           271 OUTAVG   DC    C'-'                                                     00174925         
+ 000A24 C1E5C5D9C1C7C540             272          DC    CL30'AVERAGE ACCOUNT BALANCE =     '                     00175098         
+ 000A42 4040404040404040             273 AVGAMNT  DC    CL13' '                                                  00175131         
+                                     274          END   MAIN                                                     00175298         
+0***  NO   STATEMENTS FLAGGED -  NO   WARNINGS,  NO   ERRORS                                                                      
+0*** DYNAMIC CORE AREA USED:  LOW:   16132 HIGH:    1476 LEAVING:  475960 FREE BYTES. AVERAGE:       64 BYTES/STMT ***            
+0*** ASSEMBLY TIME =    0.001 SECS,   275000 STATEMENTS/SEC ***                                                                   
+0*** PROGRAM EXECUTION BEGINNING - ANY OUTPUT BEFORE EXECUTION TIME MESSAGE IS PRODUCED BY USER PROGRAM ***                       
+1                          ODDS AND ENDS CUSTOMER DATA             PAGE: 1                                                        
+0FIRST NAME           LAST NAME            ID NUMBER               BALANCE                                                        
+0Sharon               Adams                 A162350S                 $0.00 CR                                                     
+0Ronald               Allen                 A760565R                 $1.74 CR                                                     
+0Brian                Baker                 B287543B               $230.40                                                        
+0George               Campbell              C337711G                $95.96                                                        
+0Susan                Carter                C909765S               $161.33 CR                                                     
+0Sarah                Edwards               E916021S                 $0.25 CR                                                     
+0Charles              Evans                 E098654C             $2,120.93                                                        
+0Kimberly             Garcia                G678012K             $3,151.53                                                        
+0Maria                Hall                  H837651M               $450.00                                                        
+0Jennifer             Harris                H876439J               $980.71 CR                                                     
+0Sarah                Hill                  H234678S                $75.00 CR                                                     
+0Kimberly             Jones                 J901345K                 $9.99 CR                                                     
+0Kevin                Lee                   L870811K             $1,561.64                                                        
+0Daniel               Lewis                 L132333D               $214.56                                                        
+0Thomas               Miller                M825868T                 $0.00                                                        
+0Brian                Mitchell              M554644B               $372.48                                                        
+1                          ODDS AND ENDS CUSTOMER DATA             PAGE: 1                                                        
+0FIRST NAME           LAST NAME            ID NUMBER               BALANCE                                                        
+0Sharon               Moore                 M266757S                $18.47                                                        
+0Sandra               Perez                 P752778S                 $0.00                                                        
+0Kenneth              Phillips              P231035K                 $0.01 CR                                                     
+0Steven               Robinson              R028106S                $34.40                                                        
+0Paul                 Scott                 S926648P                $76.73                                                        
+0George               Taylor                T589729G               $120.81 CR                                                     
+0Mark                 Thomas                T437350M                $53.27                                                        
+0Steven               Walker                W962623S               $123.13                                                        
+0Ruth                 Williams              W408954R               $235.71                                                        
+0Jeff                 Wilson                W875840J                $11.23 CR                                                     
+0Humphrey             Yanders               Y773405H                 $0.01                                                        
+-NUMBER OF CUSTOMERS =    2G                                                                                                      
+-SUM OF ALL ACCOUNT BALANCES =     $10,100.29                                                                                     
+-AVERAGE ACCOUNT BALANCE =     $10,100.29                                                                                         
+0*** EXECUTION TIME =    0.001 SECS.      1099 INSTRUCTIONS EXECUTED -  1099000 INSTRUCTIONS/SEC ***                              
+0*** FIRST CARD NOT READ: M555555Q  W  9999999  29022017                                                                          
+0*** AM004 - NORMAL USER TERMINATION BY RETURN ***                                                                                

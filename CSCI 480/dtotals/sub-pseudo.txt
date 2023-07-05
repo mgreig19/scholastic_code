@@ -1,0 +1,23 @@
+
+       read record
+
+       if first time
+         // do only second half of break processing
+         initialize subtotal
+         initialize lag variable
+
+       if control break (and not first time)
+         print subtotals for lag variable
+         update grand total from subtotal
+         reinitialize subtotal
+         update lag variable
+
+       print detail line
+       update subtotal
+
+       at eof:
+         // do only first half of break processing
+         print subtotals for lag variable
+         update grand total from subtotal
+         // then
+         print grand total

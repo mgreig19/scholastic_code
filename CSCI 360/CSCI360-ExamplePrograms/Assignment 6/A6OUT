@@ -1,0 +1,552 @@
+1                    J E S 2  J O B  L O G  --  S Y S T E M  S 0 W 1  --  N O D E  Z O S K C T R         
+0 
+ 23.34.15 JOB05926 ---- SUNDAY,    23 JUL 2017 ----
+ 23.34.15 JOB05926  IRR010I  USERID KC03OA0  IS ASSIGNED TO THIS JOB.
+ 23.34.15 JOB05926  ICH70001I KC03OA0  LAST ACCESS AT 22:57:57 ON SUNDAY, JULY 23, 2017
+ 23.34.15 JOB05926  $HASP373 KC03OA0A STARTED - INIT 2    - CLASS A        - SYS S0W1
+ 23.34.15 JOB05926  -                                         --TIMINGS (MINS.)--            ----PAGING COUNTS---
+ 23.34.15 JOB05926  -JOBNAME  STEPNAME PROCSTEP    RC   EXCP    TCB    SRB  CLOCK   SERV  PG   PAGE   SWAP    VIO SWAPS
+ 23.34.15 JOB05926  -KC03OA0A                      00    125 ******    .00     .0    270   0      0      0      0     0
+ 23.34.15 JOB05926  -KC03OA0A ENDED.  NAME-Kevin White          TOTAL TCB CPU TIME=   .00  TOTAL ELAPSED TIME=    .0
+ 23.34.15 JOB05926  $HASP395 KC03OA0A ENDED
+0------ JES2 JOB STATISTICS ------
+-  23 JUL 2017 JOB EXECUTION DATE
+-          397 CARDS READ
+-          552 SYSOUT PRINT RECORDS
+-            0 SYSOUT PUNCH RECORDS
+-           63 SYSOUT SPOOL KBYTES
+-         0.00 MINUTES EXECUTION TIME
+         1 //KC03OA0A JOB ,'Kevin White',MSGCLASS=H                                JOB05926
+         2 //STEP1 EXEC PGM=ASSIST                                                 00020000
+         3 //STEPLIB DD DSN=KC02293.ASSIST.LOADLIB,DISP=SHR                        00030000
+         4 //SYSPRINT DD SYSOUT=*                                                  00040000
+         5 //SYSIN DD *                                                            00050000
+         6 //FT05F001 DD DSN=KC02314.SUMMER17.CSCI360.HW6DATA,DISP=SHR             00150001
+ ICH70001I KC03OA0  LAST ACCESS AT 22:57:57 ON SUNDAY, JULY 23, 2017
+ IEF236I ALLOC. FOR KC03OA0A STEP1
+ IGD103I SMS ALLOCATED TO DDNAME STEPLIB
+ IEF237I JES2 ALLOCATED TO SYSPRINT
+ IEF237I JES2 ALLOCATED TO SYSIN
+ IGD103I SMS ALLOCATED TO DDNAME FT05F001
+ IEF142I KC03OA0A STEP1 - STEP WAS EXECUTED - COND CODE 0000
+ IGD104I KC02293.ASSIST.LOADLIB                       RETAINED,  DDNAME=STEPLIB 
+ IEF285I   KC03OA0.KC03OA0A.JOB05926.D0000102.?         SYSOUT        
+ IEF285I   KC03OA0.KC03OA0A.JOB05926.D0000101.?         SYSIN         
+ IGD104I KC02314.SUMMER17.CSCI360.HW6DATA             RETAINED,  DDNAME=FT05F001
+ IEF373I STEP/STEP1   /START 2017204.2334
+ IEF032I STEP/STEP1   /STOP  2017204.2334 
+         CPU:     0 HR  00 MIN  00.01 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+         VIRT:   584K  SYS:   268K  EXT:        4K  SYS:    11552K
+         ATB- REAL:                     0K  SLOTS:                     0K
+              VIRT- ALLOC:       0M SHRD:       0M
+ IEF375I  JOB/KC03OA0A/START 2017204.2334
+ IEF033I  JOB/KC03OA0A/STOP  2017204.2334 
+         CPU:     0 HR  00 MIN  00.01 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+1*** ASSIST 4.0/A2-05/15/82  470/V7A/0:OS/VS2  INS=SDFP7/X=BGHO, CHECK/TRC/=1180, OPTS=CDKMPR FROM PENN ST*NIU COMPSCI*LT         
+0                                                                                                                                 
+0                                                                                                               PAGE    1         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                       1 **************************************************                      00051002         
+                                       2 *                                                                       00052002         
+                                       3 * PROGRAM:    ASSIGN6                                                   00052199         
+                                       4 * PROGRAMER:  Kevin White                                               00052299         
+                                       5 *                                                                       00052399         
+                                       6 * FUNCTION: This program will read through the                          00052499         
+                                       7 *           standard input and stor the                                 00052599         
+                                       8 *           information in a table. it will then                        00052699         
+                                       9 *           print out the infromation and list                          00052799         
+                                      10 *           the amount of clients, the sum of the                       00052899         
+                                      11 *           balances, the average balance, the                          00052999         
+                                      12 *           largest balances, and the sum of                            00053099         
+                                      13 *           negative balances.                                          00053199         
+                                      14 *                                                                       00053299         
+                                      15 * INPUT:    The records of data in standard input                       00053399         
+                                      16 *                                                                       00053499         
+                                      17 * OUTPUT:   The table of data, the amount of                            00053599         
+                                      18 *           clients, the sum of the balances, the                       00053699         
+                                      19 *           average balance, the largest balance,                       00053799         
+                                      20 *           and the sum of negative balances.                           00053899         
+                                      21 *                                                                       00053999         
+                                      22 * ENTRY CONDS: NONE                                                     00054099         
+                                      23 *                                                                       00054199         
+                                      24 * EXIT CONDS: NONE                                                      00054299         
+                                      25 *                                                                       00054399         
+                                      26 * REGISTER USAGE:                                                       00054499         
+                                      27 *    1     Parameter List                                               00054599         
+                                      28 *                                                                       00054699         
+                                      29 * PSEUDOCODE:                                                           00054799         
+                                      30 *    <1> Standard Entry Linkage                                         00054899         
+                                      31 *    <2> Call BUILD subroutine                                          00054999         
+                                      32 *    <3> Call PRINT subroutine                                          00055099         
+                                      33 *    <4> Call TALLY subroutine                                          00055199         
+                                      34 *                                                                       00055299         
+                                      35 **************************************************                      00056002         
+ 000000                               36 MAIN     CSECT                                                          00060000         
+ 000000 90EC D00C            0000C    37          STM   14,12,12(13)      Save the registers                     00070099         
+ 000004 18CF                          38          LR    12,15             Set R12 as the bas register            00071099         
+ 000000                               39          USING MAIN,12                                                  00072002         
+ 000006 41E0 C04C            0004C    40          LA    14,MAINSAVE       Point R14 at MAINSAVE                  00073099         
+ 00000A 50D0 E004            00004    41          ST    13,4(0,14)        Save forward pointer                   00074099         
+ 00000E 50E0 D008            00008    42          ST    14,8(0,13)        Save backward pointer                  00075099         
+ 000012 18DE                          43          LR    13,14             Point R13 at MAINSAVE                  00076099         
+                                      44 *                                                                       00077002         
+ 000014 4110 CE14            00E14    45          LA    1,PARMS           Sets parameters for BUILD              00078099         
+ 000018 58F0 C040            00040    46          L     15,=V(BUILD)      Points R15 at BUILD                    00079099         
+ 00001C 05EF                          47          BALR  14,15             Branch to BUILD                        00080099         
+                                      48 *                                                                       00091002         
+ 00001E 4110 CE14            00E14    49          LA    1,PARMS           Sets parameters for PRINT              00092099         
+ 000022 58F0 C044            00044    50          L     15,=V(PRINT)      Points R15 at PRINT                    00092199         
+ 000026 05EF                          51          BALR  14,15             Branch to PRINT                        00092299         
+                                      52 *                                                                       00092383         
+1                                                                                                               PAGE    2         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+ 000028 4110 CE14            00E14    53          LA    1,PARMS           Sets parameter for TALLY               00092499         
+ 00002C 58F0 C048            00048    54          L     15,=V(TALLY)      Ponts R15 at TALLY                     00093099         
+ 000030 05EF                          55          BALR  14,15             Branch to TALLY                        00094099         
+                                      56 *                                                                       00095099         
+ 000032 58D0 D004            00004    57          L     13,4(0,13)        Point R13 to caller save area          00100099         
+ 000036 98EC D00C            0000C    58          LM    14,12,12(13)      Restore registers                      00101099         
+ 00003A 07FE                          59          BR    14                Return to caller                       00102099         
+                                      60 *                                                                       00103002         
+                                      61          LTORG                                                          00103104         
+ 000040 00000E20                      62                =V(BUILD)                                                                 
+ 000044 00000EE0                      63                =V(PRINT)                                                                 
+ 000048 00001150                      64                =V(TALLY)                                                                 
+ 00004C                               65 MAINSAVE DS    18F               Allocates 18F for save area            00104099         
+ 000094                               66 TABLE    DS    70CL48            Allocates space for TABLE              00105099         
+ 000DC0                               67          ORG   MAIN+(*-MAIN+15)/16*16    For XDUMP check                00105199         
+ 000DC0                               68          ORG                                                            00105206         
+ 000DC0                               69 EOT      DS    F                 Allocate space for EOT                 00106099         
+ 000DC4                               70 BUFFER   DS    80C               Allocate 80 characters for BUFFER      00110099         
+ 000E14 00000094                      71 PARMS    DC    A(TABLE)          Parameters for subroutines             00111699         
+ 000E18 00000DC0                      72          DC    A(EOT)                                                   00111706         
+ 000E1C 00000DC4                      73          DC    A(BUFFER)                                                00111806         
+                                      74 *                                                                       00112005         
+ 000000                               75 ENTRY    DSECT                   Dummy section for table                00112199         
+ 000000                               76 FNAME    DS    CL10              10 characters for First Name           00112299         
+ 00000A                               77 LNAME    DS    CL10              10 characters for Last Name            00112399         
+ 000014                               78 ID       DS    CL9               9 characters for ID number             00112499         
+ 00001D                               79 PASS     DS    CL8               8 characters for Password              00112599         
+ 000025                               80 BAL      DS    PL5               5 packed decimals for Balance          00112699         
+ 00002A                               81 EXP      DS    PL5               5 packed decimals for Exp. Date        00112799         
+ 00002F                               82 FILL     DS    CL1               1 character for filler                 00112899         
+                                      83 **************************************************                      00113005         
+                                      84 *                                                                       00114005         
+                                      85 * BUILD                                                                 00114182         
+                                      86 *                                                                       00114299         
+                                      87 * FUNCTION: This subroutine will read from the                          00114399         
+                                      88 *           standard input and store the data in                        00114499         
+                                      89 *           the table passed as a parameter.                            00114599         
+                                      90 *                                                                       00114699         
+                                      91 * INPUT:    Records of data stored in standard                          00114799         
+                                      92 *           input.                                                      00114899         
+                                      93 *                                                                       00114999         
+                                      94 * OUTPUT:   NONE                                                        00115099         
+                                      95 *                                                                       00115199         
+                                      96 * ENTRY CONDS: 0(1) -- Address of the table to                          00115299         
+                                      97 *                      store the data                                   00115399         
+                                      98 *              1(1) -- Address of the first unused                      00115499         
+                                      99 *                      data in the table                                00115599         
+                                     100 *              2(1) -- Address of the input buffer                      00115699         
+                                     101 *                                                                       00115799         
+                                     102 * EXIT CONDS: NONE                                                      00115899         
+                                     103 *                                                                       00115999         
+                                     104 * REGISTER USAGE:                                                       00116099         
+                                     105 *    2     Table of data                                                00116199         
+                                     106 *    3     End of the table                                             00116299         
+                                     107 *    4     Input Buffer                                                 00116399         
+                                     108 *                                                                       00116499         
+                                     109 * PSEUDOCODE:                                                           00116599         
+1                                                                                                               PAGE    3         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                     110 *    <1> Standard Entry Linkage                                         00116699         
+                                     111 *    <2> Unload parameters                                              00116799         
+                                     112 *    <3> While not end of file                                          00116899         
+                                     113 *          Store data into table                                        00116999         
+                                     114 *            if balance has '-' sign at end                             00117099         
+                                     115 *              multiply by -1                                           00117199         
+                                     116 *                                                                       00117382         
+                                     117 **************************************************                      00117405         
+ 000E20                              118 BUILD    CSECT                                                          00117505         
+ 000E20 90EC D00C            0000C   119          STM   14,12,12(13)      Save the registers                     00117699         
+ 000E24 18CF                         120          LR    12,15             Set R12 as the base register           00118099         
+ 000E20                              121          USING BUILD,12                                                 00119005         
+ 000E26 41E0 C074            00E94   122          LA    14,BSAVE          Point R14 at BSAVE                     00119199         
+ 000E2A 50D0 E004            00004   123          ST    13,4(0,14)        Save the forward pointer               00119299         
+ 000E2E 50E0 D008            00008   124          ST    14,8(0,13)        Save the backward pointer              00119399         
+ 000E32 18DE                         125          LR    13,14             Point R13 at BSAVE                     00119499         
+                                     126 *                                                                       00119507         
+ 000000                              127          USING ENTRY,2           Use ENTRY Dummy section for TABLE      00119699         
+ 000E34 9824 1000            00000   128          LM    2,4,0(1)          Unload Parameters                      00119799         
+                                     129 *                                                                       00119807         
+ 000E38 E000 4000 0050 00000         130 BLOOP    XREAD 0(0,4),80         Read from file to 80 characters        00119999         
+ 000E3E 4740 C05E            00E7E   131          BC    B'0100',ENDBLP    If end of file, branch to ENDBLP       00120099         
+ 000E42 D209 200A 4000 0000A 00000   132          MVC   LNAME(10),0(4)    Move Last Name from buffer to table    00120199         
+ 000E48 D209 2000 400C 00000 0000C   133          MVC   FNAME(10),12(4)   Move First Name from buffer to table   00120299         
+ 000E4E D208 2014 4018 00014 00018   134          MVC   ID(9),24(4)       Move ID from buffer to table           00120399         
+ 000E54 D207 201D 4023 0001D 00023   135          MVC   PASS(8),35(4)     Move password from buffer to table     00120499         
+ 000E5A F248 202A 402D 0002A 0002D   136          PACK  EXP(5),45(9,4)    Store Exp. Date in table               00120599         
+ 000E60 F246 2025 4037 00025 00037   137          PACK  BAL(5),55(7,4)    Store Balance in table                 00120699         
+                                     138 *                                                                       00120719         
+ 000E66 D500 403E C070 0003E 00E90   139          CLC   62(1,4),=C'+'     Check last sign                        00121399         
+ 000E6C 4780 C056            00E76   140          BE    ENDTST            If positive branc to ENDTST            00121499         
+ 000E70 FC40 2025 C071 00025 00E91   141          MP    BAL(5),=P'-1'     If negative multiply BAL by -1         00121699         
+ 000E76 4120 2030            00030   142 ENDTST   LA    2,48(0,2)         Increment table                        00121799         
+ 000E7A 47F0 C018            00E38   143          B     BLOOP             Return to start of loop                00121899         
+                                     144 *                                                                       00121905         
+ 000E7E 5030 2000            00000   145 ENDBLP   ST    3,0(0,2)          Set EOT to last unused data            00122099         
+ 000E82 58D0 D004            00004   146          L     13,4(0,13)        Point R13 at caller's save area        00122199         
+ 000E86 98EC D00C            0000C   147          LM    14,12,12(13)      Restore registers                      00122299         
+ 000E8A 07FE                         148          BR    14                Return to caller                       00122399         
+                                     149 *                                                                       00122405         
+                                     150          LTORG                                                          00122505         
+ 000E90 4E                           151                =C'+'                                                                     
+ 000E91 1D                           152                =P'-1'                                                                    
+ 000E94                              153 BSAVE    DS    18F               Allocate 18F for save area             00122699         
+                                     154 *                                                                       00122805         
+                                     155 **************************************************                      00122982         
+                                     156 *                                                                       00123082         
+                                     157 * PRINT                                                                 00123182         
+                                     158 *                                                                       00123299         
+                                     159 * FUNCTION: This subroutine will print out the                          00123399         
+                                     160 *           data held within the table given.                           00123499         
+                                     161 *                                                                       00123599         
+                                     162 * INPUT: NONE                                                           00123699         
+                                     163 *                                                                       00123799         
+                                     164 * OUTPUT: Will print out everything inside the                          00123899         
+                                     165 *         table given                                                   00123999         
+                                     166 *                                                                       00124099         
+1                                                                                                               PAGE    4         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                     167 * ENTRY CONDS: 0(1) -- Address of the table                             00124199         
+                                     168 *                      holding the data                                 00124299         
+                                     169 *              1(1) -- Address of the end of the                        00124399         
+                                     170 *                      table                                            00124499         
+                                     171 *                                                                       00124599         
+                                     172 * EXIT CONDS: NONE                                                      00124699         
+                                     173 *                                                                       00124799         
+                                     174 * REGISTER USAGE:                                                       00124899         
+                                     175 *    2     Table of data                                                00124999         
+                                     176 *    3     Pointer to end of table                                      00125099         
+                                     177 *    4     Line counter                                                 00125299         
+                                     178 *                                                                       00125399         
+                                     179 * PSEUDOCODE:                                                           00125499         
+                                     180 *    <1> Standard Entry Link                                            00125599         
+                                     181 *    <2> While not end of table                                         00125699         
+                                     182 *          Print out table contents                                     00125799         
+                                     183 *            If 20 lines                                                00125899         
+                                     184 *              Start a new page                                         00125999         
+                                     185 *                                                                       00126182         
+                                     186 **************************************************                      00126282         
+ 000EE0                              187 PRINT    CSECT                                                          00126383         
+ 000EE0 90EC D00C            0000C   188          STM   14,12,12(13)       Save the registers                    00126499         
+ 000EE4 18CF                         189          LR    12,15              Establish R12 as the base register    00126599         
+ 000EE0                              190          USING PRINT,12                                                 00126683         
+ 000EE6 41E0 C0D4            00FB4   191          LA    14,PSAVE           Point R14 at PSAVE                    00126799         
+ 000EEA 50D0 E004            00004   192          ST    13,4(0,14)         Save the forward pointer              00126899         
+ 000EEE 50E0 D008            00008   193          ST    14,8(0,13)         Save the backward pointer             00126999         
+ 000EF2 18DE                         194          LR    13,14              Point R13 at PSAVE                    00127099         
+                                     195 *                                                                       00127189         
+ 000000                              196          USING ENTRY,2            Use ENTRY dummy section for TABLE     00127299         
+ 000EF4 9823 1000            00000   197          LM    2,3,0(1)           Unload parameters                     00127399         
+ 000EF8 1B44                         198          SR    4,4                Set counter to 0                      00127499         
+                                     199 *                                                                       00127583         
+ 000EFA E020 C1B0 004A 01090         200          XPRNT HEADER,74          Print HEADER to 74 characters         00127699         
+ 000F00 E020 C1FA 0070 010DA         201          XPRNT HEADER2,112        Print HEADER2 to 112 characters       00127799         
+                                     202 *                                                                       00127886         
+ 000F06 5930 2000            00000   203 PLOOP    C     3,0(0,2)           Compare EOT to current table location 00127999         
+ 000F0A 4780 C0A6            00F86   204          BE    PLPEND             If equal the end loop                 00128099         
+ 000F0E 5940 C0C0            00FA0   205          C     4,=F'20'           Compare counter to 20                 00128199         
+ 000F12 4770 C044            00F24   206          BNE   NONEWLN            If equal start a new page             00128299         
+ 000F16 1B44                         207          SR    4,4                Set counter back to 0                 00128399         
+ 000F18 E020 C1B0 004A 01090         208          XPRNT HEADER,74          Print HEADER to 74 characters         00128499         
+ 000F1E E020 C1FA 0070 010DA         209          XPRNT HEADER2,112        Print HEADER2 to 112 characters       00128599         
+ 000F24 9240 C138      01018         210 NONEWLN  MVI   LINE+1,C' '        Destructive overlap                   00128699         
+ 000F28 D276 C139 C138 01019 01018   211          MVC   LINE+2(119),LINE+1                                       00128791         
+ 000F2E D209 C141 2000 01021 00000   212          MVC   LINE+10(10),FNAME  Move first name onto LINE             00128899         
+ 000F34 D209 C154 200A 01034 0000A   213          MVC   LINE+29(10),LNAME  Move last name onto LINE              00128999         
+ 000F3A D207 C179 201D 01059 0001D   214          MVC   LINE+66(8),PASS    Move password onto LINE               00129099         
+ 000F40 D208 C19E 2014 0107E 00014   215          MVC   LINE+103(9),ID     Move ID number onto LINE              00129199         
+                                     216 *                                                                       00129296         
+ 000F46 4110 C125            01005   217          LA    1,OUTBAL+9         Set 1 to first non-zero digit         00129399         
+ 000F4A D20F C11C C0B0 00FFC 00F90   218          MVC   OUTBAL(16),=X'40206B2020206B2021204B202040C3D9'          00129499         
+ 000F50 DF0F C11C 2025 00FFC 00025   219          EDMK  OUTBAL(16),BAL     Edit BAL using OUTBAL                 00129599         
+ 000F56 0610                         220          BCTR  1,0                Subtract 1 from R1                    00129699         
+ 000F58 925B 1000      00000         221          MVI   0(1),C'$'          Set $ to correct space                00129799         
+ 000F5C D20F C161 C11C 01041 00FFC   222          MVC   LINE+42(16),OUTBAL Move balance onto LINE                00129899         
+                                     223 *                                                                       00129999         
+1                                                                                                               PAGE    5         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+ 000F62 D20A C12C C0C8 0100C 00FA8   224          MVC   OUTEXP(11),=X'4021202020612020612020'                    00130099         
+ 000F68 DE0A C12C 202A 0100C 0002A   225          ED    OUTEXP(11),EXP     Edit EXP using OUTEXP                 00130199         
+ 000F6E D20A C18A C12C 0106A 0100C   226          MVC   LINE+83(11),OUTEXP Move exp. date to LINE                00130299         
+                                     227 *                                                                       00130399         
+ 000F74 E020 C137 0079 01017         228          XPRNT LINE,121           Print LINE to 121 characters          00130499         
+ 000F7A 4120 2030            00030   229          LA    2,48(0,2)          Increment table                       00130599         
+ 000F7E 5A40 C0C4            00FA4   230          A     4,=F'1'            Increment counter                     00130699         
+ 000F82 47F0 C026            00F06   231          B     PLOOP              Restart the loop                      00130799         
+                                     232 *                                                                       00130891         
+ 000F86 58D0 D004            00004   233 PLPEND   L     13,4(0,13)         Point R13 at caller's save area       00130999         
+ 000F8A 98EC D00C            0000C   234          LM    14,12,12(13)       Restore the registers                 00131099         
+ 000F8E 07FE                         235          BR    14                 Return to caller                      00131199         
+                                     236 *                                                                       00131283         
+                                     237          LTORG                                                          00131383         
+ 000F90 40206B2020206B20             238                =X'40206B2020206B2021204B202040C3D9'                                      
+ 000FA0 00000014                     239                =F'20'                                                                    
+ 000FA4 00000001                     240                =F'1'                                                                     
+ 000FA8 4021202020612020             241                =X'4021202020612020612020'                                                
+ 000FB4                              242 PSAVE    DS    18F                Allocate 18F for save area            00131499         
+ 000FFC 4040404040404040             243 OUTBAL   DC    CL16' '            Allocate 16 characters for OUTBAL     00131599         
+ 00100C 4040404040404040             244 OUTEXP   DC    CL11' '            Allocate 11 characters for OUTEXP     00131699         
+ 001017 F0                           245 LINE     DC    C'0'               Double space carriage control         00131799         
+ 001018 4040404040404040             246          DC    CL120' '           Allocate 120 characters of spaces     00131899         
+ 001090 F1                           247 HEADER   DC    C'1'               New page carriage control             00131999         
+ 001091 4040404040404040             248          DC    CL46' '            Allocate 46 characters of spaces      00132099         
+ 0010BF C6819496A4A24095             249          DC    CL27'Famous names -- Client List'                        00132187         
+ 0010DA 60                           250 HEADER2  DC    C'-'               Triple space carriage control         00132299         
+ 0010DB 4040404040404040             251          DC    CL9' '             Allocate 9 characters of spaces       00132399         
+ 0010E4 C68999A2A340D581             252          DC    CL10'First Name'                                         00132488         
+ 0010EE 4040404040404040             253          DC    CL9' '             Allocate 9 characters of spaces       00132599         
+ 0010F7 D381A2A340D58194             254          DC    CL9'Last Name'                                           00132688         
+ 001100 4040404040404040             255          DC    CL10' '            Allocate 10 characters of spaces      00132799         
+ 00110A C2819381958385               256          DC    CL7'Balance'                                             00132888         
+ 001111 4040404040404040             257          DC    CL11' '            Allocate 11 characters of spaces      00132999         
+ 00111C D781A2A2A6969984             258          DC    CL8'Password'                                            00133088         
+ 001124 4040404040404040             259          DC    CL10' '            Allocate 10 characters of spaces      00133199         
+ 00112E C5A7974B40C481A3             260          DC    CL9'Exp. Date'                                           00133288         
+ 001137 4040404040404040             261          DC    CL10' '            Allocate 10 characters of spaces      00133399         
+ 001141 C9C440D5A4948285             262          DC    CL9'ID Number'                                           00133488         
+                                     263 *                                                                       00133583         
+                                     264 **************************************************                      00133699         
+                                     265 *                                                                       00133799         
+                                     266 * TALLY                                                                 00133899         
+                                     267 *                                                                       00133999         
+                                     268 * FUNCTION: This subroutine will print out the                          00134099         
+                                     269 *           number of clients, the sum of all the                       00134199         
+                                     270 *           account balances, the average account                       00134299         
+                                     271 *           balance, the largest account balance,                       00134399         
+                                     272 *           and the number of negative account                          00134499         
+                                     273 *           balances.                                                   00134599         
+                                     274 *                                                                       00134699         
+                                     275 * INPUT: NONE                                                           00134799         
+                                     276 *                                                                       00134899         
+                                     277 * OUTPUT: Will print out the relivant information                       00134999         
+                                     278 *         about the table.                                              00135099         
+                                     279 *                                                                       00135199         
+                                     280 * ENTRY CONDS: 0(1) -- Address of the table                             00135299         
+1                                                                                                               PAGE    6         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                     281 *                      holding the data                                 00135399         
+                                     282 *              1(1) -- Address of the end of the                        00135499         
+                                     283 *                      table                                            00135599         
+                                     284 *                                                                       00135699         
+                                     285 * EXIT CONDS: NONE                                                      00135799         
+                                     286 *                                                                       00135899         
+                                     287 * REGISTER USAGE:                                                       00135999         
+                                     288 *   2      Table of data                                                00136199         
+                                     289 *   3      Pointer to end of table                                      00136299         
+                                     290 *                                                                       00136399         
+                                     291 * PSEUDOCODE:                                                           00136499         
+                                     292 *   <1> Standard entry linkage                                          00136599         
+                                     293 *   <2> Unload parameters                                               00136699         
+                                     294 *   <3> While not end of table                                          00136799         
+                                     295 *         Increment total                                               00136899         
+                                     296 *         Add balance to sum                                            00136999         
+                                     297 *         If balance negative                                           00137099         
+                                     298 *           Increment negative total                                    00137199         
+                                     299 *         If current balance bigger then largest                        00137299         
+                                     300 *           Set largest to current balance                              00137399         
+                                     301 *   <4> Print total                                                     00137499         
+                                     302 *   <5> Print sum                                                       00137599         
+                                     303 *   <6> Calculate and print average                                     00137699         
+                                     304 *   <7> Print largest                                                   00137799         
+                                     305 *   <8> Print negative total                                            00137899         
+                                     306 *                                                                       00137999         
+                                     307 **************************************************                      00138099         
+ 001150                              308 TALLY    CSECT                                                          00138199         
+ 001150 90EC D00C            0000C   309          STM   14,12,12(13)        Save the registers                   00138299         
+ 001154 18CF                         310          LR    12,15               Establish R12 as the base register   00138399         
+ 001150                              311          USING TALLY,12                                                 00138499         
+ 001156 41E0 C100            01250   312          LA    14,TSAVE            Point R14 at PSAVE                   00138599         
+ 00115A 50D0 E004            00004   313          ST    13,4(0,14)          Save the forward pointer             00138699         
+ 00115E 50E0 D008            00008   314          ST    14,8(0,13)          Save the backward pointer            00138799         
+ 001162 18DE                         315          LR    13,14               Point R13 at PSACE                   00138899         
+                                     316 *                                                                       00138999         
+ 000000                              317          USING ENTRY,2             Use ENTRY dummy section for TABLE    00139099         
+ 001164 9823 1000            00000   318          LM    2,3,0(1)            Unload parameters                    00139199         
+                                     319 *                                                                       00139299         
+ 001168 5930 2000            00000   320 TLOOP    C     3,0(0,2)            If current table data = EOT          00139399         
+ 00116C 4780 C054            011A4   321          BE    ENDTLP              End loop                             00139499         
+ 001170 FA10 C148 C0F4 01298 01244   322          AP    TOTAL,=P'1'         Increment total                      00139599         
+ 001176 FA44 C14A 2025 0129A 00025   323          AP    SUM,BAL             Add balance to SUM                   00139699         
+ 00117C F944 C14F 2025 0129F 00025   324          CP    LARGE,BAL           If LARGE is greater then balance     00139799         
+ 001182 4720 C03C            0118C   325          BH    NOTHIGH             Branch to NOTHIGH                    00139899         
+ 001186 F844 C14F 2025 0129F 00025   326          ZAP   LARGE,BAL           Store Balance in LARGE               00139999         
+ 00118C F940 2025 C0F5 00025 01245   327 NOTHIGH  CP    BAL,=P'0'           If balance is not less then 0        00140099         
+ 001192 47B0 C04C            0119C   328          BNL   NOTNEG              Branch to NOTNEG                     00140199         
+ 001196 FA10 C154 C0F4 012A4 01244   329          AP    NEG,=P'1'           Increment negative total             00140299         
+ 00119C 4120 2030            00030   330 NOTNEG   LA    2,48(0,2)           Increment TABLE                      00140399         
+ 0011A0 47F0 C018            01168   331          B     TLOOP               Return to start of loop              00140499         
+                                     332 *                                                                       00140599         
+ 0011A4 D203 C19E C0F0 012EE 01240   333 ENDTLP   MVC   TOTALOUT+72(4),=X'40202120'                              00140699         
+ 0011AA DE03 C19E C148 012EE 01298   334          ED    TOTALOUT+72(4),TOTAL  Edit TOTAL using TOTALOUT          00140799         
+ 0011B0 E020 C156 004C 012A6         335          XPRNT TOTALOUT,76           Print TOTALOUT to 76 characters    00140899         
+                                     336 *                                                                       00140999         
+ 0011B6 4110 C1ED            0133D   337          LA    1,SUMOUT+75           Set R1 to 1st non-zero digit       00141099         
+1                                                                                                               PAGE    7         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+ 0011BA D20F C1E4 C0E0 01334 01230   338          MVC   SUMOUT+66(16),=X'40206B2020206B2021204B202040C3D9'       00141199         
+ 0011C0 DF0F C1E4 C14A 01334 0129A   339          EDMK  SUMOUT+66(16),SUM     Edit SUM using SUMOUT              00141299         
+ 0011C6 0610                         340          BCTR  1,0                   Subrtact 1 from R1                 00141399         
+ 0011C8 925B 1000      00000         341          MVI   0(1),C'$'             Put '$' in correct spot            00141499         
+ 0011CC E020 C1A2 0052 012F2         342          XPRNT SUMOUT,82             Print SUMOUT to 82 characters      00141599         
+                                     343 *                                                                       00141699         
+ 0011D2 FD41 C14A C148 0129A 01298   344          DP    SUM,TOTAL             Divide SUM by TOTAL                00141799         
+ 0011D8 4110 C23E            0138E   345          LA    1,AVGOUT+74           Set R1 to first non-zero digit     00141899         
+ 0011DC D206 C23C C0F6 0138C 01246   346          MVC   AVGOUT+72(7),=X'402021204B2020'                          00141999         
+ 0011E2 DF06 C23C C14A 0138C 0129A   347          EDMK  AVGOUT+72(7),SUM      Edit SUM using AVGOUT              00142099         
+ 0011E8 0610                         348          BCTR  1,0                   Subtract 1 from R1                 00142199         
+ 0011EA 925B 1000      00000         349          MVI   0(1),C'$'             Put '$' in correct spot            00142299         
+ 0011EE E020 C1F4 004F 01344         350          XPRNT AVGOUT,79             Print AVGOUT to 79 characters      00142399         
+                                     351 *                                                                       00142499         
+ 0011F4 4110 C28E            013DE   352          LA    1,LRGOUT+75           Set R1 to first non-zero digit     00142599         
+ 0011F8 D20F C285 C0E0 013D5 01230   353          MVC   LRGOUT+66(16),=X'40206B2020206B2021204B202040C3D9'       00142699         
+ 0011FE DF0F C285 C14F 013D5 0129F   354          EDMK  LRGOUT+66(16),LARGE   Edit LARGE using LRGOUT            00142799         
+ 001204 0610                         355          BCTR  1,0                   Subtract 1 from R1                 00142899         
+ 001206 925B 1000      00000         356          MVI   0(1),C'$'             Put '$' in correct spot            00142999         
+ 00120A E020 C243 0052 01393         357          XPRNT LRGOUT,82             Print LRGOUT to 82 characters      00143099         
+                                     358 *                                                                       00143199         
+ 001210 D203 C2DD C0F0 0142D 01240   359          MVC   NEGOUT+72(4),=X'40202120'                                00143299         
+ 001216 DE03 C2DD C154 0142D 012A4   360          ED    NEGOUT+72(4),NEG      Edit NEG using NEGOUT              00143399         
+ 00121C E020 C295 004C 013E5         361          XPRNT NEGOUT,76             Print NEGOUT to 76 characters      00143499         
+                                     362 *                                                                       00143599         
+ 001222 58D0 D004            00004   363          L     13,4(0,13)            Point R13 at caller's save area    00143699         
+ 001226 98EC D00C            0000C   364          LM    14,12,12(13)          Restore the registers              00143799         
+ 00122A 07FE                         365          BR    14                    Return to caller                   00143899         
+                                     366 *                                                                       00143999         
+                                     367          LTORG                                                          00144099         
+ 001230 40206B2020206B20             368                =X'40206B2020206B2021204B202040C3D9'                                      
+ 001240 40202120                     369                =X'40202120'                                                              
+ 001244 1C                           370                =P'1'                                                                     
+ 001245 0C                           371                =P'0'                                                                     
+ 001246 402021204B2020               372                =X'402021204B2020'                                                        
+ 001250                              373 TSAVE    DS    18F                   Allocate 18F for save area         00144199         
+ 001298 000C                         374 TOTAL    DC    PL2'0'                Allocate PL2 for TOTAL             00144299         
+ 00129A 000000000C                   375 SUM      DC    PL5'0'                Allocate PL5 for SUM               00144399         
+ 00129F 000000000C                   376 LARGE    DC    PL5'0'                Allocate PL5 for LARGE             00144499         
+ 0012A4 000C                         377 NEG      DC    PL2'0'                Allocate PL2 for NEG               00144599         
+ 0012A6 60                           378 TOTALOUT DC    C'-'                  Triple space carraige control      00144699         
+ 0012A7 4040404040404040             379          DC    CL33' '               Allocate 33 characters of spaces   00144799         
+ 0012C8 D5A4948285994096             380          DC    CL18'Number of clients:'                                 00144899         
+ 0012DA 4040404040404040             381          DC    CL20' '               Allocate 20 characters of spaces   00144999         
+ 0012EE 40404040                     382          DC    CL4' '                Allocate 4 characters of spaces    00145099         
+ 0012F2 F0                           383 SUMOUT   DC    C'0'                  Double space carraige control      00145199         
+ 0012F3 4040404040404040             384          DC    CL33' '               Allocate 33 characters of spaces   00145299         
+ 001314 E2A4944096864081             385          DC    CL24'Sum of account balances:'                           00145399         
+ 00132C 4040404040404040             386          DC    CL8' '                Allocate 8 characters of spaces    00145499         
+ 001334 4040404040404040             387          DC    CL16' '               Allocate 16 characters of spaces   00145599         
+ 001344 F0                           388 AVGOUT   DC    C'0'                  Double space carriage control      00145699         
+ 001345 4040404040404040             389          DC    CL33' '               Allocate 33 characters of spaces   00145799         
+ 001366 C1A5859981878540             390          DC    CL24'Average account balance:'                           00145899         
+ 00137E 4040404040404040             391          DC    CL14' '               Allocate 14 characters of spaces   00145999         
+ 00138C 40404040404040               392          DC    CL7' '                Allocate 7 characters of spaces    00146099         
+ 001393 F0                           393 LRGOUT   DC    C'0'                  Double space carriage control      00146199         
+ 001394 4040404040404040             394          DC    CL33' '               Allocate 33 characters of spaces   00146299         
+1                                                                                                               PAGE    8         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+ 0013B5 D381998785A2A340             395          DC    CL24'Largest account balance:'                           00146399         
+ 0013CD 4040404040404040             396          DC    CL8' '                Allocate 8 characters of spaces    00146499         
+ 0013D5 4040404040404040             397          DC    CL16' '               Allocate 16 characters of spaces   00146599         
+ 0013E5 F0                           398 NEGOUT   DC    C'0'                  Double space carriage control      00146699         
+ 0013E6 4040404040404040             399          DC    CL33' '               Allocate 33 characters of spaces   00146799         
+ 001407 D5A4948285994096             400          DC    CL28'Number of negative balances:'                       00146899         
+ 001423 4040404040404040             401          DC    CL10' '               Allocate 10 characters of spaces   00146999         
+ 00142D 40404040                     402          DC    CL4' '                Allocate 4 characters of spaces    00147099         
+                                     403 *                                                                       00147199         
+                                     404          END   MAIN                                                     00147200         
+0***  NO   STATEMENTS FLAGGED -  NO   WARNINGS,  NO   ERRORS                                                                      
+0*** DYNAMIC CORE AREA USED:  LOW:   25852 HIGH:    1636 LEAVING:  466080 FREE BYTES. AVERAGE:       67 BYTES/STMT ***            
+0*** ASSEMBLY TIME =    0.002 SECS,   202500 STATEMENTS/SEC ***                                                                   
+0*** PROGRAM EXECUTION BEGINNING - ANY OUTPUT BEFORE EXECUTION TIME MESSAGE IS PRODUCED BY USER PROGRAM ***                       
+1                                              Famous names -- Client List                                                        
+-         First Name         Last Name          Balance           Password          Exp. Date          ID Number                  
+0         Anna               Leonowens            $0.00           SIAMS4ME          2017/08/01         A1621350L                  
+0         Barry              Reed                 $1.74 CR        THEREIGO          2017/09/02         B7602565R                  
+0         Ben                Grimm              $470.40           STRONGUY          2017/10/03         B2876543G                  
+0         Boris              Badenov              $0.00           KILLMOOS          2018/03/04         B2766631B                  
+0         Bruce              Banner           $2,018.57           HULKISME          2018/02/05         B3377711B                  
+0         Bruce              Wayne              $161.33 CR        BATYCOON          2018/01/06         B9098765W                  
+0         Buffy              Summers             $25.90 CR        VAMPSRME          2017/12/07         B7990241S                  
+0         Bullwinkle         Moose                $0.00           ROCKYPAL          2017/11/08         B1094477M                  
+0         Casper             Ghost                $0.00           FRIENDLY          2018/10/09         C9162021G                  
+0         Charles            Xavier           $2,120.93           BALDIE            2018/09/10         C0987654X                  
+0         Clark              Kent               $201.86 CR        SUPERME           2017/08/11         C6789012K                  
+0         Daisy              Duck                 $0.00           FEMINIST          2018/07/12         D5432109D                  
+0         Dawn               Summers             $78.90           GREENKID          2018/06/13         D9054788S                  
+0         Diana              Prince               $0.00           AMAZON            2017/05/14         D8374651P                  
+0         Dick               Grayson          $1,100.61           SIDEKICK          2018/04/15         D8765439G                  
+0         Don                Blake              $501.02 CR        ODINSSON          2017/09/16         D1223347B                  
+0         Donald             Duck                 $0.00           MICKSPAL          2017/12/17         D2345678D                  
+0         Draco              Malfoy             $734.10           BULLYBOY          2017/11/18         D3131313M                  
+0         Edward             Nygma            $3,151.53           IAMSMART          2018/12/19         E9012345N                  
+0         Ellen              Ripley             $315.92           ALIENIST          2018/11/20         E3666000R                  
+1                                              Famous names -- Client List                                                        
+-         First Name         Last Name          Balance           Password          Exp. Date          ID Number                  
+0         Hal                Jordan             $401.02 CR        GREENMAN          2018/10/21         H4662160J                  
+0         Harold             Hill                 $0.00           MUSICMAN          2018/09/22         H5678947H                  
+0         Harry              Potter           $8,745.90           DESTINED          2018/08/23         H0000000P                  
+0         Henry              Higgins              $0.00           POLYLING          2018/07/24         H7021600H                  
+0         Hermione           Granger            $951.00           STUDIOUS          2018/06/25         H6666666G                  
+0         Indiana            Jones            $5,642.99           FOUNDARK          2018/05/26         I7766655J                  
+0         Jean               Gray               $321.03           ESPGIRL           2018/04/27         J0789012G                  
+0         Jimmy              Olsen              $151.53           JUSTAKID          2018/03/28         J3781223O                  
+0         John               Watson               $1.50 CR        LOYALDOC          2017/11/29         J0293843W                  
+0         Johnny             Storm              $100.32           FIREMAN           2017/10/30         J3012345S                  
+0         Joyce              Summers              $0.00           DECEASED          2017/12/31         J4726151S                  
+0         Lamont             Cranston             $0.00           SHADOWY           2017/11/01         L9056734C                  
+0         Lana               Lang               $561.64           REDHEAD           2017/10/02         L6502700L                  
+0         Lemuel             Gulliver           $214.56           TRAVELER          2017/09/03         L6882255G                  
+0         Lex                Luthor             $212.15           IWANTALL          2018/08/04         L8827315L                  
+0         Lois               Lane                 $5.97 CR        MYSUPER           2018/07/05         L3210987L                  
+0         Lori               Lemaris              $0.00           FISHGIRL          2018/09/06         L0000100L                  
+0         Lucy               Lane               $372.48           JIMSGIRL          2017/08/07         L3210987L                  
+0         Luke               Skywalker          $458.47           FORCEFUL          2017/08/08         L0000000S                  
+0         Mary               Watson              $70.72 CR        LOVEPETE          2018/09/29         M2456789W                  
+1                                              Famous names -- Client List                                                        
+-         First Name         Last Name          Balance           Password          Exp. Date          ID Number                  
+0         Matt               Murdock              $0.00           BLINDMAN          2017/10/10         M4889900M                  
+0         Mickey             Mouse                $0.00           DONSPAL           2018/02/11         M4543210M                  
+0         Mighty             Mouse                $0.00           HEREIAM           2017/11/12         M8230451M                  
+0         Nellie             Forbush              $0.00 CR        WASHHAIR          2018/07/04         N3952025F                  
+0         Nick               Fury               $340.40           OLDGUARD          2018/11/14         N7223344F                  
+0         Norman             Osborne              $0.00           GGOBLIN           2018/10/15         N0324571O                  
+0         Percy              Weasley             $76.73           BESTBOY           2018/09/16         P0090907W                  
+0         Perry              White               $21.22           IAMBOSS           2018/08/17         P8337610W                  
+0         Peter              Parker             $120.81 CR        ARACHNID          2018/07/18         P0432109P                  
+0         Reed               Richards         $1,113.27           STRETCHY          2018/10/31         R5901234R                  
+0         Road               Runner               $0.00           BEEPBEEP          2017/12/20         R9999999R                  
+0         Rocket             Squirrel             $0.00           ICANFLY           2017/11/21         R1390245S                  
+0         Ron                Weasley             $23.13           FRECKLES          2017/10/22         R5432871W                  
+0         Rupert             Giles              $235.71           WATCHER           2018/02/27         R9087436G                  
+0         Sarah              Connor           $1,764.23 CR        SURVIVOR          2017/02/24         S0000000C                  
+0         Scott              Summers              $0.00           FOUREYES          2017/10/25         S9028776S                  
+0         Scrooge            McDuck               $0.00           IAMRICH           2018/04/26         S6234567M                  
+0         Sherlock           Holmes               $0.00           DETECTIV          2017/12/28         S0000000H                  
+0         Stephen            Strange              $0.00           AMULET            2017/04/30         S3455667S                  
+0         Steve              Rogers               $0.00           CAPTAINA          2018/06/01         S7492871R                  
+1                                              Famous names -- Client List                                                        
+-         First Name         Last Name          Balance           Password          Exp. Date          ID Number                  
+0         Sue                Storm                $0.00           REEDSGAL          2018/07/15         S2765432S                  
+0         Sylvester          Cat                $194.56           PUDDYTAT          2017/11/01         S5050505C                  
+0         Tony               Stark                $0.00           STEELGUY          2017/12/30         T4678901S                  
+0         Tweety             Bird                 $0.00           TARGET            2017/11/11         T0404040B                  
+0         Wiley              Coyote           $7,523.41           BUYSACME          2017/11/11         W0990009C                  
+0         Willow             Rosenberg          $156.72           BIGWITCH          2018/10/31         W7356012R                  
+0         Xander             Harris              $95.96 CR        GOODGUY           2017/12/31         X7205879H                  
+-                                 Number of clients:                      67                                                      
+0                                 Sum of account balances:           $34,056.12                                                   
+0                                 Average account balance:              $508.30                                                   
+0                                 Largest account balance:            $8,745.90                                                   
+0                                 Number of negative balances:            12                                                      
+0*** EXECUTION TIME =    0.003 SECS.      3138 INSTRUCTIONS EXECUTED -  1046000 INSTRUCTIONS/SEC ***                              
+0*** AM004 - NORMAL USER TERMINATION BY RETURN ***                                                                                

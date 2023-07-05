@@ -1,0 +1,98 @@
+/******************************************
+Program: Assignment8: quick sort algorithm
+
+Author: Mason Greig
+
+ZID: z1768935
+
+Due date: 11/17/16
+
+Purpose: contains the method definitions and the prototypes of the quicksort algorithm
+******************************************/
+#ifndef QUICKSORT_H										//start of the header file definition
+#define QUICKSORT_H
+
+using namespace std;
+
+template <class T>
+void quickSort(vector<T>& set, bool (*compare)(const T&, const T&));
+
+template <class T>
+ void quickSort(vector<T>& set, int start, int end, bool (*compare)(const T&, const T&));		//method prototypes
+
+template<class T>
+int partition(vector<T>& set, int start, int end, bool (*compare)(const T&, const T&));
+
+/******************************
+Function: void quickSort(vector<T>& set, bool (*compare)(const T& lhs, const T& rhs))
+
+Use: calls the quick sort algorithm recursively
+
+Arguments: vector<T>&: a reference to a vector object of T data type
+	   bool (*compare)(const T& lhs, const T& rhs)): a pointer to a function which compares two T data values
+Returns: nothing
+******************************/
+template <class T>
+void quickSort(vector<T>& set, bool (*compare)(const T& lhs, const T& rhs))
+{
+	quickSort(set, 0, set.size() - 1, compare);					//calls a recursive quicksort algorithm to sort two values of T data type
+}
+/******************************
+Function: void quickSort(vector<T>& set, int start, int end, bool (*compare)(const T&, const T&))
+
+Use: preforms the recursive calls necessary to implement the quick sort algorithm
+
+Arguments: vector<T>&: a reference to a vector object of T data type
+	   int start: the beginning of the vector
+	   int end: the end of the vector
+	   bool (*compare)(const T& lhs, const T& rhs)): a pointer to a function which compares two constant T data values
+
+Returns: nothing
+******************************/
+template <class T>
+void quickSort(vector<T>& set, int start, int end, bool (*compare)(const T&, const T&))
+{
+	int pivotPoint;									//the point at which the vector is to be divided when splitting the vector into two seperate vectors
+	if(start < end)
+		{
+			pivotPoint = partition(set, start, end, compare);
+			quickSort(set, start, pivotPoint - 1, compare);			//if the start is less then the end then set the pivot value using the partition function
+			quickSort(set, pivotPoint + 1, end, compare);			//call the quicksort algorithm on each side of the vector object
+		}
+}
+/******************************
+Function: int partition(vector<T>& set, int start, int end, bool (*compare)(const T&, const T&))
+
+Use: splits the vector object into two seperate vector objects and sorts the numbers for each side of the vector into semi sorted information 
+
+Arguments: vector<T>&: a reference to a vector object of type T
+	   int start: the beginning of the vector
+           int end: the end of the vector
+           bool (*compare)(const T& lhs, const T& rhs)): a pointer to a function which compares two constant T data values
+
+Returns: int: the value to be assigned to the partition variable
+******************************/
+template <class T>
+int partition(vector<T>& set, int start, int end, bool (*compare)(const T&, const T&))
+{
+	int pivotIndex, mid;
+	T pivotValue;			//local variables needed in the partition function
+	mid = (start + end) / 2;
+
+	swap(set[start], set[mid]);		
+
+	pivotIndex = start;
+	pivotValue = set[start];
+
+	for(int scan = start + 1; scan <= end; scan++)
+		{
+			if(compare(set[scan], pivotValue))
+				{
+					pivotIndex++;
+					swap(set[pivotIndex], set[scan]);
+				}
+		}
+	swap(set[start], set[pivotIndex]);
+	return pivotIndex;
+}
+#endif

@@ -1,0 +1,381 @@
+/********************************************************************
+ Class:     CSCI 580-2
+ Program:   Assignment 5
+ Author:    Chris Samberg
+ Z-number:  z1689879
+ Date Due:  05/04/17
+
+ Purpose:   This program simulates a 4-way stop light at the
+            intersection of Annie Glidden and Lincoln Highway.
+
+ Execution: ./hw5.exe
+
+*********************************************************************/
+#include <semaphore.h>
+#include <sys/shm.h>
+#include <sys/stat.h>
+#include <unistd.h>
+#include <iostream>
+#include <iomanip>
+#include <cstring>
+#include <sys/types.h>
+#include <sys/wait.h>
+using namespace std;
+
+struct sema
+{
+  sem_t arr[5];
+} *semlock;
+
+void worker(int i, sema * args);
+void semaphoreWait(sem_t *);
+void unlockSemaphore(sem_t *semlockp);
+ 
+int main(int argc, char *argv[])
+{
+  int error;
+  int i;
+  int id;
+  pid_t pids[5];
+  int ret;
+
+  // Get the address location of the shared memory:
+  id = shmget(IPC_PRIVATE, sizeof(sema), (S_IRUSR|S_IWUSR));
+
+  // If shmget fails:
+  if (id == -1)
+    {
+      cout << "Failed to create shared memory segment" << endl;
+      return 1;
+    }
+
+  cout << "Got shared memory with id " << id << endl;
+
+  // Attach a memory segment to the structure:
+  semlock = (sema *)shmat(id, NULL, 0);
+
+  // If the attachment fails:
+  if (semlock == (void *)-1)
+    {
+      cout << "Failed to attach memory segment" << endl;
+      return 1;
+    }
+
+  cout << "Attached to shared memory at " << semlock << endl;
+
+  // Initialize 5 semaphores for the shared memory:
+  for(short i = 0; i < 5; i++)
+    {
+      ret = sem_init(&(semlock->arr[i]), 1, 1);
+
+      // If the initalization fails:
+      if (ret == -1)
+	{
+	  cout << "Failed to initialize semaphore" << endl;
+	}
+    }
+
+  // Print the status of the semaphores:
+  cout << "Initialized semaphore # 0: (NE) to 1" << endl
+       << "Initialized semaphore # 1: (NW) to 1" << endl
+       << "Initialized semaphore # 2: (SE) to 1" << endl
+       << "Initialized semaphore # 3: (SW) to 1" << endl
+       << "Initialized semaphore # 4 for cout" << endl << endl;
+  
+  if (ret != -1)
+    {
+      // Loop 5 times for the 5 processes:
+      for (i = 0; i < 5; i++)
+        {
+	  // Fork a child:
+          ret = fork();
+
+	  pids[i] = ret;
+
+	  // Child process:
+          if (pids[i] == 0)
+            {
+	      worker(i, semlock);
+            }
+	}
+
+      // Parent process:
+      for (i = 0; i < 6; i++)
+	{
+	  wait();
+	}
+
+      for (unsigned int i = 0; i < 65534; i++)
+	{
+	  double variable;
+	}
+    }
+  
+  // Shared memory detach:
+  ret = shmdt((void *));
+  if (ret == -1)
+    {
+      cout << "Failed to detach shared memory segment" << endl;
+      return 1;
+    }
+
+  // Free the shared memory
+  ret = shmctl(id, IPC_RMID, NULL); 
+  if (ret == -1)
+    {
+      cout << "Failed to free the shared memory" << endl;
+      return 1;
+    }
+
+  return 0;
+}
+
+void worker(int i, sema *semlockp)
+{
+  // No buffering
+  cout << unitbuf;
+
+  // Loop 3 times for the 3 cars in each lane:
+  for (short j = 1; j < 4; j++)
+    {
+      // Lincoln Highway west:
+      if (i == 0)
+	{
+	  // Print initializing semaphore message:
+	  semaphoreWait(&(semlockp->arr[4]));
+	  cout << "Starting process for street 0: Lincoln Hwy west" << endl;
+	  unlockSemaphore(&(semlockp->arr[4]));
+	  
+	  // Wait for the first lock:
+	  semaphoreWait(&(semlockp->arr[2]));
+	  
+	  // First semaphore obtained:
+	  semaphoreWait(&(semlockp->arr[4]));
+	  cout << "On Lincoln Hwy west, car " << j
+	       << " has obtained lock for SE" << endl;
+	  unlockSemaphore(&(semlockp->arr[4]));
+	  
+
+	  // Wait for the second lock:
+	  semaphoreWait(&(semlockp->arr[3]));
+
+	  // Second semaphore obtained:
+	  semaphoreWait(&(semlockp->arr[4]));
+	  cout << "On Lincoln Hwy west, car " << j
+	       << " has obtained lock for SW" << endl
+	       << "On Lincoln Hwy west, car 1 has both locks" << endl;
+	  unlockSemaphore(&(semlockp->arr[4]));
+
+
+	  // After succesffully crossing:
+	  semaphoreWait(&(semlockp->arr[4]));
+	  cout << "On Lincoln Hwy west, car " << j << " has crossed"
+	       << endl;
+	  unlockSemaphore(&(semlockp->arr[4]));
+	  
+	  
+	  
+	  // Release the first lock:
+	  unlockSemaphore(&(semlockp->arr[2]));
+	  semaphoreWait(&(semlockp->arr[4]));
+	  cout << "On Lincoln Hwy west, car " << j << " has unlocked SE"
+	       << endl;
+	  unlockSemaphore(&(semlockp->arr[4]));
+	  
+	  // Release the second lock:
+	  unlockSemaphore(&(semlockp->arr[3]));
+	  semaphoreWait(&(semlockp->arr[4]));
+	  cout << "On Lincoln Hwy west, car " << j << " has unlocked SW"
+	       << endl << endl;
+	  unlockSemaphore(&(semlockp->arr[4]));
+	}
+      // Annie Glidden north:
+      else if (i == 1)
+	{
+	  // Print initializing semaphore message:
+	  semaphoreWait(&(semlockp->arr[4]));
+	  cout << "Starting process for street 1: Annie Glidden north"
+	       << endl;
+	  unlockSemaphore(&(semlockp->arr[4]));
+
+	  // Wait for the first lock:
+	  semaphoreWait(&(semlockp->arr[3]));
+
+	  // First semaphore obtained:
+	  semaphoreWait(&(semlockp->arr[4]));
+	  cout << "On Annie Glidden north, car " << j
+	       << " has obtained lock for SW" << endl;
+	  unlockSemaphore(&(semlockp->arr[4]));
+	  
+	  
+	  // Wait for the second lock:
+	  semaphoreWait(&(semlockp->arr[1]));
+
+	  // Second semaphore obtained:
+	  semaphoreWait(&(semlockp->arr[4]));
+	  cout << "On Annie Glidden north, car " << j
+	       << " has obtained lock for NW" << endl
+	       << "On Annie Glidden north, car " << j << " has both locks"
+	       << endl;
+	  unlockSemaphore(&(semlockp->arr[4]));
+	  
+	  
+	  // After succesffully crossing:
+	  semaphoreWait(&(semlockp->arr[4]));
+	  cout << "On Annie Glidden north, car " << j << " has crossed"
+	       << endl;
+	  unlockSemaphore(&(semlockp->arr[4]));
+	  
+
+      
+	  // Release the first lock:
+	  unlockSemaphore(&(semlockp->arr[3]));
+	  semaphoreWait(&(semlockp->arr[4]));
+	  cout << "On Annie Glidden north, car " << j
+	       << " has unlocked SW" << endl;
+	  unlockSemaphore(&(semlockp->arr[4]));
+
+	  // Release the second lock:
+	  unlockSemaphore(&(semlockp->arr[1]));
+	  semaphoreWait(&(semlockp->arr[4]));
+	  cout << "On Annie Glidden north, car " << j << " has unlocked NW"
+	       << endl << endl;
+	  unlockSemaphore(&(semlockp->arr[4]));
+	}
+      // Lincoln Highway east:
+      else if (i == 2)
+	{
+	  // Print initializing semaphore message:
+	  semaphoreWait(&(semlockp->arr[4]));
+	  cout << "Starting process for street 2: Lincoln Hwy east" << endl;
+	  unlockSemaphore(&(semlockp->arr[4]));
+	  
+	  // Wait for the first lock:
+	  semaphoreWait(&(semlockp->arr[1]));
+	  
+	  // First semaphore obtained:
+	  semaphoreWait(&(semlockp->arr[4]));
+	  cout << "On Lincoln Hwy east, car " << j
+	       << " has obtained lock for NW" << endl;
+	  unlockSemaphore(&(semlockp->arr[4]));
+	  
+	  
+	  // Wait for the second lock:
+	  semaphoreWait(&(semlockp->arr[0]));
+	  
+	  // Second semaphore obtained:
+	  semaphoreWait(&(semlockp->arr[4]));
+	  cout << "On Lincoln Hwy east, car " << j
+	       << " has obtained lock for NE" << endl
+	       << "On Lincoln Hwy east, car " << j << " has both locks"
+	       << endl;
+	  unlockSemaphore(&(semlockp->arr[4]));
+
+
+	  // After succesffully crossing:
+	  semaphoreWait(&(semlockp->arr[4]));
+	  cout << "On Lincoln Hwy east, car " << j << " has crossed"
+	       << endl;
+	  unlockSemaphore(&(semlockp->arr[4]));
+	  
+	  
+	  
+	  // Release the first lock:
+	  unlockSemaphore(&(semlockp->arr[1]));
+	  semaphoreWait(&(semlockp->arr[4]));
+	  cout << "On Lincoln Hwy east, car " << j << " has unlocked NW"
+	       << endl;
+	  unlockSemaphore(&(semlockp->arr[4]));
+	  
+	  // Release the second lock:
+	  unlockSemaphore(&(semlockp->arr[0]));
+	  semaphoreWait(&(semlockp->arr[4]));
+	  cout << "On Lincoln Hwy east, car " << j << " has unlocked NE"
+	       << endl << endl;
+	  unlockSemaphore(&(semlockp->arr[4]));
+	}
+      // Annie Glidden south:
+      else if (i == 3)
+	{
+	  // Print initializing semaphore message:
+	  semaphoreWait(&(semlockp->arr[4]));
+	  cout << "Starting process for street 3: Annie Glidden south"
+	       << endl;
+	  unlockSemaphore(&(semlockp->arr[4]));
+
+	  // Wait for the first lock:
+	  semaphoreWait(&(semlockp->arr[0]));
+	  
+	  // First semaphore obtained:
+	  semaphoreWait(&(semlockp->arr[4]));
+	  cout << "On Annie Glidden south, car " << j
+	       << " has obtained lock for SE" << endl;
+	  unlockSemaphore(&(semlockp->arr[4]));
+	  
+	  
+	  // Wait for the second lock:
+	  semaphoreWait(&(semlockp->arr[2]));
+	  
+	  // Second semaphore obtained:
+	  semaphoreWait(&(semlockp->arr[4]));
+	  cout << "On Annie Glidden south, car " << j
+	       << " has obtained lock for SW"
+	       << endl << "On Annie Glidden south, car " << j
+	       << " has both locks" << endl;
+	  unlockSemaphore(&(semlockp->arr[4]));
+	  
+	  
+	  // After succesffully crossing:
+	  semaphoreWait(&(semlockp->arr[4]));
+	  cout << "On Annie Glidden south, car " << j << " has crossed"
+	       << endl;
+	  unlockSemaphore(&(semlockp->arr[4]));
+	  
+	  
+	  
+	  // Release the first lock:
+	  unlockSemaphore(&(semlockp->arr[0]));
+	  semaphoreWait(&(semlockp->arr[4]));
+	  cout << "On Annie Glidden south, car " << j << " has unlocked SE"
+	       << endl;
+	  unlockSemaphore(&(semlockp->arr[4]));
+	  
+	  // Release the second lock:
+	  unlockSemaphore(&(semlockp->arr[1]));
+	  semaphoreWait(&(semlockp->arr[4]));
+	  cout << "On Annie Glidden south, car " << j << " has unlocked SW"
+	       << endl << endl;
+	  unlockSemaphore(&(semlockp->arr[4]));
+	}
+    }
+
+  exit(0);
+}
+
+void semaphoreWait(sem_t *semlockp)
+{
+  // Wait for the semophore lock and take when available:
+  int ret = sem_wait(semlockp);
+  
+  // If the semaphore lock isn't available, wait again:
+  while (ret == -1)
+    {
+      // Print error message:
+      if(errno != EINTR)
+	{
+	  cout << "Failed to lock semaphore" << endl;
+	  return;
+	}
+      // Wait for the semaphore again:
+      ret = sem_wait(semlockp);
+    }
+}
+
+void unlockSemaphore(sem_t *semlockp)
+{
+  // Unlock the semaphore to give access to it:
+  int ret = sem_post(semlockp);
+  
+  if (ret == -1)
+    cout << "Failed to unlock semaphore" << endl;
+}

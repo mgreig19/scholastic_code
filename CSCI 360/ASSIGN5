@@ -1,0 +1,290 @@
+   	//KC03KA9K JOB ,'MASON GREIG',MSGCLASS=H                                00061019
+//STEP1 EXEC PGM=ASSIST                                                 00061119
+//STEPLIB DD DSN=KC02293.ASSIST.LOADLIB,DISP=SHR                        00061220
+//SYSPRINT DD SYSOUT=*                                                  00061319
+//SYSIN DD *                                                            00061419
+*****************************************************                   00062019
+*                                                                       00070001
+* ASSIGNMENT 5                                                          00080001
+*                                                                       00090001
+* NAME: MASON GREIG                                                     00100001
+*                                                                       00110001
+* FUNCTION: THIS PROGRAM USES EXTERNAL SUBROUTINES                      00120004
+*           TO BUILD, SEARCH, AND PRINT OUT A TABLE                     00130004
+*           OF NUMBERS. THIS PROGRAM WILL ALSO PRINT OUT                00140004
+*           THE SEARCH SUMMARY TABLE.                                   00150004
+*                                                                       00151004
+* INPUT:  THE INPUT IS A DATA FILE SUPPLIED BY THE PROFESSOR.           00160004
+*                                                                       00170001
+* REGISTER USAGE                                                        00171004
+*                                                                       00171104
+* 13 MAINSAVE REGISTER                                                  00171204
+* 12 MAIN BASE REGISTER                                                 00172004
+*  1 PARAMETER LIST                                                     00173004
+* 14 EXIT PROGRAM                                                       00174004
+* 14 RETURN REGISTER                                                    00175004
+* 10 FILE DATA                                                          00176055
+*  7 SEARCH CHECK                                                       00177004
+*                                                                       00178004
+*****************************************************                   00180001
+*                                                                       00181004
+MAIN     CSECT                                                          00190001
+         STM   14,12,12(13)             SAVES REGISTERS                 00200115
+         LR    12,15                    SETS REG 12 AS BASE REG         00200215
+         USING MAIN,12                                                  00200304
+         LA    14,MAINSAVE              STORE MAINSAVE ADDRESS IN 12    00200415
+         ST    13,4(0,14)               SAVE FORWARD POINTER            00200515
+         ST    14,8(0,13)                   SAVE BACKWARD POINTER       00200615
+         LR    13,14                        POINTER TO MAINSAVE         00200715
+*                                                                       00200804
+         XPRNT HEADER,49                    PRINTS HEADER               00200942
+         XPRNT HEADSPCE,1                   PRINTS FORMATTING LINE      00201015
+         LA    1,BUILDPAR                   SAVE PARAMETERS             00201115
+         L     15,=V(BUILD)                 LOAD A VIRTUAL ADDRESS OF   00201221
+         BALR  14,15                        ROUTINE AND BRANCH TO IT    00201315
+*                                                                       00201404
+         LA    1,PRNTPAR                    SAVE PARAMETERS             00201592
+         L     15,=V(PRINT)                 LOAD A VIRTUAL ADDRESS OF   00201692
+         BALR  14,15                        ROUTINE AND BRANCH TO IT    00201792
+*                                                                       00201804
+         XPRNT SPCE,1                       PRINTS FORMATTING SPACE     00201999
+         XPRNT RESULTS,33                   PRINTS A RESULTS HEADER     00202025
+         XPRNT SPCE,1                       PRINTS FORMATTING SPACE     00202115
+LNELOOP  MVI   SRESULT+23,C' '              DESTRUCTIVE OVERLAP         00202263
+         MVC   SRESULT+24(14),SRESULT+23                                00202363
+         XREAD BUFFER,80                    READS FROM INPUT FILE       00202415
+         BC    B'0100',ENDLINE              IF AT EOF GO TO ENDLINE     00202521
+         XDECI 9,BUFFER                     STORE BUFFER VALUE IN 9     00202615
+         ST    9,TARGET                     STORE 9 VALUE IN TARGET     00202715
+         LA    1,SEARCHP                    SAVE THE SEARCH PARAMETERS  00202821
+         L     15,=V(SEARCH)                LOAD A VIRTUAL ADDRESS OF   00202921
+         BALR  14,15                        ROUTINE AND BRANCH TO IT    00203015
+         L     10,FOUND                     STORE FOUND CC INTO 10      00203171
+         XDECO 9,NUMFND                     PUT VALUE IN 9 INTO NUMFND  00203253
+         C     10,=F'0'                     COMPARE CC TO 0             00203371
+         BC    B'1000',NOTFND               IF EQUAL GO TO NOTFOUND     00203453
+         MVC   SRESULT+23(10),=C' WAS FOUND'  DESTRUCTIVE OVERLAP       00203565
+         BC    B'1111',ENDRSLT                GO TO ENDSLINE            00203622
+*                                                                       00203704
+NOTFND   MVC   SRESULT+23(14),=C' WAS NOT FOUND'  DESTRUCTVE OVRLAP     00203865
+ENDRSLT  XPRNT SRESULT,37                       PRINT THE RESULT        00203938
+         BC    B'1111',LNELOOP                  GO TO THE TOP OF LOOP   00204015
+ENDLINE  L     13,4(0,13)                       STANDARD EXIT LINKAGE   00204115
+         LM    14,12,12(13)                                             00204204
+         BR    14                            EXIT PROGRAM               00204399
+         LTORG                                                          00204422
+BUFFER   DS    80C                           INPUT BUFFER               00204599
+         DC    C'*'                          EOF CHECKER                00204699
+TARGET   DS    F                             TABLE OF NUMBERS           00204799
+FOUND    DS    F                             FOUND CONDITION CODE       00204899
+MAINSAVE DS    18F                           MAIN PROGRAM SAVE LOC      00204999
+TABLE    DC    56F'-1'                       END OF TABLE               00205099
+EOT      DS    F                                                        00205104
+*                                                                       00205204
+BUILDPAR DC    A(TABLE)                      EXTERNAL SUBROUTINE        00205399
+         DC    A(EOT)                        PARAMETERS                 00205499
+         DC    A(BUFFER)                                                00205504
+PRNTPAR  DC    A(TABLE)                                                 00205604
+         DC    A(EOT)                                                   00205704
+SEARCHP  DC    A(TABLE)                                                 00205804
+         DC    A(EOT)                                                   00205904
+         DC    A(TARGET)                                                00206004
+         DC    A(FOUND)                                                 00206104
+*                                                                       00206204
+HEADER   DC    C'1'                          TITLE OF TABLE             00206399
+         DC    CL34' '                                                  00206438
+         DC    C'TABLE CONTENTS'                                        00206529
+HEADSPCE DC    C'0'                                                     00206604
+*                                                                       00206704
+RESULTS  DC    C'-'                                                     00206804
+         DC    C'-RESULTS OF SEARCHING THE TABLE-'  TITLE OF SEARCH LNE 00206999
+SPCE     DC    C'0'                           FORMATTING SPACE          00207099
+SRESULT  DC    C'-'                           SEARCH RESULTS LINE       00207199
+         DC    C'-TARGET = '                                            00207326
+NUMFND   DS    12C                                                      00207523
+         DS    14C                                                      00207638
+*                                                                       00207704
+**********************************************                          00207804
+*                                                                       00207904
+* BUILD                                                                 00208004
+*                                                                       00208104
+* FUNCTION: THIS METHOD BUILDS THE TABLE OUT OF                         00208204
+*           DATA WHICH IS READ IN FROM THE INPUT FILE                   00208304
+*                                                                       00208404
+* OUTPUT: N/A                                                           00208504
+*                                                                       00208604
+* REGISTER USAGE                                                        00208704
+*                                                                       00208804
+*  4    INPUT VALUE                                                     00208904
+*  5    EOF NUMBER TO CHECK                                             00209004
+*  7    TABLE                                                           00209104
+*  8    EOT                                                             00209204
+*  9    INPUT BUFFER                                                    00209304
+* 10    COUNTER                                                         00209460
+**********************************************                          00209504
+*                                                                       00209604
+BUILD    CSECT                         BEGINNING OF BUILD SUBROUTINE    00209799
+         STM   14,12,12(13)                                             00209804
+         LR    12,15                                                    00209904
+         USING BUILD,12                STANDARD ENTRY LINAGE            00210099
+         LA    14,BUILDSVE                                              00210104
+         ST    13,4(0,14)                                               00210204
+         ST    14,8(0,13)                                               00210304
+         LR    13,14                                                    00210404
+         SR    10,10                                                    00210538
+*                                                                       00210604
+         LM    7,9,0(1)               LOAD PARAMETERS                   00210799
+         L     5,=F'-77777777'        SET EOF MARKER                    00210899
+BLDLOOP  XREAD 0(0,9),80              READ INPUT FILE FROM SOURCE       00210999
+         BC    B'0100',ENDBLD         IF AT EOF GO TO ENDBLD            00211099
+         C     10,=F'56'              TABLE STORAGE CHECK               00211199
+         BC    B'1000',ENDBLD         IS STORAGE FULL GO TO ENDBLD      00211299
+         XDECI 4,0(0,9)               READIN NEXT NUMBER FROM INPUT     00211399
+         BC    B'0001',BLDLOOP        IF ERROR GO TO BLDLOOP            00211499
+         CR    5,4                    COMPARE INPUT VALUE TO EOF MARKER 00211599
+         BC    B'1000',ENDBLD         IF EQUAL GO TO ENDBLD             00211699
+         C     10,=F'56'              CHECK TABLE STORAGE               00211799
+         BC    B'1000',ENDBLD         IF THE TABLE IS FULL GO TO ENDBLD 00211899
+         ST    4,0(0,7)               STORE VALUE IN 4 AT ADDRESS OF 7  00211999
+         A     10,=F'1'               INCREMENT STORAGE TRACKER         00212099
+         LA    7,4(0,7)               POINT TO THE NEXT AVAILABLE SPACE 00212199
+BLDLOOP2 XDECI 4,0(0,1)               READ IN NEXT VALUE FROM INPUT     00212299
+         BC    B'0001',BLDLOOP        IF ERROR GO TO BLDLOOP            00212399
+         CR    5,4                    COMPARE VALUE TO STORAGE MARKER   00212499
+         BC    B'1000',ENDBLD         IF EQUAL GO TO ENDBLD             00212599
+         C     10,=F'56'              CHECK TABLE STORAGE MARKER        00212699
+         BC    B'1000',ENDBLD         IF EQUAL GO TO ENDBLD             00212799
+         ST    4,0(0,7)               STORE VALUE IN 4 AT ADDRESS OF 7  00212899
+         A     10,=F'1'               INCREMENT STORAGE MARKER          00212999
+         LA    7,4(0,7)               POINT AT NEXT AVAILABLE SPACE     00213099
+         BC    B'1111',BLDLOOP2       GO TO BLDLOOP2                    00213199
+*                                                                       00213204
+ENDBLD   ST    7,0(0,8)               SET END OF TABLE                  00213399
+         L     13,4(0,13)             STANDARD EXIT LINKAGE             00213499
+         LM    14,12,12(13)                                             00213504
+         BR    14                                                       00213604
+         LTORG                                                          00213704
+BUILDSVE DS    18F                    SAVE SPACE                        00213899
+*                                                                       00213904
+**********************************************                          00214004
+*                                                                       00214104
+* PRINT                                                                 00214204
+*                                                                       00214304
+* FUNCTION: THIS METHOD PRINTS OUT THE TABLE                            00214404
+*           WHICH CONTAINS THE DATA. THIS TABLE                         00214504
+*           IS DOUBLE SPACE AND CONTAINS 7 NUMBERS                      00214604
+*           PER LINE.                                                   00214704
+*                                                                       00214804
+* INPUT: THE TABLE WHICH WAS BUILT FROM INPUT FILE VALUES               00214904
+*                                                                       00215004
+* OUTPUT: A FORMATTED TABLE WHICH DISPLAYS THE                          00215104
+*         DATA 7 NUMBERS PER LINE.                                      00215204
+*                                                                       00215304
+* REGISTER USAGE                                                        00215404
+*                                                                       00215546
+*  6    TABLE VALUE                                                     00215646
+*  7    TABLE                                                           00215746
+*  8    EOT                                                             00215846
+*  9    ADDRESS OF PRINT LINE                                           00215998
+* 10    LINE VALUE COUNTER                                              00216073
+*                                                                       00216146
+**********************************************                          00216204
+*                                                                       00216304
+PRINT    CSECT                                                          00216404
+         STM   14,12,12(13)           STANDARD ENTRY LINKAGE            00216699
+         LR    12,15                                                    00216704
+         USING PRINT,12                                                 00216804
+         LA    14,PRNTSVE                                               00216904
+         ST    13,4(0,14)                                               00217004
+         ST    14,8(0,13)                                               00217104
+         LR    13,14                                                    00217204
+         LM    7,8,0(1)               LOAD PARAMETERS                   00217399
+*                                                                       00217404
+PRNTLOOP C     7,0(0,8)               COMPARE PLACE IN TABLE TO EOT     00217699
+         BC    B'1000',ENDPRNT        IF EQUAL GO TO ENDPRNT            00217799
+         MVI   PRNTLINE,C' '          DESTRUCTIVE OVERLAP               00217899
+         MVC   PRNTLINE+1(84),PRNTLINE                                  00217995
+         LA    9,PRNTLINE             STORE ADDRESS OF PRNTLINE INTO 9  00218099
+         LA    9,1(0,9)               SKIP CCC                          00218199
+         SR    10,10                  ZERO OUT PLACE CHECKER            00218299
+*                                                                       00218304
+PLOOP2   C     7,0(0,8)               COMPARE PLACE IN TABLE TO EOT     00218499
+         BC    B'1000',ENDP2          IF EQUAL GO TO ENDPRNT2           00218599
+         C     10,=F'7'               COMPARE VALUE IN 10 TO '7'        00218699
+         BC    B'1000',ENDP2          IF EQUAL GO TO ENDPRNT2           00218799
+         L     6,0(0,7)               PUT TABLE VALUE INTO 6            00218899
+         XDECO 6,0(0,9)               PLACE VALUE ON PRINT LINE         00218999
+         LA    9,12(0,9)              GO TO NEXT PLACE IN PRINT LINE    00219199
+         A     10,=F'1'               INCREMENT PLACE COUNT             00219299
+         LA    7,4(0,7)               GO TO NEXT VALUE IN TABLE         00219399
+         BC    B'1111',PLOOP2         GO TO PLOOP2                      00219499
+*                                                                       00219504
+ENDP2    XPRNT PRNTLINE,85            PRINT THE PRNTLINE                00219699
+         BC    B'1111',PRNTLOOP       GO TO PRNTLOOP                    00219799
+ENDPRNT  ST    7,0(0,8)               SET EOT                           00219899
+         L     13,4(0,13)             STANDARD EXIT LINKAGE             00219999
+         LM    14,12,12(13)                                             00220004
+         BR    14                     EXIT PROGRAM                      00220199
+         LTORG                                                          00220204
+*                                                                       00220304
+PRNTSVE  DS    18F                   SAVE SPACE                         00220499
+PRNTLINE DC    C' '                  PRINT LINE                         00220599
+         DS    84C                                                      00220699
+*                                                                       00220804
+************************************************                        00220904
+*                                                                       00221004
+* SEARCH                                                                00221104
+*                                                                       00221204
+*  FUNCTION: THIS METHOD SEARCHES THE TABLE FOR                         00221304
+*            A VALUE THAT IS PASSED IN BY THE CALLING                   00221404
+*            PROGRAM.                                                   00221504
+*                                                                       00221604
+*  INTPUT: THIS METHOD TAKES 4 ARGUMENTS - THE ADDRESS                  00221704
+*          OF THE TABLE, THE ADDRESS OF THE EOT, TARGET VALUE           00221804
+*          , FOUND VALUE.                                               00221904
+*  OUTPUT: THIS METHOD SENDS A RETURN CONDITION CODE                    00222004
+*          WHICH INFORMS THE CALLING PROGRAM OF IF THE                  00222104
+*          SEARCH IS SUCCESSFUL.                                        00222204
+*                                                                       00222304
+*  REGISTER USAGE                                                       00222404
+*                                                                       00222556
+*   5    TARGET VALUE                                                   00222653
+*   6    TABLE  VALUE                                                   00222753
+*   7    TABLE                                                          00222804
+*   8    EOT                                                            00222904
+*   9    TARGET                                                         00223004
+*  10    FOUND                                                          00223166
+*                                                                       00223253
+************************************************                        00223304
+SEARCH   CSECT                                                          00223457
+         STM   14,12,12(13)           STANDARD ENTRY LINKAGE            00223599
+         LR    12,15                                                    00223604
+         USING SEARCH,12                                                00223704
+         LA    14,SRCHSAVE                                              00223804
+         ST    13,4(0,14)                                               00223904
+         ST    14,8(0,13)                                               00224004
+         LR    13,14                                                    00224104
+         LM    7,10,0(1)              LOAD REGISTERS                    00224299
+         L     5,0(0,9)               STORE TARGET VALUE IN 5           00224399
+*                                                                       00224404
+SLOOP    L     6,0(0,7)               LOAD VALUE IN TABLE INTO 6        00224599
+         CR    5,6                    COMPARE TABLE VALUE TO TARGET     00224699
+         BC    B'1000',WASFOUND       IF EQUAL GO TO WASFOUND           00224799
+         C     7,0(0,8)               CHECK TO SEE IF AT EOT            00224899
+         BC    B'1000',NOTFOUND       IF AT EOT GO TO NOTFOUND          00224999
+         LA    7,4(0,7)               POINT TO THE NEXT VALUE IN TABLE  00225099
+         BC    B'1111',SLOOP          GO TO SLOOP                       00225199
+WASFOUND L     11,=F'1'               SET FOUND RETURN CODE             00225299
+         BC    B'1111',ENDSRCH        GO TO ENDSRCH                     00225399
+NOTFOUND L     11,=F'0'               SET THE FOUND RETURN CODE         00225499
+ENDSRCH  ST    11,0(0,10)             STORE THE RETURN CODE IN ADDRS 10 00225599
+         L     13,4(0,13)             STANDARD EXIT LINKAGE             00225699
+         LM    14,12,12(13)                                             00225704
+         BR    14                                                       00225804
+         LTORG                                                          00225904
+SRCHSAVE DS    18F                   SEARCH SAVE SPACE                  00226099
+*                                                                       00226104
+         END   MAIN                  END OF MAIN PROGRAM                00226299
+/*                                                                      00226304
+//FT05F001 DD DSN=KC02314.AUTUMN17.CSCI360.HW5DATA,DISP=SHR             00227057
+//                                                                      00240002

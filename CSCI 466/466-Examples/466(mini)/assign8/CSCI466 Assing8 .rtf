@@ -1,0 +1,295 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+{\fonttbl\f0\fmodern\fcharset0 CourierNewPSMT;\f1\froman\fcharset0 Times-Roman;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red109\green109\blue109;}
+\paperw8400\paperh11900\margl1440\margr1440\vieww19740\viewh11980\viewkind0
+\deftab720
+\pard\pardeftab720\sl360\sa240\partightenfactor0
+
+\f0\fs32 \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 CSCI 466/566 Assignment 8 Spring 2017 Transactions 
+\f1\fs24 \
+
+\f0\fs32 75 points 
+\f1\fs24 \
+\pard\pardeftab720\sl360\partightenfactor0
+
+\f0\fs32 \cf2 The purpose of this assignment is to experiment with behaviors of\
+transactions in MySQL databases. You will be using more than one\
+MySQL session. To do this, just open 2 putty sessions, logon to\
+hopper, and then logon to MySQL. Use the same name for the output\
+file for all sessions \'96\\T Assgn8zidout.txt \'96 so that all of your\
+MySQL commands go to the same file. Turn in the print out of your\
+MySQL statements and the results along with your answers to the\
+questions.\
+\pard\pardeftab720\sl360\partightenfactor0
+
+\f1\b \cf2 Part I: Power of COMMIT (25 points)\
+\pard\pardeftab720\sl360\sa240\partightenfactor0
+
+\f0\b0 \cf2 1) Start your first MySQL session, issue the following MySQL statements setting the output file:\uc0\u8232 
+\f1\b \\T Assgn8z12345out.txt\uc0\u8232 use z12345; 
+\b0\fs24 \
+\pard\pardeftab720\sl360\partightenfactor0
+
+\b\fs32 \cf2      create table assign8(\
+     pk int primary key,\
+     data char(15));\
+start transaction;\
+insert into assign8\
+     values(100, 'data100');\
+insert into assign8\
+     values(101, 'data101');\
+insert into assign8\
+     values(102, 'data102');\
+insert into assign8\
+     values(103, 'data103');\
+\pard\pardeftab720\sl360\partightenfactor0
+
+\f0\b0 \cf2 2) Start your second MySQL session, issue following MySQL statements:\
+\pard\pardeftab720\sl360\sa240\partightenfactor0
+
+\f1\b \cf2 \\T Assgn8z12345out.txt\uc0\u8232 use z12345;\u8232 select * from assign8;\u8232 
+\f0\b0 What is result of the select statement, and why? 
+\f1\fs24 \
+\pard\pardeftab720\sl360\partightenfactor0
+
+\f0\fs32 \cf2 3)Then in the same session\
+\pard\pardeftab720\sl360\partightenfactor0
+
+\f1\b \cf2 insert into assign8\
+     values(104, 'data104');\
+insert into assign8\
+     values(105, 'data105');\
+\pard\pardeftab720\sl300\sa240\partightenfactor0
+
+\f0\b0\fs26 \cf2 Assignment 8 
+\f1\fs24 \
+
+\f0\fs26 1 of 3 
+\f1\fs24 \
+\pard\pardeftab720\sl360\sa240\partightenfactor0
+
+\f0\fs32 \cf2 4) Switch back to your first MySQL session, issue following MySQL statement:\uc0\u8232 
+\f1\b commit;\uc0\u8232 select * from assign8; 
+\b0\fs24 \
+\pard\pardeftab720\sl360\sa240\partightenfactor0
+
+\b\fs32 \cf2 \\t exit; 
+\b0\fs24 \
+\pard\pardeftab720\sl360\sa240\partightenfactor0
+
+\f0\fs32 \cf2 5) Switch back to your second MySQL session, issue following MySQL statements:\uc0\u8232 
+\f1\b select * from assign8;\uc0\u8232 \\t 
+\b0\fs24 \
+\pard\pardeftab720\sl360\sa240\partightenfactor0
+
+\b\fs32 \cf2 exit; 
+\b0\fs24 \
+\pard\pardeftab720\sl360\partightenfactor0
+
+\f0\fs32 \cf2 What is result of the select statement, and why?\
+\pard\pardeftab720\sl360\partightenfactor0
+
+\f1\b \cf2 Part II: Power of Rollback (25 points)\
+\pard\pardeftab720\sl360\partightenfactor0
+
+\f0\b0 \cf2 1) Start another MySQL session, issue following MySQL statements:\
+\pard\pardeftab720\sl360\partightenfactor0
+
+\f1\b \cf2 \\T Assgn8z12345out.txt\
+use z12345;\
+start transaction;\
+delete from assign8 where pk = 103;\
+select * from assign8;\
+\pard\pardeftab720\sl360\sa240\partightenfactor0
+
+\f0\b0 \cf2 2)Then 
+\f1\fs24 \
+\pard\pardeftab720\sl360\partightenfactor0
+
+\b\fs32 \cf2 Update assign8 set data = 'changed' where pk = 100;\
+\pard\pardeftab720\sl360\sa240\partightenfactor0
+
+\f0\b0 \cf2 3)Then 
+\f1\fs24 \
+\pard\pardeftab720\sl360\partightenfactor0
+
+\b\fs32 \cf2 Update assign8 set data = 'changed also' where pk = 104;\
+\pard\pardeftab720\sl360\sa240\partightenfactor0
+
+\f0\b0 \cf2 4)Then 
+\f1\fs24 \
+\pard\pardeftab720\sl360\sa240\partightenfactor0
+
+\b\fs32 \cf2 insert into assign8 values(203, 'data203'); select * from assign8;\uc0\u8232 
+\f0\b0 What is result of the select statement, and why? 
+\f1\fs24 \
+\pard\pardeftab720\sl360\partightenfactor0
+
+\f0\fs32 \cf2 5) Issue the following MySQL statements:\
+\pard\pardeftab720\sl360\sa240\partightenfactor0
+
+\f1\b \cf2 rollback;\uc0\u8232 select * from assign8;\u8232 
+\f0\b0 What is result of the select statement, and why? 
+\f1\fs24 \
+
+\b\fs32 \\t exit; 
+\b0\fs24 \
+\pard\pardeftab720\sl300\sa240\partightenfactor0
+
+\f0\fs26 \cf2 Assignment 8 
+\f1\fs24 \
+
+\f0\fs26 2 of 3 
+\f1\fs24 \
+\pard\pardeftab720\sl360\partightenfactor0
+
+\b\fs32 \cf2 Part III: Be Aware of Deadlock (25 points)\
+\pard\pardeftab720\sl360\partightenfactor0
+
+\f0\b0 \cf2 Using another two sessions of MySQL do the following in order\
+specified:\
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth4620\clftsWidth3 \clbrdrt\brdrs\brdrw2\brdrcf2 \clbrdrl\brdrs\brdrw2\brdrcf2 \clbrdrb\brdrs\brdrw2\brdrcf2 \clbrdrr\brdrs\brdrw2\brdrcf2 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth4620\clftsWidth3 \clbrdrt\brdrs\brdrw2\brdrcf2 \clbrdrl\brdrs\brdrw2\brdrcf2 \clbrdrb\brdrs\brdrw2\brdrcf2 \clbrdrr\brdrs\brdrw2\brdrcf2 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sl360\sa240\partightenfactor0
+
+\f1\b \cf2 Session I 
+\b0\fs24 \cell 
+\pard\intbl\itap1\pardeftab720\sl360\sa240\partightenfactor0
+
+\b\fs32 \cf2 Session II 
+\b0\fs24 \cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth4620\clftsWidth3 \clbrdrt\brdrs\brdrw2\brdrcf2 \clbrdrl\brdrs\brdrw2\brdrcf2 \clbrdrb\brdrs\brdrw2\brdrcf2 \clbrdrr\brdrs\brdrw2\brdrcf2 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth4620\clftsWidth3 \clbrdrt\brdrs\brdrw2\brdrcf2 \clbrdrl\brdrs\brdrw2\brdrcf2 \clbrdrb\brdrs\brdrw2\brdrcf2 \clbrdrr\brdrs\brdrw2\brdrcf2 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sl360\partightenfactor0
+
+\b\fs32 \cf2 \\T Assgn8z12345out.txt\
+use z12345;\
+start transaction;\cell 
+\pard\intbl\itap1\pardeftab720\sl280\partightenfactor0
+
+\b0\fs24 \cf2 \cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth4620\clftsWidth3 \clbrdrt\brdrs\brdrw2\brdrcf2 \clbrdrl\brdrs\brdrw2\brdrcf2 \clbrdrb\brdrs\brdrw2\brdrcf2 \clbrdrr\brdrs\brdrw2\brdrcf2 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth4620\clftsWidth3 \clbrdrt\brdrs\brdrw2\brdrcf2 \clbrdrl\brdrs\brdrw2\brdrcf2 \clbrdrb\brdrs\brdrw2\brdrcf2 \clbrdrr\brdrs\brdrw2\brdrcf2 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sl280\partightenfactor0
+\cf2 \cell 
+\pard\intbl\itap1\pardeftab720\sl360\partightenfactor0
+
+\f0\fs32 \cf2 switch to session II\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth4620\clftsWidth3 \clbrdrt\brdrs\brdrw2\brdrcf2 \clbrdrl\brdrs\brdrw2\brdrcf2 \clbrdrb\brdrs\brdrw2\brdrcf2 \clbrdrr\brdrs\brdrw2\brdrcf2 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth4620\clftsWidth3 \clbrdrt\brdrs\brdrw2\brdrcf2 \clbrdrl\brdrs\brdrw2\brdrcf2 \clbrdrb\brdrs\brdrw2\brdrcf2 \clbrdrr\brdrs\brdrw2\brdrcf2 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sl280\partightenfactor0
+
+\f1\fs24 \cf2 \cell 
+\pard\intbl\itap1\pardeftab720\sl360\partightenfactor0
+
+\b\fs32 \cf2 \\T Assgn8z12345out.txt\
+use z12345;\
+start transaction;\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth4620\clftsWidth3 \clbrdrt\brdrs\brdrw2\brdrcf2 \clbrdrl\brdrs\brdrw2\brdrcf2 \clbrdrb\brdrs\brdrw2\brdrcf2 \clbrdrr\brdrs\brdrw2\brdrcf2 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth4620\clftsWidth3 \clbrdrt\brdrs\brdrw2\brdrcf2 \clbrdrl\brdrs\brdrw2\brdrcf2 \clbrdrb\brdrs\brdrw2\brdrcf2 \clbrdrr\brdrs\brdrw2\brdrcf2 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sl360\partightenfactor0
+
+\f0\b0 \cf2 switch back to session I\cell 
+\pard\intbl\itap1\pardeftab720\sl280\partightenfactor0
+
+\f1\fs24 \cf2 \cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth4620\clftsWidth3 \clbrdrt\brdrs\brdrw2\brdrcf2 \clbrdrl\brdrs\brdrw2\brdrcf2 \clbrdrb\brdrs\brdrw2\brdrcf2 \clbrdrr\brdrs\brdrw2\brdrcf2 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth4620\clftsWidth3 \clbrdrt\brdrs\brdrw2\brdrcf2 \clbrdrl\brdrs\brdrw2\brdrcf2 \clbrdrb\brdrs\brdrw2\brdrcf2 \clbrdrr\brdrs\brdrw2\brdrcf2 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sl360\partightenfactor0
+
+\b\fs32 \cf2 update assign8\
+set data = 'session1'\
+where pk=101;\cell 
+\pard\intbl\itap1\pardeftab720\sl280\partightenfactor0
+
+\b0\fs24 \cf2 \cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth4620\clftsWidth3 \clbrdrt\brdrs\brdrw2\brdrcf2 \clbrdrl\brdrs\brdrw2\brdrcf2 \clbrdrb\brdrs\brdrw2\brdrcf2 \clbrdrr\brdrs\brdrw2\brdrcf2 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth4620\clftsWidth3 \clbrdrt\brdrs\brdrw2\brdrcf2 \clbrdrl\brdrs\brdrw2\brdrcf2 \clbrdrb\brdrs\brdrw2\brdrcf2 \clbrdrr\brdrs\brdrw2\brdrcf2 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sl280\partightenfactor0
+\cf2 \cell 
+\pard\intbl\itap1\pardeftab720\sl360\partightenfactor0
+
+\f0\fs32 \cf2 switch to session II\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth4620\clftsWidth3 \clbrdrt\brdrs\brdrw2\brdrcf2 \clbrdrl\brdrs\brdrw2\brdrcf2 \clbrdrb\brdrs\brdrw2\brdrcf2 \clbrdrr\brdrs\brdrw2\brdrcf2 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth4620\clftsWidth3 \clbrdrt\brdrs\brdrw2\brdrcf2 \clbrdrl\brdrs\brdrw2\brdrcf2 \clbrdrb\brdrs\brdrw2\brdrcf2 \clbrdrr\brdrs\brdrw2\brdrcf2 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sl280\partightenfactor0
+
+\f1\fs24 \cf2 \cell 
+\pard\intbl\itap1\pardeftab720\sl360\partightenfactor0
+
+\b\fs32 \cf2 update  assign8\
+set data= 'session2'\
+where pk = 102;\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth4620\clftsWidth3 \clbrdrt\brdrs\brdrw2\brdrcf2 \clbrdrl\brdrs\brdrw2\brdrcf2 \clbrdrb\brdrs\brdrw2\brdrcf2 \clbrdrr\brdrs\brdrw2\brdrcf2 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth4620\clftsWidth3 \clbrdrt\brdrs\brdrw2\brdrcf2 \clbrdrl\brdrs\brdrw2\brdrcf2 \clbrdrb\brdrs\brdrw2\brdrcf2 \clbrdrr\brdrs\brdrw2\brdrcf2 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sl360\partightenfactor0
+
+\f0\b0 \cf2 switch back to session I\cell 
+\pard\intbl\itap1\pardeftab720\sl280\partightenfactor0
+
+\f1\fs24 \cf2 \cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth4620\clftsWidth3 \clbrdrt\brdrs\brdrw2\brdrcf2 \clbrdrl\brdrs\brdrw2\brdrcf2 \clbrdrb\brdrs\brdrw2\brdrcf2 \clbrdrr\brdrs\brdrw2\brdrcf2 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth4620\clftsWidth3 \clbrdrt\brdrs\brdrw2\brdrcf2 \clbrdrl\brdrs\brdrw2\brdrcf2 \clbrdrb\brdrs\brdrw2\brdrcf2 \clbrdrr\brdrs\brdrw2\brdrcf2 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sl360\partightenfactor0
+
+\b\fs32 \cf2 update  assign8\
+set data = 'session1'\
+where pk = 102;\cell 
+\pard\intbl\itap1\pardeftab720\sl280\partightenfactor0
+
+\b0\fs24 \cf2 \cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth4620\clftsWidth3 \clbrdrt\brdrs\brdrw2\brdrcf2 \clbrdrl\brdrs\brdrw2\brdrcf2 \clbrdrb\brdrs\brdrw2\brdrcf2 \clbrdrr\brdrs\brdrw2\brdrcf2 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth4620\clftsWidth3 \clbrdrt\brdrs\brdrw2\brdrcf2 \clbrdrl\brdrs\brdrw2\brdrcf2 \clbrdrb\brdrs\brdrw2\brdrcf2 \clbrdrr\brdrs\brdrw2\brdrcf2 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sl280\partightenfactor0
+\cf2 \cell 
+\pard\intbl\itap1\pardeftab720\sl360\partightenfactor0
+
+\f0\fs32 \cf2 switch to session II\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth4620\clftsWidth3 \clbrdrt\brdrs\brdrw2\brdrcf2 \clbrdrl\brdrs\brdrw2\brdrcf2 \clbrdrb\brdrs\brdrw2\brdrcf2 \clbrdrr\brdrs\brdrw2\brdrcf2 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth4620\clftsWidth3 \clbrdrt\brdrs\brdrw2\brdrcf2 \clbrdrl\brdrs\brdrw2\brdrcf2 \clbrdrb\brdrs\brdrw2\brdrcf2 \clbrdrr\brdrs\brdrw2\brdrcf2 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sl280\partightenfactor0
+
+\f1\fs24 \cf2 \cell 
+\pard\intbl\itap1\pardeftab720\sl360\partightenfactor0
+
+\b\fs32 \cf2 update  assign8\
+set data = 'session2'\
+where pk = 101;\cell \lastrow\row
+\pard\pardeftab720\sl360\partightenfactor0
+
+\f0\b0 \cf2 This uses z12345 as an example, use your own! You may get different\
+answers depending on how quickly you do this. Most likely every one\
+should get slightly different answers. If you just copy and paste\
+from this document you may have syntax errors, so please use this as\
+a guide and type the SQL statements in yourself. You actually learn\
+more.\
+\pard\pardeftab720\sl300\sa240\partightenfactor0
+
+\fs26 \cf2 Assignment 8 3 of 3 
+\f1\fs24 \
+}

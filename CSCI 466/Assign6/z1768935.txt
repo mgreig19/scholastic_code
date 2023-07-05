@@ -1,0 +1,549 @@
+mysql> source ~/csci466/Assign6/z1768935.sql
++---------------------+---------------+
+| Number of Employees | city          |
++---------------------+---------------+
+|                   2 | Boston        |
+|                   2 | London        |
+|                   2 | NYC           |
+|                   5 | Paris         |
+|                   6 | San Francisco |
+|                   4 | Sydney        |
+|                   2 | Tokyo         |
++---------------------+---------------+
+7 rows in set (0.01 sec)
+
++------------------+---------------------+
+| Employee         | Number of Customers |
++------------------+---------------------+
+| Leslie Jennings  |                   6 |
+| Leslie Thompson  |                   6 |
+| Julie Firrelli   |                   6 |
+| Steve Patterson  |                   6 |
+| Foon Yue Tseng   |                   7 |
+| George Vanauf    |                   8 |
+| Loui Bondur      |                   6 |
+| Gerard Hernandez |                   7 |
+| Pamela Castillo  |                  10 |
+| Larry Bott       |                   8 |
+| Barry Jones      |                   9 |
+| Andy Fixter      |                   5 |
+| Peter Marsh      |                   5 |
+| Mami Nishi       |                   5 |
+| Martin Gerard    |                   6 |
++------------------+---------------------+
+15 rows in set (0.00 sec)
+
++-------------------+-------------------+
+| Employee          | Reports To        |
++-------------------+-------------------+
+| Diane Murphy      | NULL              |
+| Mary Patterson    | Diane Murphy      |
+| Jeff Firrelli     | Diane Murphy      |
+| William Patterson | Mary Patterson    |
+| Gerard Bondur     | Mary Patterson    |
+| Anthony Bow       | Mary Patterson    |
+| Leslie Jennings   | Anthony Bow       |
+| Leslie Thompson   | Anthony Bow       |
+| Julie Firrelli    | Anthony Bow       |
+| Steve Patterson   | Anthony Bow       |
+| Foon Yue Tseng    | Anthony Bow       |
+| George Vanauf     | Anthony Bow       |
+| Loui Bondur       | Gerard Bondur     |
+| Gerard Hernandez  | Gerard Bondur     |
+| Pamela Castillo   | Gerard Bondur     |
+| Larry Bott        | Gerard Bondur     |
+| Barry Jones       | Gerard Bondur     |
+| Andy Fixter       | William Patterson |
+| Peter Marsh       | William Patterson |
+| Tom King          | William Patterson |
+| Mami Nishi        | William Patterson |
+| Yoshimi Kato      | William Patterson |
+| Martin Gerard     | Gerard Bondur     |
++-------------------+-------------------+
+23 rows in set (0.00 sec)
+
++---------------------+----------------+
+| Customer            | Total Payments |
++---------------------+----------------+
+| Carine  Schmitt     |       24179.96 |
+| Sue King            |       82751.08 |
+| Peter Ferguson      |      195364.73 |
+| Janine  Labrune     |      136340.25 |
+| Jonas  Bergulfsen   |      116599.19 |
+| Valarie Nelson      |      647596.29 |
+| Roland Keitel       |       85171.59 |
+| Julie Murphy        |       74476.18 |
+| Kwai Yu             |      164069.44 |
+| Diego  Freyre       |      793051.13 |
+| Christina  Berglund |       75754.88 |
+| Jytte  Petersen     |      119028.73 |
+| Mary  Saveley       |      142874.25 |
+| Eric Natividad      |      172989.68 |
+| Jeff Young          |      197736.94 |
+| Kyung Yu            |      115971.34 |
+| Juri Hirano         |      120783.07 |
+| Wendy Victorino     |      112911.15 |
+| Veysel Oeztan       |      111640.28 |
+| Martine  Rancé      |       69052.41 |
+| Marie Bertrand      |       97203.68 |
+| Kyung Tseng         |       36163.62 |
+| Julie King          |       70246.32 |
+| Mory Kentary        |       67605.07 |
+| Michael Frick       |       88041.26 |
++---------------------+----------------+
+25 rows in set (0.00 sec)
+
++----------------------------------------------------+
+| The Number of Customers Living in Same City as Rep |
++----------------------------------------------------+
+|                                                 14 |
++----------------------------------------------------+
+1 row in set (0.00 sec)
+
++---------------+----------------------------------------------------+
+| City Name     | The Number of Customers Living in Same City as Rep |
++---------------+----------------------------------------------------+
+| Boston        |                                                  2 |
+| London        |                                                  2 |
+| NYC           |                                                  5 |
+| Paris         |                                                  3 |
+| San Francisco |                                                  2 |
++---------------+----------------------------------------------------+
+5 rows in set (0.00 sec)
+
++--------------------------------+
+| Big Spenders                   |
++--------------------------------+
+| Baane Mini Imports             |
+| La Corne D'abondance, Co.      |
+| Corrida Auto Replicas, Ltd     |
+| Technics Stores Inc.           |
+| Dragon Souveniers, Ltd.        |
+| Mini Auto Werke                |
+| Stylish Desk Decors, Co.       |
+| Classic Gift Ideas, Inc        |
+| Saveley & Henriot, Co.         |
+| Diecast Collectables           |
+| Handji Gifts& Co               |
+| Mini Gifts Distributors Ltd.   |
+| Super Scale Inc.               |
+| Handji Gifts& Co               |
+| Souveniers And Things Co.      |
+| Diecast Classics Inc.          |
+| Scandinavian Gift Ideas        |
+| Marta's Replicas Co.           |
+| Canadian Gift Exchange Network |
+| Online Diecast Creations Co.   |
+| Volvo Model Replicas, Co       |
+| Australian Collectors, Co.     |
+| Mini Gifts Distributors Ltd.   |
+| Anna's Decorations, Ltd        |
+| Corporate Gift Ideas Co.       |
+| Anna's Decorations, Ltd        |
+| Québec Home Shopping Network   |
+| La Rochelle Gifts              |
++--------------------------------+
+28 rows in set (0.00 sec)
+
++-------------------------------+
+| Customer with Largest Payment |
++-------------------------------+
+| Euro+ Shopping Channel        |
++-------------------------------+
+1 row in set (0.00 sec)
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| productDescription                                                                                                                                                                                                                                                                            |
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| This replica features working kickstand, front suspension, gear-shift lever, footbrake lever, drive chain, wheels and steering. All parts are particularly delicate due to their precise scale and require special care and attention.                                                        |
+| 1:12 scale die-cast about 20" long Hood opens, Rubber wheels                                                                                                                                                                                                                                  |
+| This model features, opening hood, opening doors, detailed engine, rear spoiler, opening trunk, working steering, tinted windows, baked enamel finish. Color yellow.                                                                                                                          |
+| Chrome Trim, Chrome Grille, Opening Hood, Opening Doors, Opening Trunk, Detailed Engine, Working Steering System                                                                                                                                                                              |
+| Exact replica. Wood and Metal. Many extras including rigging, long boats, pilot house, anchors, etc. Comes with three masts, all square-rigged.                                                                                                                                               |
+| This replica features opening doors, superb detail and craftsmanship, working steering system, opening forward compartment, opening rear trunk with removable spare, 4 wheel independent spring suspension as well as factory baked enamel finish.                                            |
+| Features Gold Trim, Full Size Spare Tire, Chrome Trim, Chrome Grille, Opening Hood, Opening Doors, Opening Trunk, Detailed Engine, Working Steering System                                                                                                                                    |
+| Features opening hood, opening doors, opening trunk, wide white wall tires, front door arm rests, working steering system, leather upholstery. Color black.                                                                                                                                   |
+| Features include opening and closing doors. Color: White.                                                                                                                                                                                                                                     |
+| This 1:18 scale precision die cast replica features the 6 front headlights of the original, plus a detailed version of the 142 horsepower straight 8 engine, dual spares and their famous comprehensive dashboard. Color black.                                                               |
+| Features opening trunk,  working steering system                                                                                                                                                                                                                                              |
+| Precision crafted hand-assembled 1:18 scale reproduction of the 1952 15CV, with its independent spring suspension, working steering system, opening doors and hood, detailed engine and instrument panel, all topped of with a factory fresh baked enamel finish.                             |
+| This model features chrome trim and grille, opening hood, opening doors, opening trunk, detailed engine, working steering system. Color white.                                                                                                                                                |
+| 1969 Z/28 Chevy Camaro 1:24 scale replica. The operating parts of this limited edition 1:24 scale diecast model car 1969 Chevy Camaro Z28- hood, trunk, wheels, streering, suspension and doors- are particularly delicate due to their precise scale and require special care and attention. |
+| This replica features opening doors, superb detail and craftsmanship, working steering system, opening forward compartment, opening rear trunk with removable spare, 4 wheel independent spring suspension as well as factory baked enamel finish.                                            |
+| Features official die-struck logos and baked enamel finish. Comes with stand.                                                                                                                                                                                                                 |
+| Exact replia with official logos and insignias and retractable wheels                                                                                                                                                                                                                         |
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+17 rows in set (0.00 sec)
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| productDescription                                                                                                                                                                                                                                                                            |
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| This replica features working kickstand, front suspension, gear-shift lever, footbrake lever, drive chain, wheels and steering. All parts are particularly delicate due to their precise scale and require special care and attention.                                                        |
+| 1:12 scale die-cast about 20" long Hood opens, Rubber wheels                                                                                                                                                                                                                                  |
+| This model features, opening hood, opening doors, detailed engine, rear spoiler, opening trunk, working steering, tinted windows, baked enamel finish. Color yellow.                                                                                                                          |
+| Chrome Trim, Chrome Grille, Opening Hood, Opening Doors, Opening Trunk, Detailed Engine, Working Steering System                                                                                                                                                                              |
+| Exact replica. Wood and Metal. Many extras including rigging, long boats, pilot house, anchors, etc. Comes with three masts, all square-rigged.                                                                                                                                               |
+| This replica features opening doors, superb detail and craftsmanship, working steering system, opening forward compartment, opening rear trunk with removable spare, 4 wheel independent spring suspension as well as factory baked enamel finish.                                            |
+| Features Gold Trim, Full Size Spare Tire, Chrome Trim, Chrome Grille, Opening Hood, Opening Doors, Opening Trunk, Detailed Engine, Working Steering System                                                                                                                                    |
+| Features opening hood, opening doors, opening trunk, wide white wall tires, front door arm rests, working steering system, leather upholstery. Color black.                                                                                                                                   |
+| Features include opening and closing doors. Color: White.                                                                                                                                                                                                                                     |
+| This 1:18 scale precision die cast replica features the 6 front headlights of the original, plus a detailed version of the 142 horsepower straight 8 engine, dual spares and their famous comprehensive dashboard. Color black.                                                               |
+| Features opening trunk,  working steering system                                                                                                                                                                                                                                              |
+| Precision crafted hand-assembled 1:18 scale reproduction of the 1952 15CV, with its independent spring suspension, working steering system, opening doors and hood, detailed engine and instrument panel, all topped of with a factory fresh baked enamel finish.                             |
+| This model features chrome trim and grille, opening hood, opening doors, opening trunk, detailed engine, working steering system. Color white.                                                                                                                                                |
+| 1969 Z/28 Chevy Camaro 1:24 scale replica. The operating parts of this limited edition 1:24 scale diecast model car 1969 Chevy Camaro Z28- hood, trunk, wheels, streering, suspension and doors- are particularly delicate due to their precise scale and require special care and attention. |
+| This replica features opening doors, superb detail and craftsmanship, working steering system, opening forward compartment, opening rear trunk with removable spare, 4 wheel independent spring suspension as well as factory baked enamel finish.                                            |
+| Features official die-struck logos and baked enamel finish. Comes with stand.                                                                                                                                                                                                                 |
+| Exact replia with official logos and insignias and retractable wheels                                                                                                                                                                                                                         |
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+17 rows in set (0.00 sec)
+
++-------------+-------------------------+-------------------------------------------+
+| orderNumber | customerName            | productName                               |
++-------------+-------------------------+-------------------------------------------+
+|       10397 | Alpha Cognac            | The Mayflower                             |
+|       10136 | Alpha Cognac            | 1993 Mazda RX-7                           |
+|       10178 | Alpha Cognac            | 1972 Alfa Romeo GTA                       |
+|       10293 | Amica Models & Co.      | 2001 Ferrari Enzo                         |
+|       10280 | Amica Models & Co.      | 1952 Alpine Renault 1300                  |
+|       10391 | Anna's Decorations, Ltd | 1952 Alpine Renault 1300                  |
+|       10169 | Anna's Decorations, Ltd | 1968 Ford Mustang                         |
+|       10370 | Anna's Decorations, Ltd | 1962 LanciaA Delta 16V                    |
+|       10148 | Anna's Decorations, Ltd | 1993 Mazda RX-7                           |
+|       10345 | Atelier graphique       | 1938 Cadillac V-16 Presidential Limousine |
++-------------+-------------------------+-------------------------------------------+
+10 rows in set (0.00 sec)
+
++-------------+----------------+
+| orderNumber | Average Amount |
++-------------+----------------+
+|       10100 |        3033.31 |
+|       10101 |        2858.08 |
+|       10102 |        3432.03 |
+|       10103 |        3418.87 |
+|       10104 |        3432.46 |
+|       10105 |        3924.74 |
+|       10106 |        3121.18 |
+|       10107 |        3222.97 |
+|       10108 |        3452.81 |
+|       10109 |        4566.47 |
+|       10110 |        3188.62 |
+|       10111 |        3115.93 |
+|       10112 |        4874.50 |
+|       10113 |        3099.64 |
+|       10114 |        3821.74 |
+|       10115 |        4955.48 |
+|       10116 |        1711.26 |
+|       10117 |        3638.12 |
+|       10118 |        4219.20 |
+|       10119 |        2759.22 |
+|       10120 |        3359.84 |
+|       10121 |        3794.39 |
+|       10122 |        3087.17 |
+|       10123 |        4140.08 |
+|       10124 |        2603.66 |
+|       10125 |        4869.09 |
+|       10126 |        3592.54 |
+|       10127 |        4564.14 |
+|       10128 |        4362.02 |
+|       10129 |        3597.37 |
+|       10130 |        3638.68 |
+|       10131 |        2543.87 |
+|       10132 |        2476.80 |
+|       10133 |        2770.97 |
+|       10134 |        3660.70 |
+|       10135 |        3487.09 |
+|       10136 |        5750.36 |
+|       10137 |        3786.58 |
+|       10138 |        2904.18 |
+|       10139 |        3549.66 |
+|       10140 |        3821.08 |
+|       10141 |        3507.71 |
+|       10142 |        3943.01 |
+|       10143 |        2858.65 |
+|       10144 |        1637.20 |
+|       10145 |        3486.01 |
+|       10146 |        3800.06 |
+|       10147 |        3181.13 |
+|       10148 |        3370.84 |
+|       10149 |        3100.00 |
+|       10150 |        4019.94 |
+|       10151 |        3750.16 |
+|       10152 |        2660.07 |
+|       10153 |        3671.37 |
+|       10154 |        2571.07 |
+|       10155 |        3237.19 |
+|       10156 |        2887.24 |
+|       10157 |        3612.16 |
+|       10158 |        1474.66 |
+|       10159 |        3472.13 |
+|       10160 |        4026.52 |
+|       10161 |        3360.13 |
+|       10162 |        3318.06 |
+|       10163 |        4214.12 |
+|       10164 |        3568.82 |
+|       10165 |        4322.74 |
+|       10166 |        3953.90 |
+|       10167 |        3044.43 |
+|       10168 |        3461.41 |
+|       10169 |        3214.77 |
+|       10170 |        3734.54 |
+|       10171 |        3986.82 |
+|       10172 |        3264.48 |
+|       10173 |        2504.86 |
+|       10174 |        5419.76 |
+|       10175 |        3557.36 |
+|       10176 |        4466.97 |
+|       10177 |        3119.21 |
+|       10178 |        3174.85 |
+|       10179 |        2935.69 |
+|       10180 |        3491.02 |
+|       10181 |        3576.23 |
+|       10182 |        2962.41 |
+|       10183 |        3338.47 |
+|       10184 |        3961.75 |
+|       10185 |        3261.97 |
+|       10186 |        3060.20 |
+|       10187 |        3046.15 |
+|       10188 |        4310.17 |
+|       10189 |        4512.48 |
+|       10190 |        2746.64 |
+|       10191 |        3484.80 |
+|       10192 |        3998.84 |
+|       10193 |        2367.41 |
+|       10194 |        3775.92 |
+|       10195 |        3868.29 |
+|       10196 |        5312.34 |
+|       10197 |        3143.52 |
+|       10198 |        3806.99 |
+|       10199 |        2744.85 |
+|       10200 |        3053.81 |
+|       10201 |        3633.13 |
+|       10202 |        3327.83 |
+|       10203 |        4101.47 |
+|       10204 |        3783.30 |
+|       10205 |        3276.95 |
+|       10206 |        3514.75 |
+|       10207 |        3983.17 |
+|       10208 |        3635.79 |
+|       10209 |        2986.17 |
+|       10210 |        2970.04 |
+|       10211 |        3411.51 |
+|       10212 |        4072.82 |
+|       10213 |        2825.74 |
+|       10214 |        3570.78 |
+|       10215 |        3785.01 |
+|       10216 |        5759.42 |
+|       10217 |        3459.94 |
+|       10218 |        3639.49 |
+|       10219 |        4029.62 |
+|       10220 |        4309.39 |
+|       10221 |        3760.02 |
+|       10222 |        3423.17 |
+|       10223 |        3309.17 |
+|       10224 |        3363.02 |
+|       10225 |        3602.32 |
+|       10226 |        3696.03 |
+|       10227 |        3120.15 |
+|       10228 |        3630.45 |
+|       10229 |        3494.48 |
+|       10230 |        4658.31 |
+|       10231 |        7665.35 |
+|       10232 |        3363.34 |
+|       10233 |        2907.37 |
+|       10234 |        4045.48 |
+|       10235 |        2608.54 |
+|       10236 |        2429.08 |
+|       10237 |        2756.04 |
+|       10238 |        3916.20 |
+|       10239 |        3562.68 |
+|       10240 |        5704.81 |
+|       10241 |        3278.44 |
+|       10242 |        1698.78 |
+|       10243 |        3564.50 |
+|       10244 |        3147.52 |
+|       10245 |        4108.15 |
+|       10246 |        3756.16 |
+|       10247 |        5169.71 |
+|       10248 |        3239.83 |
+|       10249 |        2876.18 |
+|       10250 |        3462.30 |
+|       10251 |        4664.51 |
+|       10252 |        3103.47 |
+|       10253 |        3600.59 |
+|       10254 |        3079.59 |
+|       10255 |        2708.45 |
+|       10256 |        2374.72 |
+|       10257 |        3225.62 |
+|       10258 |        4321.46 |
+|       10259 |        3522.21 |
+|       10260 |        4141.85 |
+|       10261 |        2729.39 |
+|       10262 |        3125.67 |
+|       10263 |        4011.87 |
+|       10264 |        2792.62 |
+|       10265 |        6167.41 |
+|       10266 |        3761.44 |
+|       10267 |        3875.36 |
+|       10268 |        3264.71 |
+|       10269 |        3346.64 |
+|       10270 |        3754.29 |
+|       10271 |        3738.33 |
+|       10272 |        4524.88 |
+|       10273 |        3184.03 |
+|       10274 |        3022.16 |
+|       10275 |        3111.27 |
+|       10276 |        3750.38 |
+|       10277 |        3127.88 |
+|       10278 |        3445.38 |
+|       10279 |        3664.38 |
+|       10280 |        3298.72 |
+|       10281 |        3198.67 |
+|       10282 |        4062.09 |
+|       10283 |        3095.17 |
+|       10284 |        2626.57 |
+|       10285 |        3756.06 |
+|       10286 |        2173.60 |
+|       10287 |        3957.71 |
+|       10288 |        3064.49 |
+|       10289 |        4090.78 |
+|       10290 |        3836.69 |
+|       10291 |        3852.98 |
+|       10292 |        3314.64 |
+|       10293 |        4226.56 |
+|       10294 |        4692.60 |
+|       10295 |        3068.93 |
+|       10296 |        2499.57 |
+|       10297 |        2710.28 |
+|       10298 |        2653.99 |
+|       10299 |        3885.82 |
+|       10300 |        3407.22 |
+|       10301 |        4098.07 |
+|       10302 |        4466.20 |
+|       10303 |        1610.44 |
+|       10304 |        3474.99 |
+|       10305 |        3875.12 |
+|       10306 |        3401.62 |
+|       10307 |        3049.48 |
+|       10308 |        2929.56 |
+|       10309 |        3294.95 |
+|       10310 |        4055.49 |
+|       10311 |        3170.19 |
+|       10312 |        3710.30 |
+|       10313 |        3325.16 |
+|       10314 |        4018.26 |
+|       10315 |        2959.99 |
+|       10316 |        2851.90 |
+|       10317 |        2916.20 |
+|       10318 |        4893.41 |
+|       10319 |        3494.02 |
+|       10320 |        3919.87 |
+|       10321 |        3300.29 |
+|       10322 |        3969.33 |
+|       10323 |        4607.48 |
+|       10324 |        4026.63 |
+|       10325 |        4516.98 |
+|       10326 |        3357.72 |
+|       10327 |        3009.83 |
+|       10328 |        2978.33 |
+|       10329 |        3543.49 |
+|       10330 |        3982.19 |
+|       10331 |        3499.72 |
+|       10332 |        2720.13 |
+|       10333 |        3793.59 |
+|       10334 |        4376.70 |
+|       10335 |        2798.52 |
+|       10336 |        4734.39 |
+|       10337 |        3081.45 |
+|       10338 |        4487.83 |
+|       10339 |        3493.04 |
+|       10340 |        3772.92 |
+|       10341 |        4500.11 |
+|       10342 |        3979.92 |
+|       10343 |        3113.53 |
+|       10344 |        2876.69 |
+|       10345 |        2311.68 |
+|       10346 |        2408.27 |
+|       10347 |        3953.58 |
+|       10348 |        4318.32 |
+|       10349 |        4170.65 |
+|       10350 |        3074.66 |
+|       10351 |        2747.98 |
+|       10352 |        2882.13 |
+|       10353 |        3260.37 |
+|       10354 |        3379.28 |
+|       10355 |        2988.41 |
+|       10356 |        3624.88 |
+|       10357 |        4215.21 |
+|       10358 |        3673.96 |
+|       10359 |        3776.80 |
+|       10360 |        3255.18 |
+|       10361 |        2707.51 |
+|       10362 |        3382.39 |
+|       10363 |        3424.90 |
+|       10364 |        2317.44 |
+|       10365 |        3673.77 |
+|       10366 |        5542.72 |
+|       10367 |        3405.64 |
+|       10368 |        3140.42 |
+|       10369 |        3934.35 |
+|       10370 |        3316.91 |
+|       10371 |        3010.36 |
+|       10372 |        4243.49 |
+|       10373 |        2885.61 |
+|       10374 |        3621.67 |
+|       10375 |        3974.50 |
+|       10376 |        3987.20 |
+|       10377 |        4403.80 |
+|       10378 |        3368.05 |
+|       10379 |        3618.99 |
+|       10380 |        2950.80 |
+|       10381 |        4055.11 |
+|       10382 |        4287.77 |
+|       10383 |        3173.06 |
+|       10384 |        4426.92 |
+|       10385 |        2549.24 |
+|       10386 |        2989.76 |
+|       10387 |        4175.60 |
+|       10388 |        4694.71 |
+|       10389 |        3950.84 |
+|       10390 |        3820.83 |
+|       10391 |        3516.02 |
+|       10392 |        2925.05 |
+|       10393 |        3569.79 |
+|       10394 |        3193.41 |
+|       10395 |        5080.38 |
+|       10396 |        4024.35 |
+|       10397 |        3027.82 |
+|       10398 |        2890.50 |
+|       10399 |        4446.99 |
+|       10400 |        4169.65 |
+|       10401 |        3876.58 |
+|       10402 |        4688.93 |
+|       10403 |        4533.65 |
+|       10404 |        6053.74 |
+|       10405 |        7136.07 |
+|       10406 |        8670.96 |
+|       10407 |        4823.59 |
+|       10408 |         553.95 |
+|       10409 |        1293.79 |
+|       10410 |        4432.19 |
+|       10411 |        3743.66 |
+|       10412 |        4753.43 |
+|       10413 |        5274.74 |
+|       10414 |        3451.21 |
+|       10415 |        2875.62 |
+|       10416 |        2965.00 |
+|       10417 |        5303.65 |
+|       10418 |        2908.37 |
+|       10419 |        4248.22 |
+|       10420 |        3382.42 |
+|       10421 |        3630.88 |
+|       10422 |        3083.40 |
+|       10423 |        1682.39 |
+|       10424 |        5855.56 |
+|       10425 |        3368.05 |
++-------------+----------------+
+326 rows in set (0.00 sec)
+
+mysql> exit

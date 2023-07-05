@@ -1,0 +1,564 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0684AFF41E5CAE7B0054FBB3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0684AFF31E5CAE7B0054FBB3 /* AppDelegate.swift */; };
+		0684AFF91E5CAE7B0054FBB3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0684AFF71E5CAE7B0054FBB3 /* Main.storyboard */; };
+		0684AFFB1E5CAE7B0054FBB3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0684AFFA1E5CAE7B0054FBB3 /* Assets.xcassets */; };
+		0684AFFE1E5CAE7B0054FBB3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0684AFFC1E5CAE7B0054FBB3 /* LaunchScreen.storyboard */; };
+		0684B0091E5CAE7B0054FBB3 /* RushUSNationalParksTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0684B0081E5CAE7B0054FBB3 /* RushUSNationalParksTests.swift */; };
+		0684B0141E5CAE7B0054FBB3 /* RushUSNationalParksUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0684B0131E5CAE7B0054FBB3 /* RushUSNationalParksUITests.swift */; };
+		0684B0241E5CB7AC0054FBB3 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0684B0231E5CB7AC0054FBB3 /* TableViewController.swift */; };
+		0684B0261E5CB7CE0054FBB3 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0684B0251E5CB7CE0054FBB3 /* TableViewCell.swift */; };
+		0684B02A1E5CBC8D0054FBB3 /* GCanyon_cell.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0684B0271E5CBC8D0054FBB3 /* GCanyon_cell.jpg */; };
+		0684B02B1E5CBC8D0054FBB3 /* GSMountain_cell.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0684B0281E5CBC8D0054FBB3 /* GSMountain_cell.jpg */; };
+		0684B02C1E5CBC8D0054FBB3 /* Yosemite_cell.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0684B0291E5CBC8D0054FBB3 /* Yosemite_cell.jpg */; };
+		0684B0351E5CBD2E0054FBB3 /* GSMountain_image_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0684B02E1E5CBD2E0054FBB3 /* GSMountain_image_1.jpg */; };
+		0684B0431E5CBD560054FBB3 /* GCanyon_image_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0684B03C1E5CBD560054FBB3 /* GCanyon_image_1.jpg */; };
+		0684B0511E5CBD930054FBB3 /* Yosemite_image_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0684B04A1E5CBD930054FBB3 /* Yosemite_image_1.jpg */; };
+		0684B0611E5CD6040054FBB3 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0684B0601E5CD6040054FBB3 /* DetailViewController.swift */; };
+		0684B0771E5DFB360054FBB3 /* Top3Parks_Plist.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0684B0761E5DFB360054FBB3 /* Top3Parks_Plist.plist */; };
+		0684B0791E5E20560054FBB3 /* Park.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0684B0781E5E20560054FBB3 /* Park.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		0684B0051E5CAE7B0054FBB3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0684AFE81E5CAE7B0054FBB3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0684AFEF1E5CAE7B0054FBB3;
+			remoteInfo = RushUSNationalParks;
+		};
+		0684B0101E5CAE7B0054FBB3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0684AFE81E5CAE7B0054FBB3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0684AFEF1E5CAE7B0054FBB3;
+			remoteInfo = RushUSNationalParks;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0684AFF01E5CAE7B0054FBB3 /* RushUSNationalParks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RushUSNationalParks.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0684AFF31E5CAE7B0054FBB3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		0684AFF81E5CAE7B0054FBB3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		0684AFFA1E5CAE7B0054FBB3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		0684AFFD1E5CAE7B0054FBB3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		0684AFFF1E5CAE7B0054FBB3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0684B0041E5CAE7B0054FBB3 /* RushUSNationalParksTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RushUSNationalParksTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0684B0081E5CAE7B0054FBB3 /* RushUSNationalParksTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RushUSNationalParksTests.swift; sourceTree = "<group>"; };
+		0684B00A1E5CAE7B0054FBB3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0684B00F1E5CAE7B0054FBB3 /* RushUSNationalParksUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RushUSNationalParksUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0684B0131E5CAE7B0054FBB3 /* RushUSNationalParksUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RushUSNationalParksUITests.swift; sourceTree = "<group>"; };
+		0684B0151E5CAE7B0054FBB3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0684B0231E5CB7AC0054FBB3 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		0684B0251E5CB7CE0054FBB3 /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		0684B0271E5CBC8D0054FBB3 /* GCanyon_cell.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = GCanyon_cell.jpg; path = ../GCanyon_cell.jpg; sourceTree = "<group>"; };
+		0684B0281E5CBC8D0054FBB3 /* GSMountain_cell.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = GSMountain_cell.jpg; path = ../GSMountain_cell.jpg; sourceTree = "<group>"; };
+		0684B0291E5CBC8D0054FBB3 /* Yosemite_cell.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = Yosemite_cell.jpg; path = ../Yosemite_cell.jpg; sourceTree = "<group>"; };
+		0684B02E1E5CBD2E0054FBB3 /* GSMountain_image_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = GSMountain_image_1.jpg; sourceTree = "<group>"; };
+		0684B03C1E5CBD560054FBB3 /* GCanyon_image_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = GCanyon_image_1.jpg; sourceTree = "<group>"; };
+		0684B04A1E5CBD930054FBB3 /* Yosemite_image_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Yosemite_image_1.jpg; sourceTree = "<group>"; };
+		0684B0601E5CD6040054FBB3 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		0684B0761E5DFB360054FBB3 /* Top3Parks_Plist.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Top3Parks_Plist.plist; sourceTree = "<group>"; };
+		0684B0781E5E20560054FBB3 /* Park.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Park.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0684AFED1E5CAE7B0054FBB3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0684B0011E5CAE7B0054FBB3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0684B00C1E5CAE7B0054FBB3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0684AFE71E5CAE7B0054FBB3 = {
+			isa = PBXGroup;
+			children = (
+				0684AFF21E5CAE7B0054FBB3 /* RushUSNationalParks */,
+				0684B0071E5CAE7B0054FBB3 /* RushUSNationalParksTests */,
+				0684B0121E5CAE7B0054FBB3 /* RushUSNationalParksUITests */,
+				0684AFF11E5CAE7B0054FBB3 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		0684AFF11E5CAE7B0054FBB3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0684AFF01E5CAE7B0054FBB3 /* RushUSNationalParks.app */,
+				0684B0041E5CAE7B0054FBB3 /* RushUSNationalParksTests.xctest */,
+				0684B00F1E5CAE7B0054FBB3 /* RushUSNationalParksUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0684AFF21E5CAE7B0054FBB3 /* RushUSNationalParks */ = {
+			isa = PBXGroup;
+			children = (
+				0684B0231E5CB7AC0054FBB3 /* TableViewController.swift */,
+				0684B0251E5CB7CE0054FBB3 /* TableViewCell.swift */,
+				0684B0601E5CD6040054FBB3 /* DetailViewController.swift */,
+				0684B0781E5E20560054FBB3 /* Park.swift */,
+				0684AFF71E5CAE7B0054FBB3 /* Main.storyboard */,
+				0684AFF31E5CAE7B0054FBB3 /* AppDelegate.swift */,
+				0684AFFA1E5CAE7B0054FBB3 /* Assets.xcassets */,
+				0684B0731E5DE3BE0054FBB3 /* Supporting */,
+				0684B02D1E5CBCBE0054FBB3 /* images */,
+			);
+			path = RushUSNationalParks;
+			sourceTree = "<group>";
+		};
+		0684B0071E5CAE7B0054FBB3 /* RushUSNationalParksTests */ = {
+			isa = PBXGroup;
+			children = (
+				0684B0081E5CAE7B0054FBB3 /* RushUSNationalParksTests.swift */,
+				0684B00A1E5CAE7B0054FBB3 /* Info.plist */,
+			);
+			path = RushUSNationalParksTests;
+			sourceTree = "<group>";
+		};
+		0684B0121E5CAE7B0054FBB3 /* RushUSNationalParksUITests */ = {
+			isa = PBXGroup;
+			children = (
+				0684B0131E5CAE7B0054FBB3 /* RushUSNationalParksUITests.swift */,
+				0684B0151E5CAE7B0054FBB3 /* Info.plist */,
+			);
+			path = RushUSNationalParksUITests;
+			sourceTree = "<group>";
+		};
+		0684B02D1E5CBCBE0054FBB3 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				0684B02E1E5CBD2E0054FBB3 /* GSMountain_image_1.jpg */,
+				0684B03C1E5CBD560054FBB3 /* GCanyon_image_1.jpg */,
+				0684B04A1E5CBD930054FBB3 /* Yosemite_image_1.jpg */,
+				0684B0271E5CBC8D0054FBB3 /* GCanyon_cell.jpg */,
+				0684B0281E5CBC8D0054FBB3 /* GSMountain_cell.jpg */,
+				0684B0291E5CBC8D0054FBB3 /* Yosemite_cell.jpg */,
+			);
+			name = images;
+			sourceTree = "<group>";
+		};
+		0684B0731E5DE3BE0054FBB3 /* Supporting */ = {
+			isa = PBXGroup;
+			children = (
+				0684B0761E5DFB360054FBB3 /* Top3Parks_Plist.plist */,
+				0684AFFC1E5CAE7B0054FBB3 /* LaunchScreen.storyboard */,
+				0684AFFF1E5CAE7B0054FBB3 /* Info.plist */,
+			);
+			name = Supporting;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0684AFEF1E5CAE7B0054FBB3 /* RushUSNationalParks */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0684B0181E5CAE7B0054FBB3 /* Build configuration list for PBXNativeTarget "RushUSNationalParks" */;
+			buildPhases = (
+				0684AFEC1E5CAE7B0054FBB3 /* Sources */,
+				0684AFED1E5CAE7B0054FBB3 /* Frameworks */,
+				0684AFEE1E5CAE7B0054FBB3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RushUSNationalParks;
+			productName = RushUSNationalParks;
+			productReference = 0684AFF01E5CAE7B0054FBB3 /* RushUSNationalParks.app */;
+			productType = "com.apple.product-type.application";
+		};
+		0684B0031E5CAE7B0054FBB3 /* RushUSNationalParksTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0684B01B1E5CAE7B0054FBB3 /* Build configuration list for PBXNativeTarget "RushUSNationalParksTests" */;
+			buildPhases = (
+				0684B0001E5CAE7B0054FBB3 /* Sources */,
+				0684B0011E5CAE7B0054FBB3 /* Frameworks */,
+				0684B0021E5CAE7B0054FBB3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0684B0061E5CAE7B0054FBB3 /* PBXTargetDependency */,
+			);
+			name = RushUSNationalParksTests;
+			productName = RushUSNationalParksTests;
+			productReference = 0684B0041E5CAE7B0054FBB3 /* RushUSNationalParksTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		0684B00E1E5CAE7B0054FBB3 /* RushUSNationalParksUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0684B01E1E5CAE7B0054FBB3 /* Build configuration list for PBXNativeTarget "RushUSNationalParksUITests" */;
+			buildPhases = (
+				0684B00B1E5CAE7B0054FBB3 /* Sources */,
+				0684B00C1E5CAE7B0054FBB3 /* Frameworks */,
+				0684B00D1E5CAE7B0054FBB3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0684B0111E5CAE7B0054FBB3 /* PBXTargetDependency */,
+			);
+			name = RushUSNationalParksUITests;
+			productName = RushUSNationalParksUITests;
+			productReference = 0684B00F1E5CAE7B0054FBB3 /* RushUSNationalParksUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0684AFE81E5CAE7B0054FBB3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = "Kai Rush";
+				TargetAttributes = {
+					0684AFEF1E5CAE7B0054FBB3 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+					0684B0031E5CAE7B0054FBB3 = {
+						CreatedOnToolsVersion = 7.3.1;
+						TestTargetID = 0684AFEF1E5CAE7B0054FBB3;
+					};
+					0684B00E1E5CAE7B0054FBB3 = {
+						CreatedOnToolsVersion = 7.3.1;
+						TestTargetID = 0684AFEF1E5CAE7B0054FBB3;
+					};
+				};
+			};
+			buildConfigurationList = 0684AFEB1E5CAE7B0054FBB3 /* Build configuration list for PBXProject "RushUSNationalParks" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 0684AFE71E5CAE7B0054FBB3;
+			productRefGroup = 0684AFF11E5CAE7B0054FBB3 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0684AFEF1E5CAE7B0054FBB3 /* RushUSNationalParks */,
+				0684B0031E5CAE7B0054FBB3 /* RushUSNationalParksTests */,
+				0684B00E1E5CAE7B0054FBB3 /* RushUSNationalParksUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0684AFEE1E5CAE7B0054FBB3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0684B0771E5DFB360054FBB3 /* Top3Parks_Plist.plist in Resources */,
+				0684AFFE1E5CAE7B0054FBB3 /* LaunchScreen.storyboard in Resources */,
+				0684B02A1E5CBC8D0054FBB3 /* GCanyon_cell.jpg in Resources */,
+				0684B0511E5CBD930054FBB3 /* Yosemite_image_1.jpg in Resources */,
+				0684B02C1E5CBC8D0054FBB3 /* Yosemite_cell.jpg in Resources */,
+				0684B0351E5CBD2E0054FBB3 /* GSMountain_image_1.jpg in Resources */,
+				0684B0431E5CBD560054FBB3 /* GCanyon_image_1.jpg in Resources */,
+				0684AFFB1E5CAE7B0054FBB3 /* Assets.xcassets in Resources */,
+				0684B02B1E5CBC8D0054FBB3 /* GSMountain_cell.jpg in Resources */,
+				0684AFF91E5CAE7B0054FBB3 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0684B0021E5CAE7B0054FBB3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0684B00D1E5CAE7B0054FBB3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0684AFEC1E5CAE7B0054FBB3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0684B0261E5CB7CE0054FBB3 /* TableViewCell.swift in Sources */,
+				0684AFF41E5CAE7B0054FBB3 /* AppDelegate.swift in Sources */,
+				0684B0241E5CB7AC0054FBB3 /* TableViewController.swift in Sources */,
+				0684B0791E5E20560054FBB3 /* Park.swift in Sources */,
+				0684B0611E5CD6040054FBB3 /* DetailViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0684B0001E5CAE7B0054FBB3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0684B0091E5CAE7B0054FBB3 /* RushUSNationalParksTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0684B00B1E5CAE7B0054FBB3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0684B0141E5CAE7B0054FBB3 /* RushUSNationalParksUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		0684B0061E5CAE7B0054FBB3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0684AFEF1E5CAE7B0054FBB3 /* RushUSNationalParks */;
+			targetProxy = 0684B0051E5CAE7B0054FBB3 /* PBXContainerItemProxy */;
+		};
+		0684B0111E5CAE7B0054FBB3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0684AFEF1E5CAE7B0054FBB3 /* RushUSNationalParks */;
+			targetProxy = 0684B0101E5CAE7B0054FBB3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		0684AFF71E5CAE7B0054FBB3 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0684AFF81E5CAE7B0054FBB3 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		0684AFFC1E5CAE7B0054FBB3 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0684AFFD1E5CAE7B0054FBB3 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		0684B0161E5CAE7B0054FBB3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		0684B0171E5CAE7B0054FBB3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		0684B0191E5CAE7B0054FBB3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = RushUSNationalParks/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = edu.niu.cs.rush.RushUSNationalParks;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		0684B01A1E5CAE7B0054FBB3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = RushUSNationalParks/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = edu.niu.cs.rush.RushUSNationalParks;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		0684B01C1E5CAE7B0054FBB3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = RushUSNationalParksTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = edu.niu.cs.rush.RushUSNationalParksTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RushUSNationalParks.app/RushUSNationalParks";
+			};
+			name = Debug;
+		};
+		0684B01D1E5CAE7B0054FBB3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = RushUSNationalParksTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = edu.niu.cs.rush.RushUSNationalParksTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RushUSNationalParks.app/RushUSNationalParks";
+			};
+			name = Release;
+		};
+		0684B01F1E5CAE7B0054FBB3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = RushUSNationalParksUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = edu.niu.cs.rush.RushUSNationalParksUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = RushUSNationalParks;
+			};
+			name = Debug;
+		};
+		0684B0201E5CAE7B0054FBB3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = RushUSNationalParksUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = edu.niu.cs.rush.RushUSNationalParksUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = RushUSNationalParks;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0684AFEB1E5CAE7B0054FBB3 /* Build configuration list for PBXProject "RushUSNationalParks" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0684B0161E5CAE7B0054FBB3 /* Debug */,
+				0684B0171E5CAE7B0054FBB3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0684B0181E5CAE7B0054FBB3 /* Build configuration list for PBXNativeTarget "RushUSNationalParks" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0684B0191E5CAE7B0054FBB3 /* Debug */,
+				0684B01A1E5CAE7B0054FBB3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0684B01B1E5CAE7B0054FBB3 /* Build configuration list for PBXNativeTarget "RushUSNationalParksTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0684B01C1E5CAE7B0054FBB3 /* Debug */,
+				0684B01D1E5CAE7B0054FBB3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0684B01E1E5CAE7B0054FBB3 /* Build configuration list for PBXNativeTarget "RushUSNationalParksUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0684B01F1E5CAE7B0054FBB3 /* Debug */,
+				0684B0201E5CAE7B0054FBB3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0684AFE81E5CAE7B0054FBB3 /* Project object */;
+}

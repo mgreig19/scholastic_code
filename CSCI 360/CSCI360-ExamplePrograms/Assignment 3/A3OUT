@@ -1,0 +1,291 @@
+1                    J E S 2  J O B  L O G  --  S Y S T E M  S 0 W 1  --  N O D E  Z O S K C T R         
+0 
+ 14.14.02 JOB05174 ---- THURSDAY,  06 JUL 2017 ----
+ 14.14.02 JOB05174  IRR010I  USERID KC03OA0  IS ASSIGNED TO THIS JOB.
+ 14.14.02 JOB05174  ICH70001I KC03OA0  LAST ACCESS AT 14:05:00 ON THURSDAY, JULY 6, 2017
+ 14.14.02 JOB05174  $HASP373 KC03OA0A STARTED - INIT 2    - CLASS A        - SYS S0W1
+ 14.14.02 JOB05174  -                                         --TIMINGS (MINS.)--            ----PAGING COUNTS---
+ 14.14.02 JOB05174  -JOBNAME  STEPNAME PROCSTEP    RC   EXCP    TCB    SRB  CLOCK   SERV  PG   PAGE   SWAP    VIO SWAPS
+ 14.14.02 JOB05174  -KC03OA0A                      00     71 ******    .00     .0    176   0      0      0      0     0
+ 14.14.02 JOB05174  -KC03OA0A ENDED.  NAME-Kevin White          TOTAL TCB CPU TIME=   .00  TOTAL ELAPSED TIME=    .0
+ 14.14.02 JOB05174  $HASP395 KC03OA0A ENDED
+0------ JES2 JOB STATISTICS ------
+-  06 JUL 2017 JOB EXECUTION DATE
+-          211 CARDS READ
+-          291 SYSOUT PRINT RECORDS
+-            0 SYSOUT PUNCH RECORDS
+-           32 SYSOUT SPOOL KBYTES
+-         0.00 MINUTES EXECUTION TIME
+         1 //KC03OA0A JOB ,'Kevin White',MSGCLASS=H                                JOB05174
+         2 //STEP1 EXEC PGM=ASSIST                                                 00020000
+         3 //STEPLIB DD DSN=KC02293.ASSIST.LOADLIB,DISP=SHR                        00030000
+         4 //SYSPRINT DD SYSOUT=*                                                  00040000
+         5 //SYSIN DD *                                                            00050000
+         6 //FT05F001 DD DSN=KC02314.SUMMER17.CSCI360.HW3DATA,DISP=SHR             00130001
+ ICH70001I KC03OA0  LAST ACCESS AT 14:05:00 ON THURSDAY, JULY 6, 2017
+ IEF236I ALLOC. FOR KC03OA0A STEP1
+ IGD103I SMS ALLOCATED TO DDNAME STEPLIB
+ IEF237I JES2 ALLOCATED TO SYSPRINT
+ IEF237I JES2 ALLOCATED TO SYSIN
+ IGD103I SMS ALLOCATED TO DDNAME FT05F001
+ IEF142I KC03OA0A STEP1 - STEP WAS EXECUTED - COND CODE 0000
+ IGD104I KC02293.ASSIST.LOADLIB                       RETAINED,  DDNAME=STEPLIB 
+ IEF285I   KC03OA0.KC03OA0A.JOB05174.D0000102.?         SYSOUT        
+ IEF285I   KC03OA0.KC03OA0A.JOB05174.D0000101.?         SYSIN         
+ IGD104I KC02314.SUMMER17.CSCI360.HW3DATA             RETAINED,  DDNAME=FT05F001
+ IEF373I STEP/STEP1   /START 2017187.1414
+ IEF032I STEP/STEP1   /STOP  2017187.1414 
+         CPU:     0 HR  00 MIN  00.01 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+         VIRT:   584K  SYS:   268K  EXT:        4K  SYS:    11524K
+         ATB- REAL:                     0K  SLOTS:                     0K
+              VIRT- ALLOC:       0M SHRD:       0M
+ IEF375I  JOB/KC03OA0A/START 2017187.1414
+ IEF033I  JOB/KC03OA0A/STOP  2017187.1414 
+         CPU:     0 HR  00 MIN  00.01 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+1*** ASSIST 4.0/A2-05/15/82  470/V7A/0:OS/VS2  INS=SDFP7/X=BGHO, CHECK/TRC/=1180, OPTS=CDKMPR FROM PENN ST*NIU COMPSCI*LT         
+0                                                                                                                                 
+0                                                                                                               PAGE    1         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                       1 *********************************************                           00060000         
+                                       2 *                                                                       00070000         
+                                       3 * ASSIGNMENT 3                                                          00080000         
+                                       4 *                                                                       00090000         
+                                       5 * NAME: Kevin White                                                     00091000         
+                                       6 *                                                                       00092000         
+                                       7 * FUNCTION: This program will read through                              00093035         
+                                       8 *           the file given and print out info                           00093135         
+                                       9 *           on each of the emplyees. It will                            00093235         
+                                      10 *           use the data given to calculate                             00093335         
+                                      11 *           the Net pay of each, the total                              00093435         
+                                      12 *           number of emplyees, the amount                              00093535         
+                                      13 *           of emplyees that worked overtime                            00093635         
+                                      14 *           , and the average net pay.                                  00093735         
+                                      15 *                                                                       00094000         
+                                      16 * INPUT: Data stored in standard input                                  00095000         
+                                      17 *        representing the payroll report for                            00096000         
+                                      18 *        Widgets-R-Us                                                   00097000         
+                                      19 *                                                                       00098000         
+                                      20 * OUTPUT: A table of all emplyees listing the                           00099035         
+                                      21 *         information of each emplyee. As                               00099135         
+                                      22 *         well as 3 summary lines with the                              00099235         
+                                      23 *         total number of emplyees, total                               00099335         
+                                      24 *         number of emplyees that worked                                00099435         
+                                      25 *         overtime, and the average net pay.                            00099535         
+                                      26 *                                                                       00099700         
+                                      27 * ENTRY CONDS: NONE                                                     00099800         
+                                      28 *                                                                       00099900         
+                                      29 * EXIT CONDS: NONE                                                      00100000         
+                                      30 *                                                                       00100100         
+                                      31 * REGISTER USAGE:                                                       00100200         
+                                      32 *    2     Temp Counter For Employee count                              00100335         
+                                      33 *          and Overtime count                                           00100435         
+                                      34 *    3     Employee ID Number                                           00100535         
+                                      35 *    4     Reserved for Result of multiplying                           00100635         
+                                      36 *          Hourly Wage * Hours worked                                   00100735         
+                                      37 *    5     Hourly Wage                                                  00100835         
+                                      38 *    6     Hours Worked                                                 00100935         
+                                      39 *    7     Bonus                                                        00101035         
+                                      40 *    8     Deduction                                                    00101135         
+                                      41 *   10,11  Average Net Pay                                              00101235         
+                                      42 *   12,13  Average for rounding check                                   00101335         
+                                      43 *                                                                       00101400         
+                                      44 * PSEUDOCODE:                                                           00101500         
+                                      45 *                                                                       00101600         
+                                      46 *    <1> Set counters to 0                                              00101735         
+                                      47 *    <2> Print table Headings                                           00101835         
+                                      48 *    <3> Read from file                                                 00101935         
+                                      49 *    <4> While not end of file                                          00102035         
+                                      50 *          Increment Emplyee count                                      00102135         
+                                      51 *          Print Emplyee information                                    00102235         
+                                      52 *          Calculate Base Pay                                           00102335         
+1                                                                                                               PAGE    2         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                      53 *            If hours worked greater than 40                            00102435         
+                                      54 *              Overtime Pay = Wage * 2 *                                00102535         
+                                      55 *                         (hours worked - 40)                           00102635         
+                                      56 *              Increment OT counter                                     00102735         
+                                      57 *            Else                                                       00102835         
+                                      58 *              Overtime Pay = 0                                         00102935         
+                                      59 *          Calculate Net Pay                                            00103035         
+                                      60 *    <5> If end-of-file Print summary lines                             00103135         
+                                      61 *                                                                       00104000         
+                                      62 *********************************************                           00110000         
+ 000000                               63 MAIN     CSECT                                                          00111000         
+ 000000                               64          USING MAIN,15                                                  00112000         
+                                      65 *                                                                       00112102         
+ 000000 1B22                          66          SR    2,2               Set R2 to 0                            00112235         
+ 000002 1BBB                          67          SR    11,11             Set R11 to 0                           00112435         
+ 000004 5020 F140            00140    68          ST    2,EPTOTAL         Set EPTOTAL to 0                       00112535         
+ 000008 5020 F144            00144    69          ST    2,OTTOTAL         Set EPTOTAL to 0                       00112635         
+                                      70 *                                                                       00112702         
+ 00000C E020 F150 003E 00150          71          XPRNT TITLE,62          Print out TITLE to 62 characters       00112836         
+ 000012 E020 F18E 003E 0018E          72          XPRNT TOPLINE1,62       Print out TOPLINE1 to 62 characters    00112936         
+ 000018 E020 F1CC 0061 001CC          73          XPRNT TOPLINE2,97       Print out TOPLINE2 to 97 characters    00113036         
+ 00001E E020 F22D 0061 0022D          74          XPRNT TOPLINE3,97       Print out TOPLINE3 to 97 characters    00113136         
+ 000024 E020 F28E 0062 0028E          75          XPRNT DASH,98           Print out DASH to 98 characters        00113236         
+                                      76 *                                                                       00113308         
+ 00002A E000 F0F0 0050 000F0          77 LOOP     XREAD BUFFER,80         Reads a line from file                 00113436         
+ 000030 4740 F0B2            000B2    78          BC    B'0100',ENDLOOP   If end-of-file, end loop               00113536         
+ 000034 5820 F140            00140    79          L     2,EPTOTAL         Sets R2 to EPTOTAL                     00113636         
+ 000038 5A20 F408            00408    80          A     2,=F'1'           Adds 1 to EPTOTAL                      00113736         
+ 00003C 5020 F140            00140    81          ST    2,EPTOTAL         Sets EPTOTAL to R2                     00113836         
+ 000040 5330 F0F0            000F0    82          XDECI 3,BUFFER          Stores first number in R3              00113936         
+ 000044 5351 0000            00000    83          XDECI 5,0(1)            Stores second number in R5             00114036         
+ 000048 5361 0000            00000    84          XDECI 6,0(1)            Stores third number in R6              00114136         
+ 00004C 5381 0000            00000    85          XDECI 8,0(1)            Stores fourth number in R8             00114236         
+ 000050 5371 0000            00000    86          XDECI 7,0(1)            Stores fifth number in R7              00114336         
+ 000054 5230 F2F2            002F2    87          XDECO 3,EMPNUM          Sets EMPNUM to R3                      00114436         
+ 000058 5250 F303            00303    88          XDECO 5,WAGEP           Sets WAGEP to R5                       00114536         
+ 00005C 5260 F314            00314    89          XDECO 6,HOURS           Sets HOURS to R6                       00114636         
+ 000060 5270 F325            00325    90          XDECO 7,BONUS           Sets BONUS to R7                       00114736         
+ 000064 5280 F336            00336    91          XDECO 8,DEDUCT          Sets DEDUCT to R8                      00114836         
+                                      92 *                                                                       00114911         
+ 000068 5050 F14C            0014C    93          ST    5,WAGE            Sets WAGE to R5                        00115036         
+ 00006C 1C46                          94          MR    4,6               Multiplies R5 by R6                    00115136         
+ 00006E 5050 F148            00148    95          ST    5,BASE            Stores result in BASE                  00115236         
+ 000072 5850 F14C            0014C    96          L     5,WAGE            Sets R5 to WAGE                        00115336         
+                                      97 *                                                                       00115414         
+ 000076 5960 F40C            0040C    98          C     6,=F'40'          Compares R6 to 40                      00115536         
+ 00007A 4720 F084            00084    99          BH    IF                If R6 > 40 goto IF                     00115636         
+ 00007E 1B55                         100          SR    5,5               Set 5 to 0                             00115736         
+ 000080 47F0 F09A            0009A   101          B     ENDIF             Jump to ENDIF                          00115836         
+ 000084 5C40 F410            00410   102 IF       M     4,=F'2'           Multiply R5 by 2                       00115936         
+ 000088 5B60 F40C            0040C   103          S     6,=F'40'          Subtrave R6 by 40                      00116036         
+ 00008C 1C46                         104          MR    4,6               Multiply R5 by result                  00116136         
+ 00008E 5820 F144            00144   105          L     2,OTTOTAL         Set R2 to OTTOTAL                      00116236         
+ 000092 5A20 F408            00408   106          A     2,=F'1'           Increment OTTOTAL                      00116336         
+ 000096 5020 F144            00144   107          ST    2,OTTOTAL         Store the result                       00116436         
+ 00009A 5A50 F148            00148   108 ENDIF    A     5,BASE            Add BASE to R5                         00116536         
+ 00009E 1A57                         109          AR    5,7               Add R7 to R5                           00116636         
+1                                                                                                               PAGE    3         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+ 0000A0 1B58                         110          SR    5,8               Subtract R5 by R8                      00116736         
+ 0000A2 1AB5                         111          AR    11,5              Add R5 to R11                          00116836         
+ 0000A4 5250 F347            00347   112          XDECO 5,NET             Set NET to R5                          00116936         
+                                     113 *                                                                       00117011         
+ 0000A8 E020 F2F1 0062 002F1         114          XPRNT LINE,98           Print LINE to 98 characters            00117136         
+ 0000AE 47F0 F02A            0002A   115          B     LOOP              Return to start of LOOP                00117236         
+                                     116 *                                                                       00117317         
+ 0000B2 5820 F140            00140   117 ENDLOOP  L     2,EPTOTAL         SET R2 to EPTOTAL                      00117436         
+ 0000B6 5220 F382            00382   118          XDECO 2,EPTOTP          SET EPTOTP to R2                       00117536         
+ 0000BA E020 F353 003B 00353         119          XPRNT FLINE1,59         Print FLINE1 to 59 characters          00117636         
+ 0000C0 5CA0 F408            00408   120          M     10,=F'1'          Multiply R11 by 1 (Division Prep)      00117736         
+ 0000C4 1DA2                         121          DR    10,2              Divide R11 by R2                       00117836         
+ 0000C6 18DA                         122          LR    13,10             Set R13 to R10                         00117936         
+ 0000C8 5CC0 F410            00410   123          M     12,=F'2'          Multiply R13 by 2                      00118036         
+ 0000CC 19D2                         124          CR    13,2              Compare R13 to R2                      00118136         
+ 0000CE 47D0 F0D6            000D6   125 IF2      BNH   ENDIF2            If R13 <= R2 Continue                  00118236         
+ 0000D2 5AB0 F408            00408   126          A     11,=F'1'          Add 1 to R11                           00118336         
+ 0000D6 52B0 F3BD            003BD   127 ENDIF2   XDECO 11,AVG            Set AVG to R11                         00118436         
+ 0000DA E020 F38E 003B 0038E         128          XPRNT FLINE2,59         Print FLINE2 to 59 characters          00118536         
+ 0000E0 5820 F144            00144   129          L     2,OTTOTAL         Set R2 to OTTOTAL                      00118636         
+ 0000E4 5220 F3F8            003F8   130          XDECO 2,OTTOTP          Set OTTOTP to R2                       00118736         
+ 0000E8 E020 F3C9 003B 003C9         131          XPRNT FLINE3,59         Print FLINE3 to 59 characters          00118836         
+                                     132 *                                                                       00118902         
+ 0000EE 07FE                         133          BR    14                                                       00119000         
+                                     134 *                                                                       00119102         
+ 0000F0                              135 BUFFER   DS    80C                                                      00119202         
+ 000140                              136 EPTOTAL  DS    F                                                        00119314         
+ 000144                              137 OTTOTAL  DS    F                                                        00119414         
+ 000148                              138 BASE     DS    F                                                        00119514         
+ 00014C                              139 WAGE     DS    F                                                        00119614         
+                                     140 *                                                                       00119702         
+ 000150 F0                           141 TITLE    DC    C'0'              Double space carriage control          00119837         
+ 000151 4040404040404040             142          DC    CL30' '           30 characters of spaces                00119937         
+ 00016F D285A5899540E688             143          DC    CL31'Kevin White, CSCI360, Program 3'                    00120031         
+                                     144 *                                                                       00120131         
+ 00018E F0                           145 TOPLINE1 DC    C'0'              Double space carriage control          00120237         
+ 00018F 4040404040404040             146          DC    CL31' '           31 characters of spaces                00120337         
+ 0001AE D781A89996939340             147          DC    CL30'Payroll Report -- Widgets-R-Us'                     00120406         
+                                     148 *                                                                       00120506         
+ 0001CC F0                           149 TOPLINE2 DC    C'0'              Double space carriage control          00120637         
+ 0001CD 404040404040                 150          DC    CL6' '            6 characters of spaces                 00120737         
+ 0001D3 C5D4D7D3D6E8C5C5             151          DC    CL8'EMPLOYEE'                                            00120809         
+ 0001DB 4040404040404040             152          DC    CL10' '           10 characters of spaces                00120937         
+ 0001E5 C8D6E4D9D3E8                 153          DC    CL6'HOURLY'                                              00121008         
+ 0001EB 4040404040404040             154          DC    CL11' '           11 characters of spaces                00121137         
+ 0001F6 C8D6E4D9E2                   155          DC    CL5'HOURS'                                               00121208         
+ 0001FB 4040404040404040             156          DC    CL47' '           47 characters of spaces                00121337         
+ 00022A D5C5E3                       157          DC    CL3'NET'                                                 00121408         
+                                     158 *                                                                       00121508         
+ 00022D 40                           159 TOPLINE3 DC    C' '              Single space carriage control          00121637         
+ 00022E 404040404040                 160          DC    CL6' '            6 characters of spaces                 00121737         
+ 000234 D5E4D4C2C5D9                 161          DC    CL6'NUMBER'                                              00121808         
+ 00023A 4040404040404040             162          DC    CL13' '           13 characters of spaces                00121937         
+ 000247 E6C1C7C5                     163          DC    CL4'WAGE'                                                00122008         
+ 00024B 4040404040404040             164          DC    CL12' '           12 characters of spaces                00122137         
+ 000257 E6D6D9D2C5C4                 165          DC    CL6'WORKED'                                              00122208         
+ 00025D 4040404040404040             166          DC    CL11' '           11 characters of spaces                00122337         
+1                                                                                                               PAGE    4         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+ 000268 C2D6D5E4E2                   167          DC    CL5'BONUS'                                               00122408         
+ 00026D 4040404040404040             168          DC    CL11' '           11 characters of spaces                00122537         
+ 000278 C4C5C4E4C3E3C9D6             169          DC    CL9'DEDUCTION'                                           00122608         
+ 000281 4040404040404040             170          DC    CL10' '           10 characters of spaces                00122737         
+ 00028B D7C1E8                       171          DC    CL3'PAY'                                                 00122808         
+                                     172 *                                                                       00122908         
+ 00028E 40                           173 DASH     DC    C' '              Single space carriage control          00123037         
+ 00028F 6060606060606060             174          DC    98C'-'            98 '-' characters                      00123137         
+                                     175 *                                                                       00123232         
+ 0002F1 F0                           176 LINE     DC    C'0'              Double space carriage control          00123337         
+ 0002F2                              177 EMPNUM   DS    12C               Allocate 12 characters to EMPNUM       00123437         
+ 0002FE 4040404040                   178          DC    CL5' '            5 characters of spaces                 00123537         
+ 000303                              179 WAGEP    DS    12C               Allocate 12 characters to WAGEP        00123637         
+ 00030F 4040404040                   180          DC    CL5' '            5 characters of spaces                 00123737         
+ 000314                              181 HOURS    DS    12C               Allocate 12 characters to HOURS        00123837         
+ 000320 4040404040                   182          DC    CL5' '            5 characters of spaces                 00123937         
+ 000325                              183 BONUS    DS    12C               Allocate 12 characters to BONUS        00124037         
+ 000331 4040404040                   184          DC    CL5' '            5 characters of spaces                 00124137         
+ 000336                              185 DEDUCT   DS    12C               Allocate 12 characters to DEDUCT       00124237         
+ 000342 4040404040                   186          DC    CL5' '            5 characters of spaces                 00124337         
+ 000347                              187 NET      DS    12C               Allocate 12 characters to NET          00124437         
+                                     188 *                                                                       00124504         
+ 000353 60                           189 FLINE1   DC    C'-'              Triple space carriage control          00124637         
+ 000354 E3D6E3C1D340D5E4             190          DC    CL26'TOTAL NUMBER OR EMPLOYEES:'                         00124718         
+ 00036E 4040404040404040             191          DC    CL20' '           20 characters of spaces                00124837         
+ 000382                              192 EPTOTP   DS    12C               Allocate 12 characters to EPTOTP       00124937         
+                                     193 *                                                                       00125002         
+ 00038E F0                           194 FLINE2   DC    C'0'              Double space carriage control          00125137         
+ 00038F C1E5C5D9C1C7C540             195          DC    CL29'AVERAGE NET PAY PER EMPLOYEE:'                      00125218         
+ 0003AC 4040404040404040             196          DC    CL17' '           17 characters of spaces                00125337         
+ 0003BD                              197 AVG      DS    12C               Allocate 12 characters for AVG         00125437         
+                                     198 *                                                                       00125518         
+ 0003C9 F0                           199 FLINE3   DC    C'0'              Double space carriage control          00125637         
+ 0003CA D5E4D4C2C5D940D6             200          DC    CL37'NUMBER OF EMPLOYEES WORKING OVERTIME:'              00125718         
+ 0003EF 4040404040404040             201          DC    CL9' '            9 characters of spaces                 00125837         
+ 0003F8                              202 OTTOTP   DS    12C               Allocate 12 characters for OTTOTP      00125937         
+                                     203 *                                                                       00126002         
+                                     204          END   MAIN                                                     00126100         
+ 000408 00000001                     205                =F'1'                                                                     
+ 00040C 00000028                     206                =F'40'                                                                    
+ 000410 00000002                     207                =F'2'                                                                     
+0***  NO   STATEMENTS FLAGGED -  NO   WARNINGS,  NO   ERRORS                                                                      
+0*** DYNAMIC CORE AREA USED:  LOW:   10480 HIGH:     924 LEAVING:  482164 FREE BYTES. AVERAGE:       54 BYTES/STMT ***            
+0*** ASSEMBLY TIME =    0.001 SECS,   208000 STATEMENTS/SEC ***                                                                   
+0*** PROGRAM EXECUTION BEGINNING - ANY OUTPUT BEFORE EXECUTION TIME MESSAGE IS PRODUCED BY USER PROGRAM ***                       
+0                              Kevin White, CSCI360, Program 3                                                                    
+0                               Payroll Report -- Widgets-R-Us                                                                    
+0      EMPLOYEE          HOURLY           HOURS                                               NET                                 
+       NUMBER             WAGE            WORKED           BONUS           DEDUCTION          PAY                                 
+ -------------------------------------------------------------------------------------------------                                
+0      102306             1200               35                0             2735            39265                                
+1      123045             1375               47             5000             3186            85689                                
+0      204980             1425               40             2500             3814            55686                                
+0      324506             1335               52             3600             2600           102460                                
+0      837142             1560               43             1500             2000            75940                                
+0      340712             1350               37             4575             3500            51025                                
+0      452170             1800               46              800             8247            96953                                
+0      561141             1245               20             1000                0            25900                                
+0      752864             1900               41             5200             3710            83190                                
+0      836629             1505               29             6385             1850            48180                                
+0      765743             1350               39             2450             1785            53315                                
+0      479312             1450               34             1950             1700            49550                                
+0      890637             1915               55             5525             8217           160083                                
+0      112223             1250               40                0                0            50000                                
+0      224456             2000               40                0             1000            79000                                
+0      335678             3000               40             2000                0           122000                                
+-TOTAL NUMBER OR EMPLOYEES:                              16                                                                       
+0AVERAGE NET PAY PER EMPLOYEE:                        73640                                                                       
+0NUMBER OF EMPLOYEES WORKING OVERTIME:                    6                                                                       
+0*** EXECUTION TIME =    0.001 SECS.       531 INSTRUCTIONS EXECUTED -   531000 INSTRUCTIONS/SEC ***                              
+0*** AM004 - NORMAL USER TERMINATION BY RETURN ***                                                                                

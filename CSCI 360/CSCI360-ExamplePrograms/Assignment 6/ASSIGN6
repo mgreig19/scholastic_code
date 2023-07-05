@@ -1,0 +1,403 @@
+//KC03OA0A JOB ,'Kevin White',MSGCLASS=H                                00010000
+//STEP1 EXEC PGM=ASSIST                                                 00020000
+//STEPLIB DD DSN=KC02293.ASSIST.LOADLIB,DISP=SHR                        00030000
+//SYSPRINT DD SYSOUT=*                                                  00040000
+//SYSIN DD *                                                            00050000
+**************************************************                      00051002
+*                                                                       00052002
+* PROGRAM:    ASSIGN6                                                   00052199
+* PROGRAMER:  Kevin White                                               00052299
+*                                                                       00052399
+* FUNCTION: This program will read through the                          00052499
+*           standard input and stor the                                 00052599
+*           information in a table. it will then                        00052699
+*           print out the infromation and list                          00052799
+*           the amount of clients, the sum of the                       00052899
+*           balances, the average balance, the                          00052999
+*           largest balances, and the sum of                            00053099
+*           negative balances.                                          00053199
+*                                                                       00053299
+* INPUT:    The records of data in standard input                       00053399
+*                                                                       00053499
+* OUTPUT:   The table of data, the amount of                            00053599
+*           clients, the sum of the balances, the                       00053699
+*           average balance, the largest balance,                       00053799
+*           and the sum of negative balances.                           00053899
+*                                                                       00053999
+* ENTRY CONDS: NONE                                                     00054099
+*                                                                       00054199
+* EXIT CONDS: NONE                                                      00054299
+*                                                                       00054399
+* REGISTER USAGE:                                                       00054499
+*    1     Parameter List                                               00054599
+*                                                                       00054699
+* PSEUDOCODE:                                                           00054799
+*    <1> Standard Entry Linkage                                         00054899
+*    <2> Call BUILD subroutine                                          00054999
+*    <3> Call PRINT subroutine                                          00055099
+*    <4> Call TALLY subroutine                                          00055199
+*                                                                       00055299
+**************************************************                      00056002
+MAIN     CSECT                                                          00060000
+         STM   14,12,12(13)      Save the registers                     00070099
+         LR    12,15             Set R12 as the bas register            00071099
+         USING MAIN,12                                                  00072002
+         LA    14,MAINSAVE       Point R14 at MAINSAVE                  00073099
+         ST    13,4(0,14)        Save forward pointer                   00074099
+         ST    14,8(0,13)        Save backward pointer                  00075099
+         LR    13,14             Point R13 at MAINSAVE                  00076099
+*                                                                       00077002
+         LA    1,PARMS           Sets parameters for BUILD              00078099
+         L     15,=V(BUILD)      Points R15 at BUILD                    00079099
+         BALR  14,15             Branch to BUILD                        00080099
+*                                                                       00091002
+         LA    1,PARMS           Sets parameters for PRINT              00092099
+         L     15,=V(PRINT)      Points R15 at PRINT                    00092199
+         BALR  14,15             Branch to PRINT                        00092299
+*                                                                       00092383
+         LA    1,PARMS           Sets parameter for TALLY               00092499
+         L     15,=V(TALLY)      Ponts R15 at TALLY                     00093099
+         BALR  14,15             Branch to TALLY                        00094099
+*                                                                       00095099
+         L     13,4(0,13)        Point R13 to caller save area          00100099
+         LM    14,12,12(13)      Restore registers                      00101099
+         BR    14                Return to caller                       00102099
+*                                                                       00103002
+         LTORG                                                          00103104
+MAINSAVE DS    18F               Allocates 18F for save area            00104099
+TABLE    DS    70CL48            Allocates space for TABLE              00105099
+         ORG   MAIN+(*-MAIN+15)/16*16    For XDUMP check                00105199
+         ORG                                                            00105206
+EOT      DS    F                 Allocate space for EOT                 00106099
+BUFFER   DS    80C               Allocate 80 characters for BUFFER      00110099
+PARMS    DC    A(TABLE)          Parameters for subroutines             00111699
+         DC    A(EOT)                                                   00111706
+         DC    A(BUFFER)                                                00111806
+*                                                                       00112005
+ENTRY    DSECT                   Dummy section for table                00112199
+FNAME    DS    CL10              10 characters for First Name           00112299
+LNAME    DS    CL10              10 characters for Last Name            00112399
+ID       DS    CL9               9 characters for ID number             00112499
+PASS     DS    CL8               8 characters for Password              00112599
+BAL      DS    PL5               5 packed decimals for Balance          00112699
+EXP      DS    PL5               5 packed decimals for Exp. Date        00112799
+FILL     DS    CL1               1 character for filler                 00112899
+**************************************************                      00113005
+*                                                                       00114005
+* BUILD                                                                 00114182
+*                                                                       00114299
+* FUNCTION: This subroutine will read from the                          00114399
+*           standard input and store the data in                        00114499
+*           the table passed as a parameter.                            00114599
+*                                                                       00114699
+* INPUT:    Records of data stored in standard                          00114799
+*           input.                                                      00114899
+*                                                                       00114999
+* OUTPUT:   NONE                                                        00115099
+*                                                                       00115199
+* ENTRY CONDS: 0(1) -- Address of the table to                          00115299
+*                      store the data                                   00115399
+*              1(1) -- Address of the first unused                      00115499
+*                      data in the table                                00115599
+*              2(1) -- Address of the input buffer                      00115699
+*                                                                       00115799
+* EXIT CONDS: NONE                                                      00115899
+*                                                                       00115999
+* REGISTER USAGE:                                                       00116099
+*    2     Table of data                                                00116199
+*    3     End of the table                                             00116299
+*    4     Input Buffer                                                 00116399
+*                                                                       00116499
+* PSEUDOCODE:                                                           00116599
+*    <1> Standard Entry Linkage                                         00116699
+*    <2> Unload parameters                                              00116799
+*    <3> While not end of file                                          00116899
+*          Store data into table                                        00116999
+*            if balance has '-' sign at end                             00117099
+*              multiply by -1                                           00117199
+*                                                                       00117382
+**************************************************                      00117405
+BUILD    CSECT                                                          00117505
+         STM   14,12,12(13)      Save the registers                     00117699
+         LR    12,15             Set R12 as the base register           00118099
+         USING BUILD,12                                                 00119005
+         LA    14,BSAVE          Point R14 at BSAVE                     00119199
+         ST    13,4(0,14)        Save the forward pointer               00119299
+         ST    14,8(0,13)        Save the backward pointer              00119399
+         LR    13,14             Point R13 at BSAVE                     00119499
+*                                                                       00119507
+         USING ENTRY,2           Use ENTRY Dummy section for TABLE      00119699
+         LM    2,4,0(1)          Unload Parameters                      00119799
+*                                                                       00119807
+BLOOP    XREAD 0(0,4),80         Read from file to 80 characters        00119999
+         BC    B'0100',ENDBLP    If end of file, branch to ENDBLP       00120099
+         MVC   LNAME(10),0(4)    Move Last Name from buffer to table    00120199
+         MVC   FNAME(10),12(4)   Move First Name from buffer to table   00120299
+         MVC   ID(9),24(4)       Move ID from buffer to table           00120399
+         MVC   PASS(8),35(4)     Move password from buffer to table     00120499
+         PACK  EXP(5),45(9,4)    Store Exp. Date in table               00120599
+         PACK  BAL(5),55(7,4)    Store Balance in table                 00120699
+*                                                                       00120719
+         CLC   62(1,4),=C'+'     Check last sign                        00121399
+         BE    ENDTST            If positive branc to ENDTST            00121499
+         MP    BAL(5),=P'-1'     If negative multiply BAL by -1         00121699
+ENDTST   LA    2,48(0,2)         Increment table                        00121799
+         B     BLOOP             Return to start of loop                00121899
+*                                                                       00121905
+ENDBLP   ST    3,0(0,2)          Set EOT to last unused data            00122099
+         L     13,4(0,13)        Point R13 at caller's save area        00122199
+         LM    14,12,12(13)      Restore registers                      00122299
+         BR    14                Return to caller                       00122399
+*                                                                       00122405
+         LTORG                                                          00122505
+BSAVE    DS    18F               Allocate 18F for save area             00122699
+*                                                                       00122805
+**************************************************                      00122982
+*                                                                       00123082
+* PRINT                                                                 00123182
+*                                                                       00123299
+* FUNCTION: This subroutine will print out the                          00123399
+*           data held within the table given.                           00123499
+*                                                                       00123599
+* INPUT: NONE                                                           00123699
+*                                                                       00123799
+* OUTPUT: Will print out everything inside the                          00123899
+*         table given                                                   00123999
+*                                                                       00124099
+* ENTRY CONDS: 0(1) -- Address of the table                             00124199
+*                      holding the data                                 00124299
+*              1(1) -- Address of the end of the                        00124399
+*                      table                                            00124499
+*                                                                       00124599
+* EXIT CONDS: NONE                                                      00124699
+*                                                                       00124799
+* REGISTER USAGE:                                                       00124899
+*    2     Table of data                                                00124999
+*    3     Pointer to end of table                                      00125099
+*    4     Line counter                                                 00125299
+*                                                                       00125399
+* PSEUDOCODE:                                                           00125499
+*    <1> Standard Entry Link                                            00125599
+*    <2> While not end of table                                         00125699
+*          Print out table contents                                     00125799
+*            If 20 lines                                                00125899
+*              Start a new page                                         00125999
+*                                                                       00126182
+**************************************************                      00126282
+PRINT    CSECT                                                          00126383
+         STM   14,12,12(13)       Save the registers                    00126499
+         LR    12,15              Establish R12 as the base register    00126599
+         USING PRINT,12                                                 00126683
+         LA    14,PSAVE           Point R14 at PSAVE                    00126799
+         ST    13,4(0,14)         Save the forward pointer              00126899
+         ST    14,8(0,13)         Save the backward pointer             00126999
+         LR    13,14              Point R13 at PSAVE                    00127099
+*                                                                       00127189
+         USING ENTRY,2            Use ENTRY dummy section for TABLE     00127299
+         LM    2,3,0(1)           Unload parameters                     00127399
+         SR    4,4                Set counter to 0                      00127499
+*                                                                       00127583
+         XPRNT HEADER,74          Print HEADER to 74 characters         00127699
+         XPRNT HEADER2,112        Print HEADER2 to 112 characters       00127799
+*                                                                       00127886
+PLOOP    C     3,0(0,2)           Compare EOT to current table location 00127999
+         BE    PLPEND             If equal the end loop                 00128099
+         C     4,=F'20'           Compare counter to 20                 00128199
+         BNE   NONEWLN            If equal start a new page             00128299
+         SR    4,4                Set counter back to 0                 00128399
+         XPRNT HEADER,74          Print HEADER to 74 characters         00128499
+         XPRNT HEADER2,112        Print HEADER2 to 112 characters       00128599
+NONEWLN  MVI   LINE+1,C' '        Destructive overlap                   00128699
+         MVC   LINE+2(119),LINE+1                                       00128791
+         MVC   LINE+10(10),FNAME  Move first name onto LINE             00128899
+         MVC   LINE+29(10),LNAME  Move last name onto LINE              00128999
+         MVC   LINE+66(8),PASS    Move password onto LINE               00129099
+         MVC   LINE+103(9),ID     Move ID number onto LINE              00129199
+*                                                                       00129296
+         LA    1,OUTBAL+9         Set 1 to first non-zero digit         00129399
+         MVC   OUTBAL(16),=X'40206B2020206B2021204B202040C3D9'          00129499
+         EDMK  OUTBAL(16),BAL     Edit BAL using OUTBAL                 00129599
+         BCTR  1,0                Subtract 1 from R1                    00129699
+         MVI   0(1),C'$'          Set $ to correct space                00129799
+         MVC   LINE+42(16),OUTBAL Move balance onto LINE                00129899
+*                                                                       00129999
+         MVC   OUTEXP(11),=X'4021202020612020612020'                    00130099
+         ED    OUTEXP(11),EXP     Edit EXP using OUTEXP                 00130199
+         MVC   LINE+83(11),OUTEXP Move exp. date to LINE                00130299
+*                                                                       00130399
+         XPRNT LINE,121           Print LINE to 121 characters          00130499
+         LA    2,48(0,2)          Increment table                       00130599
+         A     4,=F'1'            Increment counter                     00130699
+         B     PLOOP              Restart the loop                      00130799
+*                                                                       00130891
+PLPEND   L     13,4(0,13)         Point R13 at caller's save area       00130999
+         LM    14,12,12(13)       Restore the registers                 00131099
+         BR    14                 Return to caller                      00131199
+*                                                                       00131283
+         LTORG                                                          00131383
+PSAVE    DS    18F                Allocate 18F for save area            00131499
+OUTBAL   DC    CL16' '            Allocate 16 characters for OUTBAL     00131599
+OUTEXP   DC    CL11' '            Allocate 11 characters for OUTEXP     00131699
+LINE     DC    C'0'               Double space carriage control         00131799
+         DC    CL120' '           Allocate 120 characters of spaces     00131899
+HEADER   DC    C'1'               New page carriage control             00131999
+         DC    CL46' '            Allocate 46 characters of spaces      00132099
+         DC    CL27'Famous names -- Client List'                        00132187
+HEADER2  DC    C'-'               Triple space carriage control         00132299
+         DC    CL9' '             Allocate 9 characters of spaces       00132399
+         DC    CL10'First Name'                                         00132488
+         DC    CL9' '             Allocate 9 characters of spaces       00132599
+         DC    CL9'Last Name'                                           00132688
+         DC    CL10' '            Allocate 10 characters of spaces      00132799
+         DC    CL7'Balance'                                             00132888
+         DC    CL11' '            Allocate 11 characters of spaces      00132999
+         DC    CL8'Password'                                            00133088
+         DC    CL10' '            Allocate 10 characters of spaces      00133199
+         DC    CL9'Exp. Date'                                           00133288
+         DC    CL10' '            Allocate 10 characters of spaces      00133399
+         DC    CL9'ID Number'                                           00133488
+*                                                                       00133583
+**************************************************                      00133699
+*                                                                       00133799
+* TALLY                                                                 00133899
+*                                                                       00133999
+* FUNCTION: This subroutine will print out the                          00134099
+*           number of clients, the sum of all the                       00134199
+*           account balances, the average account                       00134299
+*           balance, the largest account balance,                       00134399
+*           and the number of negative account                          00134499
+*           balances.                                                   00134599
+*                                                                       00134699
+* INPUT: NONE                                                           00134799
+*                                                                       00134899
+* OUTPUT: Will print out the relivant information                       00134999
+*         about the table.                                              00135099
+*                                                                       00135199
+* ENTRY CONDS: 0(1) -- Address of the table                             00135299
+*                      holding the data                                 00135399
+*              1(1) -- Address of the end of the                        00135499
+*                      table                                            00135599
+*                                                                       00135699
+* EXIT CONDS: NONE                                                      00135799
+*                                                                       00135899
+* REGISTER USAGE:                                                       00135999
+*   2      Table of data                                                00136199
+*   3      Pointer to end of table                                      00136299
+*                                                                       00136399
+* PSEUDOCODE:                                                           00136499
+*   <1> Standard entry linkage                                          00136599
+*   <2> Unload parameters                                               00136699
+*   <3> While not end of table                                          00136799
+*         Increment total                                               00136899
+*         Add balance to sum                                            00136999
+*         If balance negative                                           00137099
+*           Increment negative total                                    00137199
+*         If current balance bigger then largest                        00137299
+*           Set largest to current balance                              00137399
+*   <4> Print total                                                     00137499
+*   <5> Print sum                                                       00137599
+*   <6> Calculate and print average                                     00137699
+*   <7> Print largest                                                   00137799
+*   <8> Print negative total                                            00137899
+*                                                                       00137999
+**************************************************                      00138099
+TALLY    CSECT                                                          00138199
+         STM   14,12,12(13)        Save the registers                   00138299
+         LR    12,15               Establish R12 as the base register   00138399
+         USING TALLY,12                                                 00138499
+         LA    14,TSAVE            Point R14 at PSAVE                   00138599
+         ST    13,4(0,14)          Save the forward pointer             00138699
+         ST    14,8(0,13)          Save the backward pointer            00138799
+         LR    13,14               Point R13 at PSACE                   00138899
+*                                                                       00138999
+         USING ENTRY,2             Use ENTRY dummy section for TABLE    00139099
+         LM    2,3,0(1)            Unload parameters                    00139199
+*                                                                       00139299
+TLOOP    C     3,0(0,2)            If current table data = EOT          00139399
+         BE    ENDTLP              End loop                             00139499
+         AP    TOTAL,=P'1'         Increment total                      00139599
+         AP    SUM,BAL             Add balance to SUM                   00139699
+         CP    LARGE,BAL           If LARGE is greater then balance     00139799
+         BH    NOTHIGH             Branch to NOTHIGH                    00139899
+         ZAP   LARGE,BAL           Store Balance in LARGE               00139999
+NOTHIGH  CP    BAL,=P'0'           If balance is not less then 0        00140099
+         BNL   NOTNEG              Branch to NOTNEG                     00140199
+         AP    NEG,=P'1'           Increment negative total             00140299
+NOTNEG   LA    2,48(0,2)           Increment TABLE                      00140399
+         B     TLOOP               Return to start of loop              00140499
+*                                                                       00140599
+ENDTLP   MVC   TOTALOUT+72(4),=X'40202120'                              00140699
+         ED    TOTALOUT+72(4),TOTAL  Edit TOTAL using TOTALOUT          00140799
+         XPRNT TOTALOUT,76           Print TOTALOUT to 76 characters    00140899
+*                                                                       00140999
+         LA    1,SUMOUT+75           Set R1 to 1st non-zero digit       00141099
+         MVC   SUMOUT+66(16),=X'40206B2020206B2021204B202040C3D9'       00141199
+         EDMK  SUMOUT+66(16),SUM     Edit SUM using SUMOUT              00141299
+         BCTR  1,0                   Subrtact 1 from R1                 00141399
+         MVI   0(1),C'$'             Put '$' in correct spot            00141499
+         XPRNT SUMOUT,82             Print SUMOUT to 82 characters      00141599
+*                                                                       00141699
+         DP    SUM,TOTAL             Divide SUM by TOTAL                00141799
+         LA    1,AVGOUT+74           Set R1 to first non-zero digit     00141899
+         MVC   AVGOUT+72(7),=X'402021204B2020'                          00141999
+         EDMK  AVGOUT+72(7),SUM      Edit SUM using AVGOUT              00142099
+         BCTR  1,0                   Subtract 1 from R1                 00142199
+         MVI   0(1),C'$'             Put '$' in correct spot            00142299
+         XPRNT AVGOUT,79             Print AVGOUT to 79 characters      00142399
+*                                                                       00142499
+         LA    1,LRGOUT+75           Set R1 to first non-zero digit     00142599
+         MVC   LRGOUT+66(16),=X'40206B2020206B2021204B202040C3D9'       00142699
+         EDMK  LRGOUT+66(16),LARGE   Edit LARGE using LRGOUT            00142799
+         BCTR  1,0                   Subtract 1 from R1                 00142899
+         MVI   0(1),C'$'             Put '$' in correct spot            00142999
+         XPRNT LRGOUT,82             Print LRGOUT to 82 characters      00143099
+*                                                                       00143199
+         MVC   NEGOUT+72(4),=X'40202120'                                00143299
+         ED    NEGOUT+72(4),NEG      Edit NEG using NEGOUT              00143399
+         XPRNT NEGOUT,76             Print NEGOUT to 76 characters      00143499
+*                                                                       00143599
+         L     13,4(0,13)            Point R13 at caller's save area    00143699
+         LM    14,12,12(13)          Restore the registers              00143799
+         BR    14                    Return to caller                   00143899
+*                                                                       00143999
+         LTORG                                                          00144099
+TSAVE    DS    18F                   Allocate 18F for save area         00144199
+TOTAL    DC    PL2'0'                Allocate PL2 for TOTAL             00144299
+SUM      DC    PL5'0'                Allocate PL5 for SUM               00144399
+LARGE    DC    PL5'0'                Allocate PL5 for LARGE             00144499
+NEG      DC    PL2'0'                Allocate PL2 for NEG               00144599
+TOTALOUT DC    C'-'                  Triple space carraige control      00144699
+         DC    CL33' '               Allocate 33 characters of spaces   00144799
+         DC    CL18'Number of clients:'                                 00144899
+         DC    CL20' '               Allocate 20 characters of spaces   00144999
+         DC    CL4' '                Allocate 4 characters of spaces    00145099
+SUMOUT   DC    C'0'                  Double space carraige control      00145199
+         DC    CL33' '               Allocate 33 characters of spaces   00145299
+         DC    CL24'Sum of account balances:'                           00145399
+         DC    CL8' '                Allocate 8 characters of spaces    00145499
+         DC    CL16' '               Allocate 16 characters of spaces   00145599
+AVGOUT   DC    C'0'                  Double space carriage control      00145699
+         DC    CL33' '               Allocate 33 characters of spaces   00145799
+         DC    CL24'Average account balance:'                           00145899
+         DC    CL14' '               Allocate 14 characters of spaces   00145999
+         DC    CL7' '                Allocate 7 characters of spaces    00146099
+LRGOUT   DC    C'0'                  Double space carriage control      00146199
+         DC    CL33' '               Allocate 33 characters of spaces   00146299
+         DC    CL24'Largest account balance:'                           00146399
+         DC    CL8' '                Allocate 8 characters of spaces    00146499
+         DC    CL16' '               Allocate 16 characters of spaces   00146599
+NEGOUT   DC    C'0'                  Double space carriage control      00146699
+         DC    CL33' '               Allocate 33 characters of spaces   00146799
+         DC    CL28'Number of negative balances:'                       00146899
+         DC    CL10' '               Allocate 10 characters of spaces   00146999
+         DC    CL4' '                Allocate 4 characters of spaces    00147099
+*                                                                       00147199
+         END   MAIN                                                     00147200
+/*                                                                      00148000
+//FT05F001 DD DSN=KC02314.SUMMER17.CSCI360.HW6DATA,DISP=SHR    
+
+
+
+40206B2020206B2021204B202040C3D94020206B2021204B202040C3D9
+
+         00150001

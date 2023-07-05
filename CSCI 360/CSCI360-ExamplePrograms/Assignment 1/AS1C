@@ -1,0 +1,61 @@
+//KC03OA0A JOB ,'Kevin White',MSGCLASS=H                                00010002
+//STEP1 EXEC PGM=ASSIST                                                 00020001
+//STEPLIB DD DSN=KC02293.ASSIST.LOADLIB,DISP=SHR                        00030001
+//SYSPRINT DD SYSOUT=*                                                  00040001
+//SYSIN DD *                                                            00050001
+*************************************************                       00060051
+* ASSIGNMENT 1 - PART C                                                 00070046
+*                                                                       00080001
+* NAME: Kevin White                                                     00090001
+*                                                                       00102051
+* FUNCTION: This routine will add and subtract 2                        00102151
+*           numbers and store the results.                              00102251
+*                                                                       00102351
+* INPUT: NONE                                                           00102451
+*                                                                       00102551
+* OUTPUT: A dump of registers from the address                          00103051
+*         stored within RESULT1 to RESULT2.                             00104051
+*                                                                       00105051
+* ENTRY CONDS: NONE                                                     00105151
+*                                                                       00105251
+* EXIT CONDS: NONE                                                      00105351
+*                                                                       00105451
+* REGISTER USAGE                                                        00105551
+*                                                                       00106051
+*   R3  -- Store NUM1 for Subtraction                                   00110051
+*   R4  -- Store NUM2 for Subtraction and result                        00120051
+*   R5  -- Store NUM1 for Addition                                      00130051
+*   R6  -- Store NUM2 for Addition and result                           00140051
+*   R15 -- Base Register                                                00150051
+*                                                                       00160001
+*   PSEUDOCODE:                                                         00161051
+*                                                                       00162051
+*     <1> Load values into Registers                                    00163051
+*     <2> Add register 3 and 4                                          00164051
+*     <3> Subtract register 6 and 5                                     00165051
+*     <4> Store results                                                 00166051
+*     <5> Dump registers                                                00167051
+*     <6> Dump address stored in results                                00168051
+*                                                                       00169051
+*************************************************                       00170051
+MAIN     CSECT                                                          00180001
+         USING MAIN,15                                                  00190001
+         L     3,44(0,15)      Loads NUM1 into Register 3               00200047
+         L     4,48(0,15)      Loads NUM2 into Register 4               00210047
+         L     5,44(0,15)      Loads NUM1 into Register 5               00220047
+         L     6,48(0,15)      Loads NUM2 into Register 6               00230047
+         SR    4,3             Subtracts Register 4 by Register 3       00240047
+         AR    6,5             Adds Register 6 to Register 5            00250047
+         ST    4,52(0,15)      Stores Register 4 into RESULT1           00260047
+         ST    6,56(0,15)      Stores Register 6 into RESULT2           00260147
+         XDUMP                                                          00260250
+         XDUMP 52(0,15),4      Dumps the Address at RESULT1 to RESULT2  00260348
+*                                                                       00260447
+         BR    14              End CSECT                                00270048
+NUM1     DC    F'231'          Defines Fullword NUM1 storing 231        00280048
+NUM2     DC    F'105'          Defines Fullword NUM2 storing 105        00290048
+RESULT1  DS    F               Defines storage for RESULT1              00291048
+RESULT2  DS    F               Defines storage for RESULT1              00292048
+         END   MAIN                                                     00300001
+/*                                                                      00310047
+//                                                                      00320047

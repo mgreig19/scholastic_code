@@ -1,0 +1,102 @@
+1                    J E S 2  J O B  L O G  --  S Y S T E M  S 0 W 1  --  N O D E  Z O S K C T R         
+0 
+ 16.05.34 JOB03470 ---- WEDNESDAY, 13 SEP 2017 ----
+ 16.05.34 JOB03470  IRR010I  USERID KC03KA9  IS ASSIGNED TO THIS JOB.
+ 16.05.34 JOB03470  ICH70001I KC03KA9  LAST ACCESS AT 15:53:41 ON WEDNESDAY, SEPTEMBER 13, 2017
+ 16.05.34 JOB03470  $HASP373 KC03KA9K STARTED - INIT 2    - CLASS A        - SYS S0W1
+ 16.05.34 JOB03470  -                                         --TIMINGS (MINS.)--            ----PAGING COUNTS---
+ 16.05.34 JOB03470  -JOBNAME  STEPNAME PROCSTEP    RC   EXCP    TCB    SRB  CLOCK   SERV  PG   PAGE   SWAP    VIO SWAPS
+ 16.05.34 JOB03470  -KC03KA9K                      00     37 ******    .00     .0     80   0      0      0      0     0
+ 16.05.34 JOB03470  -KC03KA9K ENDED.  NAME-MASON GREIG          TOTAL TCB CPU TIME=   .00  TOTAL ELAPSED TIME=    .0
+ 16.05.34 JOB03470  $HASP395 KC03KA9K ENDED
+0------ JES2 JOB STATISTICS ------
+-  13 SEP 2017 JOB EXECUTION DATE
+-           48 CARDS READ
+-          102 SYSOUT PRINT RECORDS
+-            0 SYSOUT PUNCH RECORDS
+-            9 SYSOUT SPOOL KBYTES
+-         0.00 MINUTES EXECUTION TIME
+         1 //KC03KA9K JOB ,'MASON GREIG',MSGCLASS=H                                JOB03470
+         2 //STEP1 EXEC PGM=ASSIST                                                 00020000
+         3 //STEPLIB DD DSN=KC02293.ASSIST.LOADLIB,DISP=SHR                        00030000
+         4 //SYSPRINT DD SYSOUT=*                                                  00040000
+         5 //SYSIN DD *                                                            00050000
+ ICH70001I KC03KA9  LAST ACCESS AT 15:53:41 ON WEDNESDAY, SEPTEMBER 13, 2017
+ IEF236I ALLOC. FOR KC03KA9K STEP1
+ IGD103I SMS ALLOCATED TO DDNAME STEPLIB
+ IEF237I JES2 ALLOCATED TO SYSPRINT
+ IEF237I JES2 ALLOCATED TO SYSIN
+ IEF142I KC03KA9K STEP1 - STEP WAS EXECUTED - COND CODE 0000
+ IGD104I KC02293.ASSIST.LOADLIB                       RETAINED,  DDNAME=STEPLIB 
+ IEF285I   KC03KA9.KC03KA9K.JOB03470.D0000102.?         SYSOUT        
+ IEF285I   KC03KA9.KC03KA9K.JOB03470.D0000101.?         SYSIN         
+ IEF373I STEP/STEP1   /START 2017256.1605
+ IEF032I STEP/STEP1   /STOP  2017256.1605 
+         CPU:     0 HR  00 MIN  00.00 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+         VIRT:   584K  SYS:   268K  EXT:        0K  SYS:    11396K
+         ATB- REAL:                     0K  SLOTS:                     0K
+              VIRT- ALLOC:       0M SHRD:       0M
+ IEF375I  JOB/KC03KA9K/START 2017256.1605
+ IEF033I  JOB/KC03KA9K/STOP  2017256.1605 
+         CPU:     0 HR  00 MIN  00.00 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+1*** ASSIST 4.0/A2-05/15/82  470/V7A/0:OS/VS2  INS=SDFP7/X=BGHO, CHECK/TRC/=1180, OPTS=CDKMPR FROM PENN ST*NIU COMPSCI*LT         
+0                                                                                                                                 
+0                                                                                                               PAGE    1         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                       1 ********************************************                            00060000         
+                                       2 * ASSIGNMENT 1                                                          00070000         
+                                       3 *                                                                       00080000         
+                                       4 * NAME: MASON GREIG                                                     00090000         
+                                       5 *                                                                       00100000         
+                                       6 * PART C                                                                00110007         
+                                       7 * REWRITE ASSIGNMENT 1 USING EXPLICIT ADDRESSING                        00111007         
+                                       8 * DECLARE TWO CONSECUTIVE FULLWORDS OF,                                 00120005         
+                                       9 * STORAGE CALLED DIFF AND SUM                                           00121005         
+                                      10 * STORE THE FIRST ANSWER (NUM1 MINUS NUM2) INTO DIFF                    00130005         
+                                      11 * STORE THE SECOND ANSWER (NUM1 PLUS NUM2) INTO SUM                     00130105         
+                                      12 * USE XDUMP TO DUMP OUT THE VALUES IN THAT AREA OF STORAGE              00133005         
+                                      13 * CONTAINING RESULT1 AND RESULT2                                        00134005         
+                                      14 *                                                                       00134106         
+                                      15 * REGISTER USAGE                                                        00135006         
+                                      16 * 2   HOLDS NUM1 AND THE DIFFERENCE OF 2 AND 9                          00136013         
+                                      17 * 9   HOLDS NUM2                                                        00138006         
+                                      18 * 7   HOLDS NUM1 AND THE SUM OF 7 AND 12                                00139013         
+                                      19 * 12  HOLDS NUM2                                                        00139106         
+                                      20 * NUM1 HOLDS THE VALUE 249                                              00140013         
+                                      21 * NUM2 HOLDS THE VALUE 117                                              00150013         
+                                      22 * DIFF HOLD THE DIFFERENCE OF REG 2 AND 9                               00151013         
+                                      23 * SUM HOLDS THE SUM OF REG 7 AND 12                                     00152013         
+                                      24 ********************************************                            00160000         
+ 000000                               25 MAIN     CSECT                                                          00170000         
+ 000000                               26          USING MAIN,15                                                  00180000         
+ 000000 5820 F02C            0002C    27          L     2,44(,15)                                                00190012         
+ 000004 5890 F030            00030    28          L     9,48(,15)                                                00200012         
+ 000008 1B29                          29          SR    2,9                                                      00210001         
+ 00000A 5020 F034            00034    30          ST    2,52(,15)                                                00211012         
+ 00000E E060 F034 0004 00034          31          XDUMP 52(,15),4                                                00212012         
+ 000014 5870 F02C            0002C    32          L     7,44(,15)                                                00220012         
+ 000018 58C0 F030            00030    33          L     12,48(,15)                                               00230012         
+ 00001C 1A7C                          34          AR    7,12                                                     00240000         
+ 00001E 5070 F038            00038    35          ST    7,56(,15)                                                00240112         
+ 000022 E060 F038 0004 00038          36          XDUMP 56(,15),4                                                00241012         
+ 000028 07FE                          37          BR    14                                                       00242001         
+ 00002C 000000F9                      38 NUM1     DC    F'249'                                                   00250000         
+ 000030 00000075                      39 NUM2     DC    F'117'                                                   00260000         
+ 000034                               40 DIFF     DS    F                                                        00270005         
+ 000038                               41 SUM      DS    F                                                        00271005         
+                                      42          END   MAIN                                                     00280000         
+0***  NO   STATEMENTS FLAGGED -  NO   WARNINGS,  NO   ERRORS                                                                      
+0*** DYNAMIC CORE AREA USED:  LOW:     888 HIGH:     384 LEAVING:  492296 FREE BYTES. AVERAGE:       29 BYTES/STMT ***            
+0*** ASSEMBLY TIME =    0.000 SECS,    43000 STATEMENTS/SEC ***                                                                   
+0*** PROGRAM EXECUTION BEGINNING - ANY OUTPUT BEFORE EXECUTION TIME MESSAGE IS PRODUCED BY USER PROGRAM ***                       
+0BEGIN XSNAP - CALL     1 AT E0000014 USER STORAGE                                                                                
+0                             CORE ADDRESSES SPECIFIED-     000034 TO 000038                                                      
+ 000020   F038E060 F0380004 07FEF5F5 000000F9    00000075 00000084 F5F5F5F5 F5F5F5F5   *0...0.....55...9........55555555*         
+1                                                                                                                                 
+0BEGIN XSNAP - CALL     2 AT E0000028 USER STORAGE                                                                                
+0                             CORE ADDRESSES SPECIFIED-     000038 TO 00003C                                                      
+ 000020   F038E060 F0380004 07FEF5F5 000000F9    00000075 00000084 0000016E F5F5F5F5   *0...0.....55...9............5555*         
+0                                                                                                                                 
+0*** EXECUTION TIME =    0.000 SECS.        11 INSTRUCTIONS EXECUTED -    11000 INSTRUCTIONS/SEC ***                              
+0*** FIRST CARD NOT READ: NO CARDS READ:FILE UNOPENED                                                                             
+0*** AM004 - NORMAL USER TERMINATION BY RETURN ***                                                                                

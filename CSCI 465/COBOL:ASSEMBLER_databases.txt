@@ -1,0 +1,1313 @@
+//KC02322A JOB ,'DECKER',MSGCLASS=H
+//*
+//********************************************************************
+//*                                                                  *
+//*  This job has a number of steps as follows:                      *
+//*                                                                  *
+//*  0.  Use IDCAMS to delete (preemptively) 2 VSAM clusters,        *
+//*      KC02322.CSCI465.FA13.KSDS and                               *
+//*      KC02322.CSCI465.FA13.ESDS.                                  *
+//*  1.  Use DFSORT to sort a catalogued file named                  *
+//*      KC02322.CSCI465.FA13.DATA8A, in ascending order            *
+//*      on the ID field, creating a temporary sorted file.          *
+//*  2.  Use IDCAMS to define a KSDS cluster.  The key field is the  *
+//*      ID (4 bytes starting in column 1).                          *
+//*  3.  Use IDCAMS to define an ESDS cluster.                       *
+//*  4.  Use IDCAMS to load the sorted sequential file into the      *
+//*      KSDS cluster.                                               *
+//*  5.  Use IDCAMS to load a catalogued file named                  *
+//*      KC02322.CSCI465.FA13.DATA8A into the ESDS cluster.         *
+//*  6.  Use IDCAMS to print the KSDS cluster, first 15 records.     *
+//*  7.  Use IDCAMS to print the ESDS cluster.                       *
+//*  8.  Use IDCAMS to define an AIX on the KSDS cluster using       *
+//*      Date Hired as a (non-unique) alternate key.                 *
+//*  9.  Use IDCAMS to define a PATH for the AIX defined in step 8.  *
+//* 10.  Use IDCAMS to build the AIX.                                *
+//* 11.  Use the IGYWCLG procedure to compile and load a COBOL       *
+//*      program.  The program reads transaction records from the    *
+//*      ESDS cluster and carries them out on the master file in     *
+//*      the KSDS cluster.                                           *
+//* 12.  Use IDCAMS to print the AIX, first 15 records.              *
+//* 13.  Use IDCAMS to print the PATH, first 15 records.             *
+//* 14.  Use IDCAMS to delete the KSDS cluster.                      *
+//* 15.  Use IDCAMS to delete the ESDS cluster.                      *
+//*                                                                  *
+//********************************************************************
+//*
+//********************************************************************
+//*                                                                  *
+//*  STEP0 uses IDCAMS to delete (preemptively) 2 VSAM clusters,     *
+//*  KC02322.CSCI465.SP10.KSDS and                                   *
+//*  KC02322.CSCI465.SP10.ESDS.                                      *
+//*                                                                  *
+//*  DD Name              File Description                           *
+//*                                                                  *
+//*  SYSPRINT    Output:  Standard output for diagnostic and other   *
+//*                       messages.                                  *
+//*  SYSIN        Input:  Control statements.                        *
+//*                                                                  *
+//********************************************************************
+//*
+//STEP0    EXEC PGM=IDCAMS
+//SYSPRINT DD SYSOUT=*
+//SYSIN    DD *
+  DELETE KC02322.CSCI465.FA13.KSDS
+                                       /*  Delete this cluster.    */
+  DELETE KC02322.CSCI465.FA13.ESDS
+                                       /*  Delete this cluster.    */
+/*
+//*
+//********************************************************************
+//*                                                                  *
+//*  STEP1 calls DFSORT to sort the input file,                      *
+//*  KC02322.CSCI465.FA13.DATA8A, in ascending order by              *
+//*  ID, producing the temporary sorted output file &&SORTED.        *
+//*                                                                  *
+//*  The input file's format is as follows:                          *
+//*                                                                  *
+//*     Columns       Contents                                       *
+//*                                                                  *
+//*       1--5         Employee ID Number                            *
+//*       6--11        Date Hired                                    *
+//*      12            Status                                        *
+//*                                                                  *
+//*  DD Name              File Description                           *
+//*                                                                  *
+//*  SORTIN       Input:  File to be sorted.                         *
+//*  SYSIN        Input:  Control statements.                        *
+//*  SORTOUT     Output:  The new sorted file.                       *
+//*  SYSOUT      Output:  Standard output for source listing and     *
+//*                       diagnostic messages.                       *
+//*                                                                  *
+//********************************************************************
+//*
+//STEP1    EXEC PGM=SORT,PARM='CMP=CLC'
+//SORTIN   DD DSN=KC02322.CSCI465.FA13.DATA8A,DISP=SHR
+//SORTOUT  DD DSN=&&SORTED,UNIT=3390,SPACE=(TRK,(1,1)),DISP=(NEW,PASS)
+//SYSOUT   DD SYSOUT=*
+//SYSIN    DD *
+  SORT FIELDS=(1,5,CH,A)
+/*
+//*
+//********************************************************************
+//*                                                                  *
+//*  STEP2 uses IDCAMS to define a VSAM cluster,                     *
+//*  KC02322.CSCI465.FA13.KSDS.  The key field is 5 bytes            *
+//*  long, starting in column 1.                                     *
+//*                                                                  *
+//*  DD Name              File Description                           *
+//*                                                                  *
+//*  SYSPRINT    Output:  Standard output for diagnostic and other   *
+//*                       messages.                                  *
+//*  SYSIN        Input:  Control statements.                        *
+//*                                                                  *
+//********************************************************************
+//*
+//STEP2    EXEC PGM=IDCAMS
+//SYSPRINT DD SYSOUT=*
+//SYSIN    DD *
+  DEFINE CLUSTER(                      /* Define a cluster.        */-
+    NAME(KC02322.CSCI465.FA13.KSDS)                                  -
+                                       /* Name of the cluster.     */-
+    INDEXED                            /* This is an KSDS cluster. */-
+    TRACKS(1 1)                        /* Space allocation.        */-
+    KEYS(5 0))                         /* Key field.               */
+/*
+//*
+//********************************************************************
+//*                                                                  *
+//*  STEP3 uses IDCAMS to define a VSAM cluster,                     *
+//*  KC02322.CSCI465.FA13.ESDS.                                      *
+//*                                                                  *
+//*  DD Name              File Description                           *
+//*                                                                  *
+//*  SYSPRINT    Output:  Standard output for diagnostic and other   *
+//*                       messages.                                  *
+//*  SYSIN        Input:  Control statements.                        *
+//*                                                                  *
+//********************************************************************
+//*
+//STEP3    EXEC PGM=IDCAMS
+//SYSPRINT DD SYSOUT=*
+//SYSIN    DD *
+  DEFINE CLUSTER(                      /* Define a cluster.        */-
+    NAME(KC02322.CSCI465.FA13.ESDS)                                  -
+                                       /* Name of the cluster.     */-
+    NONINDEXED                         /* This is an ESDS cluster. */-
+    TRACKS(1 1))                       /* Space allocation.        */
+/*
+//*
+//********************************************************************
+//*                                                                  *
+//*  STEP4 uses IDCAMS to copy the contents of a sequential file,    *
+//*  &&SORTED, into a VSAM cluster,                                  *
+//*  KC02322.CSCI465.SP10.KSDS.                                      *
+//*                                                                  *
+//*  DD Name              File Description                           *
+//*                                                                  *
+//*  SYSPRINT    Output:  Standard output for diagnostic and other   *
+//*                       messages.                                  *
+//*  INDATA       Input:  File to be copied.                         *
+//*  SYSIN        Input:  Control statements.                        *
+//*                                                                  *
+//********************************************************************
+//*
+//STEP4    EXEC PGM=IDCAMS,COND=((0,NE,STEP1),(0,NE,STEP2)),
+//   REGION=512K
+//SYSPRINT DD SYSOUT=*
+//INDATA   DD DSN=&&SORTED,UNIT=3390,DISP=(OLD,DELETE,DELETE)
+//SYSIN    DD *
+  REPRO                                  /* Copy a data set.       */-
+    INFILE(INDATA)                       /* Input data set.        */-
+    OUTDATASET(KC02322.CSCI465.FA13.KSDS)                           -
+                                         /*  Output cluster.       */
+/*
+//*
+//********************************************************************
+//*                                                                  *
+//*  STEP5 uses IDCAMS to copy the contents of a sequential file,    *
+//*  KC02322.CSCI465.FA13.DATA8B, into a VSAM cluster,               *
+//*  KC02322.CSCI465.FA13.ESDS.                                      *
+//*                                                                  *
+//*  DD Name              File Description                           *
+//*                                                                  *
+//*  SYSPRINT    Output:  Standard output for diagnostic and other   *
+//*                       messages.                                  *
+//*  INDATA       Input:  File to be copied.                         *
+//*  SYSIN        Input:  Control statements.                        *
+//*                                                                  *
+//********************************************************************
+//*
+//STEP5    EXEC  PGM=IDCAMS,COND=(0,NE,STEP3),REGION=512K
+//SYSPRINT DD SYSOUT=*
+//INDATA   DD DSN=KC02322.CSCI465.FA13.DATA8B,DISP=SHR
+//SYSIN    DD *
+  REPRO                                  /* Copy a data set.       */-
+    INFILE(INDATA)                       /* Input data set.        */-
+    OUTDATASET(KC02322.CSCI465.FA13.ESDS)                           -
+                                         /*  Output cluster.       */
+/*
+//*
+//********************************************************************
+//*                                                                  *
+//*  STEP6 uses IDCAMS to print the first 15 records in a VSAM       *
+//*  cluster, KC02322.CSCI465.FA13.KSDS.                             *
+//*                                                                  *
+//*  DD Name              File Description                           *
+//*                                                                  *
+//*  SYSPRINT    Output:  Standard output for diagnostic and other   *
+//*                       messages.                                  *
+//*  SYSIN        Input:  Control statements.                        *
+//*                                                                  *
+//********************************************************************
+//*
+//STEP6    EXEC PGM=IDCAMS,COND=(0,NE,STEP4)
+//SYSPRINT DD SYSOUT=*
+//SYSIN    DD *
+  PRINT                                 /* Print a data set.       */-
+    INDATASET(KC02322.CSCI465.FA13.KSDS)                            -
+                                        /* Print this cluster.     */-
+    CHARACTER                           /* Use character format.   */-
+    COUNT(15)                           /* Print only 15 records.  */
+/*
+//*
+//********************************************************************
+//*                                                                  *
+//*  STEP7 uses IDCAMS to print a VSAM cluster,                      *
+//*  KC02322.CSCI465.SP10.ESDS.                                      *
+//*                                                                  *
+//*  DD Name              File Description                           *
+//*                                                                  *
+//*  SYSPRINT    Output:  Standard output for diagnostic and other   *
+//*                       messages.                                  *
+//*  SYSIN        Input:  Control statements.                        *
+//*                                                                  *
+//********************************************************************
+//*
+//STEP7    EXEC PGM=IDCAMS,COND=(0,LT,STEP5)
+//SYSPRINT DD SYSOUT=*
+//SYSIN    DD *
+  PRINT                                 /* Print a data set.       */-
+    INDATASET(KC02322.CSCI465.FA13.ESDS)                            -
+                                        /* Print this cluster.     */-
+    CHARACTER                           /* Use character format.   */
+/*
+//*
+//*
+//********************************************************************
+//*                                                                  *
+//*  STEP8 uses IDCAMS to define an AIX,                             *
+//*  KC02322.CSCI465.FA13.AIX, on the KSDS clusterr.  The            *
+//*  alternate key is 6 bytes long, starting in column 6.            *
+//*                                                                  *
+//*  DD Name              File Description                           *
+//*                                                                  *
+//*  SYSPRINT    Output:  Standard output for diagnostic and other   *
+//*                       messages.                                  *
+//*  SYSIN        Input:  Control statements.                        *
+//*                                                                  *
+//********************************************************************
+//*
+//STEP8    EXEC  PGM=IDCAMS,COND=(0,LT,STEP2)
+//SYSPRINT DD SYSOUT=*
+//SYSIN    DD *
+  DEFINE AIX(                            /*  Define an AIX.        */-
+    NAME(KC02322.CSCI465.FA13.AIX)                                  -
+                                         /*  Name of the AIX.      */-
+    RELATE(KC02322.CSCI465.FA13.KSDS)                               -
+                                         /*  Base cluster.         */-
+    TRACKS(1 1)                          /*  Space allocation.     */-
+    KEYS(4 5)                            /*  Key field.            */-
+    RECORDSIZE(19 29)                    /*  Size of 1 record.     */-
+    NONUNIQUEKEY)                        /*  Non-unique key.       */
+/*
+//*
+//********************************************************************
+//*                                                                  *
+//*  STEP9 uses IDCAMS to define a PATH for the KSDS cluster and     *
+//*  the AIX.                                                        *
+//*                                                                  *
+//*  DD Name              File Description                           *
+//*                                                                  *
+//*  SYSPRINT    Output:  Standard output for diagnostic and other   *
+//*                       messages.                                  *
+//*  SYSIN        Input:  Control statements.                        *
+//*                                                                  *
+//********************************************************************
+//*
+//STEP9    EXEC PGM=IDCAMS,COND=(0,LT,STEP8)
+//SYSPRINT DD SYSOUT=*
+//SYSIN    DD *
+  DEFINE PATH(                             /*  Define a PATH.      */-
+    NAME(KC02322.CSCI465.FA13.PATH)                                 -
+                                           /*  Name of the PATH.   */-
+    PATHENTRY(KC02322.CSCI465.FA13.AIX)                             -
+                                           /*  AIX involved.       */-
+    UPDATE)                                /*  Open automatically. */
+/*
+//*
+//********************************************************************
+//*                                                                  *
+//*  STEP10 uses IDCAMS to BUILD the PATH for the KSDS cluster and   *
+//*  the AIX.                                                        *
+//*                                                                  *
+//*  DD Name              File Description                           *
+//*                                                                  *
+//*  SYSPRINT    Output:  Standard output for diagnostic and other   *
+//*                       messages.                                  *
+//*  SYSIN        Input:  Control statements.                        *
+//*                                                                  *
+//********************************************************************
+//*
+//STEP10   EXEC  PGM=IDCAMS,COND=((0,LT,STEP4),(0,LT,STEP9)),
+//   REGION=512K
+//SYSPRINT DD SYSOUT=*
+//SYSIN    DD *
+  BLDINDEX                               /*  Build an index.       */-
+    INDATASET(KC02322.CSCI465.FA13.KSDS)                            -
+                                         /*  Primary cluster.      */-
+    OUTDATASET(KC02322.CSCI465.FA13.AIX)
+                                         /*  Alternate index.      */
+/*
+//*
+//********************************************************************
+//*                                                                  *
+//*  STEP11 uses IGYWCLG to compile and load a COBOL program,        *
+//*  PROG9.                                                          *
+//*                                                                  *
+//*  DD Name              File Description                           *
+//*                                                                  *
+//*  SYSIN        Input:  COBOL source code.                         *
+//*  SYSOUT      Output:  Output from the Display verb.              *
+//*  MASTER         I/O:  Used by PROG9 (KSDS cluster).              *
+//*  TRANS        Input:  Input for PROG9 (ESDS cluster).            *
+//*  PRINTER     Output:  Printed output from PROG9.                 *
+//*                                                                  *
+//********************************************************************
+//*
+//STEP11   EXEC IGYWCLG,PARM.COBOL='APOST,FLAG(I,I),TEST'
+//COBOL.SYSIN  DD *
+       Identification Division.
+
+       Program-ID.     PROG8.
+
+       Date-Compiled.  Provided by the system.
+
+      ****************************************************************
+      *                                                              *
+      *  Program Name:      PROG8.                                   *
+      *                                                              *
+      *  Purpose:           This program reads a file of transac-    *
+      *                     tions and carries out the transactions   *
+      *                     on a master file.                        *
+      *                                                              *
+      *  Input:             Trans-File (DD name TRANS), a VSAM ESDS  *
+      *                     cluster of transaction records.          *
+      *                                                              *
+      *  Output:            Print-File (DD name SYSOUT), a printed     *
+      *                     report.                                  *
+      *                                                              *
+      *  I/O:               Master-File (DD name MASTER), a VSAM     *
+      *                     KSDS cluster of master file records.     *
+      *                                                              *
+      *  Entry/Exit Conds:  None.                                    *
+      *                                                              *
+      *  Notes:             The two VSAM clusters have already been  *
+      *                     loaded in earlier steps.                 *
+      *                                                              *
+      ****************************************************************
+
+       Environment Division.
+
+       Configuration Section.
+
+       Source-Computer.  IBM-370.
+       Object-Computer.  IBM-370.
+
+       Input-Output Section.
+
+       File-Control.
+           Select Master-File Assign to MASTER
+               Organization is Indexed
+               Access Mode is Dynamic
+               Record Key is M-ID
+               Alternate Record Key is Date-Hired With Duplicates
+               File Status is Status-Code.
+           Eject
+
+           Select Trans-File  Assign to AS-TRANS
+               Organization is Sequential
+               Access Mode is Sequential
+               File Status is Status-Code.
+
+           Select Print-File  Assign to PRINTER.
+           Eject
+       Data Division.
+
+       File Section.
+
+      ****************************************************************
+      *                                                              *
+      *  Master-File is a VSAM KSDS cluster.                         *
+      *                                                              *
+      ****************************************************************
+
+       FD  Master-File.
+
+       01  Master-Record.
+           05  M-ID                      Pic X(5).
+           05  Date-Hired                Pic X(4).
+           05  M-Date-Hired              REDEFINES Date-Hired
+                                         PIC 9(6) COMP-3.
+           05  M-Status                  Pic X.
+           05  M-Parking                 Pic X.
+
+      ****************************************************************
+      *                                                              *
+      *  Trans-File is a VSAM ESDS cluster containing records of     *
+      *  transactions to be carried out on the master file.          *
+      *                                                              *
+      ****************************************************************
+
+       FD  Trans-File.
+
+       01  Trans-Record.
+           05  T-Code                    Pic X(6).
+           05  T-ID                      Pic X(5).
+           05  T-Date-Hired.
+               10  T-Year                Pic 9(4).
+               10  T-Month               Pic 99.
+           05  T-Status                  Pic X.
+           05  T-Parking                 Pic X.
+
+
+      ****************************************************************
+      *                                                              *
+      *  Print-File is used for printing.                            *
+      *                                                              *
+      ****************************************************************
+
+       FD  Print-File
+           Recording Mode is F.
+
+       01  Print-Record                    Pic X(133).
+           Eject
+       Working-Storage Section.
+
+      ****************************************************************
+      *                                                              *
+      *                     Variable Dictionary                      *
+      *                                                              *
+      *  T-EOF-Flag      This is a flag for the end of Trans-File.   *
+      *                                                              *
+      *  M-EOF-Flag      This is a flag for the end of Master-File.  *
+      *                                                              *
+      *  Read-Flag       This is a flag to indicate whether the      *
+      *                  most recent Read operation was a success.   *
+      *                                                              *
+      *  Done-Flag       Used in processing List Date-Hired          *
+      *                  transactions.                               *
+      *                                                              *
+      *  Found-Flag      Used in processing List Status              *
+      *                  transactions.                               *
+      *                                                              *
+      *  Advance-Num     Number of lines to advance before           *
+      *                  printing a line in the report.              *
+      *                                                              *
+      *  Status-Code     This holds the VSAM File Status code.       *
+      *                                                              *
+      *  Current-Date    This is used in obtaining the current date  *
+      *                  from the system.                            *
+      *                                                              *
+      *  M-Date-Plain-1  These are used in processing dates.         *
+      *  M-Date-Plain-2                                              *
+      *                                                              *
+      *  Last-Date       This is used in partial-key processing.     *
+      *                                                              *
+      *  Line-Count      This is a counter for lines per page,       *
+      *                                                              *
+      *  Page-Count      This is a counter for pages in the          *
+      *                  report.                                     *
+      *                                                              *
+      *  Line-Limit      This is the maximum number of lines per     *
+      *                  page in the report.                         *
+      *                                                              *
+      *  Temp-Status     This is used in printing one of the         *
+      *                  success messages.                           *
+      *                                                              *
+      *  Error-Table     This is a table of error messages.          *
+      *                                                              *
+      *  Success-Table   This is a table of success messages.        *
+      *                                                              *
+      *  Detail-Line     This is used to print one line about one    *
+      *                  transaction.                                *
+      *                                                              *
+      *  Page-Head       This is a page heading for each page of     *
+      *                  the report.                                 *
+      *                                                              *
+      *  Columns-1       These are column heading and underlining    *
+      *  Columns-2       for each page of the report.                *
+      *  Dashes                                                      *
+      *                                                              *
+      ****************************************************************
+           Eject
+       01  Flags.
+           05  T-EOF-Flag                Pic X.
+           05  M-EOF-Flag                Pic X.
+           05  Read-Flag                 Pic X.
+           05  Done-Flag                 Pic X.
+           05  Found-Flag                Pic X.
+
+       01  Advance-Num                   Pic 9.
+
+       01  Status-Code                   Pic XX.
+
+       01  Current-Date.
+           05  YY                        Pic 99.
+           05  MM                        Pic 99.
+           05  DD                        Pic 99.
+
+       01  M-Date-Plain-1             Pic 9(6).
+
+       01  M-Date-Plain-2             Redefines M-Date-Plain-1.
+           05  M-Year                    Pic 9(4).
+           05  M-Month                   Pic 9(2).
+
+       01  Last-Date.
+           05  Last-Year                 Pic 9(4)       Comp-3.
+           05  Last-Month                Pic 9(2)       Comp-3.
+
+       01  Counters.
+           05  Line-Count                Pic 99         Comp-3.
+           05  Page-Count                Pic 99         Comp-3.
+
+       01  Line-Limit                    Pic 99         Comp-3
+                                                        Value 56.
+
+       01  Temp-Status                   Pic X.
+           Eject
+       01  Error-Table.
+           05                            Pic X(42)
+               Value 'Failure in opening Master-File            '.
+           05                            Pic X(42)
+               Value 'Failure in opening Trans-File             '.
+           05                            Pic X(42)
+               Value 'Failure--Duplicate ID or excess Date-Hired'.
+           05                            Pic X(42)
+               Value 'Failure--No matching records were found   '.
+           05                            Pic X(42)
+               Value 'Failure--Record exists, but ReWrite failed'.
+           05                            Pic X(42)
+               Value 'Failure--Record exists, but Delete failed '.
+           05                            Pic X(42)
+               Value 'Failure--Invalid Transaction Code         '.
+           05                            Pic X(42)
+               Value 'Failure in closing Trans-File             '.
+           05                            Pic X(42)
+               Value 'Failure in closing Master-File            '.
+           05                            Pic X(42)
+               Value 'Failure--No matching records were found   '.
+           05                            Pic X(42)
+               Value 'Failure--No new values were supplied      '.
+
+       01  Error-Messages Redefines Error-Table.
+           05  Error-Message             Occurs 11 times
+                                         Pic X(42).
+
+       01  Success-Table.
+           05                            Pic X(42)
+               Value 'Success--Record added                    '.
+           05                            Pic X(42)
+               Value 'Success--Record deleted                  '.
+           05                            Pic X(42)
+               Value 'Success                                  '.
+           05                            Pic X(42)
+               Value 'Success--Desired changes have been made  '.
+           05                            Pic X(42)
+               Value 'Success--Found at least 1 matching record'.
+
+       01  Success-Messages Redefines Success-Table.
+           10  Success-Message           Occurs 5 times
+                                         Pic X(42).
+           Eject
+       01  Detail-Line.
+           05                            Pic X(11)      Value Spaces.
+           05  D-Type                    Pic X(14).
+           05                            Pic X(3)       Value Spaces.
+           05  D-ID                      Pic BX(5)BB.
+           05                            Pic X(3)       Value Spaces.
+           05  D-Date-Hired.
+               10                        Pic X          Value Spaces.
+               10  D-Month               Pic 99.
+               10                        Pic X          Value '/'.
+               10  D-Year                Pic 9999.
+               10                        Pic XX         Value Spaces.
+           05                            Pic X(3)       Value Spaces.
+           05  D-Status                  Pic X(13).
+           05                            Pic X(3)       Value Spaces.
+           05  D-Parking                 Pic X(8).
+           05                            Pic X(3)       Value Spaces.
+           05  D-Outcome                 Pic X(43).
+           05                            Pic X(11)      Value Spaces.
+
+       01  Page-Head.
+           05                            Pic X(11)      Value Spaces.
+           05                            Pic X(6)       Value 'Date: '.
+           05  Head-Date.
+               10  MM                    Pic 99.
+               10                        Pic X          Value '/'.
+               10  DD                    Pic 99.
+               10                        Pic X          Value '/'.
+               10  YY                    Pic 99.
+           05                            Pic X(29)    Value Spaces.
+           05                            Pic X(23)
+                   Value 'Employee Status Listing'.
+           05                            Pic X(37)      Value Spaces.
+           05                            Pic X(6)       Value 'Page: '.
+           05  Page-Num                  Pic Z9.
+           05                            Pic X(11)      Value Spaces.
+
+       01  Columns-1.
+           05                            Pic X(11)      Value Spaces.
+           05                            Pic X(14)
+                   Value ' Transaction  '.
+           05                            Pic X(3)       Value Spaces.
+           05                            Pic X(8)
+                   Value '  ID    '.
+           05                            Pic X(97)      Value Spaces.
+           Eject
+       01  Columns-2.
+           05                            Pic X(11)      Value Spaces.
+           05                            Pic X(14)
+                   Value '    Type      '.
+           05                            Pic X(3)       Value Spaces.
+           05                            Pic X(8)
+                   Value ' Number '.
+           05                            Pic X(3)       Value Spaces.
+           05                            Pic X(10)
+                   Value 'Date Hired'.
+           05                            Pic X(3)       Value Spaces.
+           05                            Pic X(13)
+                   Value '   Status    '.
+           05                            Pic X(3)       Value Spaces.
+           05                            Pic X(8)
+                   Value 'Parking '.
+           05                            Pic X(3)       Value Spaces.
+           05                            Pic X(43)
+                   Value 'Outcome'.
+           05                            Pic X(11)      Value Spaces.
+
+       01  Dashes.
+           05                            Pic X(11)      Value Spaces.
+           05                            Pic X(14)      Value All '-'.
+           05                            Pic X(3)       Value Spaces.
+           05                            Pic X(8)       Value All '-'.
+           05                            Pic X(3)       Value Spaces.
+           05                            Pic X(10)      Value All '-'.
+           05                            Pic X(3)       Value Spaces.
+           05                            Pic X(13)      Value All '-'.
+           05                            Pic X(3)       Value Spaces.
+           05                            Pic X(8)       Value All '-'.
+           05                            Pic X(3)       Value Spaces.
+           05                            Pic X(43)      Value All '-'.
+           05                            Pic X(11)      Value Spaces.
+           Eject
+       Procedure Division.
+
+      ****************************************************************
+      *                                                              *
+      *  Documentation on 000-Main.                                  *
+      *                                                              *
+      *  Purpose:  This routine does the following:                  *
+      *  (a)  It obtains the date from the system.                   *
+      *  (b)  It reads the first transaction record.                 *
+      *  (c)  It calls 100-Process-One-Transaction repeatedly until  *
+      *       the end of the transaction file is reached.            *
+      *                                                              *
+      ****************************************************************
+       000-Main.
+           Accept Current-Date from Date.
+           Move Corr Current-Date to Head-Date.
+
+           Move 2 to Advance-Num.
+
+           Open I-O Master-File.
+           If Status-Code not = '00'
+               Display Error-Message(1)
+      * 'Failure in opening Master-File            '
+           End-If.
+
+           Open Input Trans-File.
+           If Status-Code not = '00'
+               Display Error-Message(2)
+      * 'Failure in opening Trans-File             '
+           End-If.
+
+           Open Output Print-File.
+
+           Read Trans-File Record
+               At End Move 'Y' to T-EOF-Flag
+           End-Read.
+
+           Add 1 to Line-Limit Giving Line-Count.
+           Move 'N' to T-EOF-Flag.
+           Move 0 to Page-Count.
+           Perform 100-Process-One-Transaction Until T-EOF-Flag = 'Y'.
+
+           Close Print-File.
+
+           Close Trans-File.
+           If Status-Code not = '00'
+               Display Error-Message(8)
+      * 'Failure in closing Trans-File             '
+           End-If.
+
+           Close Master-File.
+           If Status-Code not = '00'
+               Display Error-Message(9)
+      * 'Failure in closing Master-File            '
+           End-If.
+
+           Stop Run.
+           Eject
+      ****************************************************************
+      *                                                              *
+      *  100-Process-One-Transaction.                                *
+      *                                                              *
+      *  Called repeatedly from 000-Main.                            *
+      *                                                              *
+      ****************************************************************
+       100-Process-One-Transaction.
+           Move Spaces to Detail-Line.
+           Evaluate T-Code
+               When 'INSERT' Perform 200-Insert
+               When 'FIND  ' Perform 210-Find
+               When 'DELETE' Perform 220-Delete
+               When 'CHANGE' Perform 230-Change
+               When 'LISTDH' Perform 240-List-Date-Hired
+               When 'LISTYR' Perform 250-List-Year-Hired
+               When 'LISTS ' Perform 260-List-Status
+               When 'LISTP ' Perform 270-List-Parking
+               When Other    Perform 280-Bad-Code
+      * This last should seldom be used.
+           End-Evaluate.
+           Read Trans-File Record
+               At End Move 'Y' to T-EOF-Flag
+           End-Read.
+       100-Exit.  Exit.
+           Eject
+      ****************************************************************
+      *                                                              *
+      *  200-Insert.                                                 *
+      *                                                              *
+      *  Called as needed from 100-Process-One-Transaction.          *
+      *                                                              *
+      ****************************************************************
+       200-Insert.
+           Move 'Insert Record ' to D-Type.
+           Move T-ID     to M-ID
+                            D-ID.
+           Move T-Year  to M-Year
+                           D-Year.
+           Move T-Month to M-Month
+                           D-Month.
+           Move M-Date-Plain-2 to M-Date-Hired.
+
+           Move T-Status to M-Status.
+
+           Move T-Parking to M-Parking.
+
+           Perform 300-Build-Status-Phrase.
+           Perform 305-Build-Parking-Phrase.
+
+           Write Master-Record
+           End-Write.
+           If Status-Code = 00 or 02
+               Move Success-Message(1) to D-Outcome
+      * Success--Record added                    '
+           Else
+               Move Error-Message(3)   to D-Outcome
+      * 'Failure--Duplicate ID or excess Dated-Hired'
+           End-If.
+
+           Perform 310-Print-Detail-Line.
+       200-Exit.  Exit.
+           Eject
+      ****************************************************************
+      *                                                              *
+      *  210-Find.                                                   *
+      *                                                              *
+      *  Called once from 100-Process-One-Transaction.               *
+      *                                                              *
+      ****************************************************************
+       210-Find.
+           Move 'Locate by ID  ' to D-Type.
+           Move T-ID to M-ID
+                        D-ID.
+           Read Master-File Record
+               Invalid Key
+                   Move 'N' to Read-Flag
+               Not Invalid Key
+                   Move 'Y' to Read-Flag
+                   Move M-Date-Hired to M-Date-Plain-1
+           End-Read.
+           If Read-Flag = 'N'
+               Move Error-Message(4) to D-Outcome
+      * 'Failure--No matching ID was found         '
+           Else
+               Move M-Year to D-Year
+               Move M-Month to D-Month
+
+               Perform 300-Build-Status-Phrase
+               Perform 305-Build-Parking-Phrase
+               Move Success-Message(3) to D-Outcome
+      * 'Success                                  '
+           End-If.
+           Perform 310-Print-Detail-Line.
+       210-Exit.  Exit.
+           Eject
+      ****************************************************************
+      *                                                              *
+      *  220-Delete.                                                 *
+      *                                                              *
+      *  Called once from 100-Process-One-Transaction.               *
+      *                                                              *
+      ****************************************************************
+       220-Delete.
+           Move 'Delete Record ' to D-Type.
+           Move T-ID to M-ID
+                        D-ID.
+           Read Master-File Record
+               Invalid Key
+                   Move 'N' to Read-Flag
+               Not Invalid Key
+                   Move 'Y' to Read-Flag
+                   Move M-Date-Hired to M-Date-Plain-1
+           End-Read.
+           If Read-Flag = 'N'
+               Move Error-Message(4) to D-Outcome
+      * 'Failure--No matching ID was found         '
+           Else
+               Move M-Year to D-Year
+               Move M-Month to D-Month
+               Perform 300-Build-Status-Phrase
+               Perform 305-Build-Parking-Phrase
+               Delete Master-File
+                   Invalid Key
+                       Move Error-Message(6)   to D-Outcome
+      * 'Failure--Record exists, but Delete failed '
+                   Not Invalid Key
+                       Move Success-Message(2) to D-Outcome
+      * 'Success--Record deleted                  '
+               End-Delete
+           End-If.
+           Perform 310-Print-Detail-Line.
+       220-Exit.  Exit.
+           Eject
+      ****************************************************************
+      *                                                              *
+      *  230-Change.                                                 *
+      *                                                              *
+      *  Called once from 100-Process-One-Transaction.               *
+      *                                                              *
+      ****************************************************************
+       230-Change.
+           Move 'Change Details' to D-Type.
+           Move T-ID to M-ID
+                        D-ID.
+           If T-Status = Spaces and T-Parking = Spaces
+               Move Error-Message(11) to D-Outcome
+               Perform 310-Print-Detail-Line
+           Else
+               Read Master-File Record
+                   Invalid Key
+                       Move 'N' to Read-Flag
+                   Not Invalid Key
+                       Move 'Y' to Read-Flag
+                       Move M-Date-Hired to M-Date-Plain-1
+               End-Read
+               If T-Status Not = Spaces
+                   Move T-Status to M-Status
+                   Perform 300-Build-Status-Phrase
+               End-If
+               If T-Parking Not = Spaces
+                   Move T-Parking to M-Parking
+                   Perform 305-Build-Parking-Phrase
+               End-If
+               If Read-Flag = 'N'
+                   Move Error-Message(4) to D-Outcome
+      * 'Failure--No matching ID was found         '
+                   Perform 310-Print-Detail-Line
+               Else
+                   Move M-Year to D-Year
+                   Move M-Month to D-Month
+                   Perform 300-Build-Status-Phrase
+                   Perform 305-Build-Parking-Phrase
+                   ReWrite Master-Record
+                       Invalid Key
+                           Move Error-Message(5) to D-Outcome
+      * 'Failure--Record exists, but ReWrite failed'
+                       Not Invalid Key
+                           Move Success-Message(4) to D-Outcome
+      * 'Success--Desired changes have been made.  '
+                   End-ReWrite
+                   Perform 310-Print-Detail-Line
+               End-If
+           End-If.
+       230-Exit.  Exit.
+           Eject
+      ****************************************************************
+      *                                                              *
+      *  240-List-Date-Hired.                                        *
+      *                                                              *
+      *  Called once from 100-Process-One-Transaction.               *
+      *                                                              *
+      ****************************************************************
+       240-List-Date-Hired.
+           Move 'List--Date    ' to D-Type.
+           Move T-Year  to M-Year
+                           D-Year.
+           Move T-Month to M-Month
+                           D-Month.
+           Read Master-File Record
+               Key is Date-Hired
+           End-Read.
+           If Status-Code Not = '00' and Not = '02'
+               Move M-Date-Hired to M-Date-Plain-1
+               Move Error-Message(4) to D-Outcome
+      * 'Failure--No matching ID was found         '
+               Perform 310-Print-Detail-Line
+           Else
+               Move Success-Message(5) to D-Outcome
+      * 'Success--Found at least 1 matching record'
+               Perform 310-Print-Detail-Line
+               Move Spaces to Detail-Line
+               Move 1 to Advance-Num
+               Move 'N' to Done-Flag
+               Perform until Done-Flag = 'Y'
+                   If Status-Code = '00'
+                       Move 'Y' to Done-Flag
+                   End-If
+                   Move M-Year to D-Year
+                   Move M-Month to D-Month
+                   Move M-ID    to D-ID
+                   Perform 300-Build-Status-Phrase
+                   Perform 305-Build-Parking-Phrase
+                   Perform 310-Print-Detail-Line
+                   If Done-Flag = 'N' or Status-Code Not = '02'
+                       Read Master-File Next Record
+                           At end Move 'Y' to Done-Flag
+                       End-Read
+                   End-If
+               End-Perform
+               Move 2 to Advance-Num
+           End-If.
+       240-Exit.  Exit.
+           Eject
+      ****************************************************************
+      *                                                              *
+      *  250-List-Year-Hired.                                        *
+      *                                                              *
+      *  Called once from 100-Process-One-Transaction.               *
+      *                                                              *
+      ****************************************************************
+       250-List-Year-Hired.
+           Move 'List--Year    ' to D-Type.
+           Move T-Year  to M-Year
+                           D-Year
+                           Last-Year.
+           Move 1 to M-Month.
+           Move M-Date-Plain-1 to M-Date-Hired.
+           Move 12 to Last-Month.
+           Start Master-File
+               Key is Not < M-Date-Hired
+               Invalid Key
+                   Move Error-Message(4) to D-Outcome
+      * 'Failure--No matching records were found  '
+                   Perform 310-Print-Detail-Line
+               Not Invalid Key
+                   Read Master-File Next Record
+                   Move M-Date-Hired to M-Date-Plain-1
+                   If M-Date-Plain-1 < Last-Date
+                       Move Success-Message(5) to D-Outcome
+      * 'Success--Found at least 1 matching record'
+                       Perform 310-Print-Detail-Line
+                       Move Spaces to Detail-Line
+                       Move 1 to Advance-Num
+                       Move 'N' to M-EOF-Flag
+                       Perform until M-Date-Plain-1 > Last-Date
+                               or M-EOF-Flag = 'Y'
+                           Move M-Year to D-Year
+                           Move M-Month to D-Month
+                           Move M-ID to D-ID
+                           Perform 300-Build-Status-Phrase
+                           Perform 305-Build-Parking-Phrase
+                           Perform 310-Print-Detail-Line
+                           Read Master-File Next Record
+                               At end
+                                   Move 'Y' to M-EOF-Flag
+                               Not at end
+                                   Move M-Date-Hired
+                                        to M-Date-Plain-1
+                           End-Read
+                       End-Perform
+                       Move 2 to Advance-Num
+                   Else
+                       Move Error-Message(4) to D-Outcome
+      * 'Failure--No matching records were found   '
+                       Perform 310-Print-Detail-Line
+                   End-If
+           End-Start.
+       250-Exit.  Exit.
+           Eject
+      ****************************************************************
+      *                                                              *
+      *  260-List-Status.                                            *
+      *                                                              *
+      *  Called once from 100-Process-One-Transaction.               *
+      *                                                              *
+      ****************************************************************
+       260-List-Status.
+           Move 'List--Status   ' to D-Type.
+           Move Low-Values to M-ID.
+           Move 'N' to Found-Flag.
+           Move T-Status to M-Status.
+           Perform 300-Build-Status-Phrase
+           Start Master-File
+               Key is >= M-ID
+               Invalid Key
+                   Move Error-Message(10) to D-Outcome
+      * 'Failure--No matching records were found   '
+                   Perform 310-Print-Detail-Line
+               Not Invalid Key
+                   Move 'N' to M-EOF-Flag
+                   Read Master-File Next
+                       At end
+                           Move 'Y' to M-EOF-Flag
+                       Not at end
+                           Move M-Date-Hired to M-Date-Plain-1
+                   End-Read
+                   Perform until M-EOF-Flag = 'Y'
+                       If M-Status = T-Status
+                           If Found-Flag = 'N'
+                               Perform 300-Build-Status-Phrase
+                               Move Success-Message(5) to D-Outcome
+      * 'Success--Found at least one record       '
+                               Perform 310-Print-Detail-Line
+                               Move 'Y' to Found-Flag
+                               Move 1 to Advance-Num
+                           End-If
+                           Move Spaces to Detail-Line
+                           Move M-ID    to D-ID
+                           Move M-Year to D-Year
+                           Move M-Month to D-Month
+                           Perform 300-Build-Status-Phrase
+                           Perform 305-Build-Parking-Phrase
+                           Perform 310-Print-Detail-Line
+                           Move Spaces to Detail-Line
+                       End-If
+                       Read Master-File Next
+                           At end
+                                Move 'Y' to M-EOF-Flag
+                           Not at end
+                               Move M-Date-Hired to M-Date-Plain-1
+                       End-Read
+                   End-Perform
+                   If Found-Flag = 'N'
+                       Move Error-Message(10) to D-Outcome
+      * 'Failure--No matching records were found   '
+                       Perform 310-Print-Detail-Line
+                   End-If
+                   Move 2 to Advance-Num
+           End-Start.
+       260-Exit.  Exit.
+           Eject
+      ****************************************************************
+      *                                                              *
+      *  270-List-Parking.                                           *
+      *                                                              *
+      *  Called once from 100-Process-One-Transaction.               *
+      *                                                              *
+      ****************************************************************
+       270-List-Parking.
+           Move 'List--Parking ' to D-Type.
+           Move Low-Values to M-ID.
+           Move 'N' to Found-Flag.
+           Move T-Parking to M-Parking.
+           Perform 305-Build-Parking-Phrase.
+           Start Master-File
+               Key is >= M-ID
+               Invalid Key
+                   Move Error-Message(10) to D-Outcome
+      * 'Failure--No matching records were found   '
+                   Perform 310-Print-Detail-Line
+               Not Invalid Key
+                   Move 'N' to M-EOF-Flag
+                   Read Master-File Next
+                       At end
+                           Move 'Y' to M-EOF-Flag
+                       Not at end
+                           Move M-Date-Hired to M-Date-Plain-1
+                   End-Read
+                   Perform until M-EOF-Flag = 'Y'
+                       If M-Parking = T-Parking
+                           If Found-Flag = 'N'
+                               Move Success-Message(5) to D-Outcome
+      * 'Success--Found at least one record       '
+                               Perform 310-Print-Detail-Line
+                               Move 'Y' to Found-Flag
+                               Move 1 to Advance-Num
+                           End-If
+                           Move Spaces to Detail-Line
+                           Move M-ID    to D-ID
+                           Move M-Year to D-Year
+                           Move M-Month to D-Month
+                           Perform 300-Build-Status-Phrase
+                           Perform 305-Build-Parking-Phrase
+                           Perform 310-Print-Detail-Line
+                           Move Spaces to Detail-Line
+                       End-If
+                       Read Master-File Next
+                           At end Move 'Y' to M-EOF-Flag
+                       End-Read
+                   End-Perform
+                   If Found-Flag = 'N'
+                       Move Error-Message(10) to D-Outcome
+      * 'Failure--No matching records were found   '
+                       Perform 310-Print-Detail-Line
+                   End-If
+                   Move 2 to Advance-Num
+           End-Start.
+       270-Exit.  Exit.
+           Eject
+      ****************************************************************
+      *                                                              *
+      *  280-Bad-Code.                                               *
+      *                                                              *
+      *  Called once from 100-Process-One-Transaction.               *
+      *                                                              *
+      ****************************************************************
+       280-Bad-Code.
+           String T-Code     Delimited by Size
+                  '  ??????' Delimited by Size
+               into D-Type.
+           Move T-ID to D-ID.
+           Move Error-Message(7) to D-Outcome.
+      * 'Failure--Invalid Transaction Code         '
+           Perform 310-Print-Detail-Line.
+       280-Exit.  Exit.
+           Eject
+      ****************************************************************
+      *                                                              *
+      *  300-Build-Status-Phrase.                                    *
+      *                                                              *
+      *  Called once from each of 200-Insert, 210-Locate,            *
+      *  220-Delete, 230-Change-Status, 240-List-Date-Hired,         *
+      *  250-List-Year-Hired and 260-List-Status.                    *
+      *                                                              *
+      ****************************************************************
+       300-Build-Status-Phrase.
+           Evaluate M-Status
+               When 'F'   Move 'Full-Time'     to D-Status
+               When 'P'   Move 'Part-Time'     to D-Status
+               When 'V'   Move 'On Vacation'   to D-Status
+               When 'M'   Move 'Medical Leave' to D-Status
+               When 'T'   Move 'Terminal'      to D-Status
+               When Other String M-Status   Delimited by Size
+                                 '  ??????' Delimited by Size
+                              into D-Status
+                          End-String
+      * This last should seldom be used.
+           End-Evaluate.
+       300-Exit.  Exit.
+           Eject
+      ****************************************************************
+      *                                                              *
+      *  305-Build-Parking-Phrase.                                   *
+      *                                                              *
+      *  Called once from each of 200-Insert, 210-Locate,            *
+      *  220-Delete, 230-Change-Status, 240-List-Date-Hired,         *
+      *  250-List-Year-Hired and 260-List-Status.                    *
+      *                                                              *
+      ****************************************************************
+       305-Build-Parking-Phrase.
+           Evaluate M-Parking
+               When 'A'   Move ' Lot A  ' to D-Parking
+               When 'B'   Move ' Lot B  ' to D-Parking
+               When 'C'   Move ' Lot C  ' to D-Parking
+               When 'D'   Move ' Lot D  ' to D-Parking
+               When 'R'   Move 'Reserved' to D-Parking
+               When Other String M-Parking  Delimited by Size
+                                 '  ??????' Delimited by Size
+                              into D-Status
+                          End-String
+      * This last should seldom be used.
+           End-Evaluate.
+       305-Exit.  Exit.
+           Eject
+      ****************************************************************
+      *                                                              *
+      *  310-Print-Detail-Line.                                      *
+      *                                                              *
+      *  Called once from each of 200-Insert, 210-Locate,            *
+      *  220-Delete, 230-Change-Status, 240-List-Date-Hired,         *
+      *  250-List-Year-Hired, 260-List-Status and 270-Bad-Code.      *
+      *                                                              *
+      ****************************************************************
+       310-Print-Detail-Line.
+           If Line-Count > Line-Limit
+               Perform 400-New-Page
+           End-If.
+           Write Print-Record from Detail-Line
+                after Advancing Advance-Num lines.
+           Add Advance-Num to Line-Count.
+       310-Exit.  Exit.
+           Eject
+      ****************************************************************
+      *                                                              *
+      *  400-New-Page.                                               *
+      *                                                              *
+      *  Called once from 310-Print-Detail-Line.                     *
+      *                                                              *
+      ****************************************************************
+       400-New-Page.
+           Add 1 to Page-Count.
+           Move Page-Count to Page-Num.
+           Write Print-Record from Page-Head after Advancing page.
+           Write Print-Record from Columns-1 after Advancing 3 lines.
+           Write Print-Record from Columns-2.
+           Write Print-Record from Dashes.
+           Move 7 to Line-Count.
+       400-Exit.  Exit.
+           Eject
+/*
+//GO.SYSOUT  DD SYSOUT=*
+//GO.MASTER  DD DSN=KC02322.CSCI465.FA13.KSDS,DISP=SHR
+//GO.MASTER1 DD DSN=KC02322.CSCI465.FA13.PATH,DISP=SHR
+//GO.TRANS   DD DSN=KC02322.CSCI465.FA13.ESDS,DISP=SHR
+//GO.PRINTER DD SYSOUT=*
+//*
+//********************************************************************
+//*                                                                  *
+//*  STEP12 uses IDCAMS to print the first 20 records in an AIX,     *
+//*  KC02322.CSCI465.FA13.AIX.                                       *
+//*                                                                  *
+//*  DD Name              File Description                           *
+//*                                                                  *
+//*  SYSPRINT    Output:  Standard output for diagnostic and other   *
+//*                       messages.                                  *
+//*  SYSIN        Input:  Control statements.                        *
+//*                                                                  *
+//********************************************************************
+//*
+//STEP12   EXEC PGM=IDCAMS
+//SYSPRINT DD SYSOUT=*
+//SYSIN    DD *
+  PRINT                                 /* Print a data set.       */-
+    INDATASET(KC02322.CSCI465.FA13.AIX)                             -
+                                        /* Print this cluster.     */-
+    HEX                                 /* Use hex format.         */-
+    COUNT(15)                           /* Print only 15 records.  */
+/*
+//*
+//********************************************************************
+//*                                                                  *
+//*  STEP13 uses IDCAMS to print the first 20 records in a PATH,     *
+//*  KC02322.CSCI465.FA13.PATH.                                      *
+//*                                                                  *
+//*  DD Name              File Description                           *
+//*                                                                  *
+//*  SYSPRINT    Output:  Standard output for diagnostic and other   *
+//*                       messages.                                  *
+//*  SYSIN        Input:  Control statements.                        *
+//*                                                                  *
+//********************************************************************
+//*
+//STEP13   EXEC PGM=IDCAMS
+//SYSPRINT DD SYSOUT=*
+//SYSIN    DD *
+  PRINT                                  /* Print a data set.      */-
+    INDATASET(KC02322.CSCI465.FA13.PATH)                            -
+                                         /* Print this cluster.    */-
+    DUMP                                 /* Use dump format.       */-
+    COUNT(15)                            /* Print only 20 records.  */
+/*
+//********************************************************************
+//*                                                                  *
+//*  STEP14 uses IDCAMS to delete (preemptively) a VSAM cluster,     *
+//*  KC02322.CSCI465.FA13.KSDS.                                      *
+//*                                                                  *
+//*  DD Name              File Description                           *
+//*                                                                  *
+//*  SYSPRINT    Output:  Standard output for diagnostic and other   *
+//*                       messages.                                  *
+//*  SYSIN        Input:  Control statements.                        *
+//*                                                                  *
+//********************************************************************
+//*
+//STEP14   EXEC PGM=IDCAMS,COND=EVEN
+//SYSPRINT DD SYSOUT=*
+//SYSIN    DD *
+  DELETE KC02322.CSCI465.FA13.KSDS
+                                       /*  Delete this cluster.    */
+/*
+//********************************************************************
+//*                                                                  *
+//*  STEP15 uses IDCAMS to delete (preemptively) a VSAM cluster,     *
+//*  KC02322.CSCI465.FA13.ESDS.                                      *
+//*                                                                  *
+//*  DD Name              File Description                           *
+//*                                                                  *
+//*  SYSPRINT    Output:  Standard output for diagnostic and other   *
+//*                       messages.                                  *
+//*  SYSIN        Input:  Control statements.                        *
+//*                                                                  *
+//********************************************************************
+//*
+//STEP15   EXEC PGM=IDCAMS,COND=EVEN
+//SYSPRINT DD SYSOUT=*
+//SYSIN    DD *
+  DELETE KC02322.CSCI465.FA13.ESDS
+                                       /*  Delete this cluster.    */
+/*
+//

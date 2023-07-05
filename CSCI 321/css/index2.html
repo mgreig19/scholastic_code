@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/> <!--320-->
+		
+		<title>Mobile Friendly Page</title>
+
+		<!-- CSS -->
+		<link rel="stylesheet" type="text/css" href="css/main.css" />
+		<link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Open+Sans:600italic,400,600,800' type='text/css' media='all'/>
+
+		<!-- JavaScript -->
+		<script type="text/javascript" src="javascript/jQuery.all.js"></script>
+		<script type="text/javascript" src="javascript/dropDown.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				//Run code upload Page load
+				enableDropDownForIds('#userInfo, #createAccount');
+			});
+		</script>
+	</head>
+	<body>
+		<div id="titleBar" class="blue-gradiant">My Portfolio</div>
+		<img src= Mason_Greig.jpg id="profile_pic" alt="Profile Picture"/>
+		<div id="name" class="blue-gradiant">INTERESTS</div>
+		<div class="experienceDetails">
+			<p><br>Aspiring Artificial Intelligence Researcher, Software Developer, and Game Designer!
+Interested in game design, artificial intelligence personality constructs, multi-dimensional theories, and any extreme sports! </br></p>
+		</div>
+        
+        	<hr class="width-75">
+		<div class="experienceDetails">
+        
+        <span class="company">NORTHERN ILLINOIS UNIVERSITY</span><span class="address">DeKalb, Illinois</span>
+			<span class="yearSpan">SPRING 2017</span>
+			<span class="positionTitle">UNDERGRADUATE STUDENT</span>
+			<span class=“majors”>DISCIPLINE: Bachelors of Science in Computer Science and Psychology</span>
+		  <p><br>HAVING FUN LEARNING TO CODE IN SWIFT. PLANNING TO START MY CAREER AS A SOFTWARE DEVELOPER WITH DISCOVER FINANCIAL SERVICES.</br></p>
+		</div>
+        
+		<div id="footer">
+			Designed by Mason Greig (Current student of Kai Rush). Updated for CSCI 321/521, Spring 2017 Course.
+	</div>
+	</body>
+</html>

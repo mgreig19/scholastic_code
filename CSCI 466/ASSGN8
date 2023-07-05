@@ -1,0 +1,497 @@
+1                    J E S 2  J O B  L O G  --  S Y S T E M  S 0 W 1  --  N O D E  Z O S K C T R         
+0 
+ 12.41.39 JOB00428 ---- WEDNESDAY, 29 NOV 2017 ----
+ 12.41.39 JOB00428  IRR010I  USERID KC03KA9  IS ASSIGNED TO THIS JOB.
+ 12.41.40 JOB00428  ICH70001I KC03KA9  LAST ACCESS AT 12:01:42 ON WEDNESDAY, NOVEMBER 29, 2017
+ 12.41.40 JOB00428  $HASP373 KC03KA9A STARTED - INIT 3    - CLASS A        - SYS S0W1
+ 12.41.40 JOB00428  -                                         --TIMINGS (MINS.)--            ----PAGING COUNTS---
+ 12.41.40 JOB00428  -JOBNAME  STEPNAME PROCSTEP    RC   EXCP    TCB    SRB  CLOCK   SERV  PG   PAGE   SWAP    VIO SWAPS
+ 12.41.40 JOB00428  -KC03KA9A                      00     45 ******    .00     .0    142   0      0      0      0     0
+ 12.41.40 JOB00428  -KC03KA9A ENDED.  NAME-MASON GREIG          TOTAL TCB CPU TIME=   .00  TOTAL ELAPSED TIME=    .0
+ 12.41.40 JOB00428  $HASP395 KC03KA9A ENDED
+0------ JES2 JOB STATISTICS ------
+-  29 NOV 2017 JOB EXECUTION DATE
+-          388 CARDS READ
+-          493 SYSOUT PRINT RECORDS
+-            0 SYSOUT PUNCH RECORDS
+-           57 SYSOUT SPOOL KBYTES
+-         0.00 MINUTES EXECUTION TIME
+         1 //KC03KA9A JOB ,'MASON GREIG',MSGCLASS=H                                JOB00428
+         2 //STEP1 EXEC PGM=ASSIST                                                 00002000
+         3 //STEPLIB DD DSN=KC02293.ASSIST.LOADLIB,DISP=SHR                        00003000
+         4 //SYSPRINT DD SYSOUT=*                                                  00004000
+         5 //SYSIN DD *                                                            00005000
+         6 //FT05F001 DD DSN=KC02314.AUTUMN17.CSCI360.HW8DATA,DISP=SHR             00860000
+ ICH70001I KC03KA9  LAST ACCESS AT 12:01:42 ON WEDNESDAY, NOVEMBER 29, 2017
+ IEF236I ALLOC. FOR KC03KA9A STEP1
+ IGD103I SMS ALLOCATED TO DDNAME STEPLIB
+ IEF237I JES2 ALLOCATED TO SYSPRINT
+ IEF237I JES2 ALLOCATED TO SYSIN
+ IGD103I SMS ALLOCATED TO DDNAME FT05F001
+ IEF142I KC03KA9A STEP1 - STEP WAS EXECUTED - COND CODE 0000
+ IGD104I KC02293.ASSIST.LOADLIB                       RETAINED,  DDNAME=STEPLIB 
+ IEF285I   KC03KA9.KC03KA9A.JOB00428.D0000102.?         SYSOUT        
+ IEF285I   KC03KA9.KC03KA9A.JOB00428.D0000101.?         SYSIN         
+ IGD104I KC02314.AUTUMN17.CSCI360.HW8DATA             RETAINED,  DDNAME=FT05F001
+ IEF373I STEP/STEP1   /START 2017333.1241
+ IEF032I STEP/STEP1   /STOP  2017333.1241 
+         CPU:     0 HR  00 MIN  00.00 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+         VIRT:   584K  SYS:   268K  EXT:        0K  SYS:    11268K
+         ATB- REAL:                     0K  SLOTS:                     0K
+              VIRT- ALLOC:       0M SHRD:       0M
+ IEF375I  JOB/KC03KA9A/START 2017333.1241
+ IEF033I  JOB/KC03KA9A/STOP  2017333.1241 
+         CPU:     0 HR  00 MIN  00.00 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+1*** ASSIST 4.0/A2-05/15/82  470/V7A/0:OS/VS2  INS=SDFP7/X=BGHO, CHECK/TRC/=1180, OPTS=CDKMPR FROM PENN ST*NIU COMPSCI*LT         
+0                                                                                                                                 
+0                                                                                                               PAGE    1         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                       1 *******************************************                             00010000         
+                                       2 * Assignment 8                                                          00020000         
+                                       3 *                                                                       00030000         
+                                       4 * Mason Greig                                                           00040000         
+                                       5 * z1768935                                                              00041000         
+                                       6 * Harry Hutchins                                                        00042000         
+                                       7 * CSCI 360                                                              00043000         
+                                       8 * Fall 2017                                                             00044000         
+                                       9 *                                                                       00045000         
+                                      10 *******************************************                             00050000         
+                                      11 *                                                                       00080000         
+                                      12 *******************************************                             00090000         
+                                      13 *                                                                       00100000         
+ 000000                               14 MAIN     CSECT                                                          00110000         
+ 000000 90EC D00C            0000C    15          STM   14,12,12(13)                                             00111000         
+ 000004 18CF                          16          LR    12,15                                                    00112000         
+ 000000                               17          USING MAIN,12                                                  00120000         
+ 000006 41E0 CD54            00D54    18          LA    14,MAINSVE                                               00130000         
+ 00000A 50D0 E004            00004    19          ST    13,4(0,14)                                               00140000         
+ 00000E 50E0 D008            00008    20          ST    14,8(0,13)                                               00150000         
+ 000012 18DE                          21          LR    13,14                                                    00160000         
+                                      22 *                                                                       00170000         
+ 000014 4110 CD2C            00D2C    23          LA    1,BPARAM                                                 00180000         
+ 000018 58F0 C068            00068    24          L     15,=V(BUILD)                                             00190000         
+ 00001C 05EF                          25          BALR  14,15                                                    00200000         
+                                      26 *                                                                       00210000         
+ 00001E E060 C080 00A2 00080          27          XDUMP TABLE,162                                                00220000         
+                                      28 *                                                                       00221000         
+ 000024 E020 CD9C 005B 00D9C          29          XPRNT HEAD,91                                                  00222000         
+ 00002A E020 CE52 005B 00E52          30          XPRNT HEAD3,91                                                 00223000         
+                                      31 *                                                                       00230000         
+ 000030 4110 CD34            00D34    32          LA    1,PPARAM                                                 00240000         
+ 000034 58F0 C06C            0006C    33          L     15,=V(PRINT)                                             00250000         
+ 000038 05EF                          34          BALR  14,15                                                    00260000         
+                                      35 *                                                                       00270000         
+ 00003A 4110 CD4C            00D4C    36          LA    1,SPARAM                                                 00280000         
+ 00003E 58F0 C070            00070    37          L     15,=V(SORTGPA)                                           00290000         
+ 000042 05EF                          38          BALR  14,15                                                    00300000         
+                                      39 *                                                                       00301000         
+ 000044 E020 CDF7 005B 00DF7          40          XPRNT HEAD2,91                                                 00302000         
+ 00004A E020 CE52 005B 00E52          41          XPRNT HEAD3,91                                                 00303000         
+                                      42 *                                                                       00310000         
+ 000050 4110 CD40            00D40    43          LA    1,PPARAM2                                                00320000         
+ 000054 58F0 C06C            0006C    44          L     15,=V(PRINT)                                             00330000         
+ 000058 05EF                          45          BALR  14,15                                                    00340000         
+                                      46 *                                                                       00350000         
+ 00005A 58D0 D004            00004    47          L     13,4(0,13)                                               00360000         
+ 00005E 98EC D00C            0000C    48          LM    14,12,12(13)                                             00370000         
+ 000062 07FE                          49          BR    14                                                       00380000         
+                                      50          LTORG                                                          00390000         
+ 000068 00000EB0                      51                =V(BUILD)                                                                 
+ 00006C 00001000                      52                =V(PRINT)                                                                 
+1                                                                                                               PAGE    2         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+ 000070                               53                =V(SORTGPA)                                                               
+ ----->AS131 UNRESOLVED EXTERNAL REFERENCE------------------------$---------------------------------------------- <-ERROR         
+                                      54 *                                                                       00400000         
+ 000080                               55          ORG   MAIN+((*-MAIN+31)/32)*32                                 00410000         
+ 000080                               56 TABLE    DS    120CL27                                                  00420001         
+ 000D28                               57 EOT      DS    F                                                        00430000         
+ 000D2C 00000080                      58 BPARAM   DC    A(TABLE)                                                 00440000         
+ 000D30 00000D28                      59          DC    A(EOT)                                                   00450000         
+ 000D34 00000080                      60 PPARAM   DC    A(TABLE)                                                 00460000         
+ 000D38 00000D28                      61          DC    A(EOT)                                                   00470000         
+ 000D3C 00000D9C                      62          DC    A(HEAD)                                                  00480000         
+ 000D40 00000080                      63 PPARAM2  DC    A(TABLE)                                                 00490000         
+ 000D44 00000D28                      64          DC    A(EOT)                                                   00500000         
+ 000D48 00000DF7                      65          DC    A(HEAD2)                                                 00510000         
+ 000D4C 00000080                      66 SPARAM   DC    A(TABLE)                                                 00520000         
+ 000D50 00000D28                      67          DC    A(EOT)                                                   00530000         
+ 000D54                               68 MAINSVE  DS    18F                                                      00540000         
+ 000D9C F1                            69 HEAD     DC    C'1'                                                     00550000         
+ 000D9D 4040404040404040              70          DC    31C' '                                                   00560000         
+ 000DBC E2A3A4848595A340              71          DC    CL19'Student Information'                                00570000         
+ 000DCF 4040404040404040              72          DC    31C' '                                                   00580000         
+ 000DEE D78187857A40                  73          DC    CL6'Page: '                                              00590000         
+ 000DF4 4040F1                        74          DC    CL3'  1'                                                 00600000         
+ 000DF7 F1                            75 HEAD2    DC    C'1'                                                     00610000         
+ 000DF8 4040404040404040              76          DC    27C' '                                                   00620000         
+ 000E13 E2A3A4848595A340              77          DC    CL26'Student Information By GPA'                         00630000         
+ 000E2D 4040404040404040              78          DC    28C' '                                                   00640000         
+ 000E49 D78187857A40                  79          DC    CL6'Page: '                                              00650000         
+ 000E4F 4040F2                        80          DC    CL3'  2'                                                 00660000         
+ 000E52 60                            81 HEAD3    DC    C'-'                                                     00660100         
+ 000E53 4040                          82          DC    2C' '                                                    00660200         
+ 000E55 E2A3A4848595A340              83          DC    CL10'Student ID'                                         00660300         
+ 000E5F 404040                        84          DC    3C' '                                                    00660400         
+ 000E62 D781A2A2A6969984              85          DC    CL8'Password'                                            00660500         
+ 000E6A 4040404040404040              86          DC    9C' '                                                    00660600         
+ 000E73 D9859585A6819340              87          DC    CL12'Renewal Date'                                       00660700         
+ 000E7F 404040                        88          DC    3C' '                                                    00660800         
+ 000E82 D481919699                    89          DC    CL5'Major'                                               00660900         
+ 000E87 4040404040                    90          DC    5C' '                                                    00661000         
+ 000E8C C7D7C1                        91          DC    CL3'GPA'                                                 00661100         
+ 000E8F 4040404040                    92          DC    5C' '                                                    00661200         
+ 000E94 E396A3819340C896              93          DC    CL11'Total Hours'                                        00661300         
+ 000E9F 40404040                      94          DC    4C' '                                                    00661400         
+ 000EA3 C3A499998595A340              95          DC    CL10'Current Hours'                                      00661500         
+                                      96 *                                                                       00661600         
+ 000000                               97 TABLELNE DSECT                                                          00661700         
+ 000000                               98 SID      DS    4B                                                       00662000         
+ 000004                               99 PSWORD   DS    12B                                                      00663000         
+ 000010                              100 RENEWPW  DS    2B                                                       00664000         
+ 000012                              101 MAJOR    DS    4B                                                       00665000         
+ 000016                              102 GPA      DS    2P                                                       00666000         
+ 000018                              103 TCRHR    DS    2B                                                       00667000         
+ 00001A                              104 CRENRLD  DS    1B                                                       00668000         
+                                     105 *                                                                       00670000         
+                                     106 *******************************************                             00680000         
+                                     107 *                                                                       00690000         
+                                     108 * BUILD                                                                 00700000         
+1                                                                                                               PAGE    3         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                     109 *                                                                       00710000         
+                                     110 * FUNCTION: THIS SUBROUTINE BUILDS THE TABLE                            00720000         
+                                     111 *           FROM AN INPUT FILE                                          00730000         
+                                     112 *                                                                       00740000         
+                                     113 * REGISTER USAGE                                                        00750000         
+                                     114 *                                                                       00751000         
+                                     115 *  7    TABLE                                                           00760000         
+                                     116 *  8    EOT                                                             00770000         
+                                     117 *  5    USED WITH CVB                                                   00771000         
+                                     118 *  12   BASE REGISTER                                                   00772000         
+                                     119 *  13   ADDRESS OF BUILDSVE                                             00773000         
+                                     120 *  14   RETURN ADDRESS                                                  00774000         
+                                     121 *                                                                       00775000         
+                                     122 *******************************************                             00780000         
+                                     123 *                                                                       00790000         
+ 000EB0                              124 BUILD    CSECT                                                          00800000         
+ 000EB0 90EC D00C            0000C   125          STM   14,12,12(13)                                             00801000         
+ 000EB4 18CF                         126          LR    12,15                                                    00802000         
+ 000EB0                              127          USING BUILD,12                                                 00803000         
+ 000EB6 41E0 C0D4            00F84   128          LA    14,BUILDSVE                                              00810000         
+ 000EBA 50D0 E004            00004   129          ST    13,4(0,14)                                               00811000         
+ 000EBE 50E0 D008            00008   130          ST    14,8(0,13)                                               00812000         
+ 000EC2 18DE                         131          LR    13,14                                                    00813000         
+                                     132 *                                                                       00814000         
+ 000EC4 9878 1000            00000   133          LM    7,8,0(1)                                                 00814100         
+ 000000                              134          USING TABLELNE,7                                               00815000         
+                                     135 *                                                                       00815100         
+ 000EC8 0000 0000 0000 00000         136 BLOOP    XREAD BUFFER,80                                                00816000         
+ ----->AS130 UNDEFINED SYMBOL            --------------------$--------------------------------------------------- <-ERROR         
+ 000ECE 4740 C0BE            00F6E   137          BC    B'0100',ENDBLD                                           00817000         
+ 000ED2 5970 8000            00000   138          C     7,0(0,8)                                                 00817100         
+ 000ED6 4780 C0BE            00F6E   139          BE    ENDBLD                                                   00817200         
+                                     140 *                                                                       00817300         
+ 000EDA 0000 0000 0000 00000 00000   141          PACK  TEMPID(8),BUFFER+1(8)                                    00817400         
+ ----->AS130 UNDEFINED SYMBOL            ------------------------------$----------------------------------------- <-ERROR         
+ 000EE0 4F50 C11C            00FCC   142          CVB   5,TEMPID                                                 00817500         
+ ----->AS000 W-ALIGNMENT ERROR-IMPROPER BOUNDARY---------------$------------------------------------------------- <-ERROR         
+ 000EE4 BE5F 7000            00000   143          STCM  5,B'1111',SID                                            00817600         
+                                     144 *                                                                       00817700         
+ 000EE8 0000 0000 0000 00000 00000   145          MVC   PSWORD(12),BUFFER+10                                     00817800         
+ ----->AS130 UNDEFINED SYMBOL            -------------------------------$---------------------------------------- <-ERROR         
+ 000EEE D703 7004 7000 00004 00000   146          XC    PSWORD(4),SID                                            00817900         
+ 000EF4 D703 7008 7000 00008 00000   147          XC    PSWORD+4(4),SID                                          00818000         
+ 000EFA D703 700C 7000 0000C 00000   148          XC    PSWORD+8(4),SID                                          00818100         
+                                     149 *                                                                       00818200         
+ 000F00 0000 0000 0000 00000 00000   150          PACK  TDAY(8),BUFFER+23(2)                                     00818300         
+ ----->AS130 UNDEFINED SYMBOL            ----------------------------$------------------------------------------- <-ERROR         
+ 000F06 0000 0000 0000 00000 00000   151          PACK  TMONTH(8),BUFFER+25(2)                                   00818400         
+ ----->AS130 UNDEFINED SYMBOL            ------------------------------$----------------------------------------- <-ERROR         
+ 000F0C 0000 0000 0000 00000 00000   152          PACK  TYEAR(8),BUFFER+27(4)                                    00818500         
+ ----->AS130 UNDEFINED SYMBOL            -----------------------------$------------------------------------------ <-ERROR         
+ 000F12 FB72 C134 C0D0 00FE4 00F80   153          SP    TYEAR(8),=P'1980'                                        00818600         
+ 000F18 4F50 C134            00FE4   154          CVB   5,TYEAR                                                  00818700         
+ ----->AS000 W-ALIGNMENT ERROR-IMPROPER BOUNDARY--------------$-------------------------------------------------- <-ERROR         
+ 000F1C 8950 0009            00009   155          SLL   5,9                                                      00818801         
+ 000F20 BE53 7010            00010   156          STCM  5,B'0011',RENEWPW                                        00818900         
+ 000F24 4F50 C12C            00FDC   157          CVB   5,TMONTH                                                 00819000         
+1                                                                                                               PAGE    4         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+ ----->AS000 W-ALIGNMENT ERROR-IMPROPER BOUNDARY---------------$------------------------------------------------- <-ERROR         
+ 000F28 8950 0005            00005   158          SLL   5,5                                                      00819101         
+ 000F2C BE53 C14C            00FFC   159          STCM  5,B'0011',BINARYT                                        00819200         
+ 000F30 D601 7010 C14C 00010 00FFC   160          OC    RENEWPW(2),BINARYT                                       00819300         
+ 000F36 4F50 C124            00FD4   161          CVB   5,TDAY                                                   00819400         
+ ----->AS000 W-ALIGNMENT ERROR-IMPROPER BOUNDARY-------------$--------------------------------------------------- <-ERROR         
+ 000F3A BE53 C14C            00FFC   162          STCM  5,B'0011',BINARYT                                        00819500         
+                                     163 *                                                                       00819600         
+ 000F3E 0000 0000 0000 00000 00000   164          MVC   MAJOR(4),BUFFER+32                                       00819700         
+ ----->AS130 UNDEFINED SYMBOL            -----------------------------$------------------------------------------ <-ERROR         
+                                     165 *                                                                       00819800         
+ 000F44 0000 0000 0000 00000 00000   166          PACK  GPA(2),BUFFER+37(3)                                      00819900         
+ ----->AS130 UNDEFINED SYMBOL            ---------------------------$-------------------------------------------- <-ERROR         
+                                     167 *                                                                       00820000         
+ 000F4A 0000 0000 0000 00000 00000   168          PACK  TOTALHR(8),BUFFER+41(3)                                  00820100         
+ ----->AS130 UNDEFINED SYMBOL            -------------------------------$---------------------------------------- <-ERROR         
+ 000F50 0000 0000 0000 00000 00000   169          PACK  ENROLHR(8),BUFFER+45(2)                                  00820300         
+ ----->AS130 UNDEFINED SYMBOL            -------------------------------$---------------------------------------- <-ERROR         
+ 000F56 4F50 C13C            00FEC   170          CVB   5,TOTALHR                                                00820400         
+ ----->AS000 W-ALIGNMENT ERROR-IMPROPER BOUNDARY----------------$------------------------------------------------ <-ERROR         
+ 000F5A BE53 7018            00018   171          STCM  5,B'0011',TCRHR                                          00820500         
+ 000F5E 4F50 C144            00FF4   172          CVB   5,ENROLHR                                                00820600         
+ ----->AS000 W-ALIGNMENT ERROR-IMPROPER BOUNDARY----------------$------------------------------------------------ <-ERROR         
+ 000F62 BE51 701A            0001A   173          STCM  5,B'0001',CRENRLD                                        00820700         
+                                     174 *                                                                       00820800         
+ 000F66 4170 701B            0001B   175          LA    7,27(0,7)                                                00820900         
+ 000F6A 47F0 C018            00EC8   176          B     BLOOP                                                    00821000         
+ 000F6E 5078 0000            00000   177 ENDBLD   ST    7,0(8)                                                   00821100         
+ 000F72 58D0 D004            00004   178          L     13,4(0,13)                                               00821200         
+ 000F76 98EC D00C            0000C   179          LM    14,12,12(13)                                             00821300         
+ 000F7A 07FE                         180          BR    14                                                       00821400         
+                                     181          LTORG                                                          00821500         
+ 000F80 01980C                       182                =P'1980'                                                                  
+                                     183 *                                                                       00821600         
+ 000F84                              184 BUILDSVE DS    18F                                                      00821700         
+ 000FCC                              185 TEMPID   DS    8P                                                       00821800         
+ 000FD4                              186 TDAY     DS    8P                                                       00821900         
+ 000FDC                              187 TMONTH   DS    8P                                                       00822000         
+ 000FE4                              188 TYEAR    DS    8P                                                       00822100         
+ 000FEC                              189 TOTALHR  DS    8P                                                       00822200         
+ 000FF4                              190 ENROLHR  DS    8P                                                       00822300         
+ 000FFC                              191 BINARYT  DS    2B                                                       00822400         
+                                     192 *                                                                       00822500         
+                                     193 *******************************************                             00822600         
+                                     194 *                                                                       00822700         
+                                     195 * PRINT                                                                 00822800         
+                                     196 *                                                                       00822900         
+                                     197 * FUNCTION: THIS SUBROUTINE PRINTS THE CONTENTS                         00823000         
+                                     198 *           OF THE TABLE                                                00823100         
+                                     199 *                                                                       00823200         
+                                     200 * REGISTER USAGE:                                                       00823300         
+                                     201 *                                                                       00823400         
+                                     202 *  7    TABLE                                                           00823500         
+                                     203 *  8    EOT                                                             00823600         
+                                     204 *  9    FIRST NON-SPACE DIGIT                                           00823700         
+                                     205 * 12    BASE REGISTER                                                   00823800         
+                                     206 * 13    ADDRESS OF PRINTSVE                                             00823900         
+1                                                                                                               PAGE    5         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                     207 * 14    RETURN ADDRESS                                                  00824000         
+                                     208 *                                                                       00824100         
+                                     209 *******************************************                             00824200         
+                                     210 *                                                                       00824300         
+ 001000                              211 PRINT    CSECT                                                          00824400         
+ 001000 90EC D00C            0000C   212          STM   14,12,12(13)                                             00824500         
+ 001004 18CF                         213          LR    12,15                                                    00824600         
+ 001000                              214          USING PRINT,12                                                 00824700         
+ 001006 0000 0000            00000   215          LA    14,PRINTSVE                                              00824800         
+ ----->AS130 UNDEFINED SYMBOL            -------------------------$---------------------------------------------- <-ERROR         
+ 00100A 18CF                         216          LR    12,15                                                    00824900         
+ 00100C 50E0 D008            00008   217          ST    14,8(0,13)                                               00825000         
+ 001010 18DE                         218          LR    13,14                                                    00825100         
+                                     219 *                                                                       00825200         
+ 001012 9879 1000            00000   220          LM    7,9,0(1)                                                 00825300         
+ 000000                              221          USING TABLELNE,7                                               00825400         
+ 001016 0000 0000 0000 00000 00000   222          ZAP   PAGECNT,=P'1'                                            00825500         
+ ----->AS130 UNDEFINED SYMBOL            ---------------------$-------------------------------------------------- <-ERROR         
+ 00101C 1BBB                         223          SR    11,11                                                    00825600         
+ 00101E 5970 8000            00000   224 PLOOP    C     7,0(0,8)                                                 00825700         
+ 001022 4780 C164            01164   225          BE    PRINTEND                                                 00825800         
+ 001026 59B0 C178            01178   226          C     11,=F'50'                                                00825900         
+ 00102A 47C0 C070            01070   227          BC    B'1100',NEWLINE                                          00826000         
+ 00102E 1BBB                         228          SR    11,11                                                    00826100         
+ 001030 0000 0000 0000 00000 00000   229          AP    PAGECNT(2),=P'1'                                         00826200         
+ ----->AS130 UNDEFINED SYMBOL            ---------------------$-------------------------------------------------- <-ERROR         
+ 001036 9240 C1ED      011ED         230          MVI   PRNTLINE+1,C' '                                          00826300         
+ 00103A D261 C1EE C1ED 011EE 011ED   231          MVC   PRNTLINE+2(98),PRNTLINE+1                                00826400         
+ 001040 D259 C1ED 9000 011ED 00000   232          MVC   PRNTLINE+1(90),0(9)                                      00826500         
+ 001046 0000 0000 0000 00000 00000   233          UNPK  PAGENUM(3),PAGECNT                                       00826600         
+ ----->AS130 UNDEFINED SYMBOL            ---------------------$-------------------------------------------------- <-ERROR         
+ 00104C 0000 0000 0000 00000 00000   234          MVC   PRNTLINE+88(3),PAGENUM                                   00826700         
+ ----->AS130 UNDEFINED SYMBOL            ------------------------------------$----------------------------------- <-ERROR         
+ 001052 E020 C1EC 005B 011EC         235          XPRNT PRNTLINE,91                                              00826802         
+ 001058 0000 0000 0000 00000         236          XPRNT FORMAT,1                                                 00826900         
+ ----->AS130 UNDEFINED SYMBOL            --------------------$--------------------------------------------------- <-ERROR         
+ 00105E D25A C1ED C251 011ED 01251   237          MVC   PRNTLINE+1(91),COLUMLAB                                  00827002         
+ 001064 E020 C1EC 005B 011EC         238          XPRNT PRNTLINE,91                                              00827102         
+ 00106A 0000 0000 0000 00000         239          XPRNT FORMAT,1                                                 00827200         
+ ----->AS130 UNDEFINED SYMBOL            --------------------$--------------------------------------------------- <-ERROR         
+ 001070 9240 C1ED      011ED         240 NEWLINE  MVI   PRNTLINE+1,C' '                                          00827300         
+ 001074 D261 C1EE C1ED 011EE 011ED   241          MVC   PRNTLINE+2(98),PRNTLINE+1                                00827401         
+ 00107A D20A C1EE C18D 011EE 0118D   242          MVC   STUDENT(11),=X'4021C72020202020202020'                   00827500         
+ 001080 1B55                         243          SR    5,5                                                      00827600         
+ 001082 BF5F 7000            00000   244          ICM   5,B'1111',SID                                            00827700         
+ 001086 4E50 C2AF            012AF   245          CVD   5,TEMP                                                   00827800         
+ ----->AS000 W-ALIGNMENT ERROR-IMPROPER BOUNDARY-------------$--------------------------------------------------- <-ERROR         
+ 00108A DE0A C1EE C2B2 011EE 012B2   246          ED    STUDENT(11),TEMP+3                                       00827900         
+ 001090 D20B C20E C17C 0120E 0117C   247          MVC   DATETEM(12),=X'402120206120206120202020'                 00828000         
+ 001096 1B55                         248          SR    5,5                                                      00828100         
+ 001098 BF5C 7010            00010   249          ICM   5,B'1100',RENEWPW                                        00828200         
+ 00109C 8850 0019            00019   250          SRL   5,25                                                     00828300         
+ 0010A0 4E50 C2AF            012AF   251          CVD   5,TEMP                                                   00828400         
+ ----->AS000 W-ALIGNMENT ERROR-IMPROPER BOUNDARY-------------$--------------------------------------------------- <-ERROR         
+ 0010A4 FA02 C2AF C198 012AF 01198   252          AP    TEMP,=P'1980'                                            00828500         
+ 0010AA 1B55                         253          SR    5,5                                                      00828600         
+ 0010AC BF5C 7010            00010   254          ICM   5,B'1100',RENEWPW                                        00828700         
+1                                                                                                               PAGE    6         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+ 0010B0 8950 000B            0000B   255          SLL   5,11                                                     00828801         
+ 0010B4 8850 001B            0001B   256          SRL   5,27                                                     00828901         
+ 0010B8 4E50 C2B7            012B7   257          CVD   5,TEMP2                                                  00829000         
+ ----->AS000 W-ALIGNMENT ERROR-IMPROPER BOUNDARY--------------$-------------------------------------------------- <-ERROR         
+ 0010BC F070 C2B7 0004 012B7 00004   258          SRP   TEMP2(8),4,0                                             00829100         
+ 0010C2 FA00 C2AF C2B7 012AF 012B7   259          AP    TEMP,TEMP2                                               00829200         
+ 0010C8 1B55                         260          SR    5,5                                                      00829300         
+ 0010CA BF5C 7010            00010   261          ICM   5,B'1100',RENEWPW                                        00829400         
+ 0010CE 8950 000B            0000B   262          SLL   5,11                                                     00829500         
+ 0010D2 8850 001B            0001B   263          SRL   5,27                                                     00829600         
+ 0010D6 4E50 C2B7            012B7   264          CVD   5,TEMP2                                                  00829700         
+ ----->AS000 W-ALIGNMENT ERROR-IMPROPER BOUNDARY--------------$-------------------------------------------------- <-ERROR         
+ 0010DA F070 C2B7 0006 012B7 00006   265          SRP   TEMP2(8),6,0                                             00829800         
+ 0010E0 FA00 C2AF C2B7 012AF 012B7   266          AP    TEMP,TEMP2                                               00829900         
+ 0010E6 DE06 C20E C2B2 0120E 012B2   267          ED    DATETEM(7),TEMP+3                                        00830001         
+                                     268 *                                                                       00830100         
+ 0010EC D206 C223 C19B 01223 0119B   269          MVC   GPATEMP(7),=X'402021204B2020'                            00830200         
+ 0010F2 F801 C2AF 7016 012AF 00016   270          ZAP   TEMP,GPA(2)                                              00830300         
+ 0010F8 DE06 C223 C2B4 01223 012B4   271          ED    GPATEMP(7),TEMP+5                                        00830401         
+                                     272 *                                                                       00830500         
+ 0010FE D203 C232 C188 01232 01188   273          MVC   THOUR(4),=X'40202120'                                    00830600         
+ 001104 1B55                         274          SR    5,5                                                      00830700         
+ 001106 4350 7018            00018   275          IC    5,TCRHR                                                  00830800         
+ 00110A 8950 0001            00001   276          SLL   5,1                                                      00830900         
+ 00110E 4350 7019            00019   277          IC    5,TCRHR+1                                                00831000         
+ 001112 4E50 C2AF            012AF   278          CVD   5,TEMP                                                   00831100         
+ ----->AS000 W-ALIGNMENT ERROR-IMPROPER BOUNDARY-------------$--------------------------------------------------- <-ERROR         
+ 001116 DE03 C232 C2B5 01232 012B5   279          ED    THOUR(4),TEMP+6                                          00831201         
+                                     280 *                                                                       00831300         
+ 00111C D203 C243 C188 01243 01188   281          MVC   CHOUR(4),=X'40202120'                                    00831400         
+ 001122 1B55                         282          SR    5,5                                                      00831500         
+ 001124 4350 701A            0001A   283          IC    5,CRENRLD                                                00831600         
+ 001128 4E50 C2AF            012AF   284          CVD   5,TEMP                                                   00831700         
+ ----->AS000 W-ALIGNMENT ERROR-IMPROPER BOUNDARY-------------$--------------------------------------------------- <-ERROR         
+ 00112C DE03 C243 C2B5 01243 012B5   285          ED    CHOUR(4),TEMP+6                                          00831800         
+                                     286 *                                                                       00831900         
+ 001132 D203 C21E 7012 0121E 00012   287          MVC   MJROUT(4),MAJOR                                          00832000         
+                                     288 *                                                                       00832100         
+ 001138 D20B C2BF 7004 012BF 00004   289          MVC   TEMPPW(12),PSWORD                                        00832200         
+ 00113E D703 C2BF 7000 012BF 00000   290          XC    TEMPPW(4),SID                                            00832300         
+ 001144 D703 C2C3 7000 012C3 00000   291          XC    TEMPPW+4(4),SID                                          00832400         
+ 00114A D703 C2C7 7000 012C7 00000   292          XC    TEMPPW+8(4),SID                                          00832500         
+ 001150 D20B C1FA C2BF 011FA 012BF   293          MVC   PASSWRD(12),TEMPPW                                       00832600         
+                                     294 *                                                                       00832700         
+ 001156 E020 C1EC 005B 011EC         295          XPRNT PRNTLINE,91                                              00832802         
+ 00115C 4170 401B            0001B   296          LA    7,27(0,4)                                                00832900         
+ 001160 47F0 C01E            0101E   297          B     PLOOP                                                    00833000         
+                                     298 *                                                                       00833100         
+ 001164 E020 C250 0001 01250         299 PRINTEND XPRNT SPACE,1                                                  00833200         
+ 00116A 58D0 D004            00004   300          L     13,4(0,13)                                               00833300         
+ 00116E 98EC D00C            0000C   301          LM    14,12,12(13)                                             00833400         
+ 001172 07FE                         302          BR    14                                                       00833500         
+                                     303          LTORG                                                          00833600         
+ 001178 00000032                     304                =F'50'                                                                    
+ 00117C 4021202061202061             305                =X'402120206120206120202020'                                              
+ 001188 40202120                     306                =X'40202120'                                                              
+ 00118C 1C                           307                =P'1'                                                                     
+1                                                                                                               PAGE    7         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+ 00118D 4021C72020202020             308                =X'4021C72020202020202020'                                                
+ 001198 01980C                       309                =P'1980'                                                                  
+ 00119B 402021204B2020               310                =X'402021204B2020'                                                        
+                                     311 *                                                                       00833701         
+ 0011A4                              312 PRNTSVE  DS    18F                                                      00833801         
+                                     313 *                                                                       00833901         
+ 0011EC 40                           314 PRNTLINE DC    C' '                                                     00834001         
+ 0011ED 40                           315          DC    C' '                                                     00834102         
+ 0011EE                              316 STUDENT  DS    11C                                                      00834201         
+ 0011F9 40                           317          DC    1C' '                                                    00834302         
+ 0011FA                              318 PASSWRD  DS    12C                                                      00834401         
+ 001206 4040404040404040             319          DC    8C' '                                                    00834502         
+ 00120E                              320 DATETEM  DS    12C                                                      00834601         
+ 00121A 40404040                     321          DC    4C' '                                                    00834702         
+ 00121E                              322 MJROUT   DS    4C                                                       00834801         
+ 001222 40                           323          DC    1C' '                                                    00834902         
+ 001223                              324 GPATEMP  DS    7C                                                       00835001         
+ 00122A 4040404040404040             325          DC    8C' '                                                    00835102         
+ 001232                              326 THOUR    DS    4C                                                       00835201         
+ 001236 4040404040404040             327          DC    13C' '                                                   00835302         
+ 001243                              328 CHOUR    DS    4C                                                       00835401         
+ 001247 4040404040404040             329          DC    9C' '                                                    00835502         
+                                     330 *                                                                       00835601         
+ 001250 40                           331 SPACE    DC    C' '                                                     00835701         
+                                     332 *                                                                       00835801         
+ 001251                              333 COLUMLAB DC    C'-                                                      00835901         
+ ----->AS121 MISSING DELIMITER           ---------------------$-------------------------------------------------- <-ERROR         
+ 001254 4040                         334          DC    2C' '                                                    00836001         
+ 001256 E2A3A4848595A340             335          DC    CL10'Student ID'                                         00836101         
+ 001260 40404040                     336          DC    4C' '                                                    00836201         
+ 001264 D781A2A2A6969984             337          DC    CL8'Password'                                            00836301         
+ 00126C 4040404040404040             338          DC    9C' '                                                    00836401         
+ 001275 D9859585A6819340             339          DC    CL12'Renewal Date'                                       00836501         
+ 001281 404040                       340          DC    3C' '                                                    00836601         
+ 001284 D481919699                   341          DC    CL5'Major'                                               00836701         
+ 001289 4040404040                   342          DC    5C' '                                                    00836801         
+ 00128E C7D7C1                       343          DC    CL3'GPA'                                                 00836901         
+ 001291 4040404040                   344          DC    5C' '                                                    00837001         
+ 001296 E396A3819340C896             345          DC    CL11'Total Hours'                                        00837101         
+ 0012A1 40404040                     346          DC    4C' '                                                    00837201         
+ 0012A5 C3A499998595A340             347          DC    CL10'Current Hours'                                      00837301         
+                                     348 *                                                                       00837401         
+ 0012AF                              349 TEMP     DS    8P                                                       00837501         
+ 0012B7                              350 TEMP2    DS    8P                                                       00837601         
+ 0012BF                              351 TEMPPW   DS    12C                                                      00837701         
+                                     352 *                                                                       00837800         
+                                     353 *******************************************                             00837900         
+                                     354 *                                                                       00838000         
+                                     355 *                                                                       00838100         
+                                     356 *******************************************                             00838200         
+                                     357 *                                                                       00838300         
+ 0012D0                              358 SORT     CSECT                                                          00838400         
+ 0012D0 90EC D00C            0000C   359          STM   14,12,12(13)                                             00838500         
+ 0012D4 18CF                         360          LR    12,15                                                    00838600         
+ 0012D0                              361          USING SORT,12                                                  00838702         
+ 0012D6 41E0 C068            01338   362          LA    14,SORTSVE                                               00838802         
+ 0012DA 18CF                         363          LR    12,15                                                    00838900         
+1                                                                                                               PAGE    8         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+ 0012DC 50E0 D008            00008   364          ST    14,8(0,13)                                               00839000         
+ 0012E0 18DE                         365          LR    13,14                                                    00839100         
+                                     366 *                                                                       00839202         
+ 0012E2 9878 1000            00000   367          LM    7,8,0(1)                                                 00839302         
+ 000000                              368          USING TABLELNE,7                                               00839402         
+ 0012E6 1897                         369          LR    9,7                                                      00839502         
+ 0012E8 1879                         370 SLOOP    LR    7,9                                                      00839602         
+ 0012EA 5990 8000            00000   371          C     9,0(0,8)                                                 00839702         
+ 0012EE 47F0 C05A            0132A   372          BC    B'1111',SORTEND                                          00839802         
+ 0012F2 5970 8000            00000   373 SLOOP2   C     7,0(0,8)                                                 00839902         
+ 0012F6 47F0 C052            01322   374          BC    B'1111',SORTINC                                          00840002         
+ 0012FA F911 7016 9016 00016 00016   375          CP    GPA(2),22(2,9)                                           00841002         
+ 001300 4720 C03C            0130C   376          BH    SWITCH                                                   00842002         
+ 001304 4170 701B            0001B   377 INCRMNT  LA    7,27(0,7)                                                00843002         
+ 001308 47F0 C022            012F2   378          B     SLOOP2                                                   00844002         
+ 00130C 0000 0000 0000 00000 00000   379 SWITCH   MVC   TEMP(27),0(7)                                            00845002         
+ ----->AS100 ADDRESSIBILITY ERROR        ------------------$----------------------------------------------------- <-ERROR         
+ 001312 D21A 7000 9000 00000 00000   380          MVC   0(27,7),0(9)                                             00846002         
+ 001318 0000 0000 0000 00000 00000   381          MVC   0(27,9),TEMP                                             00847002         
+ ----->AS100 ADDRESSIBILITY ERROR        --------------------------$--------------------------------------------- <-ERROR         
+ 00131E 47F0 C034            01304   382          BC    B'1111',INCRMNT                                          00848002         
+ 001322 4190 901B            0001B   383 SORTINC  LA    9,27(0,9)                                                00849002         
+ 001326 47F0 C018            012E8   384          BC    B'1111',SLOOP                                            00849102         
+ 00132A 58D0 D004            00004   385 SORTEND  L     13,4(0,13)                                               00849202         
+ 00132E 98EC D00C            0000C   386          LM    14,12,12(13)                                             00849302         
+ 001332 07FE                         387          BR    14                                                       00849402         
+                                     388          LTORG                                                          00849502         
+                                     389 *                                                                       00849602         
+ 001338                              390 SORTSVE  DS    18F                                                      00849702         
+ 001380                              391 TEMP     DS    27B                                                      00849802         
+ ----->AS119 PREVIOUSLY DEFINED SYMBOL   $----------------------------------------------------------------------- <-ERROR         
+                                     392 *                                                                       00849902         
+                                     393          END                                                            00850002         
+0***    34 STATEMENTS FLAGGED -    12 WARNINGS,    22 ERRORS                                                                      
+0***** NUMBER OF ERRORS EXCEEDS LIMIT OF  NO   ERRORS - PROGRAM EXECUTION DELETED *****                                           
+0*** DYNAMIC CORE AREA USED:  LOW:   19940 HIGH:    1796 LEAVING:  471832 FREE BYTES. AVERAGE:       55 BYTES/STMT ***            
+0*** ASSEMBLY TIME =    0.002 SECS,   197000 STATEMENTS/SEC *** 
+
+
+
+DC    C'-'DC    2C' 'DC    CL10'Student ID'DC    4C' 'DC    CL8'Password'DC    5C' 'DC    CL12'Renewal Date'DC    3C' 'DC    CL5'Major'DC    5C' 'DC    CL3'GPA'DC    5C' 'DC    CL11'Total Hours'DC    4C' 'DC    CL13'Current Hours'                                                                  

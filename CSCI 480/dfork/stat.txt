@@ -1,0 +1,241 @@
+  PID STAT S TTY          TIME COMMAND
+    1 Ss   S ?        00:00:03 init
+    2 S    S ?        00:00:00 kthreadd
+    3 S    S ?        00:00:06 ksoftirqd/0
+    6 S    S ?        00:00:00 migration/0
+    7 S    S ?        00:00:00 watchdog/0
+    8 S    S ?        00:00:00 migration/1
+   10 S    S ?        00:00:01 ksoftirqd/1
+   12 S    S ?        00:00:00 watchdog/1
+   13 S    S ?        00:00:00 migration/2
+   15 S    S ?        00:00:00 ksoftirqd/2
+   16 S    S ?        00:00:00 watchdog/2
+   17 S    S ?        00:00:00 migration/3
+   19 S    S ?        00:00:00 ksoftirqd/3
+   20 S    S ?        00:00:00 watchdog/3
+   21 S<   S ?        00:00:00 cpuset
+   22 S<   S ?        00:00:00 khelper
+   23 S    S ?        00:00:00 kdevtmpfs
+   24 S<   S ?        00:00:00 netns
+   25 S    S ?        00:00:00 sync_supers
+   26 S    S ?        00:00:00 bdi-default
+   27 S<   S ?        00:00:00 kintegrityd
+   28 S<   S ?        00:00:00 kblockd
+   29 S    S ?        00:00:00 khungtaskd
+   30 S    S ?        00:00:01 kswapd0
+   31 SN   S ?        00:00:00 ksmd
+   32 SN   S ?        00:00:00 khugepaged
+   33 S    S ?        00:00:00 fsnotify_mark
+   34 S<   S ?        00:00:00 crypto
+  119 S    S ?        00:00:00 khubd
+  126 S<   S ?        00:00:00 ata_sff
+  228 S    S ?        00:00:00 scsi_eh_0
+  230 S    S ?        00:00:00 scsi_eh_1
+  234 S    S ?        00:00:00 scsi_eh_2
+  235 S    S ?        00:00:00 scsi_eh_3
+  236 S    S ?        00:00:19 scsi_eh_4
+  237 S    S ?        00:00:00 scsi_eh_5
+  238 S    S ?        00:00:00 scsi_eh_6
+  239 S    S ?        00:00:00 scsi_eh_7
+  298 S<   S ?        00:00:00 md
+  305 S    S ?        00:00:00 md0_raid1
+  312 S    S ?        00:00:00 md1_raid1
+  319 S    S ?        00:00:00 md2_raid1
+  326 S    S ?        00:00:15 md3_raid1
+  333 S    S ?        00:00:01 md4_raid1
+  340 S    S ?        00:00:03 md5_raid1
+  355 S    S ?        00:00:00 jbd2/md1-8
+  356 S<   S ?        00:00:00 ext4-dio-unwrit
+  500 Ss   S ?        00:00:00 udevd
+  725 S<   S ?        00:00:00 kpsmoused
+  765 S<   S ?        00:00:00 ttm_swap
+  832 S<   S ?        00:00:00 hd-audio0
+  837 S<   S ?        00:00:00 hd-audio1
+ 1699 S<   S ?        00:00:00 kdmflush
+ 1701 S<   S ?        00:00:00 kdmflush
+ 1703 S<   S ?        00:00:00 kdmflush
+ 1705 S<   S ?        00:00:00 kdmflush
+ 1927 S    S ?        00:00:00 jbd2/md0-8
+ 1928 S<   S ?        00:00:00 ext4-dio-unwrit
+ 1929 S    S ?        00:00:01 jbd2/dm-0-8
+ 1930 S<   S ?        00:00:00 ext4-dio-unwrit
+ 1931 S    S ?        00:00:00 jbd2/md4-8
+ 1932 S<   S ?        00:00:00 ext4-dio-unwrit
+ 1933 D    D ?        00:00:07 jbd2/md3-8
+ 1934 S<   S ?        00:00:00 ext4-dio-unwrit
+ 1935 S    S ?        00:00:00 jbd2/dm-1-8
+ 1936 S<   S ?        00:00:00 ext4-dio-unwrit
+ 1937 S    S ?        00:00:00 jbd2/dm-2-8
+ 1938 S<   S ?        00:00:00 ext4-dio-unwrit
+ 1945 S    S ?        00:00:00 jbd2/dm-3-8
+ 1946 S<   S ?        00:00:00 ext4-dio-unwrit
+ 2300 S    S ?        00:00:04 flush-9:3
+ 2301 S    S ?        00:00:00 flush-9:4
+ 2539 Ss   S ?        00:00:00 rpcbind
+ 2556 S<   S ?        00:00:00 rpciod
+ 2558 S<   S ?        00:00:00 nfsiod
+ 2569 S    S ?        00:00:00 nfsv4.0-svc
+ 2622 Ss   S ?        00:00:00 dhclient
+ 3479 Sl   S ?        00:00:32 rsyslogd
+ 3637 Ss   S ?        00:00:00 acpid
+ 3716 Ss   S ?        00:00:06 apache2
+ 3772 Ss   S ?        00:00:00 mdadm
+ 3814 Ss   S ?        00:00:00 atd
+ 3893 Ss   S ?        00:00:00 rpc.rquotad
+ 3911 Ss   S ?        00:00:12 ntpd
+ 3951 Ss   S ?        00:00:00 inetd
+ 4032 SLs  S ?        00:00:02 cron
+ 4070 Ssl  S ?        00:12:49 bacula-fd
+ 4181 Ss   S ?        00:00:01 sshd
+ 4545 Ss   S ?        00:00:02 spampd
+ 4563 S    S ?        00:00:00 spampd
+ 4564 S    S ?        00:00:00 spampd
+ 4565 S    S ?        00:00:00 spampd
+ 4574 Ss   S ?        00:00:00 exim4
+ 4593 Ss   S ?        00:00:06 dbus-daemon
+ 4620 S    S ?        00:00:02 avahi-daemon
+ 4621 S    S ?        00:00:00 avahi-daemon
+ 4658 S    S ?        00:00:00 udevd
+ 4662 Ss   S ?        00:00:00 cupsd
+ 4688 Ss+  S tty2     00:00:00 getty
+ 4689 Ss+  S tty3     00:00:00 getty
+ 4690 Ss+  S tty4     00:00:00 getty
+ 4691 Ss+  S tty5     00:00:00 getty
+ 4692 Ss+  S tty6     00:00:00 getty
+ 4694 Sl   S ?        00:00:46 console-kit-dae
+ 4697 S    S ?        00:00:00 udevd
+ 6939 SL   S ?        00:00:00 apache2
+12725 SL   S ?        00:00:00 apache2
+17797 SL   S ?        00:00:00 apache2
+17798 SL   S ?        00:00:00 apache2
+17799 SL   S ?        00:00:00 apache2
+17800 SL   S ?        00:00:00 apache2
+17801 SL   S ?        00:00:00 apache2
+17836 S    S ?        00:23:52 python
+21527 SLs  S ?        00:00:00 sshd
+21532 S    S ?        00:00:00 sshd
+21533 Ss   S ?        00:00:00 sftp-server
+22430 S    S ?        00:00:00 kworker/3:2
+23502 SLs  S ?        00:00:00 sshd
+23507 S    S ?        00:00:04 sshd
+24084 S    S ?        00:00:00 flush-253:0
+24529 SLs  S ?        00:00:00 sshd
+24534 S    S ?        00:00:00 sshd
+24535 Ss   S ?        00:00:00 sftp-server
+25621 SLs  S ?        00:00:00 sshd
+25635 SLs  S ?        00:00:00 sshd
+25640 S    S ?        00:00:00 sshd
+25641 Ss   S pts/6    00:00:00 bash
+25729 SLs  S ?        00:00:00 sshd
+25734 S    S ?        00:00:00 sshd
+25735 Ss   S ?        00:00:00 sftp-server
+25740 S    S ?        00:00:00 sshd
+25741 Ss+  S pts/8    00:00:00 bash
+25848 S+   S pts/6    00:00:00 nano
+25993 SLs  S ?        00:00:00 sshd
+25998 S    S ?        00:00:00 sshd
+25999 Ss   S ?        00:00:00 sftp-server
+26006 SLs  S ?        00:00:00 sshd
+26019 S    S ?        00:00:00 sshd
+26020 Ss   S pts/2    00:00:00 bash
+26157 SLs  S ?        00:00:00 sshd
+26167 S    S ?        00:00:00 sshd
+26168 Ss   S pts/10   00:00:00 bash
+26258 S+   S pts/10   00:00:00 nano
+26730 S    S ?        00:00:00 kworker/u:1
+27039 Ss+  S tty1     00:00:00 getty
+27119 SLs  S ?        00:00:00 sshd
+27128 S    S ?        00:00:00 sshd
+27129 Ss+  S pts/12   00:00:00 bash
+27329 SLs  S ?        00:00:00 sshd
+27334 S    S ?        00:00:00 sshd
+27335 Ss   S ?        00:00:00 sftp-server
+27340 SLs  S ?        00:00:00 sshd
+27346 S    S ?        00:00:00 sshd
+27347 Ss   S ?        00:00:00 sftp-server
+27797 Sl   S ?        00:00:18 udisks-daemon
+27798 S    S ?        00:00:20 udisks-daemon
+27801 Sl   S ?        00:00:09 polkitd
+28502 SLsl S ?        00:02:12 nscd
+29382 SLs  S ?        00:00:00 sshd
+29392 S    S ?        00:00:07 sshd
+29393 Ss+  S pts/13   00:00:00 bash
+29501 Sl   S pts/13   00:00:18 gedit
+29506 S    S pts/13   00:00:00 dbus-launch
+29507 Ss   S ?        00:00:00 dbus-daemon
+29512 Sl   S ?        00:00:00 dconf-service
+29520 SLs  S ?        00:00:00 sshd
+29525 S    S ?        00:00:00 sshd
+29526 Ss   S ?        00:00:00 sftp-server
+29550 SLs  S ?        00:00:00 sshd
+29555 S    S ?        00:00:00 sshd
+29556 Ss   S ?        00:00:00 sftp-server
+29687 SLs  S ?        00:00:00 sshd
+29702 S    S ?        00:00:00 sshd
+29703 Ss+  S pts/17   00:00:00 bash
+29885 SLs  S ?        00:00:00 sshd
+29900 S    S ?        00:00:01 sshd
+29901 Ss   S pts/16   00:00:00 bash
+30013 S    S ?        00:00:00 kworker/3:1
+30032 S+   S pts/16   00:00:06 nano
+30033 SLs  S ?        00:00:00 sshd
+30048 S    S ?        00:00:00 sshd
+30049 Ss   S pts/18   00:00:00 bash
+30487 S+   S pts/2    00:00:00 mysql
+30543 S    S ?        00:00:00 kworker/2:2
+30620 Ss   S ?        00:00:00 slim
+30623 Ss+  S tty7     00:00:00 Xorg
+30630 SLs  S ?        00:00:00 sshd
+30639 S    S ?        00:00:00 sshd
+30640 Ss   S ?        00:00:00 sftp-server
+30792 SLs  S ?        00:00:00 sshd
+30797 S    S ?        00:00:00 sshd
+30798 Ss   S pts/4    00:00:00 bash
+30900 S+   S pts/4    00:00:01 emacs
+31063 SLs  S ?        00:00:00 sshd
+31073 S    S ?        00:00:00 sshd
+31074 Ss+  S pts/0    00:00:00 bash
+31197 S    S ?        00:00:00 kworker/u:2
+31467 S    S ?        00:00:00 kworker/0:1
+31487 SLs  S ?        00:00:00 sshd
+31489 SLs  S ?        00:00:00 sshd
+31493 SLs  S ?        00:00:00 sshd
+31503 S    S ?        00:00:00 sshd
+31504 Ss   S pts/1    00:00:00 bash
+31509 S    S ?        00:00:00 lockd
+31510 S<   S ?        00:00:00 nfsd4
+31511 S<   S ?        00:00:00 nfsd4_callbacks
+31512 S    S ?        00:00:00 nfsd
+31513 S    S ?        00:00:00 nfsd
+31514 S    S ?        00:00:00 nfsd
+31515 S    S ?        00:00:00 nfsd
+31516 S    S ?        00:00:00 nfsd
+31517 S    S ?        00:00:00 nfsd
+31518 S    S ?        00:00:00 nfsd
+31519 S    S ?        00:00:00 nfsd
+31524 Ss   S ?        00:00:00 rpc.mountd
+31589 Ss   S ?        00:00:00 rpc.statd
+31601 Ss   S ?        00:00:03 rpc.idmapd
+31606 S    S ?        00:00:00 sshd
+31607 Ss   S pts/3    00:00:00 bash
+31699 S    S ?        00:00:00 sshd
+31700 Ss   S pts/7    00:00:00 bash
+31801 S+   S pts/7    00:00:00 nano
+31803 S+   S pts/3    00:00:00 nano
+31808 S+   S pts/1    00:00:00 nano
+31874 SLs  S ?        00:00:00 sshd
+31879 S    S ?        00:00:00 sshd
+31880 Ss   S ?        00:00:00 sftp-server
+31881 SLs  S ?        00:00:00 sshd
+31886 S    S ?        00:00:00 sshd
+31887 Ss   S ?        00:00:00 sftp-server
+31926 S    S ?        00:00:00 kworker/1:2
+31937 S    S ?        00:00:00 kworker/2:1
+32148 S    S ?        00:00:00 kworker/1:1
+32168 S    S ?        00:00:00 kworker/0:2
+32226 S    S ?        00:00:00 flush-0:22
+32227 S    S ?        00:00:00 kworker/1:0
+32271 S    S ?        00:00:00 flush-0:20
+32275 S    S ?        00:00:00 kworker/0:0
+32281 S    S ?        00:00:00 kworker/2:0
+32313 R+   R pts/18   00:00:00 ps

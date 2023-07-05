@@ -1,0 +1,293 @@
+1                    J E S 2  J O B  L O G  --  S Y S T E M  S 0 W 1  --  N O D E  Z O S K C T R         
+0 
+ 01.25.33 JOB07948 ---- FRIDAY,    13 OCT 2017 ----
+ 01.25.33 JOB07948  IRR010I  USERID KC03KA9  IS ASSIGNED TO THIS JOB.
+ 01.25.33 JOB07948  ICH70001I KC03KA9  LAST ACCESS AT 01:23:40 ON FRIDAY, OCTOBER 13, 2017
+ 01.25.33 JOB07948  $HASP373 KC03KA9K STARTED - INIT 2    - CLASS A        - SYS S0W1
+ 01.25.33 JOB07948  -                                         --TIMINGS (MINS.)--            ----PAGING COUNTS---
+ 01.25.33 JOB07948  -JOBNAME  STEPNAME PROCSTEP    RC   EXCP    TCB    SRB  CLOCK   SERV  PG   PAGE   SWAP    VIO SWAPS
+ 01.25.33 JOB07948  -KC03KA9K                      00     65 ******    .00     .0    204   0      0      0      0     0
+ 01.25.33 JOB07948  -KC03KA9K ENDED.  NAME-MASON GREIG          TOTAL TCB CPU TIME=   .00  TOTAL ELAPSED TIME=    .0
+ 01.25.33 JOB07948  $HASP395 KC03KA9K ENDED
+0------ JES2 JOB STATISTICS ------
+-  13 OCT 2017 JOB EXECUTION DATE
+-          214 CARDS READ
+-          293 SYSOUT PRINT RECORDS
+-            0 SYSOUT PUNCH RECORDS
+-           31 SYSOUT SPOOL KBYTES
+-         0.00 MINUTES EXECUTION TIME
+         1 //KC03KA9K JOB ,'MASON GREIG',MSGCLASS=H                                JOB07948
+         2 //STEP1 EXEC PGM=ASSIST                                                 00020007
+         3 //STEPLIB DD DSN=KC02293.ASSIST.LOADLIB,DISP=SHR                        00030007
+         4 //SYSPRINT DD SYSOUT=*                                                  00040007
+         5 //SYSIN DD *                                                            00050006
+         6 //FT05F001 DD DSN=KC02314.AUTUMN17.CSCI360.HW4DATA,DISP=SHR             00216000
+           /*                                                                      00220000
+ ICH70001I KC03KA9  LAST ACCESS AT 01:23:40 ON FRIDAY, OCTOBER 13, 2017
+ IEF236I ALLOC. FOR KC03KA9K STEP1
+ IGD103I SMS ALLOCATED TO DDNAME STEPLIB
+ IEF237I JES2 ALLOCATED TO SYSPRINT
+ IEF237I JES2 ALLOCATED TO SYSIN
+ IGD103I SMS ALLOCATED TO DDNAME FT05F001
+ IEF142I KC03KA9K STEP1 - STEP WAS EXECUTED - COND CODE 0000
+ IGD104I KC02293.ASSIST.LOADLIB                       RETAINED,  DDNAME=STEPLIB 
+ IEF285I   KC03KA9.KC03KA9K.JOB07948.D0000102.?         SYSOUT        
+ IEF285I   KC03KA9.KC03KA9K.JOB07948.D0000101.?         SYSIN         
+ IGD104I KC02314.AUTUMN17.CSCI360.HW4DATA             RETAINED,  DDNAME=FT05F001
+ IEF373I STEP/STEP1   /START 2017286.0125
+ IEF032I STEP/STEP1   /STOP  2017286.0125 
+         CPU:     0 HR  00 MIN  00.01 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+         VIRT:   584K  SYS:   268K  EXT:        4K  SYS:    11996K
+         ATB- REAL:                     0K  SLOTS:                     0K
+              VIRT- ALLOC:       0M SHRD:       0M
+ IEF375I  JOB/KC03KA9K/START 2017286.0125
+ IEF033I  JOB/KC03KA9K/STOP  2017286.0125 
+         CPU:     0 HR  00 MIN  00.01 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+1*** ASSIST 4.0/A2-05/15/82  470/V7A/0:OS/VS2  INS=SDFP7/X=BGHO, CHECK/TRC/=1180, OPTS=CDKMPR FROM PENN ST*NIU COMPSCI*LT         
+0                                                                                                                                 
+0                                                                                                               PAGE    1         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                       1 ********************************************                            00060000         
+                                       2 *                                                                       00070000         
+                                       3 * ASSIGNMENT 4                                                          00080000         
+                                       4 *                                                                       00090000         
+                                       5 * NAME: MASON GREIG                                                     00100000         
+                                       6 *                                                                       00110000         
+                                       7 * FUNCTION: THIS PROGRAM CALLS THRE SUBROUTINES                         00111003         
+                                       8 *           WHICH LOAD A LIST WITH NUMBERS FROM                         00112003         
+                                       9 *           A FILE AND PRINT THEM IN TWO WAYS                           00113003         
+                                      10 *           ALL NUMBER AND THEN JUST ODD NUMBERS                        00114003         
+                                      11 *                                                                       00115003         
+                                      12 * INPUT:    DATA FILE SUPPLIED BY PROFESSOR                             00116003         
+                                      13 *                                                                       00117003         
+                                      14 * OUTPUT:   TWO NUMBER TABLES                                           00118003         
+                                      15 *                                                                       00119003         
+                                      16 * REGISTER USAGE                                                        00120000         
+                                      17 *                                                                       00121003         
+                                      18 * 15   BASE REGISTER                                                    00130000         
+                                      19 *  1   PARAMETERLIST                                                    00140003         
+                                      20 * 10   RETURN REGISTER                                                  00150003         
+                                      21 * 14   EXIT PROGRAM                                                     00160003         
+                                      22 *                                                                       00180000         
+                                      23 ********************************************                            00190000         
+ 000000                               24 MAIN     CSECT                                                          00191000         
+ 000000                               25          USING MAIN,15                                                  00192000         
+                                      26 *                                                                       00192101         
+ 000000 E020 F108 002C 00108          27          XPRNT HEADER,44             PRINTS THE HEADER LINE             00192227         
+ 000006 E020 F163 0001 00163          28          XPRNT HEADSPCE,1            PRINTS SPACING LINE                00192337         
+ 00000C 4110 F100            00100    29          LA    1,PARAMLST            LOADS THE PARAMETERS INTO REG 1    00192404         
+ 000010 45A0 F164            00164    30          BAL   10,BUILD              CALLS THE BUILD SUBROUTINE         00192504         
+ 000014 4110 F100            00100    31          LA    1,PARAMLST            LOADS THE PARAMETERS INTO REG 1    00192604         
+ 000018 45A0 F252            00252    32          BAL   10,PRINT              CALLS THE PRINT SUBROUTINE         00192704         
+                                      33 *                                                                       00193002         
+ 00001C E020 F134 002E 00134          34          XPRNT HEADER2,46                   PRINTS OUT SECOND HEADER    00193134         
+ 000022 E020 F163 0001 00163          35          XPRNT HEADSPCE,1                   PRINTS SPACING LINE         00193237         
+ 000028 4110 F100            00100    36          LA    1,PARAMLST                   LOADS PARAMETER LIST        00193304         
+ 00002C 45A0 F346            00346    37          BAL   10,PRINTODD                  CALLS THE PRINTODD SUBRTNE  00193408         
+ 000030 07FE                          38          BR    14                           GO TO END OF PROGRAM        00193504         
+                                      39          LTORG                                                          00193605         
+                                      40 *                                                                       00193701         
+ 000038 FFFFFFF0FFFFFFF0              41 TABLE    DC    49F'-16'                     START OF TABLE              00193804         
+ 0000FC                               42 EOT      DS    F                            END OF TABLE                00193917         
+ 000100 00000038                      43 PARAMLST DC    A(TABLE)                     PARAMETER LIST              00194004         
+ 000104 000000FC                      44          DC    A(EOT)                                                   00194101         
+ 000108 F1                            45 HEADER   DC    C'1'                         HEADER FOR FIRST TABLE PRNT 00194208         
+ 000109 4040404040404040              46          DC    CL28' '                                                  00195026         
+ 000125 D3C9E2E340D6C640              47          DC    CL15'LIST OF NUMBERS'                                    00196034         
+ 000134 F1                            48 HEADER2  DC    C'1'                         HEADER FOR SECOND TBLE PRNT 00197027         
+ 000135 4040404040404040              49          DC    CL26' '                                                  00198023         
+ 00014F D3C9E2E340D6C640              50          DC    CL20'LIST OF ODD NUMBERS'                                00199034         
+ 000163 F0                            51 HEADSPCE DC    C'0'                         FORMATTING LABEL            00199137         
+                                      52 *********************************************                           00199202         
+1                                                                                                               PAGE    2         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                      53 *  BUILD                                                                00199301         
+                                      54 *                                                                       00199401         
+                                      55 *  FUNCTION: THIS SUBROUTINE WILL READ FROM                             00199501         
+                                      56 *            STANDARD INPUT AND STORE THE DATA IN                       00199601         
+                                      57 *            THE TABLE, WHICH IS PASSED AS A                            00199701         
+                                      58 *            PARAMETER UNTILL IT REACHES THE END                        00199801         
+                                      59 *            OF THE INPUT FILE OR UNTILL THE TABLE IS FULL              00199901         
+                                      60 *                                                                       00200001         
+                                      61 *  INPUT:    A TABLE OF 48 FULLWORDS                                    00200101         
+                                      62 *            EOT IS A POINTER TO THE END OF TABLE                       00200201         
+                                      63 *                                                                       00200301         
+                                      64 *  OUTPUT:   N/A                                                        00200402         
+                                      65 *                                                                       00200502         
+                                      66 *  REGITER USAGE                                                        00200602         
+                                      67 *   9    TABLE                                                          00200702         
+                                      68 *  10    EOT                                                            00200802         
+                                      69 *  11    COUNTER                                                        00200902         
+                                      70 *  12    NEXT VALUE IN FROM INPUT FILE                                  00201002         
+                                      71 *********************************************                           00201102         
+ 000164 900F F1C0            001C0    72 BUILD    STM   0,15,BLDSAVE                 SAVE REGISTERS              00201204         
+ 000168 989A 1000            00000    73          LM    9,10,0(1)                    UNLOAD PARAMETERS           00201304         
+ 00016C 1BBB                          74          SR    11,11                        SET R11 TO 0                00201404         
+ 00016E E000 F200 0050 00200          75 BLDLOOP  XREAD BUFFER,80                    STORES THE LINE INTO BUFFR  00201508         
+ 000174 4740 F1B4            001B4    76          BC    B'0100',ENDBLD               IF AT EOF GO TO ENDBLD1     00201604         
+ 000178 59B0 F448            00448    77          C     11,=F'49'                    COMPARE REG11 TO 49         00201704         
+ 00017C 4780 F1B4            001B4    78          BC    B'1000',ENDBLD               IF EQUAL GO TO ENDBLD1      00201804         
+ 000180 53C0 F200            00200    79          XDECI 12,BUFFER                    STORE THE NUMBER INTO REG12 00201904         
+ 000184 4710 F16E            0016E    80          BC    B'0001',BLDLOOP              IF NO NUMBER FOUND GOTO END 00202015         
+ 000188 50C0 9000            00000    81          ST    12,0(0,9)                    STORES REG12 INTO TABLE     00202104         
+ 00018C 4190 9004            00004    82          LA    9,4(0,9)                     INCREMENTS TABLE POINTER    00202204         
+ 000190 5AB0 F44C            0044C    83          A     11,=F'1'                     INCREMENTS SIZE COUNTER     00202304         
+ 000194 59B0 F448            00448    84 BLDLOOP2 C     11,=F'49'                    COMPARE REG11 TO 49         00202404         
+ 000198 4780 F1B4            001B4    85          BC    B'1000',ENDBLD               IF REG 12 EQUALS 49, ENDBLD 00202504         
+ 00019C 53C0 1000            00000    86          XDECI 12,0(0,1)                    STORES SECOND NUMBER IN  12 00202608         
+ 0001A0 4710 F16E            0016E    87          BC    B'0001',BLDLOOP              IF NO NUMBER GO BLDLOOP     00202715         
+ 0001A4 50C0 9000            00000    88          ST    12,0(0,9)                    STORE THE NUMBER INTO TABLE 00202804         
+ 0001A8 4190 9004            00004    89          LA    9,4(0,9)                     INCREMNET TABLE PONTER      00202904         
+ 0001AC 5AB0 F44C            0044C    90          A     11,=F'1'                     INCREMENT SIZE PONTER       00203004         
+ 0001B0 47F0 F194            00194    91          BC    B'1111',BLDLOOP2             GO TO BLDLOOP2              00203104         
+ 0001B4 5090 A000            00000    92 ENDBLD   ST    9,0(0,10)                    SET EOT POINTER             00203204         
+ 0001B8 980F F1C0            001C0    93          LM    0,15,BLDSAVE                 RESTORE REGISTERS           00203304         
+ 0001BC 07FA                          94          BR    10                           BRANCH BACK TO MAIN         00203404         
+ 0001C0                               95 BLDSAVE  DS    16F                          SAVED REGISTERS             00203504         
+ 000200                               96 BUFFER   DS    80C                          READ IN BUFFER              00203604         
+ 000250 5C                            97          DC    C'*'                         END OF BUFFER SYMBOL        00203704         
+                                      98 *********************************************                           00203803         
+                                      99 * PRINT                                                                 00203903         
+                                     100 *                                                                       00204003         
+                                     101 * FUNCTION: THIS SUBROUTINE PRINTS THE VALUES                           00204103         
+                                     102 *           STORED IN THE TABLE. THE FORMAT                             00204203         
+                                     103 *           IS 5 NUMBERS PER LINE.                                      00204303         
+                                     104 *                                                                       00204403         
+                                     105 * INPUT:    TABLE - THE TABLE OF INTEGERS TO                            00204503         
+                                     106 *                   BE PRINTED.                                         00204603         
+                                     107 *           EOT - THE POINTER TO THE END OF                             00204703         
+                                     108 *                 THE TABLE.                                            00204803         
+                                     109 *                                                                       00204903         
+1                                                                                                               PAGE    3         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                     110 * OUTPUT:   THE VALUES HELD IN THE TABLE ARE                            00205003         
+                                     111 *           PRINTED OUT 5 PER LINE IN STANDARD                          00205103         
+                                     112 *           OUTPUT.                                                     00205203         
+                                     113 *                                                                       00205303         
+                                     114 * REGISTER USAGE                                                        00205403         
+                                     115 *                                                                       00205503         
+                                     116 *  9   TABLE                                                            00205603         
+                                     117 *  10  EOT                                                              00205703         
+                                     118 *  11  TABLE VALUE                                                      00205803         
+                                     119 *  12  LINE LOCATION                                                    00205903         
+                                     120 *  13  LINE COUNTER                                                     00206003         
+                                     121 *                                                                       00206103         
+                                     122 *********************************************                           00206203         
+ 000252 900F F2B0            002B0   123 PRINT    STM   0,15,PRINTSVE                SAVE REGISTERS              00206304         
+ 000256 989A 1000            00000   124          LM    9,10,0(1)                    UNLOAD PARAMETERS           00206404         
+ 00025A 5990 A000            00000   125 PLOOP    C     9,0(0,10)                    COMPARE REG 9 TO EOT        00206504         
+ 00025E 4780 F2AA            002AA   126          BC    B'1000',ENDPRNT              IF AT EOT GO TO ENDPRNT     00206604         
+ 000262 D247 F2F2 F2F1 002F2 002F1   127          MVC   LINE+2(72),LINE+1            DESTRUCTIVE OVERLAP ON LINE 00206726         
+ 000268 41C0 F2F0            002F0   128          LA    12,LINE                      STORE ADDRESS OF LINE IN 12 00206808         
+ 00026C 41C0 C001            00001   129          LA    12,1(0,12)                   ADD 1 TO R12                00206904         
+ 000270 1BDD                         130          SR    13,13                        SET R13 TO 0                00207004         
+ 000272 5990 A000            00000   131 PLOOP2   C     9,0(0,10)                    COMPARE REG9 TO EOT         00207104         
+ 000276 4780 F2A0            002A0   132          BC    B'1000',ENDPRNT2             IF EQUAL GO TO ENDPRNT2     00207204         
+ 00027A 59D0 F450            00450   133          C     13,=F'6'                     COMPARE REG 13 TO 5         00207325         
+ 00027E 4780 F2A0            002A0   134          BC    B'1000',ENDPRNT2             IF EQUAL GO TO ENDPRNT2     00207404         
+ 000282 58B0 9000            00000   135          L     11,0(0,9)                    LOAD NEXT VALUE INTO REG11  00207904         
+ 000286 52B0 F33A            0033A   136          XDECO 11,VALUE                     STORE REG11 INTO VALUE      00208004         
+ 00028A D20B C000 F33A 00000 0033A   137          MVC   0(12,12),VALUE               PUT VALUES ONTO LINE        00208104         
+ 000290 41C0 C00C            0000C   138          LA    12,12(0,12)                  INCREMENT LINE COUNT        00208204         
+ 000294 5AD0 F44C            0044C   139          A     13,=F'1'                     INCREMENT TABLE VALUE       00208304         
+ 000298 4190 9004            00004   140          LA    9,4(0,9)                     INCREMENT TABLE COUNTER     00208424         
+ 00029C 47F0 F272            00272   141          BC    B'1111',PLOOP2               GO TO PLOOP2                00208504         
+ 0002A0 E020 F2F0 0049 002F0         142 ENDPRNT2 XPRNT LINE,73                      PRINT LINE OF 73 CHARACTERS 00208626         
+ 0002A6 47F0 F25A            0025A   143          BC    B'1111',PLOOP                GO TO PLOOP                 00208704         
+ 0002AA 980F F2B0            002B0   144 ENDPRNT  LM    0,15,PRINTSVE                RESTORE REGISTERS           00208804         
+ 0002AE 07FA                         145          BR    10                           RETURN TO MAIN PROGRAM      00208904         
+ 0002B0                              146 PRINTSVE DS    16F                          16 FULLWORDS FOR REGISTERS  00209004         
+ 0002F0 60                           147 LINE     DC    C'-'                         DOUBLE SPACED LINE START    00209132         
+ 0002F1                              148          DS    73C                          61 CHARACTERS LENGTH        00209226         
+ 00033A                              149 VALUE    DS    12C                          VALUE IN TABLE 12 CHAR LNGH 00209308         
+                                     150 *********************************************                           00209403         
+                                     151 * PRINTODD                                                              00209504         
+                                     152 *                                                                       00209603         
+                                     153 * FUNCTION: THIS SUBROUTINE WILL PRINT OUT ONLY                         00209703         
+                                     154 *           THE ODD NUMBERS IN THE TABLE.                               00209803         
+                                     155 *                                                                       00209903         
+                                     156 * INPUT:    TABLE - THE TABLE OF INTEGERS TO BE                         00210003         
+                                     157 *           PRINTED.                                                    00210103         
+                                     158 *           EOT - A POINTER TO THE LOCATION OF                          00210203         
+                                     159 *           THE END OF THE TABLE.                                       00210303         
+                                     160 *                                                                       00210403         
+                                     161 * OUTPUT:   PRINTS OUT ALL THE ODD VALUES IN THE                        00210503         
+                                     162 *           TABLE. PRINTS                                               00210603         
+                                     163 *                                                                       00210703         
+                                     164 * REGISTER USAGE                                                        00210803         
+                                     165 *  2    TABLE                                                           00210903         
+                                     166 *  3    EOT                                                             00211003         
+1                                                                                                               PAGE    4         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                     167 *  4    TABLE VALUE                                                     00211103         
+                                     168 *  5    LINE LOCATION                                                   00211203         
+                                     169 *  6    LINE COUNTER                                                    00211303         
+                                     170 *  8,9  ODD CHECKER                                                     00211403         
+                                     171 *                                                                       00211503         
+                                     172 *********************************************                           00211603         
+ 000346 900F F3B8            003B8   173 PRINTODD STM   0,15,PRNTOSVE                SAVE REGISTERS              00211704         
+ 00034A 9823 1000            00000   174          LM    2,3,0(1)                     UNLOAD PARAMETERS           00211804         
+ 00034E 5920 3000            00000   175 POLOOP   C     2,0(0,3)                     COMPARE R2 TO EOT           00211904         
+ 000352 4780 F3B2            003B2   176          BC    B'1000',ENDPO                IF EQUAL GO TO ENDPO        00212004         
+ 000356 D23B F3FA F3F9 003FA 003F9   177          MVC   LINEO+2(60),LINEO+1          DESTRUCTIVE OVERLAP         00212126         
+ 00035C 4150 F3F8            003F8   178          LA    5,LINEO                      STORE ADDRESS OF LINEO IN 5 00212208         
+ 000360 4150 5001            00001   179          LA    5,1(0,5)                     ADD 1 TO R5                 00212304         
+ 000364 1B66                         180          SR    6,6                          SET R6 TO 0                 00212404         
+ 000366 5920 3000            00000   181 POLOOP2  C     2,0(0,3)                     COMPARE R2 TO EOT           00212504         
+ 00036A 4780 F3A8            003A8   182          BC    B'1000',ENDPO2               IF EQUAL GO TO ENDPO2       00212604         
+ 00036E 5960 F454            00454   183          C     6,=F'5'                      COMPARE REG6 WITH 6         00212725         
+ 000372 4780 F3A8            003A8   184          BC    B'1000',ENDPO2               IF EQUAL GO TO ENDPO2       00212804         
+ 000376 5840 2000            00000   185          L     4,0(0,2)                     LOAD TABLE VALUE INTO REG4  00212904         
+ 00037A 5890 2000            00000   186          L     9,0(0,2)                     LOAD TABLE VALUE INTO REG9  00213004         
+ 00037E 5C80 F44C            0044C   187          M     8,=F'1'                      MULTIPLY REG9 BY 1          00213104         
+ 000382 5D80 F458            00458   188          D     8,=F'2'                      DIVIDE REG9 BY 2            00213204         
+ 000386 5980 F45C            0045C   189          C     8,=F'0'                      COMPARE REG8 WITH 0         00213304         
+ 00038A 4780 F3A0            003A0   190          BC    B'1000',NOTODD               IF EQUAL GO TO NOT ODD      00213404         
+ 00038E 5240 F436            00436   191          XDECO 4,ODDVAL                     STORE REG4 INTO ODDVAL      00213504         
+ 000392 D20B 5000 F436 00000 00436   192          MVC   0(12,5),ODDVAL               PUT ODDVAL INTO LINE        00213604         
+ 000398 4150 500C            0000C   193          LA    5,12(0,5)                    INCREMENT LINE LOC BY 12    00213708         
+ 00039C 5A60 F44C            0044C   194          A     6,=F'1'                      INCREMENT LINE COUNT  BY 1  00213804         
+ 0003A0 4120 2004            00004   195 NOTODD   LA    2,4(0,2)                     INCREMENT TABLE POINTER     00213904         
+ 0003A4 47F0 F366            00366   196          BC    B'1111',POLOOP2              GO TO POLOOP2               00214004         
+ 0003A8 E020 F3F8 003D 003F8         197 ENDPO2   XPRNT LINEO,61                     PRINT 73 CHAR LINEO         00214126         
+ 0003AE 47F0 F34E            0034E   198          BC    B'1111',POLOOP               GO TO POLOOP                00214204         
+ 0003B2 980F F3B8            003B8   199 ENDPO    LM    0,15,PRNTOSVE                RESTORE REGISTERS           00214310         
+ 0003B6 07FA                         200          BR    10                           RETURN TO MAIN PROGRAM      00214404         
+                                     201 *                                                                       00214504         
+ 0003B8                              202 PRNTOSVE DS    16F                          16 FULLWORDS FOR REGISTERS  00214604         
+ 0003F8 60                           203 LINEO    DC    C'-'                         DOUBLE SPACE START OF LINE  00214732         
+ 0003F9                              204          DS    61C                          61 CHARATERS ALLOCATED      00214826         
+ 000436                              205 ODDVAL   DS    12C                          12 CHARACTERS ALLOCATED     00214904         
+                                     206          END   MAIN                                                     00215003         
+ 000448 00000031                     207                =F'49'                                                                    
+ 00044C 00000001                     208                =F'1'                                                                     
+ 000450 00000006                     209                =F'6'                                                                     
+ 000454 00000005                     210                =F'5'                                                                     
+ 000458 00000002                     211                =F'2'                                                                     
+ 00045C 00000000                     212                =F'0'                                                                     
+0***  NO   STATEMENTS FLAGGED -  NO   WARNINGS,  NO   ERRORS                                                                      
+0*** DYNAMIC CORE AREA USED:  LOW:   13276 HIGH:    1036 LEAVING:  479256 FREE BYTES. AVERAGE:       67 BYTES/STMT ***            
+0*** ASSEMBLY TIME =    0.001 SECS,   213000 STATEMENTS/SEC ***                                                                   
+0*** PROGRAM EXECUTION BEGINNING - ANY OUTPUT BEFORE EXECUTION TIME MESSAGE IS PRODUCED BY USER PROGRAM ***                       
+1                            LIST OF NUMBERS                                                                                      
+0                                                                                                                                 
+-       -1000        2578           6         256         218         111                                                         
+-          46         -84         131         402        5106         121                                                         
+-         -89          15       95221         -80           1       -2005                                                         
+-         515          90          50          -1          19      172219                                                         
+-       60205           3        7534      204914         141           0                                                         
+-      606031        -419         999        9001      312909        -517                                                         
+-           9          62          89         305         250         305                                                         
+-         118           0        -999           2        6509          -5                                                         
+-         177                                                                                                                     
+1                          LIST OF ODD NUMBERS                                                                                    
+0                                                                                                                                 
+-         111         131         121         -89          15                                                                     
+-       95221           1       -2005         515          -1                                                                     
+-          19      172219       60205           3         141                                                                     
+-      606031        -419         999        9001      312909                                                                     
+-        -517           9          89         305         305                                                                     
+-        -999        6509          -5         177                                                                                 
+0*** EXECUTION TIME =    0.002 SECS.      1884 INSTRUCTIONS EXECUTED -   942000 INSTRUCTIONS/SEC ***                              
+0*** FIRST CARD NOT READ:       4444      8888                                                                                    
+0*** AM004 - NORMAL USER TERMINATION BY RETURN ***                                                                                

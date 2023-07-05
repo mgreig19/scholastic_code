@@ -1,0 +1,564 @@
+1                    J E S 2  J O B  L O G  --  S Y S T E M  S 0 W 1  --  N O D E  Z O S K C T R         
+0 
+ 00.45.11 JOB03208 ---- THURSDAY,  03 AUG 2017 ----
+ 00.45.11 JOB03208  IRR010I  USERID KC03OA0  IS ASSIGNED TO THIS JOB.
+ 00.45.11 JOB03208  ICH70001I KC03OA0  LAST ACCESS AT 00:44:20 ON THURSDAY, AUGUST 3, 2017
+ 00.45.11 JOB03208  $HASP373 KC03OA0A STARTED - INIT 2    - CLASS A        - SYS S0W1
+ 00.45.11 JOB03208  -                                         --TIMINGS (MINS.)--            ----PAGING COUNTS---
+ 00.45.11 JOB03208  -JOBNAME  STEPNAME PROCSTEP    RC   EXCP    TCB    SRB  CLOCK   SERV  PG   PAGE   SWAP    VIO SWAPS
+ 00.45.11 JOB03208  -KC03OA0A                      00     73 ******    .00     .0    294   0      0      0      0     0
+ 00.45.11 JOB03208  -KC03OA0A ENDED.  NAME-Kevin White          TOTAL TCB CPU TIME=   .00  TOTAL ELAPSED TIME=    .0
+ 00.45.11 JOB03208  $HASP395 KC03OA0A ENDED
+0------ JES2 JOB STATISTICS ------
+-  03 AUG 2017 JOB EXECUTION DATE
+-          401 CARDS READ
+-          564 SYSOUT PRINT RECORDS
+-            0 SYSOUT PUNCH RECORDS
+-           62 SYSOUT SPOOL KBYTES
+-         0.00 MINUTES EXECUTION TIME
+         1 //KC03OA0A JOB ,'Kevin White',MSGCLASS=H                                JOB03208
+         2 //STEP1 EXEC PGM=ASSIST,PARM='MACRO=F'                                  00020000
+         3 //STEPLIB DD DSN=KC02293.ASSIST.LOADLIB,DISP=SHR                        00030000
+         4 //SYSPRINT DD SYSOUT=*                                                  00040000
+         5 //SYSIN DD *                                                            00050000
+         6 //FT05F001 DD DSN=KC02314.SUMMER17.CSCI360.HW8DATA,DISP=SHR             00370000
+ ICH70001I KC03OA0  LAST ACCESS AT 00:44:20 ON THURSDAY, AUGUST 3, 2017
+ IEF236I ALLOC. FOR KC03OA0A STEP1
+ IGD103I SMS ALLOCATED TO DDNAME STEPLIB
+ IEF237I JES2 ALLOCATED TO SYSPRINT
+ IEF237I JES2 ALLOCATED TO SYSIN
+ IGD103I SMS ALLOCATED TO DDNAME FT05F001
+ IEF142I KC03OA0A STEP1 - STEP WAS EXECUTED - COND CODE 0000
+ IGD104I KC02293.ASSIST.LOADLIB                       RETAINED,  DDNAME=STEPLIB 
+ IEF285I   KC03OA0.KC03OA0A.JOB03208.D0000102.?         SYSOUT        
+ IEF285I   KC03OA0.KC03OA0A.JOB03208.D0000101.?         SYSIN         
+ IGD104I KC02314.SUMMER17.CSCI360.HW8DATA             RETAINED,  DDNAME=FT05F001
+ IEF373I STEP/STEP1   /START 2017215.0045
+ IEF032I STEP/STEP1   /STOP  2017215.0045 
+         CPU:     0 HR  00 MIN  00.01 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+         VIRT:   584K  SYS:   268K  EXT:        4K  SYS:    11408K
+         ATB- REAL:                     0K  SLOTS:                     0K
+              VIRT- ALLOC:       0M SHRD:       0M
+ IEF375I  JOB/KC03OA0A/START 2017215.0045
+ IEF033I  JOB/KC03OA0A/STOP  2017215.0045 
+         CPU:     0 HR  00 MIN  00.01 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+1*** ASSIST 4.0/A2-05/15/82  470/V7A/0:OS/VS2  INS=SDFP7/X=BGHO, CHECK/TRC/=1180, OPTS=CDKMPR FROM PENN ST*NIU COMPSCI*LT         
+0MACRO=F                                                                                                                          
+0                                                                                                               PAGE    1         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                       1 **************************************************                      00060000         
+                                       2 *                                                *                      00070000         
+                                       3 * PROGRAM:     ASSIGN8                           *                      00080000         
+                                       4 * PROGRAMMER:  Kevin White                       *                      00090000         
+                                       5 *                                                *                      00100000         
+                                       6 * FUNCTION: This function will read from the     *                      00110099         
+                                       7 *           standard input and store the data    *                      00111099         
+                                       8 *           into a table of 15 bytes long. It    *                      00112099         
+                                       9 *           will then print the table, sort it   *                      00113099         
+                                      10 *           then print it again.                 *                      00114099         
+                                      11 *                                                *                      00120000         
+                                      12 * INPUT:    The records of data in standard      *                      00130099         
+                                      13 *           input                                *                      00131099         
+                                      14 *                                                *                      00140000         
+                                      15 * OUTPUT:   The table 15 byte table of data.     *                      00150099         
+                                      16 *                                                *                      00160000         
+                                      17 * ENTRY CONDS: NONE                              *                      00170099         
+                                      18 *                                                *                      00180000         
+                                      19 * EXIT CONDS: NONE                               *                      00190099         
+                                      20 *                                                *                      00200000         
+                                      21 * REGISTER USAGE:                                *                      00210000         
+                                      22 *    1     Parameter List                        *                      00220000         
+                                      23 *                                                *                      00230000         
+                                      24 * PSEUDOCODE:                                    *                      00240000         
+                                      25 *    <1> Standard Entry Linkage                  *                      00250099         
+                                      26 *    <2> Call BUILD subroutine                   *                      00251099         
+                                      27 *    <3> Call PRINT subroutine                   *                      00252099         
+                                      28 *    <4> Call SORTID subroutine                  *                      00253099         
+                                      29 *    <5> Call PRINT subroutine                   *                      00254099         
+                                      30 *                                                *                      00260000         
+                                      31 **************************************************                      00270000         
+                                      32 *                                                                       00280000         
+                                      33          MACRO                    Standard Entry Link MACRO             00280102         
+                                      34          ENTRL &SUBRTN=MAIN,&SAVE=MAINSAVE                              00280201         
+                                      35          STM   14,12,12(13)       Save the registers                    00280302         
+                                      36          LR    12,15              Set R12 as the base register          00280402         
+                                      37          USING &SUBRTN,12                                               00280500         
+                                      38          LA    14,&SAVE           Point R14 at save area                00280602         
+                                      39          ST    13,4(0,14)         Save forward pointer                  00280702         
+                                      40          ST    14,8(0,13)         Save backward pointer                 00280802         
+                                      41          LR    13,14              Point R13 at save area                00280902         
+                                      42          MEND                     End MACRO                             00281002         
+                                      43 *                                                                       00281100         
+                                      44          MACRO                    Standard Exit Link Macro              00281202         
+                                      45          EXITL                                                          00281300         
+                                      46          L     13,4(0,13)         Point R13 to caller save area         00281402         
+                                      47          LM    14,12,12(13)       Restore registers                     00281502         
+                                      48          BR    14                 Return to caller                      00281602         
+                                      49          MEND                     End Macro                             00281702         
+                                      50 *                                                                       00282000         
+ 000000                               51 MAIN     CSECT                                                          00290000         
+                                      52          ENTRL                                                          00291001         
+1                                                                                                               PAGE    2         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+ 000000 90EC D00C            0000C    53+         STM   14,12,12(13)       Save the registers                                     
+ 000004 18CF                          54+         LR    12,15              Set R12 as the base register                           
+ 000000                               55+         USING MAIN,12                                                                   
+ 000006 41E0 C080            00080    56+         LA    14,MAINSAVE        Point R14 at save area                                 
+ 00000A 50D0 E004            00004    57+         ST    13,4(0,14)         Save forward pointer                                   
+ 00000E 50E0 D008            00008    58+         ST    14,8(0,13)         Save backward pointer                                  
+ 000012 18DE                          59+         LR    13,14              Point R13 at save area                                 
+                                      60 *                                                                       00292002         
+ 000014 4110 C228            00228    61          LA    1,PARMS            Sets parameters for BUILD             00293099         
+ 000018 58F0 C060            00060    62          L     15,=V(BUILD)       Points R15 at BUILD                   00294099         
+ 00001C 05EF                          63          BALR  14,15              Branch to BUILD                       00295099         
+                                      64 *                                                                       00295133         
+ 00001E E060 C0E0 003C 000E0          65          XDUMP TABLE,60           Dumps the table                       00295299         
+                                      66 *                                                                       00295329         
+ 000024 4110 C228            00228    67          LA    1,PARMS            Sets parameters fo PRINT              00295499         
+ 000028 58F0 C064            00064    68          L     15,=V(PRINT)       Points R15 at PRINT                   00295599         
+ 00002C 05EF                          69          BALR  14,15              Branch to PRINT                       00295699         
+                                      70 *                                                                       00295799         
+ 00002E 4110 C228            00228    71          LA    1,PARMS            Sets parameters for SORTID            00295899         
+ 000032 58F0 C068            00068    72          L     15,=V(SORTID)      Points R15 at SORTID                  00295999         
+ 000036 05EF                          73          BALR  14,15              Branch to SORTID                      00296099         
+                                      74 *                                                                       00297006         
+ 000038 9240 C210      00210          75          MVI   HEADER,C' '            Destructive overlap on HEADER     00297199         
+ 00003C D216 C211 C210 00211 00210    76          MVC   HEADER+1(23),HEADER                                      00297299         
+ 000042 D211 C212 C06C 00212 0006C    77          MVC   HEADER+2(18),=CL18'Table Sorted by ID'                   00297399         
+                                      78 *                                                                       00297499         
+ 000048 4110 C228            00228    79          LA    1,PARMS            Sets parameters for PRINT             00297599         
+ 00004C 58F0 C064            00064    80          L     15,=V(PRINT)       Points R15 at PRINT                   00297699         
+ 000050 05EF                          81          BALR  14,15              Branch to PRINT                       00297799         
+                                      82 *                                                                       00298099         
+                                      83          EXITL                                                          00300200         
+ 000052 58D0 D004            00004    84+         L     13,4(0,13)         Point R13 to caller save area                          
+ 000056 98EC D00C            0000C    85+         LM    14,12,12(13)       Restore registers                                      
+ 00005A 07FE                          86+         BR    14                 Return to caller                                       
+                                      87 *                                                                       00301000         
+                                      88          LTORG                                                          00310000         
+ 000060 00000238                      89                =V(BUILD)                                                                 
+ 000064 000003B0                      90                =V(PRINT)                                                                 
+ 000068 00000658                      91                =V(SORTID)                                                                
+ 00006C E38182938540E296              92                =CL18'Table Sorted by ID'                                                 
+ 000080                               93 MAINSAVE DS    18F                Allocates 18F for save area           00320099         
+ 0000E0                               94          ORG   MAIN+((*-MAIN+31)/32)*32    For XDUMP check              00320199         
+ 0000E0                               95 TABLE    DS    20XL15             Allocates space for TABLE             00321099         
+ 00020C                               96 EOT      DS    F                  Allocates space for EOT               00322099         
+ 000210 C99589A389819340              97 HEADER   DC    CL24'Initial Table Contents'                             00322132         
+ 000228 000000E0                      98 PARMS    DC    A(TABLE)           Parameters for subroutines            00323099         
+ 00022C 0000020C                      99          DC    A(EOT)                                                   00324002         
+ 000230 00000210                     100          DC    A(HEADER)                                                00325073         
+                                     101 *                                                                       00330000         
+                                     102 **************************************************                      00331002         
+                                     103 *                                                *                      00332002         
+                                     104 * BUILD                                          *                      00333002         
+                                     105 *                                                *                      00333128         
+                                     106 * FUNCTION: This subroutine will read from the   *                      00333228         
+                                     107 *           standard input and store the data in *                      00333328         
+                                     108 *           the table passed as a parameter      *                      00333428         
+                                     109 *           until it reaches the end of the file *                      00333528         
+1                                                                                                               PAGE    3         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                     110 *           it will then set the end of table to *                      00333628         
+                                     111 *           the last unused data of the table    *                      00333728         
+                                     112 *                                                *                      00333828         
+                                     113 * INPUT:    Records of data stored in the        *                      00333928         
+                                     114 *           standard input.                      *                      00334028         
+                                     115 *                                                *                      00334128         
+                                     116 * OUTPUT:   NONE                                 *                      00334228         
+                                     117 *                                                *                      00334328         
+                                     118 * ENTRY CONDS: 0(1) -- Address of the table to   *                      00334428         
+                                     119 *                      store the data            *                      00334528         
+                                     120 *              1(1) -- Address of the first      *                      00334628         
+                                     121 *                      unused data in the table  *                      00334728         
+                                     122 *                                                *                      00334828         
+                                     123 * EXIT CONDS: NONE                               *                      00334928         
+                                     124 *                                                *                      00335102         
+                                     125 * REGISTER USAGE:                                *                      00335204         
+                                     126 *    3     Table of data                         *                      00335304         
+                                     127 *    4     Pointer to End-Of-Table               *                      00335404         
+                                     128 *    5     ID in binary                          *                      00335516         
+                                     129 *    6     Day of the week                       *                      00335616         
+                                     130 *    7     Hour of the day                       *                      00335716         
+                                     131 *    8     Minute of the day                     *                      00335816         
+                                     132 *    9     Room number                           *                      00335916         
+                                     133 *                                                *                      00336028         
+                                     134 * PSEUDOCODE                                     *                      00336128         
+                                     135 *    <1> Standard Entry Link                     *                      00336228         
+                                     136 *    <2> Unload Parameters                       *                      00336328         
+                                     137 *    <3> While not end of file                   *                      00336428         
+                                     138 *          Store file data into table            *                      00336528         
+                                     139 *          Increment table                       *                      00336628         
+                                     140 *    <4> Set end of table                        *                      00336728         
+                                     141 *    <5> Standard Exit Link                      *                      00336828         
+                                     142 *                                                *                      00336904         
+                                     143 **************************************************                      00337002         
+ 000238                              144 BUILD    CSECT                                                          00337102         
+                                     145          ENTRL SUBRTN=BUILD,SAVE=BSAVE   Call Entry Link MACRO          00337228         
+ 000238 90EC D00C            0000C   146+         STM   14,12,12(13)       Save the registers                                     
+ 00023C 18CF                         147+         LR    12,15              Set R12 as the base register                           
+ 000238                              148+         USING BUILD,12                                                                  
+ 00023E 41E0 C0C4            002FC   149+         LA    14,BSAVE           Point R14 at save area                                 
+ 000242 50D0 E004            00004   150+         ST    13,4(0,14)         Save forward pointer                                   
+ 000246 50E0 D008            00008   151+         ST    14,8(0,13)         Save backward pointer                                  
+ 00024A 18DE                         152+         LR    13,14              Point R13 at save area                                 
+ 00024C 9834 1000            00000   153          LM    3,4,0(1)                  Unload parameters              00337428         
+                                     154 *                                                                       00337504         
+ 000250 E000 C10C 0050 00344         155 BLOOP    XREAD BUFFER,80                 Read from file                 00337628         
+ 000256 4740 C0AE            002E6   156          BC    B'0100',ENDBLP            If end branch to ENDBLP        00337728         
+ 00025A F276 C160 C10D 00398 00345   157          PACK  TEMP(8),BUFFER+1(7)       Store ID in TEMP               00337828         
+ 000260 4F50 C160            00398   158          CVB   5,TEMP                    Convert TEMP to binary         00337928         
+ 000264 BE5F 3000            00000   159          STCM  5,B'1111',0(3)            Store binary ID in table       00338099         
+ 000268 9240 3004      00004         160          MVI   4(3),C' '                 Descructive overlap            00338128         
+ 00026C D206 3004 3004 00004 00004   161          MVC   4(7,3),4(3)               on password                    00338228         
+ 000272 D207 3004 C118 00004 00350   162          MVC   4(8,3),BUFFER+12          Store password in table        00338328         
+ 000278 D703 3004 3000 00004 00000   163          XC    4(4,3),0(3)               Encrypt 1st 4 bytes of pass    00338428         
+ 00027E D703 3008 3000 00008 00000   164          XC    8(4,3),0(3)               Encrypt 2nd 4 bytes of pass    00338528         
+                                     165 *                                                                       00338614         
+ 000284 5860 C0C0            002F8   166          L     6,=F'6'                   Set R6 to 6                    00338728         
+1                                                                                                               PAGE    4         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+ 000288 4170 C168            003A0   167          LA    7,DAY                     Set R7 to address of DAY       00338828         
+ 00028C D501 C124 7000 0035C 00000   168          CLC   BUFFER+24(2),0(7)         Compare day in file to DAY     00338928         
+ 000292 4770 C062            0029A   169          BNE   FINDDAY                   If not equal branch to FINDDAY 00339028         
+ 000296 47F0 C072            002AA   170          B     ENDDAY                    Branch to ENDDAY               00339128         
+ 00029A 0660                         171 FINDDAY  BCTR  6,0                       Decriment R6                   00339228         
+ 00029C 4170 7002            00002   172          LA    7,2(0,7)                  Increment DAY address          00339328         
+ 0002A0 D501 C124 7000 0035C 00000   173          CLC   BUFFER+24(2),0(7)         Compare day in file to DAY     00339428         
+ 0002A6 4770 C062            0029A   174          BNE   FINDDAY                   If not equal branch to FINDDAY 00339528         
+ 0002AA 8960 0015            00015   175 ENDDAY   SLL   6,21                      Shift R6 left 21 bits          00339628         
+                                     176 *                                                                       00339720         
+ 0002AE F271 C160 C131 00398 00369   177          PACK  TEMP(8),BUFFER+37(2)      Store hour into TEMP           00339828         
+ 0002B4 4F70 C160            00398   178          CVB   7,TEMP                    Convert to binary              00339928         
+ 0002B8 8970 0010            00010   179          SLL   7,16                      Shift R7 left 16 bits          00340028         
+ 0002BC F271 C160 C134 00398 0036C   180          PACK  TEMP(8),BUFFER+40(2)      Store minutes into TEMP        00340128         
+ 0002C2 4F80 C160            00398   181          CVB   8,TEMP                    Convert to binary              00340228         
+ 0002C6 8980 000A            0000A   182          SLL   8,10                      Shift R8 left 10 bits          00340328         
+ 0002CA F272 C160 C13A 00398 00372   183          PACK  TEMP(8),BUFFER+46(3)      Store room num into TEMP       00340428         
+ 0002D0 4F90 C160            00398   184          CVB   9,TEMP                    Convert to binary              00340528         
+                                     185 *                                                                       00340621         
+ 0002D4 1A67                         186          AR    6,7                       Add hour to R6                 00340728         
+ 0002D6 1A68                         187          AR    6,8                       Add minutes to R6              00340828         
+ 0002D8 1A69                         188          AR    6,9                       Add room num to R6             00340928         
+ 0002DA BE67 300C            0000C   189          STCM  6,B'0111',12(3)           Put R6 into table              00341028         
+ 0002DE 4130 300F            0000F   190          LA    3,15(0,3)                 Increment table                00341199         
+ 0002E2 47F0 C018            00250   191          B     BLOOP                     Return to start of loop        00341228         
+ 0002E6 5030 4000            00000   192 ENDBLP   ST    3,0(0,4)                  Set end of table               00341399         
+                                     193 *                                                                       00341402         
+                                     194          EXITL                                                          00341502         
+ 0002EA 58D0 D004            00004   195+         L     13,4(0,13)         Point R13 to caller save area                          
+ 0002EE 98EC D00C            0000C   196+         LM    14,12,12(13)       Restore registers                                      
+ 0002F2 07FE                         197+         BR    14                 Return to caller                                       
+                                     198 *                                                                       00341602         
+                                     199          LTORG                                                          00341702         
+ 0002F8 00000006                     200                =F'6'                                                                     
+ 0002FC                              201 BSAVE    DS    18F                       Allocate 18F for save area     00341828         
+ 000344                              202 BUFFER   DS    80C                       Allocate 80 characters         00341928         
+ 000398                              203 TEMP     DS    D                         Allocate D for TEMP            00342028         
+ 0003A0 E281                         204 DAY      DC    CL2'Sa'                   Allocate CL2 for days of week  00342228         
+ 0003A2 C699                         205          DC    CL2'Fr'                                                  00342319         
+ 0003A4 E388                         206          DC    CL2'Th'                                                  00342419         
+ 0003A6 E685                         207          DC    CL2'We'                                                  00342519         
+ 0003A8 E3A4                         208          DC    CL2'Tu'                                                  00342619         
+ 0003AA D496                         209          DC    CL2'Mo'                                                  00342719         
+ 0003AC E2A4                         210          DC    CL2'Su'                                                  00342819         
+                                     211 *                                                                       00342902         
+                                     212 **************************************************                      00343029         
+                                     213 *                                                *                      00343129         
+                                     214 * PRINT                                          *                      00343229         
+                                     215 *                                                *                      00343399         
+                                     216 * FUNCTION: This subroutine will print out the   *                      00343499         
+                                     217 *           data held within the given table.    *                      00343599         
+                                     218 *                                                *                      00343699         
+                                     219 * INPUT: NONE                                    *                      00343799         
+                                     220 *                                                *                      00343899         
+                                     221 * OUTPUT: Will print out everything inside the   *                      00343999         
+                                     222 *         table given.                           *                      00344099         
+                                     223 *                                                *                      00344199         
+1                                                                                                               PAGE    5         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                     224 * ENTRY CONDS: 0(1) -- Address of the table      *                      00344299         
+                                     225 *                      holding the data          *                      00344399         
+                                     226 *              0(2) -- Address of the end of     *                      00344499         
+                                     227 *                      the table                 *                      00344599         
+                                     228 *              0(3) -- Address of the page       *                      00344699         
+                                     229 *                      header                    *                      00344799         
+                                     230 *                                                *                      00344899         
+                                     231 * EXIT CONDS: NONE                               *                      00344999         
+                                     232 *                                                *                      00345099         
+                                     233 * REGISTER USAGE:                                *                      00345199         
+                                     234 *    3     Table of data                         *                      00345299         
+                                     235 *    4     Pointer to end of table               *                      00345399         
+                                     236 *    5     Page Header                           *                      00345499         
+                                     237 *    6     Temp ID                               *                      00345599         
+                                     238 *    7     Temp information                      *                      00345699         
+                                     239 *                                                *                      00345799         
+                                     240 * PSEUDOCODE:                                    *                      00345899         
+                                     241 *    <1> Standard Entry Link                     *                      00345999         
+                                     242 *    <2> Print out Headers                       *                      00346099         
+                                     243 *    <3> While not end of table                  *                      00346199         
+                                     244 *          Print out table contents              *                      00346299         
+                                     245 *                                                *                      00346329         
+                                     246 **************************************************                      00346429         
+ 0003B0                              247 PRINT    CSECT                                                          00346529         
+                                     248          ENTRL SUBRTN=PRINT,SAVE=PSAVE                                  00346629         
+ 0003B0 90EC D00C            0000C   249+         STM   14,12,12(13)       Save the registers                                     
+ 0003B4 18CF                         250+         LR    12,15              Set R12 as the base register                           
+ 0003B0                              251+         USING PRINT,12                                                                  
+ 0003B6 41E0 C1B0            00560   252+         LA    14,PSAVE           Point R14 at save area                                 
+ 0003BA 50D0 E004            00004   253+         ST    13,4(0,14)         Save forward pointer                                   
+ 0003BE 50E0 D008            00008   254+         ST    14,8(0,13)         Save backward pointer                                  
+ 0003C2 18DE                         255+         LR    13,14              Point R13 at save area                                 
+ 0003C4 9835 1000            00000   256          LM    3,5,0(1)                Unload parameters                00346799         
+                                     257 *                                                                       00346831         
+ 0003C8 9240 C201      005B1         258          MVI   HEADOUT+1,C' '          Destructive overlap              00346999         
+ 0003CC D22E C202 C201 005B2 005B1   259          MVC   HEADOUT+2(47),HEADOUT+1 on HEADOUT                       00347099         
+ 0003D2 D217 C20E 5000 005BE 00000   260          MVC   HEADOUT+14(24),0(5)     Put given header on HEADOUT      00347199         
+ 0003D8 E020 C200 0031 005B0         261          XPRNT HEADOUT,49              Print HEADOUT                    00347299         
+ 0003DE E020 C231 0031 005E1         262          XPRNT HEADOUT2,49             Print HEADOUT2                   00347399         
+                                     263 *                                                                       00347433         
+ 0003E4 5930 4000            00000   264 PLOOP    C     3,0(0,4)                Compare to end of table          00347599         
+ 0003E8 4780 C15C            0050C   265          BE    ENDPLP                  If end of table end loop         00347699         
+ 0003EC 9240 C271      00621         266          MVI   LINE+1,C' '             Destructive overlap              00347799         
+ 0003F0 D22E C272 C271 00622 00621   267          MVC   LINE+2(47),LINE+1       on LINE                          00347899         
+                                     268 *                                                                       00347933         
+ 0003F6 BF6F 3000            00000   269          ICM   6,B'1111',0(3)          Put ID into R6                   00348099         
+ 0003FA 4E60 C268            00618   270          CVD   6,PTEMP                 Convert ID to decimal            00348199         
+ 0003FE D207 C272 C168 00622 00518   271          MVC   LINE+2(8),=X'F021202020202020'                           00348244         
+ 000404 DE07 C272 C26C 00622 0061C   272          ED    LINE+2(8),PTEMP+4       Put ID on LINE                   00348399         
+ 00040A 92D9 C272      00622         273          MVI   LINE+2,C'R'             Add R to ID                      00348499         
+                                     274 *                                                                       00348547         
+ 00040E D207 C27D 3004 0062D 00004   275          MVC   LINE+13(8),4(3)         Put password on LINE             00348699         
+ 000414 D703 C27D 3000 0062D 00000   276          XC    LINE+13(4),0(3)         Decrypt password                 00348799         
+ 00041A D703 C281 3000 00631 00000   277          XC    LINE+17(4),0(3)                                          00348899         
+                                     278 *                                                                       00348948         
+ 000420 BF7F 300C            0000C   279          ICM   7,B'1111',12(3)         Put day on R7                    00349099         
+ 000424 8870 001D            0001D   280          SRL   7,29                    Position day                     00349199         
+1                                                                                                               PAGE    6         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+ 000428 4E70 C268            00618   281          CVD   7,PTEMP                 Convert day to decimal           00349299         
+ 00042C F970 C268 C19A 00618 0054A   282          CP    PTEMP(8),=P'0'          Compare Day to 0                 00349399         
+ 000432 4770 C090            00440   283          BNE   PDAY1                   If not equal branch to PDAY1     00349499         
+ 000436 D205 C288 C188 00638 00538   284          MVC   LINE+24(6),=CL6'Sunday' Put Sunday on LINE               00349599         
+ 00043C 47F0 C0FA            004AA   285          B     PDAYEND                 Branch to PDAYEND                00349699         
+ 000440 F970 C268 C19B 00618 0054B   286 PDAY1    CP    PTEMP(8),=P'1'          Compare day to 1                 00349799         
+ 000446 4770 C0A4            00454   287          BNE   PDAY2                   if not equal branch to PDAY2     00349899         
+ 00044A D205 C288 C18E 00638 0053E   288          MVC   LINE+24(6),=CL6'Monday' Put Monday on LINE               00349999         
+ 000450 47F0 C0FA            004AA   289          B     PDAYEND                 Branch to PDAYEND                00350099         
+ 000454 F970 C268 C19C 00618 0054C   290 PDAY2    CP    PTEMP(8),=P'2'          Compare day to 2                 00350199         
+ 00045A 4770 C0B8            00468   291          BNE   PDAY3                   if not equal branch to PDAY3     00350299         
+ 00045E D206 C288 C19D 00638 0054D   292          MVC   LINE+24(7),=CL7'Tuesday'   Put Tuesday on LINE           00350399         
+ 000464 47F0 C0FA            004AA   293          B     PDAYEND                 Branch to PDAYEND                00350499         
+ 000468 F970 C268 C1A4 00618 00554   294 PDAY3    CP    PTEMP(8),=P'3'          Compare day to 3                 00350599         
+ 00046E 4770 C0CC            0047C   295          BNE   PDAY4                   if not equal branch to PDAY4     00350699         
+ 000472 D208 C288 C1A5 00638 00555   296          MVC   LINE+24(9),=CL9'Wednesday' Put Wednesday on LINE         00350799         
+ 000478 47F0 C0FA            004AA   297          B     PDAYEND                 Branch to PDAYEND                00350899         
+ 00047C F970 C268 C1AE 00618 0055E   298 PDAY4    CP    PTEMP(8),=P'4'          Compare day to 4                 00350999         
+ 000482 4770 C0E0            00490   299          BNE   PDAY5                   if not equal branch to PDAY5     00351099         
+ 000486 D207 C288 C170 00638 00520   300          MVC   LINE+24(8),=CL8'Thursday'  Put Thursday on LINE          00351199         
+ 00048C 47F0 C0FA            004AA   301          B     PDAYEND                 Branch to PDAYEND                00351299         
+ 000490 F970 C268 C1AF 00618 0055F   302 PDAY5    CP    PTEMP(8),=P'5'          Compare day to 5                 00351399         
+ 000496 4770 C0F4            004A4   303          BNE   PDAY6                   if not equal branch to PDAY6     00351499         
+ 00049A D205 C288 C194 00638 00544   304          MVC   LINE+24(6),=CL6'Friday' Put Friday on LINE               00351599         
+ 0004A0 47F0 C0FA            004AA   305          B     PDAYEND                 Branch to PDAYEND                00351699         
+ 0004A4 D207 C288 C178 00638 00528   306 PDAY6    MVC   LINE+24(8),=CL8'Saturday' Put Saturday on line           00351799         
+                                     307 *                                                                       00351851         
+ 0004AA BF7F 300C            0000C   308 PDAYEND  ICM   7,B'1111',12(3)         Put hour into R7                 00351999         
+ 0004AE 8970 0008            00008   309          SLL   7,8                     Position hour                    00352099         
+ 0004B2 8870 001A            0001A   310          SRL   7,26                                                     00352158         
+ 0004B6 4E70 C268            00618   311          CVD   7,PTEMP                 Convert hour to decimal          00352299         
+ 0004BA D203 C296 C180 00646 00530   312          MVC   LINE+38(4),=X'7A212020'                                  00352358         
+ 0004C0 DE03 C296 C26E 00646 0061E   313          ED    LINE+38(4),PTEMP+6      Put hour on LINE                 00352499         
+                                     314 *                                                                       00352558         
+ 0004C6 BF7F 300C            0000C   315          ICM   7,B'1111',12(3)         Put minute into R7               00352699         
+ 0004CA 8970 0003            00003   316          SLL   7,3                     Position minute                  00352799         
+ 0004CE 8870 001B            0001B   317          SRL   7,27                                                     00352856         
+ 0004D2 4E70 C268            00618   318          CVD   7,PTEMP                 Convert minute into R7           00352999         
+ 0004D6 D203 C293 C184 00643 00534   319          MVC   LINE+35(4),=X'40212020'                                  00353058         
+ 0004DC DE03 C293 C26E 00643 0061E   320          ED    LINE+35(4),PTEMP+6      Put minute on LINE               00353199         
+                                     321 *                                                                       00353259         
+ 0004E2 BF7F 300C            0000C   322          ICM   7,B'1111',12(3)         Put room num into R7             00353399         
+ 0004E6 8970 000E            0000E   323          SLL   7,14                    Position room num                00353499         
+ 0004EA 8870 0016            00016   324          SRL   7,22                                                     00353559         
+ 0004EE 4E70 C268            00618   325          CVD   7,PTEMP                 Convert room num to decimal      00353699         
+ 0004F2 D203 C29D C184 0064D 00534   326          MVC   LINE+45(4),=X'40212020'                                  00353762         
+ 0004F8 DE03 C29D C26E 0064D 0061E   327          ED    LINE+45(4),PTEMP+6      Put room nom on LINE             00353899         
+                                     328 *                                                                       00353933         
+ 0004FE E020 C270 0031 00620         329          XPRNT LINE,49                 Print LINE                       00354099         
+ 000504 4130 300F            0000F   330          LA    3,15(0,3)               Increment table                  00354199         
+ 000508 47F0 C034            003E4   331          B     PLOOP                   Branch to PLOOP                  00354299         
+ 00050C                              332 ENDPLP   DS    0H                      ENDPLP label                     00354399         
+                                     333 *                                                                       00354429         
+                                     334          EXITL                                                          00354529         
+ 00050C 58D0 D004            00004   335+         L     13,4(0,13)         Point R13 to caller save area                          
+ 000510 98EC D00C            0000C   336+         LM    14,12,12(13)       Restore registers                                      
+ 000514 07FE                         337+         BR    14                 Return to caller                                       
+1                                                                                                               PAGE    7         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                     338 *                                                                       00354629         
+                                     339          LTORG                                                          00354729         
+ 000518 F021202020202020             340                =X'F021202020202020'                                                      
+ 000520 E388A499A28481A8             341                =CL8'Thursday'                                                            
+ 000528 E281A3A4998481A8             342                =CL8'Saturday'                                                            
+ 000530 7A212020                     343                =X'7A212020'                                                              
+ 000534 40212020                     344                =X'40212020'                                                              
+ 000538 E2A4958481A8                 345                =CL6'Sunday'                                                              
+ 00053E D496958481A8                 346                =CL6'Monday'                                                              
+ 000544 C699898481A8                 347                =CL6'Friday'                                                              
+ 00054A 0C                           348                =P'0'                                                                     
+ 00054B 1C                           349                =P'1'                                                                     
+ 00054C 2C                           350                =P'2'                                                                     
+ 00054D E3A485A28481A8               351                =CL7'Tuesday'                                                             
+ 000554 3C                           352                =P'3'                                                                     
+ 000555 E685849585A28481             353                =CL9'Wednesday'                                                           
+ 00055E 4C                           354                =P'4'                                                                     
+ 00055F 5C                           355                =P'5'                                                                     
+ 000560                              356 PSAVE    DS    18F                     Allocate 18F for save area       00354899         
+ 0005A8                              357 TEMPPASS DS    D                       Allocate D for TEMPPASS          00354999         
+ 0005B0 F1                           358 HEADOUT  DC    C'1'                    New page carriage control        00355099         
+ 0005B1                              359          DS    CL48                    Allocate 48 characters           00355199         
+ 0005E1 60                           360 HEADOUT2 DC    C'-'                    Triple space carriage control    00355299         
+ 0005E2 4040404040404040             361          DC    CL48' '                 Allocate 48 characters of spaces 00355399         
+ 0005E2                              362          ORG   HEADOUT2+1                                               00355445         
+ 0005E2 C9C440D5A4948285             363          DC    CL9'ID Number'                                           00355545         
+ 0005EE                              364          ORG   HEADOUT2+13                                              00355645         
+ 0005EE D781A2A2A6969984             365          DC    CL8'Password'                                            00355745         
+ 0005F9                              366          ORG   HEADOUT2+24                                              00355845         
+ 0005F9 C481A8                       367          DC    CL3'Day'                                                 00355945         
+ 000607                              368          ORG   HEADOUT2+38                                              00356045         
+ 000607 E3899485                     369          DC    CL4'Time'                                                00356145         
+ 00060E                              370          ORG   HEADOUT2+45                                              00356245         
+ 00060E D9969694                     371          DC    CL4'Room'                                                00356345         
+ 000612                              372          ORG                                                            00356445         
+ 000618                              373 PTEMP    DS    D                       Allocate D for PTEMP             00356599         
+ 000620 F0                           374 LINE     DC    C'0'                    Double space carriage control    00356699         
+ 000621                              375          DS    CL48                    Allocate 48 characters           00356799         
+                                     376 *                                                                       00356829         
+                                     377 **************************************************                      00356999         
+                                     378 *                                                *                      00357099         
+                                     379 * SORTID                                         *                      00357199         
+                                     380 *                                                *                      00357299         
+                                     381 * FUNCTION: This function will perform a bubble  *                      00357399         
+                                     382 *           sort on the given table              *                      00357499         
+                                     383 *                                                *                      00357599         
+                                     384 * INPUT: NONE                                    *                      00357699         
+                                     385 *                                                *                      00357799         
+                                     386 * OUTPUT: NONE                                   *                      00357899         
+                                     387 *                                                *                      00357999         
+                                     388 * ENTRY CONDS: 0(1) -- Address of the table      *                      00358099         
+                                     389 *                      holding the data          *                      00358199         
+                                     390 *              0(2) -- Address of the end of     *                      00358299         
+                                     391 *                      the table                 *                      00358399         
+                                     392 *                                                *                      00358499         
+                                     393 * EXIT CONDS: NONE                               *                      00358599         
+                                     394 *                                                *                      00358699         
+1                                                                                                               PAGE    8         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                     395 * REGISTER USAGE                                 *                      00358799         
+                                     396 *    3     Table of data                         *                      00358899         
+                                     397 *    4     End of table                          *                      00358999         
+                                     398 *    5     I index                               *                      00359099         
+                                     399 *    6     J index                               *                      00359199         
+                                     400 *    7     K index                               *                      00359299         
+                                     401 *                                                *                      00359399         
+                                     402 * PSUEDOCODE:                                    *                      00359499         
+                                     403 *    <1> Standard Entry Link                     *                      00359599         
+                                     404 *    <2> Set I and J to point to table           *                      00359699         
+                                     405 *    <3> While I not end of table                *                      00359799         
+                                     406 *          Set J = I                             *                      00359899         
+                                     407 *            While J not end of table            *                      00359999         
+                                     408 *              Set K = J                         *                      00360099         
+                                     409 *              Increment J                       *                      00360199         
+                                     410 *              If J greater than K               *                      00360299         
+                                     411 *                 Swap J and K                   *                      00360399         
+                                     412 *          Increment I                           *                      00360499         
+                                     413 *    <4> Exit Link                               *                      00360599         
+                                     414 *                                                *                      00360699         
+                                     415 **************************************************                      00360799         
+ 000658                              416 SORTID   CSECT                                                          00360899         
+                                     417          ENTRL SUBRTN=SORTID,SAVE=SSAVE                                 00360999         
+ 000658 90EC D00C            0000C   418+         STM   14,12,12(13)       Save the registers                                     
+ 00065C 18CF                         419+         LR    12,15              Set R12 as the base register                           
+ 000658                              420+         USING SORTID,12                                                                 
+ 00065E 41E0 C068            006C0   421+         LA    14,SSAVE           Point R14 at save area                                 
+ 000662 50D0 E004            00004   422+         ST    13,4(0,14)         Save forward pointer                                   
+ 000666 50E0 D008            00008   423+         ST    14,8(0,13)         Save backward pointer                                  
+ 00066A 18DE                         424+         LR    13,14              Point R13 at save area                                 
+ 00066C 9834 1000            00000   425          LM    3,4,0(1)           Unload parameters                     00361099         
+ 000670 1853                         426          LR    5,3                Set R5 to R3                          00361199         
+ 000672 1863                         427          LR    6,3                Set R6 to R3                          00361299         
+                                     428 *                                                                       00361399         
+ 000674 1954                         429 SLOOP1   CR    5,4                Compare R5 to end of table            00361499         
+ 000676 47B0 C058            006B0   430          BNL   ENDSLP1            If R5 is not less then end SLOOP1     00361599         
+ 00067A 1865                         431          LR    6,5                Set R6 to R5                          00361699         
+ 00067C 1876                         432 SLOOP2   LR    7,6                Set R7 to R6                          00361899         
+ 00067E 4160 600F            0000F   433          LA    6,15(0,6)          Increment R6                          00361999         
+ 000682 1964                         434          CR    6,4                Compare R6 with R4                    00362099         
+ 000684 47B0 C050            006A8   435          BNL   ENDSLP2            If R6 is not less then end SLOOP2     00362199         
+ 000688 D503 6000 7000 00000 00000   436          CLC   0(4,6),0(7)        Compare ID of J and K                 00362299         
+ 00068E 47B0 C04C            006A4   437          BNL   SKIP               If ID J not less then branch to SKIP  00362799         
+ 000692 D20E C0B0 6000 00708 00000   438          MVC   STEMP(15),0(6)     Store entry J into STEMP              00362899         
+ 000698 D20E 6000 7000 00000 00000   439          MVC   0(15,6),0(7)       Store entry K into entry J            00362999         
+ 00069E D20E 7000 C0B0 00000 00708   440          MVC   0(15,7),STEMP      Store entry STEMP into entry K        00363099         
+ 0006A4 47F0 C024            0067C   441 SKIP     B     SLOOP2             Branch to SLOOP2                      00363199         
+ 0006A8 4150 500F            0000F   442 ENDSLP2  LA    5,15(0,5)          Increment R5                          00363299         
+ 0006AC 47F0 C01C            00674   443          B     SLOOP1             Branch to SLOOP1                      00363399         
+                                     444 *                                                                       00363499         
+ 0006B0                              445 ENDSLP1  DS    0H                 ENDSLP1 Label                         00363599         
+                                     446          EXITL                                                          00363699         
+ 0006B0 58D0 D004            00004   447+         L     13,4(0,13)         Point R13 to caller save area                          
+ 0006B4 98EC D00C            0000C   448+         LM    14,12,12(13)       Restore registers                                      
+ 0006B8 07FE                         449+         BR    14                 Return to caller                                       
+                                     450 *                                                                       00363799         
+                                     451          LTORG                                                          00363899         
+1                                                                                                               PAGE    9         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+ 0006C0                              452 SSAVE    DS    18F                Allocate 18F for save area            00363999         
+ 000708                              453 STEMP    DS    15B                Allocate 15B for STEMP                00364099         
+                                     454 *                                                                       00364399         
+                                     455          END   MAIN                                                     00364400         
+0***  NO   STATEMENTS FLAGGED -  NO   WARNINGS,  NO   ERRORS                                                                      
+0*** DYNAMIC CORE AREA USED:  LOW:   29576 HIGH:    1700 LEAVING:  462292 FREE BYTES. AVERAGE:       68 BYTES/STMT ***            
+0*** ASSEMBLY TIME =    0.002 SECS,   228000 STATEMENTS/SEC ***                                                                   
+0*** PROGRAM EXECUTION BEGINNING - ANY OUTPUT BEFORE EXECUTION TIME MESSAGE IS PRODUCED BY USER PROGRAM ***                       
+0BEGIN XSNAP - CALL     1 AT D0000024 USER STORAGE                                                                                
+0                             CORE ADDRESSES SPECIFIED-     0000E0 TO 00011C                                                      
+ 0000E0   0000A1FB D3C5422F C5C974BB 2B00F200    60A824F1 925BD0F5 965FDC4A 7877008B   *....LE..EI....2....1...5........*         
+ 000100   EB3CF17A 1ACDF17A 1ACDA902 A800168E    D6D7D76C 34E6C057 12CB3C77 006A3D20   *..1...1.........OPP..W..........*         
+0                                                                                                                                 
+1             Initial Table Contents                                                                                              
+-ID Number   Password   Day           Time   Room                                                                                 
+0 R0041467   LETMEIN    Monday       11:00    242                                                                                 
+0 R6334500   12345678   Tuesday      10:30    119                                                                                 
+0 R9169724   11111111   Friday       09:00    680                                                                                 
+0 R1478358   PASSWORD   Saturday     11:15    119                                                                                 
+0 R6962464   DROWSSAP   Thursday     08:30    356                                                                                 
+0 R5705145   DONTCARE   Monday       19:45    242                                                                                 
+0 R3281827   QWERTYUV   Friday       14:20    680                                                                                 
+0 R9961491   ASDFGHJK   Tuesday      14:00    119                                                                                 
+0 R2995942   MYSTUFF    Tuesday      18:15    242                                                                                 
+0 R4827436   ZZZZZZZZ   Thursday     10:30    242                                                                                 
+0 R2391604   IMBORED    Saturday     14:45    680                                                                                 
+0 R8723741   WHATFUNN   Wednesday    13:00    356                                                                                 
+0 R7529778   IAMSILLY   Wednesday    14:45    119                                                                                 
+0 R4771538   O0I1L5S    Monday       15:30    680                                                                                 
+0 R5667299   2ZMN8SQ0   Thursday     16:00    242                                                                                 
+1               Table Sorted by ID                                                                                                
+-ID Number   Password   Day           Time   Room                                                                                 
+0 R0041467   LETMEIN    Monday       11:00    242                                                                                 
+0 R1478358   PASSWORD   Saturday     11:15    119                                                                                 
+0 R5705145   DONTCARE   Monday       19:45    242                                                                                 
+0 R3281827   QWERTYUV   Friday       14:20    680                                                                                 
+0 R2995942   MYSTUFF    Tuesday      18:15    242                                                                                 
+0 R2391604   IMBORED    Saturday     14:45    680                                                                                 
+0 R4771538   O0I1L5S    Monday       15:30    680                                                                                 
+0 R4827436   ZZZZZZZZ   Thursday     10:30    242                                                                                 
+0 R5667299   2ZMN8SQ0   Thursday     16:00    242                                                                                 
+0 R6334500   12345678   Tuesday      10:30    119                                                                                 
+0 R6962464   DROWSSAP   Thursday     08:30    356                                                                                 
+0 R7529778   IAMSILLY   Wednesday    14:45    119                                                                                 
+0 R8723741   WHATFUNN   Wednesday    13:00    356                                                                                 
+0 R9169724   11111111   Friday       09:00    680                                                                                 
+0 R9961491   ASDFGHJK   Tuesday      14:00    119                                                                                 
+0*** EXECUTION TIME =    0.003 SECS.      3701 INSTRUCTIONS EXECUTED -  1233666 INSTRUCTIONS/SEC ***                              
+0*** AM004 - NORMAL USER TERMINATION BY RETURN ***                                                                                

@@ -1,0 +1,234 @@
+/*
+Transactions
+assign 8
+section: 	CSCI466-2
+TA:		Kartheek Chintalapati
+due:		Apr 2, 2017 
+
+May-Myo Khine
+z1785954
+*/
+
+/*
+(1.1)
+*/
+mysql> use z1785954;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> create table assign8(pk int primary key, data char(15));
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> start transaction;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into assign8 values(100, 'data100');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into assign8 values(101, 'data101');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into assign8 values(102, 'data102');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into assign8 values(103, 'data103');
+Query OK, 1 row affected (0.00 sec)
+
+/*
+(1.2)
+*/
+mysql> use z1785954;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> select * from assign8;
+Empty set (0.00 sec)
+
+/*********************************************************************************************************
+What is result of the select statement, and why?
+It's empty set because the transaction is not completed yet. 
+*********************************************************************************************************/
+
+/*
+(1.3)
+*/
+mysql> insert into assign8 values ( 104, 'data104');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into assign8 values ( 105, 'data105');
+Query OK, 1 row affected (0.08 sec)
+
+/*
+(1.4)
+*/
+mysql> commit;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> select * from assign8;
++-----+---------+
+| pk  | data    |
++-----+---------+
+| 100 | data100 |
+| 101 | data101 |
+| 102 | data102 |
+| 103 | data103 |
+| 104 | data104 |
+| 105 | data105 |
++-----+---------+
+6 rows in set (0.00 sec)
+
+mysql> \t
+
+/*
+(1.5)
+*/
+mysql> select * from assign8;
++-----+---------+
+| pk  | data    |
++-----+---------+
+| 100 | data100 |
+| 101 | data101 |
+| 102 | data102 |
+| 103 | data103 |
+| 104 | data104 |
+| 105 | data105 |
++-----+---------+
+6 rows in set (0.00 sec)
+
+/*********************************************************************************************************
+What is result of the select statement, and why?
+It shows the table with the values that I inserted. 
+Beacuse the transaction is done by commit statement.
+*********************************************************************************************************/
+
+/*
+(2.1)
+*/
+mysql> \t
+mysql> use z1785954;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> start transaction;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> delete from assign8 where pk= 103;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from assign8;
++-----+---------+
+| pk  | data    |
++-----+---------+
+| 100 | data100 |
+| 101 | data101 |
+| 102 | data102 |
+| 104 | data104 |
+| 105 | data105 |
++-----+---------+
+5 rows in set (0.00 sec)
+
+/*
+(2.2)
+*/
+mysql> update assign8 set data = 'changed' where pk = 100;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+/*
+(2.3)
+*/
+mysql> update assign8 set data = 'changed also' where pk = 104;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+/*
+(2.4)
+*/
+mysql> insert into assign8 values(203, 'data203');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from assign8;
++-----+--------------+
+| pk  | data    	 |
++-----+--------------+
+| 100 | changed 	 |
+| 101 | data101 	 |
+| 102 | data102 	 |
+| 104 | changed also |
+| 105 | data105 	 |
+| 203 | data203 	 |
++-----+--------------+
+6 rows in set (0.00 sec)
+
+/*********************************************************************************************************
+What is result of the select statement, and why?
+Its is the new updated table with the newly changed data. 
+Beacuse I updated the table with primary keys. 
+*********************************************************************************************************/
+
+
+/*
+(2.5)
+*/
+mysql> rollback;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> select * from assign8;
++-----+---------+
+| pk  | data    |
++-----+---------+
+| 100 | data100 |
+| 101 | data101 |
+| 102 | data102 |
+| 103 | data103 |
+| 104 | data104 |
+| 105 | data105 |
++-----+---------+
+6 rows in set (0.00 sec)
+
+/*********************************************************************************************************
+What is result of the select statement, and why?
+It is the table without the newly changed data. 
+Because 'rollback' statment reversed any changes I have made since the last commit.
+*********************************************************************************************************/
+
+mysql> \t
+
+/*
+(3)
+*/
+mysql> use z1785954;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> start transaction;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> use z1785954;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> start transaction;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> update assign8 set data = 'session1' where pk=101;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update assign8 set data='session2' where pk=102;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update assign8 set data = 'session1' where pk = 102;
+Query OK, 1 row affected (38.96 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update assign8 set data = 'session2' where pk = 101;
+ERROR 1213 (40001): Deadlock found when trying to get lock; try restarting transaction
+mysql> \t
+mysql> \t

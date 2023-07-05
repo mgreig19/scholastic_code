@@ -1,0 +1,645 @@
+1                    J E S 2  J O B  L O G  --  S Y S T E M  S 0 W 1  --  N O D E  Z O S K C T R         
+0 
+ 01.06.59 JOB07270 ---- WEDNESDAY, 06 DEC 2017 ----
+ 01.06.59 JOB07270  IRR010I  USERID KC03KA9  IS ASSIGNED TO THIS JOB.
+ 01.06.59 JOB07270  ICH70001I KC03KA9  LAST ACCESS AT 01:05:25 ON WEDNESDAY, DECEMBER 6, 2017
+ 01.06.59 JOB07270  $HASP373 KC03KA9A STARTED - INIT 2    - CLASS A        - SYS S0W1
+ 01.06.59 JOB07270  -                                         --TIMINGS (MINS.)--            ----PAGING COUNTS---
+ 01.06.59 JOB07270  -JOBNAME  STEPNAME PROCSTEP    RC   EXCP    TCB    SRB  CLOCK   SERV  PG   PAGE   SWAP    VIO SWAPS
+ 01.06.59 JOB07270  -KC03KA9A                      00    294 ******    .00     .0    267   0      0      0      0     0
+ 01.06.59 JOB07270  -KC03KA9A ENDED.  NAME-MASON GREIG          TOTAL TCB CPU TIME=   .00  TOTAL ELAPSED TIME=    .0
+ 01.06.59 JOB07270  $HASP395 KC03KA9A ENDED
+0------ JES2 JOB STATISTICS ------
+-  06 DEC 2017 JOB EXECUTION DATE
+-          116 CARDS READ
+-          645 SYSOUT PRINT RECORDS
+-            0 SYSOUT PUNCH RECORDS
+-           56 SYSOUT SPOOL KBYTES
+-         0.00 MINUTES EXECUTION TIME
+         1 //KC03KA9A JOB ,'MASON GREIG',MSGCLASS=H                                JOB07270
+         2 //STEP1    EXEC PGM=ASSIST,PARM='MACRO=H'                               00020007
+         3 //STEPLIB    DD DSN=KC02293.ASSIST.LOADLIB,DISP=SHR                     00030007
+         4 //SYSPRINT   DD SYSOUT=*                                                00040007
+         5 //SYSIN      DD *                                                       00041007
+         6 //         DD DSN=KC02314.AUTUMN17.CSCI360.HW9DRVR,DISP=SHR             00069707
+         7 //FT05F001 DD DUMMY                                                     00070000
+         8 //FT06F001 DD SYSOUT=*                                                  00080000
+ ICH70001I KC03KA9  LAST ACCESS AT 01:05:25 ON WEDNESDAY, DECEMBER 6, 2017
+ IEF236I ALLOC. FOR KC03KA9A STEP1
+ IGD103I SMS ALLOCATED TO DDNAME STEPLIB
+ IEF237I JES2 ALLOCATED TO SYSPRINT
+ IEF237I JES2 ALLOCATED TO SYSIN
+ IGD103I SMS ALLOCATED TO DDNAME
+ IEF237I DMY  ALLOCATED TO FT05F001
+ IEF237I JES2 ALLOCATED TO FT06F001
+ IEF142I KC03KA9A STEP1 - STEP WAS EXECUTED - COND CODE 0000
+ IGD104I KC02293.ASSIST.LOADLIB                       RETAINED,  DDNAME=STEPLIB 
+ IEF285I   KC03KA9.KC03KA9A.JOB07270.D0000102.?         SYSOUT        
+ IEF285I   KC03KA9.KC03KA9A.JOB07270.D0000101.?         SYSIN         
+ IGD104I KC02314.AUTUMN17.CSCI360.HW9DRVR             RETAINED,  DDNAME=        
+ IEF285I   KC03KA9.KC03KA9A.JOB07270.D0000103.?         SYSOUT        
+ IEF373I STEP/STEP1   /START 2017340.0106
+ IEF032I STEP/STEP1   /STOP  2017340.0106 
+         CPU:     0 HR  00 MIN  00.01 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+         VIRT:   584K  SYS:   268K  EXT:        4K  SYS:    11516K
+         ATB- REAL:                     0K  SLOTS:                     0K
+              VIRT- ALLOC:       0M SHRD:       0M
+ IEF375I  JOB/KC03KA9A/START 2017340.0106
+ IEF033I  JOB/KC03KA9A/STOP  2017340.0106 
+         CPU:     0 HR  00 MIN  00.01 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+1*** ASSIST 4.0/A2-05/15/82  470/V7A/0:OS/VS2  INS=SDFP7/X=BGHO, CHECK/TRC/=1180, OPTS=CDKMPR FROM PENN ST*NIU COMPSCI*LT         
+0MACRO=H                                                                                                                          
+0                                                                                                               PAGE    1         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                       1 ***************************************************                     00050000         
+                                       2 *                                                                       00051000         
+                                       3 * ASSIGNMENT 9                                                          00052000         
+                                       4 *                                                                       00052101         
+                                       5 * NAME: MASON GREIG                                                     00052201         
+                                       6 *                                                                       00052301         
+                                       7 ***************************************************                     00053001         
+                                       8 *                                                                       00053101         
+                                       9 * STRCMP MACRO                                                          00053201         
+                                      10 *                                                                       00053301         
+                                      11 * MACRO FUNCTION: COMPARES TWO C STRINGS                                00054062         
+                                      12 *                 CC 0 IF STRINGS EQUAL                                 00055062         
+                                      13 *                 CC 1 IF FIRST < SECOND                                00056062         
+                                      14 *                 CC 2 IF FIRST > SECOND                                00056162         
+                                      15 *                                                                       00056262         
+                                      16 * ARGUMENTS: &FIRST, &SECOND                                            00057062         
+                                      17 *                                                                       00057162         
+                                      18 * ERRORS: ERROR HANDLING OCCURS WHEN THE ARGUMENTS                      00057262         
+                                      19 *         ARE EMPTY                                                     00058062         
+                                      20 *                                                                       00058162         
+                                      21 * REGISTER USAGE:                                                       00058262         
+                                      22 *                                                                       00058362         
+                                      23 *  4    FIRST STRING                                                    00058462         
+                                      24 *  5    FIRST STRING LENGTH                                             00058562         
+                                      25 *  6    SECOND STRING                                                   00058662         
+                                      26 *  7    SECOND STRING LENGTH                                            00058762         
+                                      27 *                                                                       00059000         
+                                      28 ***************************************************                     00059100         
+                                      29 *                                                                       00059200         
+                                      30          MACRO                                 STRCMP MACRP             00059410         
+                                      31          STRCMP &FIRST,&SECOND                 CHECK FOR PROPER         00059610         
+                                      32          LCLA   &FCOUNT,&SCOUNT                                         00059782         
+                                      33          AIF    ('&FIRST' EQ '').ERROR         ARGUMENTS                00059910         
+                                      34          AIF    ('&SECOND' EQ '').ERROR        GO TO ERROR IF NONE      00060010         
+                                      35          AIF    ('&FIRST' EQ '&SECOND').PROGEND                         00060282         
+                                      36 *                                                                       00060482         
+                                      37          AIF    (K'&FIRST GE 0).CHECK                                   00060687         
+                                      38          AGO    .PROGEND                                                00060782         
+                                      39 .CHECK   ANOP                                                           00060882         
+                                      40          STM    4,7,S&SYSNDX                                            00060988         
+                                      41 &FCOUNT  SETA   K'&FIRST                                                00061087         
+                                      42 &SCOUNT  SETA   K'&SECOND-2                                             00061187         
+                                      43          LA     5,&FCOUNT                                               00061382         
+                                      44          LA     7,&SCOUNT                                               00061482         
+                                      45          CR     5,7                                                     00061582         
+                                      46          BE     C&SYSNDX                       IF EQUAL GO TO C&SYSNDX  00063310         
+                                      47          B      R&SYSNDX                       ELSE GO TO R&SYSNDX      00063410         
+                                      48 C&SYSNDX LA     4,&FIRST                       LOAD WORDS INTO REGS     00063510         
+                                      49          LA     6,&SECOND                                               00063604         
+                                      50          CLCL   4,6                            COMPARE WORDS            00063710         
+                                      51          B      R&SYSNDX                       SKIP STORAGE             00063879         
+                                      52 S&SYSNDX DS     4F                             STORAGE                  00063955         
+1                                                                                                               PAGE    2         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                      53 .PROGEND ANOP                                                           00064082         
+                                      54          LA     4,&FIRST                                                00064188         
+                                      55          LA     6,&SECOND                                               00064288         
+                                      56          CR     4,6                                                     00064388         
+                                      57 R&SYSNDX DS     0H                             RESTORE REGISTERS        00064489         
+                                      58          MEXIT                                                          00064612         
+                                      59 .ERROR   MNOTE  'MISSING ARGUMENTS'            ERROR HANDLING           00064761         
+                                      60          MEND                                  END OF MACRO             00064861         
+                                      61 ***************************************************                     00064901         
+                                      62 *                                                                       00065001         
+                                      63 * MAX MACRO                                                             00065101         
+                                      64 *                                                                       00065201         
+                                      65 * MACRO FUNCTION: FINDS THE MAX NUMBER IN A LIST                        00065362         
+                                      66 *                                                                       00065401         
+                                      67 * RETURNS: THE GREATEST VALUE NUMBER IN A LIST                          00065562         
+                                      68 *                                                                       00065662         
+                                      69 * ERROR HANDLING: PRODUCES AN ERROR IF THE ARGUMENTS                    00065762         
+                                      70 *                 OR LIST SET ARE EMPTY                                 00065862         
+                                      71 *                                                                       00065962         
+                                      72 * REGISTER USAGE                                                        00066001         
+                                      73 *                                                                       00066101         
+                                      74 *  8    CURRENT NUMBER                                                  00066262         
+                                      75 *  9    MAX NUMBER                                                      00066362         
+                                      76 *                                                                       00066462         
+                                      77 ***************************************************                     00066501         
+                                      78 *                                                                       00066601         
+                                      79          MACRO                                 BEGIN MAX MACRO          00066761         
+                                      80          MAX &RESULT,&LIST                                              00066804         
+                                      81          LCLA   &COUNT,&TOTAL                  CREATE & INIT VARIABLES  00066961         
+                                      82 &COUNT   SETA   1                              SET COUNT TO 1           00067061         
+                                      83          AIF    ('&RESULT' EQ '').MISSARG      CHECK FOR MISSING        00067161         
+                                      84          AIF    ('&LIST' EQ '').MISSARG        ARGUMENTS AND LIST       00067261         
+                                      85          AIF    ('&LIST' EQ '()').EMPTLST                               00067304         
+                                      86 &TOTAL   SETA   N'&SYSLIST(2)                  INTIALIZE TOTAL          00067461         
+                                      87          STM    8,9,Y&SYSNDX                   SAVE REGISTERS           00067561         
+                                      88          L      8,&SYSLIST(2,&COUNT)           LOAD FIRST ELEMENT       00067661         
+                                      89          LR     9,8                            LOAD FIRST ELEMENT       00067761         
+                                      90 .BLOOP   ANOP                                  BEGIN OF LOOP            00067861         
+                                      91 &COUNT   SETA   &COUNT+1                       INCRMNT COUNT            00067961         
+                                      92          AIF    (&TOTAL LT &COUNT).FOUND       IF TOTAL < COUNT->FOUND  00068061         
+                                      93          L      8,&SYSLIST(2,&COUNT)           LOAD NEXT ELEMENT        00068161         
+                                      94          CR     8,9                            COMPARE NUMBERS          00068261         
+                                      95          BH     A&COUNT&SYSNDX                 GO TO SWAP               00068361         
+                                      96          B      B&COUNT&SYSNDX                 SKIP SWAP                00068461         
+                                      97 A&COUNT&SYSNDX   LR    9,8                     SET 9 TO MAX             00068561         
+                                      98 B&COUNT&SYSNDX   DS    0H                                               00068635         
+                                      99          AGO    .BLOOP                         GO TO BEGIN OF BLOOP     00068761         
+                                     100 .FOUND   ANOP                                  MAX FOUND                00068861         
+                                     101          ST     9,&RESULT                      SAVE FOUND RESULT        00068961         
+                                     102          B      O&SYSNDX                       GO TO END                00069061         
+                                     103 Y&SYSNDX DS     2F                                                      00069109         
+                                     104 O&SYSNDX LM     8,9,Y&SYSNDX                   RESTORE REGISTERS        00069261         
+                                     105          MEXIT                                                          00069304         
+                                     106 .MISSARG MNOTE  'MISSING ARGUMENTS'                                     00069444         
+                                     107 .EMPTLST MNOTE  'PRARAMETER LIST EMPTY'        ERROR HANDLING           00069561         
+                                     108          MEND                                  END OF PROGRAM           00069661         
+                                     109 **********************************************************************                   
+1                                                                                                               PAGE    3         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                     110 *                                                                    *                   
+                                     111 *  Name:  DRIVER.                                                    *                   
+                                     112 *                                                                    *                   
+                                     113 *  Function:  Test platform for macros.                              *                   
+                                     114 *                                                                    *                   
+                                     115 *  Input:  None.                                                     *                   
+                                     116 *                                                                    *                   
+                                     117 *  Output:  Results of the tests.                                    *                   
+                                     118 *                                                                    *                   
+                                     119 *  Register Usage:                                                   *                   
+                                     120 *        8       Used in calling macros                              *                   
+                                     121 *        9       Used in calling macros                              *                   
+                                     122 *       10       Used in calling macros                              *                   
+                                     123 *       11       Used in calling internal subroutines                *                   
+                                     124 *       12       Base register                                       *                   
+                                     125 *       14       Return address                                      *                   
+                                     126 *                                                                    *                   
+                                     127 **********************************************************************                   
+1                                                                                                               PAGE    4         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                                                                                                                  
+                                                                                                                                  
+                                     129 **********************************************************************                   
+                                     130 *               The DRIVER program begins here.                      *                   
+                                     131 **********************************************************************                   
+                                     132 *                                                                                        
+ 000000                              133 DRIVER   CSECT                         Beginning of the program.                         
+                                     134 *                                                                                        
+                                     136 *                                                                                        
+                                     137 *  Standard entry linkage.                                                               
+                                     138 *                                                                                        
+ 000000 90EC D00C            0000C   139          STM   14,12,12(13)            Store the registers in the save                   
+                                     140 *                                      area of the calling routine.                      
+                                     141 *                                                                                        
+ 000004 18CF                         142          LR    12,15                   Point register 12 at DRIVER.                      
+ 000000                              143          USING DRIVER,12               The base register is 12.                          
+                                     144 *                                                                                        
+ 000006 41E0 C4EC            004EC   145          LA    14,DRIVSAV              Point register 14 at DRIVER's                     
+                                     146 *                                      save area.                                        
+ 00000A 50DE 0004            00004   147          ST    13,4(14)                Store the backward pointer.                       
+ 00000E 50ED 0008            00008   148          ST    14,8(13)                Store the forward pointer.                        
+ 000012 18DE                         149          LR    13,14                   Point register 13 at DRIVER's                     
+                                     150 *                                      save area.                                        
+                                     151 *                                                                                        
+ 000014 E020 C3E8 001A 003E8         152          XPRNT  =CL26'1Results of testing macros',26   Print the title.                  
+ 00001A E020 C462 001F 00462         153          XPRNT  =CL31'-First we test the STRCMP macro',31                                
+                                     154 *                                      Print a heading.                                  
+                                     155 *                                                                                        
+                                     156 * The first block of code deals with the STRCMP macro.                                   
+                                     157 *                                                                                        
+ 000020 4110 C534            00534   158          LA    1,SLIST                                                                   
+                                     159 *                                                                                        
+                                     160 * These first three calls to STRCMP have problems which should                           
+                                     161 * result in MNOTEs.                                                                      
+                                     162 *                                                                                        
+                                     163          STRCMP S1                                                                       
+ ----->AS***MNOTE***     1,MISSING ARGUMENTS                                                                      <-ERROR         
+                                     165 *                                                                                        
+                                     166          STRCMP ,S2                                                                      
+ ----->AS***MNOTE***     1,MISSING ARGUMENTS                                                                      <-ERROR         
+                                     168 *                                                                                        
+                                     169          STRCMP                                                                          
+ ----->AS***MNOTE***     1,MISSING ARGUMENTS                                                                      <-ERROR         
+                                     171 *                                                                                        
+                                     172 * The next group of calls should all work.                                               
+                                     173 *                                                                                        
+                                     174          STRCMP S1,S1                  Compare "" and ""                                 
+ 000024 4140 C544            00544   175+         LA     4,S1                                                                     
+ 000028 4160 C544            00544   176+         LA     6,S1                                                                     
+ 00002C 1946                         177+         CR     4,6                                                                      
+ 00002E                              178+R0004    DS     0H                             RESTORE REGISTERS                         
+ 00002E D201 C55E C402 0055E 00402   179          MVC    SVALUE1(2),=CL2'00'                                                      
+ 000034 D201 C56E C402 0056E 00402   180          MVC    SVALUE2(2),=CL2'00'                                                      
+ 00003A 45B0 C5CE            005CE   181          BAL    11,SOUT                                                                  
+                                     182 *                                                                                        
+                                     183          STRCMP S1,S2                                                                    
+                                     184+*                                                                                        
+1                                                                                                               PAGE    5         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+ 00003E 9047 C064            00064   185+         STM    4,7,S0005                                                                
+ 000042 4150 0002            00002   186+         LA     5,2                                                                      
+ 000046 4170 0000            00000   187+         LA     7,0                                                                      
+ 00004A 1957                         188+         CR     5,7                                                                      
+ 00004C 4780 C054            00054   189+         BE     C0005                          IF EQUAL GO TO C&SYSNDX                   
+ 000050 47F0 C07E            0007E   190+         B      R0005                          ELSE GO TO R&SYSNDX                       
+ 000054 4140 C544            00544   191+C0005    LA     4,S1                           LOAD WORDS INTO REGS                      
+ 000058 4160 C545            00545   192+         LA     6,S2                                                                     
+ 00005C 0F46                         193+         CLCL   4,6                            COMPARE WORDS                             
+ 00005E 47F0 C07E            0007E   194+         B      R0005                          SKIP STORAGE                              
+ 000064                              195+S0005    DS     4F                             STORAGE                                   
+ 000074 4140 C544            00544   196+         LA     4,S1                                                                     
+ 000078 4160 C545            00545   197+         LA     6,S2                                                                     
+ 00007C 1946                         198+         CR     4,6                                                                      
+ 00007E                              199+R0005    DS     0H                             RESTORE REGISTERS                         
+ 00007E D201 C55E C402 0055E 00402   200          MVC    SVALUE1(2),=CL2'00'    Compare "" and "BUMP"                             
+ 000084 D209 C56E C404 0056E 00404   201          MVC    SVALUE2(10),=CL10'C2E4D4D700'                                            
+ 00008A 45B0 C5CE            005CE   202          BAL    11,SOUT                                                                  
+                                     203 *                                                                                        
+                                     204          STRCMP S3,S2                  Compare "BUMPY" and "BUMP"                        
+                                     205+*                                                                                        
+ 00008E 9047 C0B4            000B4   206+         STM    4,7,S0006                                                                
+ 000092 4150 0002            00002   207+         LA     5,2                                                                      
+ 000096 4170 0000            00000   208+         LA     7,0                                                                      
+ 00009A 1957                         209+         CR     5,7                                                                      
+ 00009C 4780 C0A4            000A4   210+         BE     C0006                          IF EQUAL GO TO C&SYSNDX                   
+ 0000A0 47F0 C0CE            000CE   211+         B      R0006                          ELSE GO TO R&SYSNDX                       
+ 0000A4 4140 C54A            0054A   212+C0006    LA     4,S3                           LOAD WORDS INTO REGS                      
+ 0000A8 4160 C545            00545   213+         LA     6,S2                                                                     
+ 0000AC 0F46                         214+         CLCL   4,6                            COMPARE WORDS                             
+ 0000AE 47F0 C0CE            000CE   215+         B      R0006                          SKIP STORAGE                              
+ 0000B4                              216+S0006    DS     4F                             STORAGE                                   
+ 0000C4 4140 C54A            0054A   217+         LA     4,S3                                                                     
+ 0000C8 4160 C545            00545   218+         LA     6,S2                                                                     
+ 0000CC 1946                         219+         CR     4,6                                                                      
+ 0000CE                              220+R0006    DS     0H                             RESTORE REGISTERS                         
+ 0000CE D20B C55E C3B8 0055E 003B8   221          MVC    SVALUE1(12),=CL12'C2E4D4D7E800'                                          
+ 0000D4 D209 C56E C404 0056E 00404   222          MVC    SVALUE2(10),=CL10'C2E4D4D700'                                            
+ 0000DA 45B0 C5CE            005CE   223          BAL    11,SOUT                                                                  
+                                     224 *                                                                                        
+                                     225          STRCMP S2,S4                  Compare "BUMP" and "BOMP"                         
+                                     226+*                                                                                        
+ 0000DE 9047 C104            00104   227+         STM    4,7,S0007                                                                
+ 0000E2 4150 0002            00002   228+         LA     5,2                                                                      
+ 0000E6 4170 0000            00000   229+         LA     7,0                                                                      
+ 0000EA 1957                         230+         CR     5,7                                                                      
+ 0000EC 4780 C0F4            000F4   231+         BE     C0007                          IF EQUAL GO TO C&SYSNDX                   
+ 0000F0 47F0 C11E            0011E   232+         B      R0007                          ELSE GO TO R&SYSNDX                       
+ 0000F4 4140 C545            00545   233+C0007    LA     4,S2                           LOAD WORDS INTO REGS                      
+ 0000F8 4160 C550            00550   234+         LA     6,S4                                                                     
+ 0000FC 0F46                         235+         CLCL   4,6                            COMPARE WORDS                             
+ 0000FE 47F0 C11E            0011E   236+         B      R0007                          SKIP STORAGE                              
+ 000104                              237+S0007    DS     4F                             STORAGE                                   
+ 000114 4140 C545            00545   238+         LA     4,S2                                                                     
+ 000118 4160 C550            00550   239+         LA     6,S4                                                                     
+ 00011C 1946                         240+         CR     4,6                                                                      
+ 00011E                              241+R0007    DS     0H                             RESTORE REGISTERS                         
+1                                                                                                               PAGE    6         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+ 00011E D209 C55E C404 0055E 00404   242          MVC    SVALUE1(10),=CL10'C2E4D4D700'                                            
+ 000124 D209 C56E C40E 0056E 0040E   243          MVC    SVALUE2(10),=CL10'C2D6D4D700'                                            
+ 00012A 45B0 C5CE            005CE   244          BAL    11,SOUT                                                                  
+                                     245 *                                                                                        
+                                     246          STRCMP =XL5'C2D6D4C200',S4    Compare "BOMB" and "BOMP"                         
+                                     247+*                                                                                        
+ 00012E 9047 C154            00154   248+         STM    4,7,S0008                                                                
+ 000132 4150 0010            00010   249+         LA     5,16                                                                     
+ 000136 4170 0000            00000   250+         LA     7,0                                                                      
+ 00013A 1957                         251+         CR     5,7                                                                      
+ 00013C 4780 C144            00144   252+         BE     C0008                          IF EQUAL GO TO C&SYSNDX                   
+ 000140 47F0 C16E            0016E   253+         B      R0008                          ELSE GO TO R&SYSNDX                       
+ 000144 4140 C481            00481   254+C0008    LA     4,=XL5'C2D6D4C200'             LOAD WORDS INTO REGS                      
+ 000148 4160 C550            00550   255+         LA     6,S4                                                                     
+ 00014C 0F46                         256+         CLCL   4,6                            COMPARE WORDS                             
+ 00014E 47F0 C16E            0016E   257+         B      R0008                          SKIP STORAGE                              
+ 000154                              258+S0008    DS     4F                             STORAGE                                   
+ 000164 4140 C481            00481   259+         LA     4,=XL5'C2D6D4C200'                                                       
+ 000168 4160 C550            00550   260+         LA     6,S4                                                                     
+ 00016C 1946                         261+         CR     4,6                                                                      
+ 00016E                              262+R0008    DS     0H                             RESTORE REGISTERS                         
+ 00016E D209 C55E C418 0055E 00418   263          MVC    SVALUE1(10),=CL10'C2D6D4C200'                                            
+ 000174 D209 C56E C40E 0056E 0040E   264          MVC    SVALUE2(10),=CL10'C2D6D4D700'                                            
+ 00017A 45B0 C5CE            005CE   265          BAL    11,SOUT                                                                  
+                                     266 *                                                                                        
+ 00017E 4180 C544            00544   267          LA     8,S1                                                                     
+                                     268          STRCMP S2,0(8)                Compare "BUMP" and ""                             
+                                     269+*                                                                                        
+ 000182 9047 C1A8            001A8   270+         STM    4,7,S0009                                                                
+ 000186 4150 0002            00002   271+         LA     5,2                                                                      
+ 00018A 4170 0002            00002   272+         LA     7,2                                                                      
+ 00018E 1957                         273+         CR     5,7                                                                      
+ 000190 4780 C198            00198   274+         BE     C0009                          IF EQUAL GO TO C&SYSNDX                   
+ 000194 47F0 C1C2            001C2   275+         B      R0009                          ELSE GO TO R&SYSNDX                       
+ 000198 4140 C545            00545   276+C0009    LA     4,S2                           LOAD WORDS INTO REGS                      
+ 00019C 4168 0000            00000   277+         LA     6,0(8)                                                                   
+ 0001A0 0F46                         278+         CLCL   4,6                            COMPARE WORDS                             
+ 0001A2 47F0 C1C2            001C2   279+         B      R0009                          SKIP STORAGE                              
+ 0001A8                              280+S0009    DS     4F                             STORAGE                                   
+ 0001B8 4140 C545            00545   281+         LA     4,S2                                                                     
+ 0001BC 4168 0000            00000   282+         LA     6,0(8)                                                                   
+ 0001C0 1946                         283+         CR     4,6                                                                      
+ 0001C2                              284+R0009    DS     0H                             RESTORE REGISTERS                         
+ 0001C2 D209 C55E C404 0055E 00404   285          MVC    SVALUE1(10),=CL10'C2E4D4D700'                                            
+ 0001C8 D201 C56E C402 0056E 00402   286          MVC    SVALUE2(2),=CL2'00'                                                      
+ 0001CE 45B0 C5CE            005CE   287          BAL    11,SOUT                                                                  
+                                     288 *                                                                                        
+                                     289          STRCMP S3,S3                  Compare "BUMPY" and "BUMPY"                       
+ 0001D2 4140 C54A            0054A   290+         LA     4,S3                                                                     
+ 0001D6 4160 C54A            0054A   291+         LA     6,S3                                                                     
+ 0001DA 1946                         292+         CR     4,6                                                                      
+ 0001DC                              293+R0010    DS     0H                             RESTORE REGISTERS                         
+ 0001DC D20B C55E C3B8 0055E 003B8   294          MVC    SVALUE1(12),=CL12'C2E4D4D7E800'                                          
+ 0001E2 D20B C56E C3B8 0056E 003B8   295          MVC    SVALUE2(12),=CL12'C2E4D4D7E800'                                          
+ 0001E8 45B0 C5CE            005CE   296          BAL    11,SOUT                                                                  
+                                     297 *                                                                                        
+                                     298 * The second block of code deals with the MAX macro.                                     
+1                                                                                                               PAGE    7         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                     299 *                                                                                        
+ 0001EC E020 C486 0001 00486         300          XPRNT =C'0',1                 Skip an extra 2 lines.                            
+ 0001F2 E020 C487 001D 00487         301          XPRNT =CL29'-Next we test the MAX macro.',29                                    
+                                     302 *                                      Print a heading.                                  
+                                     303 *                                                                                        
+                                     304 * These first three calls to MAX have problems which should                              
+                                     305 * result in MNOTEs.                                                                      
+                                     306 *                                                                                        
+                                     307          MAX   BIG                                                                       
+ ----->AS***MNOTE***     1,MISSING ARGUMENTS                                                                      <-ERROR         
+ ----->AS***MNOTE***     1,PRARAMETER LIST EMPTY                                                                  <-ERROR         
+                                     310 *                                                                                        
+                                     311          MAX   BIG,()                                                                    
+ ----->AS***MNOTE***     1,PRARAMETER LIST EMPTY                                                                  <-ERROR         
+                                     313 *                                                                                        
+                                     314          MAX   ,(MABC,MDEF)                                                              
+ ----->AS***MNOTE***     1,MISSING ARGUMENTS                                                                      <-ERROR         
+ ----->AS***MNOTE***     1,PRARAMETER LIST EMPTY                                                                  <-ERROR         
+                                     317 *                                                                                        
+                                     318 * The next group of calls should all work.                                               
+                                     319 *                                                                                        
+ 0001F8 E020 C4A4 001B 004A4         320          XPRNT =CL27'0The list contains only -3.',27                                     
+                                     321          MAX   BIG,(MABC)                                                                
+ 0001FE 9089 C210            00210   322+         STM    8,9,Y0014                      SAVE REGISTERS                            
+ 000202 5880 C59C            0059C   323+         L      8,MABC                         LOAD FIRST ELEMENT                        
+ 000206 1898                         324+         LR     9,8                            LOAD FIRST ELEMENT                        
+ 000208 5090 C5AC            005AC   325+         ST     9,BIG                          SAVE FOUND RESULT                         
+ 00020C 47F0 C218            00218   326+         B      O0014                          GO TO END                                 
+ 000210                              327+Y0014    DS     2F                                                                       
+ 000218 9889 C210            00210   328+O0014    LM     8,9,Y0014                      RESTORE REGISTERS                         
+ 00021C 5850 C5AC            005AC   329          L     5,BIG                                                                     
+ 000220 4E50 C5B0            005B0   330          CVD   5,MTEMP                                                                   
+ 000224 D204 C5C9 C4BF 005C9 004BF   331          MVC   MOUT(5),=X'4020212060'                                                    
+ 00022A DE04 C5C9 C5B6 005C9 005B6   332          ED    MOUT(5),MTEMP+6                                                           
+ 000230 E020 C5B8 0016 005B8         333          XPRNT MLINE,22                                                                  
+                                     334 *                                                                                        
+ 000236 E020 C422 001D 00422         335          XPRNT =CL30'0The list contains -10 and -3.',29                                  
+                                     336          MAX   BIG,(MGHI,MABC)                                                           
+ 00023C 9089 C260            00260   337+         STM    8,9,Y0015                      SAVE REGISTERS                            
+ 000240 5880 C5A4            005A4   338+         L      8,MGHI                         LOAD FIRST ELEMENT                        
+ 000244 1898                         339+         LR     9,8                            LOAD FIRST ELEMENT                        
+ 000246 5880 C59C            0059C   340+         L      8,MABC                         LOAD NEXT ELEMENT                         
+ 00024A 1989                         341+         CR     8,9                            COMPARE NUMBERS                           
+ 00024C 4720 C254            00254   342+         BH     A20015                         GO TO SWAP                                
+ 000250 47F0 C256            00256   343+         B      B20015                         SKIP SWAP                                 
+ 000254 1898                         344+A20015           LR    9,8                     SET 9 TO MAX                              
+ 000256                              345+B20015           DS    0H                                                                
+ 000256 5090 C5AC            005AC   346+         ST     9,BIG                          SAVE FOUND RESULT                         
+ 00025A 47F0 C268            00268   347+         B      O0015                          GO TO END                                 
+ 000260                              348+Y0015    DS     2F                                                                       
+ 000268 9889 C260            00260   349+O0015    LM     8,9,Y0015                      RESTORE REGISTERS                         
+ 00026C 5850 C5AC            005AC   350          L     5,BIG                                                                     
+ 000270 4E50 C5B0            005B0   351          CVD   5,MTEMP                                                                   
+ 000274 D204 C5C9 C4BF 005C9 004BF   352          MVC   MOUT(5),=X'4020212060'                                                    
+ 00027A DE04 C5C9 C5B6 005C9 005B6   353          ED    MOUT(5),MTEMP+6                                                           
+ 000280 E020 C5B8 0016 005B8         354          XPRNT MLINE,22                                                                  
+                                     355 *                                                                                        
+1                                                                                                               PAGE    8         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+ 000286 E020 C4C4 0025 004C4         356          XPRNT =CL37'0The list contains -3, 7, -10 and 15.',37                           
+                                     357          MAX   BIG,(MABC,MDEF,MGHI,MJKL)                                                 
+ 00028C 9089 C2D0            002D0   358+         STM    8,9,Y0016                      SAVE REGISTERS                            
+ 000290 5880 C59C            0059C   359+         L      8,MABC                         LOAD FIRST ELEMENT                        
+ 000294 1898                         360+         LR     9,8                            LOAD FIRST ELEMENT                        
+ 000296 5880 C5A0            005A0   361+         L      8,MDEF                         LOAD NEXT ELEMENT                         
+ 00029A 1989                         362+         CR     8,9                            COMPARE NUMBERS                           
+ 00029C 4720 C2A4            002A4   363+         BH     A20016                         GO TO SWAP                                
+ 0002A0 47F0 C2A6            002A6   364+         B      B20016                         SKIP SWAP                                 
+ 0002A4 1898                         365+A20016           LR    9,8                     SET 9 TO MAX                              
+ 0002A6                              366+B20016           DS    0H                                                                
+ 0002A6 5880 C5A4            005A4   367+         L      8,MGHI                         LOAD NEXT ELEMENT                         
+ 0002AA 1989                         368+         CR     8,9                            COMPARE NUMBERS                           
+ 0002AC 4720 C2B4            002B4   369+         BH     A30016                         GO TO SWAP                                
+ 0002B0 47F0 C2B6            002B6   370+         B      B30016                         SKIP SWAP                                 
+ 0002B4 1898                         371+A30016           LR    9,8                     SET 9 TO MAX                              
+ 0002B6                              372+B30016           DS    0H                                                                
+ 0002B6 5880 C5A8            005A8   373+         L      8,MJKL                         LOAD NEXT ELEMENT                         
+ 0002BA 1989                         374+         CR     8,9                            COMPARE NUMBERS                           
+ 0002BC 4720 C2C4            002C4   375+         BH     A40016                         GO TO SWAP                                
+ 0002C0 47F0 C2C6            002C6   376+         B      B40016                         SKIP SWAP                                 
+ 0002C4 1898                         377+A40016           LR    9,8                     SET 9 TO MAX                              
+ 0002C6                              378+B40016           DS    0H                                                                
+ 0002C6 5090 C5AC            005AC   379+         ST     9,BIG                          SAVE FOUND RESULT                         
+ 0002CA 47F0 C2D8            002D8   380+         B      O0016                          GO TO END                                 
+ 0002D0                              381+Y0016    DS     2F                                                                       
+ 0002D8 9889 C2D0            002D0   382+O0016    LM     8,9,Y0016                      RESTORE REGISTERS                         
+ 0002DC 5850 C5AC            005AC   383          L     5,BIG                                                                     
+ 0002E0 4E50 C5B0            005B0   384          CVD   5,MTEMP                                                                   
+ 0002E4 D204 C5C9 C4BF 005C9 004BF   385          MVC   MOUT(5),=X'4020212060'                                                    
+ 0002EA DE04 C5C9 C5B6 005C9 005B6   386          ED    MOUT(5),MTEMP+6                                                           
+ 0002F0 E020 C5B8 0016 005B8         387          XPRNT MLINE,22                                                                  
+                                     388 *                                                                                        
+ 0002F6 E020 C3C4 001C 003C4         389          XPRNT =CL28'0The list contains 7 and 15.',28                                    
+ 0002FC 4180 C5A0            005A0   390          LA    8,MDEF                                                                    
+                                     391          MAX   BIG,(0(8),MJKL)                                                           
+ 000300 9089 C324            00324   392+         STM    8,9,Y0017                      SAVE REGISTERS                            
+ 000304 5888 0000            00000   393+         L      8,0(8)                         LOAD FIRST ELEMENT                        
+ 000308 1898                         394+         LR     9,8                            LOAD FIRST ELEMENT                        
+ 00030A 5880 C5A8            005A8   395+         L      8,MJKL                         LOAD NEXT ELEMENT                         
+ 00030E 1989                         396+         CR     8,9                            COMPARE NUMBERS                           
+ 000310 4720 C318            00318   397+         BH     A20017                         GO TO SWAP                                
+ 000314 47F0 C31A            0031A   398+         B      B20017                         SKIP SWAP                                 
+ 000318 1898                         399+A20017           LR    9,8                     SET 9 TO MAX                              
+ 00031A                              400+B20017           DS    0H                                                                
+ 00031A 5090 C5AC            005AC   401+         ST     9,BIG                          SAVE FOUND RESULT                         
+ 00031E 47F0 C32C            0032C   402+         B      O0017                          GO TO END                                 
+ 000324                              403+Y0017    DS     2F                                                                       
+ 00032C 9889 C324            00324   404+O0017    LM     8,9,Y0017                      RESTORE REGISTERS                         
+ 000330 5850 C5AC            005AC   405          L     5,BIG                                                                     
+ 000334 4E50 C5B0            005B0   406          CVD   5,MTEMP                                                                   
+ 000338 D204 C5C9 C4BF 005C9 004BF   407          MVC   MOUT(5),=X'4020212060'                                                    
+ 00033E DE04 C5C9 C5B6 005C9 005B6   408          ED    MOUT(5),MTEMP+6                                                           
+ 000344 E020 C5B8 0016 005B8         409          XPRNT MLINE,22                                                                  
+                                     410 *                                                                                        
+ 00034A E020 C440 0022 00440         411          XPRNT =CL34'0The list contains 44, -10 and 45.',34                              
+                                     412          MAX   BIG,(=F'44',MGHI,=F'45')                                                  
+1                                                                                                               PAGE    9         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+ 000350 9089 C384            00384   413+         STM    8,9,Y0018                      SAVE REGISTERS                            
+ 000354 5880 C3E0            003E0   414+         L      8,=F'44'                       LOAD FIRST ELEMENT                        
+ 000358 1898                         415+         LR     9,8                            LOAD FIRST ELEMENT                        
+ 00035A 5880 C5A4            005A4   416+         L      8,MGHI                         LOAD NEXT ELEMENT                         
+ 00035E 1989                         417+         CR     8,9                            COMPARE NUMBERS                           
+ 000360 4720 C368            00368   418+         BH     A20018                         GO TO SWAP                                
+ 000364 47F0 C36A            0036A   419+         B      B20018                         SKIP SWAP                                 
+ 000368 1898                         420+A20018           LR    9,8                     SET 9 TO MAX                              
+ 00036A                              421+B20018           DS    0H                                                                
+ 00036A 5880 C3E4            003E4   422+         L      8,=F'45'                       LOAD NEXT ELEMENT                         
+ 00036E 1989                         423+         CR     8,9                            COMPARE NUMBERS                           
+ 000370 4720 C378            00378   424+         BH     A30018                         GO TO SWAP                                
+ 000374 47F0 C37A            0037A   425+         B      B30018                         SKIP SWAP                                 
+ 000378 1898                         426+A30018           LR    9,8                     SET 9 TO MAX                              
+ 00037A                              427+B30018           DS    0H                                                                
+ 00037A 5090 C5AC            005AC   428+         ST     9,BIG                          SAVE FOUND RESULT                         
+ 00037E 47F0 C38C            0038C   429+         B      O0018                          GO TO END                                 
+ 000384                              430+Y0018    DS     2F                                                                       
+ 00038C 9889 C384            00384   431+O0018    LM     8,9,Y0018                      RESTORE REGISTERS                         
+ 000390 5850 C5AC            005AC   432          L     5,BIG                                                                     
+ 000394 4E50 C5B0            005B0   433          CVD   5,MTEMP                                                                   
+ 000398 D204 C5C9 C4BF 005C9 004BF   434          MVC   MOUT(5),=X'4020212060'                                                    
+ 00039E DE04 C5C9 C5B6 005C9 005B6   435          ED    MOUT(5),MTEMP+6                                                           
+ 0003A4 E020 C5B8 0016 005B8         436          XPRNT MLINE,22                                                                  
+                                     437 *                                                                                        
+                                     438 *  Standard exit linkage.                                                                
+                                     439 *                                                                                        
+ 0003AA 58DD 0004            00004   440          L     13,4(13)                Point register 13 at the calling                  
+                                     441 *                                      program's save area.                              
+ 0003AE 98EC D00C            0000C   442          LM    14,12,12(13)            Restore all registers.                            
+ 0003B2 07FE                         443          BR    14                      Return to the calling program.                    
+                                     444 *                                                                                        
+1                                                                                                               PAGE   10         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                                                                                                                  
+                                                                                                                                  
+                                     446 **********************************************************************                   
+                                     447 *          The storage section for DRIVER starts here.               *                   
+                                     448 **********************************************************************                   
+                                     449 *                                                                                        
+                                     450          LTORG                                                                           
+ 0003B8 C3F2C5F4C4F4C4F7             451                =CL12'C2E4D4D7E800'                                                       
+ 0003C4 F0E38885409389A2             452                =CL28'0The list contains 7 and 15.'                                       
+ 0003E0 0000002C                     453                =F'44'                                                                    
+ 0003E4 0000002D                     454                =F'45'                                                                    
+ 0003E8 F1D985A2A493A3A2             455                =CL26'1Results of testing macros'                                         
+ 000402 F0F0                         456                =CL2'00'                                                                  
+ 000404 C3F2C5F4C4F4C4F7             457                =CL10'C2E4D4D700'                                                         
+ 00040E C3F2C4F6C4F4C4F7             458                =CL10'C2D6D4D700'                                                         
+ 000418 C3F2C4F6C4F4C3F2             459                =CL10'C2D6D4C200'                                                         
+ 000422 F0E38885409389A2             460                =CL30'0The list contains -10 and -3.'                                     
+ 000440 F0E38885409389A2             461                =CL34'0The list contains 44, -10 and 45.'                                 
+ 000462 60C68999A2A340A6             462                =CL31'-First we test the STRCMP macro'                                    
+ 000481 C2D6D4C200                   463                =XL5'C2D6D4C200'                                                          
+ 000486 F0                           464                =C'0'                                                                     
+ 000487 60D585A7A340A685             465                =CL29'-Next we test the MAX macro.'                                       
+ 0004A4 F0E38885409389A2             466                =CL27'0The list contains only -3.'                                        
+ 0004BF 4020212060                   467                =X'4020212060'                                                            
+ 0004C4 F0E38885409389A2             468                =CL37'0The list contains -3, 7, -10 and 15.'                              
+ 0004EC FFFFFFFFFFFFFFFF             469 DRIVSAV  DC    18F'-1'                 Save area for linkage.                            
+                                     470 *                                                                                        
+ 000534 0000055E0000056E             471 SLIST    DC    A(SVALUE1,SVALUE2,SRESULT,SLINE)                                          
+                                     472 *                                                                                        
+                                     473 * Storage for testing STRCMP                                                             
+ 000544 00                           474 S1       DC    X'00'                                                                     
+ 000545 C2E4D4D700                   475 S2       DC    XL5'C2E4D4D700'         "BUMP"                                            
+ 00054A C2E4D4D7E800                 476 S3       DC    XL6'C2E4D4D7E800'       "BUMPY"                                           
+ 000550 C2D6D4D700                   477 S4       DC    XL5'C2D6D4D700'         "BOMP"                                            
+                                     478 *                                                                                        
+ 000555 F0                           479 SLINE    DC    C'0'                                                                      
+ 000556 C396949781998540             480          DC    CL8'Compare '                                                             
+ 00055E 4040404040404040             481 SVALUE1  DC    12C' '                                                                    
+ 00056A 40A39640                     482          DC    CL4' to '                                                                 
+ 00056E 4040404040404040             483 SVALUE2  DC    12C' '                                                                    
+ 00057A 4081958440A38885             484          DC    CL19' and the result is '                                                 
+ 00058D 4040404040404040             485 SRESULT  DC    12C' '                                                                    
+                                     486 *                                                                                        
+                                     487 * Storage for testing MAX                                                                
+ 00059C FFFFFFFD                     488 MABC     DC    F'-3'                                                                     
+ 0005A0 00000007                     489 MDEF     DC    F'7'                                                                      
+ 0005A4 FFFFFFF6                     490 MGHI     DC    F'-10'                                                                    
+ 0005A8 0000000F                     491 MJKL     DC    F'15'                                                                     
+ 0005AC                              492 BIG      DS    F                                                                         
+                                     493 *                                                                                        
+ 0005B0                              494 MTEMP    DS    D                                                                         
+                                     495 *                                                                                        
+ 0005B8 40                           496 MLINE    DC    C' '                                                                      
+ 0005B9 D381998785A2A340             497          DC    CL16'Largest value = '                                                    
+ 0005C9                              498 MOUT     DS    CL5                                                                       
+1                                                                                                               PAGE   11         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                                                                                                                  
+                                                                                                                                  
+                                     500 **********************************************************************                   
+                                     501 *                                                                                        
+                                     502 * SOUT is an internal subroutine to help print the results of STRCMP.                    
+                                     503 *                                                                                        
+                                     504 * Register 1 : address of the parameter list                                             
+                                     505 *          2 : address of SVALUE1, from 0(1)                                             
+                                     506 *          3 : address of SVALUE2, from 4(1)                                             
+                                     507 *          4 : address of SRESULT, from 8(1)                                             
+                                     508 *          5 : address of SLINE, from 12(1)                                              
+                                     509 *         11 : return address                                                            
+                                     510 *                                                                                        
+                                     511 **********************************************************************                   
+ 0005CE                              512 SOUT     DS    0H                                                                        
+ 0005CE 9025 C618            00618   513          STM   2,5,SSAVE               Save registers                                    
+ 0005D2 9825 1000            00000   514          LM    2,5,0(1)                Unload parameter list                             
+ 0005D6 4720 C5E8            005E8   515          BC    B'0010',GTHAN                                                             
+ 0005DA 4740 C5F2            005F2   516          BC    B'0100',LTHAN                                                             
+ 0005DE D20B 4000 C628 00000 00628   517 EQUAL    MVC   0(12,4),=CL12'EQUAL      '                                                
+ 0005E4 47F0 C5F8            005F8   518          B     SPRINT                                                                    
+ 0005E8 D20B 4000 C634 00000 00634   519 GTHAN    MVC   0(12,4),=CL12'GREATER THAN'                                               
+ 0005EE 47F0 C5F8            005F8   520          B     SPRINT                                                                    
+ 0005F2 D20B 4000 C640 00000 00640   521 LTHAN    MVC   0(12,4),=CL12'LESS THAN   '                                               
+ 0005F8 E025 0000 0044 00000         522 SPRINT   XPRNT 0(5),68                 Print the results                                 
+ 0005FE D20B 2000 C64C 00000 0064C   523          MVC   0(12,2),=12C' '         Reset the line                                    
+ 000604 D20B 3000 C64C 00000 0064C   524          MVC   0(12,3),=12C' '                                                           
+ 00060A D20B 4000 C64C 00000 0064C   525          MVC   0(12,4),=12C' '                                                           
+ 000610 9825 C618            00618   526          LM    2,5,SSAVE               Restore registers                                 
+ 000614 07FB                         527          BR    11                      Return to caller                                  
+ 000618                              528 SSAVE    DS    4F                                                                        
+1                                                                                                               PAGE   12         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                                                                                                                  
+                                                                                                                                  
+                                     530 *                                                                                        
+                                     531 **********************************************************************                   
+                                     532 *                 The DRIVER program ends here.                      *                   
+                                     533 **********************************************************************                   
+                                     534 *                                                                                        
+                                     535          END   DRIVER                  End of the overall program.                       
+ 000628 C5D8E4C1D3404040             536                =CL12'EQUAL      '                                                        
+ 000634 C7D9C5C1E3C5D940             537                =CL12'GREATER THAN'                                                       
+ 000640 D3C5E2E240E3C8C1             538                =CL12'LESS THAN   '                                                       
+ 00064C 4040404040404040             539                =12C' '                                                                   
+0***  NO   STATEMENTS FLAGGED -  NO   WARNINGS,  NO   ERRORS                                                                      
+0*** DYNAMIC CORE AREA USED:  LOW:   25976 HIGH:    2428 LEAVING:  465164 FREE BYTES. AVERAGE:       52 BYTES/STMT ***            
+0*** ASSEMBLY TIME =    0.005 SECS,   108000 STATEMENTS/SEC ***                                                                   
+0*** PROGRAM EXECUTION BEGINNING - ANY OUTPUT BEFORE EXECUTION TIME MESSAGE IS PRODUCED BY USER PROGRAM ***                       
+1Results of testing macros                                                                                                        
+-First we test the STRCMP macro                                                                                                   
+0Compare 00           to 00           and the result is EQUAL                                                                     
+0Compare 00           to C2E4D4D700   and the result is GREATER THAN                                                              
+0Compare C2E4D4D7E800 to C2E4D4D700   and the result is GREATER THAN                                                              
+0Compare C2E4D4D700   to C2D6D4D700   and the result is GREATER THAN                                                              
+0Compare C2D6D4C200   to C2D6D4D700   and the result is GREATER THAN                                                              
+0Compare C2E4D4D700   to 00           and the result is GREATER THAN                                                              
+0Compare C2E4D4D7E800 to C2E4D4D7E800 and the result is EQUAL                                                                     
+0                                                                                                                                 
+-Next we test the MAX macro.                                                                                                      
+0The list contains only -3.                                                                                                       
+ Largest value =    3-                                                                                                            
+0The list contains -10 and -3                                                                                                     
+ Largest value =    3-                                                                                                            
+0The list contains -3, 7, -10 and 15.                                                                                             
+ Largest value =   15                                                                                                             
+0The list contains 7 and 15.                                                                                                      
+ Largest value =   15                                                                                                             
+0The list contains 44, -10 and 45.                                                                                                
+ Largest value =   45                                                                                                             
+0*** EXECUTION TIME =    0.000 SECS.       243 INSTRUCTIONS EXECUTED -   243000 INSTRUCTIONS/SEC ***                              
+0*** FIRST CARD NOT READ: NO CARDS READ:FILE UNOPENED                                                                             
+0*** AM004 - NORMAL USER TERMINATION BY RETURN ***                                                                                

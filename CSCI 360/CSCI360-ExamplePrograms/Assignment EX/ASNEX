@@ -1,0 +1,156 @@
+//KC03OA0A JOB ,'Kevin White',MSGCLASS=H                                00010000
+//STEP1   EXEC PGM=ASSIST                                               00020000
+//STEPLIB   DD DSN=KC02293.ASSIST.LOADLIB,DISP=SHR                      00030000
+//SYSPRINT  DD SYSOUT=*                                                 00040000
+//SYSIN     DD *                                                        00050000
+************************************************************            00060000
+*                                                          *            00070000
+* PROGRAM:     ASNEX                                       *            00080033
+* PROGRAMMER:  Kevin White                                 *            00090000
+*                                                          *            00090132
+* FUNCTION: This program will encrypt each line of the     *            00090232
+*           given file and print out the original, the     *            00090332
+*           encrypted, and the decryped vesrion of the     *            00090432
+*           line. It will also print out the key that is   *            00090532
+*           used for encryption.                           *            00090632
+*                                                          *            00090732
+* INPUT:    The lines to be encrypted in the standard      *            00090832
+*           output.                                        *            00090932
+*                                                          *            00091032
+* OUTPUT:   The original line followed by the key used for *            00091132
+*           encryption, the encrypted line, and lastly the *            00091232
+*           decrypted line (should match original).        *            00091332
+*                                                          *            00091432
+* ENTRY CONDS: NONE                                        *            00091532
+*                                                          *            00091632
+* EXIT CONDS: NONE                                         *            00091732
+*                                                          *            00091932
+* REGISTER USAGE:                                          *            00092032
+*    2     Key for encrytion                               *            00093032
+*    3     Line counter                                    *            00094032
+*                                                          *            00095032
+* PSUEDOCODE:                                              *            00096033
+*    <1> Print page header                                 *            00097033
+*    <2> While not end of file                             *            00098033
+*          If 10 on page                                   *            00098133
+*            Start new page                                *            00098233
+*          Print original and key                          *            00099033
+*          Use key to encrypt line                         *            00099133
+*          Print out ecrypted line                         *            00099233
+*          Use key to decrypt line                         *            00099333
+*          Print out decrypted line                        *            00099433
+*                                                          *            00100000
+************************************************************            00110000
+MAIN     CSECT                                                          00120000
+         USING MAIN,15                                                  00130000
+*                                                                       00131002
+         MVC   HEADER+71(4),=X'40202120'                                00132023
+         ED    HEADER+71(4),PAGE       Puts page number in HEADER       00133033
+         XPRNT HEADER,75               Prints out HEADER                00134033
+         XPRNT HEADER2,75              Prints out HEADER2               00135033
+         SR    3,3                     Sets R3 to 0                     00135133
+*                                                                       00136006
+LOOP     XREAD BUFFER,80               Reads from file                  00137033
+         BC    B'0100',ENDLOOP         Branch to ENDLOOP if end of file 00138033
+         PACK  KEY(8),BUFFER(2)        Puts encryption key int KEY      00139033
+         MVI   CODE,C' '               Destructive overlap              00139233
+         MVC   CODE+1(59),CODE         On CODE                          00139333
+         MVC   CODE(60),BUFFER+3       Pulls line from file into CODE   00139433
+*                                                                       00139508
+         C     3,PERPAGE               Compare line counter to PERPAGE  00139633
+         BNE   NOTNEW                  If not equal branch to NOTNEW    00139733
+         SR    3,3                     Set R3 to 0                      00139833
+         AP    PAGE,=P'1'              Increase page count by 1         00139933
+         MVC   HEADER+71(4),=X'40202120'                                00140023
+         ED    HEADER+71(4),PAGE       Put page on HEADER               00140133
+         XPRNT HEADER,75               Print HEADER                     00140233
+         XPRNT HEADER2,75              Print HEADER2                    00140333
+NOTNEW   A     3,=F'1'                 Increment line counter           00140433
+*                                                                       00140506
+         MVI   OUTORG+11,C' '          Destructive overlap              00140633
+         MVC   OUTORG+12(61),OUTORG+11 On OUTORG                        00140733
+         MVC   OUTORG+13(60),CODE      Put CODE in OUTORG               00140833
+         XPRNT OUTORG,74               Print out OUTORG                 00140933
+*                                                                       00141013
+         MVI   OUTKEY+11,C' '          Destructive overlap              00141133
+         MVC   OUTKEY+12(61),OUTKEY+11 On OUTKEY                        00141233
+         MVC   OUTKEY+11(4),=X'40212020'                                00141318
+         ED    OUTKEY+11(4),KEY+6      Put KEY in OUTKEY                00141433
+         XPRNT OUTKEY,74               Print out OUTKEY                 00141533
+*                                                                       00141624
+         CVB   2,KEY                   Convert KEY to binary            00141733
+         C     2,=F'0'                 Compare KEY to 0                 00141833
+         BE    ENDENC                  If KEY is 0 branch to ENDENC     00141933
+ENCODE   TR    CODE(60),TRANTAB        Use TRANTAB to shift characters  00142033
+         BCT   2,ENCODE                Sub 1 from R2 if not 0 branch    00142133
+ENDENC   MVI   OUTENC+11,C' '          Destructive overlap              00142233
+         MVC   OUTENC+12(61),OUTENC+11 On OUTENC                        00142333
+         MVC   OUTENC+13(60),CODE      Put CODE(encrypted) in OUTENC    00142433
+         XPRNT OUTENC,74               Print OUTENC                     00142533
+*                                                                       00142627
+         ZAP   DEKEY,=P'26'            Set DEKEY to 26                  00142733
+         SP    DEKEY(8),KEY(8)         Subtract KEY from DEKEY          00142833
+         CVB   2,DEKEY                 Convert DEKEY to binary          00142933
+         C     2,=F'0'                 Compare DEKEY to 0               00143033
+         BE    ENDDEC                  If 0 branch to ENDDEC            00143133
+DECODE   TR    CODE(60),TRANTAB        Use TRANTAB to shift characters  00143233
+         BCT   2,DECODE                Sub 1 from R2 if not 0 branch    00143333
+ENDDEC   MVI   OUTDEC+11,C' '          Destructive overlap              00143433
+         MVC   OUTDEC+12(61),OUTDEC+11 on OUTDEC                        00143533
+         MVC   OUTDEC+13(60),CODE      Put CODE(decrypted) in OUTDEC    00143633
+         XPRNT OUTDEC,74               Print OUTDEC                     00143733
+*                                                                       00143806
+         B     LOOP                    Return to start of loop          00143933
+*                                                                       00144000
+ENDLOOP  BR    14                                                       00150006
+*                                                                       00150102
+         LTORG                                                          00150202
+PERPAGE  DC    F'9'                    Set number of lines per page     00150334
+PAGE     DC    PL2'1'                  Set initial page count to 1      00151033
+OUTORG   DC    C'0'                    Double space carriage control    00151133
+         DC    CL73'Original: '                                         00151223
+OUTKEY   DC    C' '                    Single space carriage control    00151333
+         DC    CL73'Key:      '                                         00151423
+OUTENC   DC    C' '                    Single space carriage control    00151533
+         DC    CL73'Encoded:  '                                         00151623
+OUTDEC   DC    C' '                    Single space carriage control    00151733
+         DC    CL73'Decoded:  '                                         00151823
+BUFFER   DS    80C                     Allocate 80C for BUFFER          00151933
+CODE     DS    60C                     Allocate 60C for CODE            00152033
+KEY      DS    D                       Allocate D for KEY               00152333
+DEKEY    DS    D                       Allocate D for DEKEY             00152433
+HEADER   DC    C'1'                    New page carriage control        00152533
+         DC    CL74' '                 Allocate CL74 for HEADER         00153033
+         ORG   HEADER+29                                                00154002
+         DC    CL15'Coding Practice'                                    00155002
+         ORG   HEADER+67                                                00156023
+         DC    CL4'Page'                                                00157002
+         ORG                                                            00157102
+HEADER2  DC    C' '                    Single space carriage control    00158033
+         DC    CL74' '                 Allocate CL74 for HEADER2        00159033
+         ORG   HEADER2+31                                               00159102
+         DC    CL11'Kevin White'                                        00159202
+         ORG                                                            00159335
+TRANTAB  DC    256X'00'                Allocate 256X for TRANTAB        00160033
+         ORG   TRANTAB+C' '                                             00170000
+         DC    X'40'                   Set space to 40                  00180033
+         ORG   TRANTAB+C'.'                                             00190000
+         DC    X'4B4C4D4E4F50'         Keep symbols in place            00200033
+         ORG   TRANTAB+C'!'                                             00210000
+         DC    X'5A5B5C5D5E5F6061'     Keep symbols in place            00220033
+         ORG   TRANTAB+C','                                             00230000
+         DC    X'6B6C6D6E6F'           Keep symbols in place            00240033
+         ORG   TRANTAB+C':'                                             00250000
+         DC    X'7A7B7C7D7E7F'         Keep symbols in place            00260033
+         ORG   TRANTAB+C'A'                                             00270000
+         DC    X'C2C3C4C5C6C7C8C9D1'   Shift A-I right by one           00280033
+         ORG   TRANTAB+C'J'                                             00290000
+         DC    X'D2D3D4D5D6D7D8D9E2'   Shift J-R right by one           00300033
+         ORG   TRANTAB+C'S'                                             00310000
+         DC    X'E3E4E5E6E7E8E9C1'     Shift S-Z right by one           00320033
+         ORG                                                            00330000
+*                                                                       00340001
+         END   MAIN                                                     00350001
+/*                                                                      00360001
+//FT05F001  DD DSN=KC02314.SUMMER17.CSCI360.HWEXDATA,DISP=SHR           00370001
+//                                                                      00380001

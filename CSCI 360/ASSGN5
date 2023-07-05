@@ -1,0 +1,379 @@
+1                    J E S 2  J O B  L O G  --  S Y S T E M  S 0 W 1  --  N O D E  Z O S K C T R         
+0 
+ 15.30.01 JOB03888 ---- TUESDAY,   24 OCT 2017 ----
+ 15.30.01 JOB03888  IRR010I  USERID KC03KA9  IS ASSIGNED TO THIS JOB.
+ 15.30.01 JOB03888  ICH70001I KC03KA9  LAST ACCESS AT 15:29:55 ON TUESDAY, OCTOBER 24, 2017
+ 15.30.01 JOB03888  $HASP373 KC03KA9K STARTED - INIT 3    - CLASS A        - SYS S0W1
+ 15.30.01 JOB03888  -                                         --TIMINGS (MINS.)--            ----PAGING COUNTS---
+ 15.30.01 JOB03888  -JOBNAME  STEPNAME PROCSTEP    RC   EXCP    TCB    SRB  CLOCK   SERV  PG   PAGE   SWAP    VIO SWAPS
+ 15.30.01 JOB03888  -KC03KA9K                      00     81 ******    .00     .0    254   0      0      0      0     0
+ 15.30.01 JOB03888  -KC03KA9K ENDED.  NAME-MASON GREIG          TOTAL TCB CPU TIME=   .00  TOTAL ELAPSED TIME=    .0
+ 15.30.01 JOB03888  $HASP395 KC03KA9K ENDED
+0------ JES2 JOB STATISTICS ------
+-  24 OCT 2017 JOB EXECUTION DATE
+-          289 CARDS READ
+-          379 SYSOUT PRINT RECORDS
+-            0 SYSOUT PUNCH RECORDS
+-           42 SYSOUT SPOOL KBYTES
+-         0.00 MINUTES EXECUTION TIME
+         1 //KC03KA9K JOB ,'MASON GREIG',MSGCLASS=H                                JOB03888
+         2 //STEP1 EXEC PGM=ASSIST                                                 00061119
+         3 //STEPLIB DD DSN=KC02293.ASSIST.LOADLIB,DISP=SHR                        00061220
+         4 //SYSPRINT DD SYSOUT=*                                                  00061319
+         5 //SYSIN DD *                                                            00061419
+         6 //FT05F001 DD DSN=KC02314.AUTUMN17.CSCI360.HW5DATA,DISP=SHR             00227057
+ ICH70001I KC03KA9  LAST ACCESS AT 15:29:55 ON TUESDAY, OCTOBER 24, 2017
+ IEF236I ALLOC. FOR KC03KA9K STEP1
+ IGD103I SMS ALLOCATED TO DDNAME STEPLIB
+ IEF237I JES2 ALLOCATED TO SYSPRINT
+ IEF237I JES2 ALLOCATED TO SYSIN
+ IGD103I SMS ALLOCATED TO DDNAME FT05F001
+ IEF142I KC03KA9K STEP1 - STEP WAS EXECUTED - COND CODE 0000
+ IGD104I KC02293.ASSIST.LOADLIB                       RETAINED,  DDNAME=STEPLIB 
+ IEF285I   KC03KA9.KC03KA9K.JOB03888.D0000102.?         SYSOUT        
+ IEF285I   KC03KA9.KC03KA9K.JOB03888.D0000101.?         SYSIN         
+ IGD104I KC02314.AUTUMN17.CSCI360.HW5DATA             RETAINED,  DDNAME=FT05F001
+ IEF373I STEP/STEP1   /START 2017297.1530
+ IEF032I STEP/STEP1   /STOP  2017297.1530 
+         CPU:     0 HR  00 MIN  00.01 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+         VIRT:   584K  SYS:   268K  EXT:        4K  SYS:    11428K
+         ATB- REAL:                     0K  SLOTS:                     0K
+              VIRT- ALLOC:       0M SHRD:       0M
+ IEF375I  JOB/KC03KA9K/START 2017297.1530
+ IEF033I  JOB/KC03KA9K/STOP  2017297.1530 
+         CPU:     0 HR  00 MIN  00.01 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+1*** ASSIST 4.0/A2-05/15/82  470/V7A/0:OS/VS2  INS=SDFP7/X=BGHO, CHECK/TRC/=1180, OPTS=CDKMPR FROM PENN ST*NIU COMPSCI*LT         
+0                                                                                                                                 
+0                                                                                                               PAGE    1         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                       1 *****************************************************                   00062019         
+                                       2 *                                                                       00070001         
+                                       3 * ASSIGNMENT 5                                                          00080001         
+                                       4 *                                                                       00090001         
+                                       5 * NAME: MASON GREIG                                                     00100001         
+                                       6 *                                                                       00110001         
+                                       7 * FUNCTION: THIS PROGRAM USES EXTERNAL SUBROUTINES                      00120004         
+                                       8 *           TO BUILD, SEARCH, AND PRINT OUT A TABLE                     00130004         
+                                       9 *           OF NUMBERS. THIS PROGRAM WILL ALSO PRINT OUT                00140004         
+                                      10 *           THE SEARCH SUMMARY TABLE.                                   00150004         
+                                      11 *                                                                       00151004         
+                                      12 * INPUT:  THE INPUT IS A DATA FILE SUPPLIED BY THE PROFESSOR.           00160004         
+                                      13 *                                                                       00170001         
+                                      14 * REGISTER USAGE                                                        00171004         
+                                      15 *                                                                       00171104         
+                                      16 * 13 MAINSAVE REGISTER                                                  00171204         
+                                      17 * 12 MAIN BASE REGISTER                                                 00172004         
+                                      18 *  1 PARAMETER LIST                                                     00173004         
+                                      19 * 14 EXIT PROGRAM                                                       00174004         
+                                      20 * 14 RETURN REGISTER                                                    00175004         
+                                      21 * 10 FILE DATA                                                          00176055         
+                                      22 *  7 SEARCH CHECK                                                       00177004         
+                                      23 *                                                                       00178004         
+                                      24 *****************************************************                   00180001         
+                                      25 *                                                                       00181004         
+ 000000                               26 MAIN     CSECT                                                          00190001         
+ 000000 90EC D00C            0000C    27          STM   14,12,12(13)             SAVES REGISTERS                 00200115         
+ 000004 18CF                          28          LR    12,15                    SETS REG 12 AS BASE REG         00200215         
+ 000000                               29          USING MAIN,12                                                  00200304         
+ 000006 41E0 C124            00124    30          LA    14,MAINSAVE              STORE MAINSAVE ADDRESS IN 12    00200415         
+ 00000A 50D0 E004            00004    31          ST    13,4(0,14)               SAVE FORWARD POINTER            00200515         
+ 00000E 50E0 D008            00008    32          ST    14,8(0,13)                   SAVE BACKWARD POINTER       00200615         
+ 000012 18DE                          33          LR    13,14                        POINTER TO MAINSAVE         00200715         
+                                      34 *                                                                       00200804         
+ 000014 E020 C274 0031 00274          35          XPRNT HEADER,49                    PRINTS HEADER               00200942         
+ 00001A E020 C2A5 0001 002A5          36          XPRNT HEADSPCE,1                   PRINTS FORMATTING LINE      00201015         
+ 000020 4110 C250            00250    37          LA    1,BUILDPAR                   SAVE PARAMETERS             00201115         
+ 000024 58F0 C0A0            000A0    38          L     15,=V(BUILD)                 LOAD A VIRTUAL ADDRESS OF   00201221         
+ 000028 05EF                          39          BALR  14,15                        ROUTINE AND BRANCH TO IT    00201315         
+                                      40 *                                                                       00201404         
+ 00002A 4110 C25C            0025C    41          LA    1,PRNTPAR                    SAVE PARAMETERS             00201592         
+ 00002E 58F0 C0A4            000A4    42          L     15,=V(PRINT)                 LOAD A VIRTUAL ADDRESS OF   00201692         
+ 000032 05EF                          43          BALR  14,15                        ROUTINE AND BRANCH TO IT    00201792         
+                                      44 *                                                                       00201804         
+ 000034 E020 C2C7 0001 002C7          45          XPRNT SPCE,1                       PRINTS FORMATTING SPACE     00201999         
+ 00003A E020 C2A6 0021 002A6          46          XPRNT RESULTS,33                   PRINTS A RESULTS HEADER     00202025         
+ 000040 E020 C2C7 0001 002C7          47          XPRNT SPCE,1                       PRINTS FORMATTING SPACE     00202115         
+ 000046 9240 C2DF      002DF          48 LNELOOP  MVI   SRESULT+23,C' '              DESTRUCTIVE OVERLAP         00202263         
+ 00004A D20D C2E0 C2DF 002E0 002DF    49          MVC   SRESULT+24(14),SRESULT+23                                00202363         
+ 000050 E000 C0C8 0050 000C8          50          XREAD BUFFER,80                    READS FROM INPUT FILE       00202415         
+ 000056 4740 C096            00096    51          BC    B'0100',ENDLINE              IF AT EOF GO TO ENDLINE     00202521         
+ 00005A 5390 C0C8            000C8    52          XDECI 9,BUFFER                     STORE BUFFER VALUE IN 9     00202615         
+1                                                                                                               PAGE    2         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+ 00005E 5090 C11C            0011C    53          ST    9,TARGET                     STORE 9 VALUE IN TARGET     00202715         
+ 000062 4110 C264            00264    54          LA    1,SEARCHP                    SAVE THE SEARCH PARAMETERS  00202821         
+ 000066 58F0 C0A8            000A8    55          L     15,=V(SEARCH)                LOAD A VIRTUAL ADDRESS OF   00202921         
+ 00006A 05EF                          56          BALR  14,15                        ROUTINE AND BRANCH TO IT    00203015         
+ 00006C 58A0 C120            00120    57          L     10,FOUND                     STORE FOUND CC INTO 10      00203171         
+ 000070 5290 C2D3            002D3    58          XDECO 9,NUMFND                     PUT VALUE IN 9 INTO NUMFND  00203253         
+ 000074 59A0 C0AC            000AC    59          C     10,=F'0'                     COMPARE CC TO 0             00203371         
+ 000078 4780 C086            00086    60          BC    B'1000',NOTFND               IF EQUAL GO TO NOTFOUND     00203453         
+ 00007C D209 C2DF C0B0 002DF 000B0    61          MVC   SRESULT+23(10),=C' WAS FOUND'  DESTRUCTIVE OVERLAP       00203565         
+ 000082 47F0 C08C            0008C    62          BC    B'1111',ENDRSLT                GO TO ENDSLINE            00203622         
+                                      63 *                                                                       00203704         
+ 000086 D20D C2DF C0BA 002DF 000BA    64 NOTFND   MVC   SRESULT+23(14),=C' WAS NOT FOUND'  DESTRUCTVE OVRLAP     00203865         
+ 00008C E020 C2C8 0025 002C8          65 ENDRSLT  XPRNT SRESULT,37                       PRINT THE RESULT        00203938         
+ 000092 47F0 C046            00046    66          BC    B'1111',LNELOOP                  GO TO THE TOP OF LOOP   00204015         
+ 000096 58D0 D004            00004    67 ENDLINE  L     13,4(0,13)                       STANDARD EXIT LINKAGE   00204115         
+ 00009A 98EC D00C            0000C    68          LM    14,12,12(13)                                             00204204         
+ 00009E 07FE                          69          BR    14                            EXIT PROGRAM               00204399         
+                                      70          LTORG                                                          00204422         
+ 0000A0 000002F0                      71                =V(BUILD)                                                                 
+ 0000A4 000003D0                      72                =V(PRINT)                                                                 
+ 0000A8 000004F0                      73                =V(SEARCH)                                                                
+ 0000AC 00000000                      74                =F'0'                                                                     
+ 0000B0 40E6C1E240C6D6E4              75                =C' WAS FOUND'                                                            
+ 0000BA 40E6C1E240D5D6E3              76                =C' WAS NOT FOUND'                                                        
+ 0000C8                               77 BUFFER   DS    80C                           INPUT BUFFER               00204599         
+ 000118 5C                            78          DC    C'*'                          EOF CHECKER                00204699         
+ 00011C                               79 TARGET   DS    F                             TABLE OF NUMBERS           00204799         
+ 000120                               80 FOUND    DS    F                             FOUND CONDITION CODE       00204899         
+ 000124                               81 MAINSAVE DS    18F                           MAIN PROGRAM SAVE LOC      00204999         
+ 00016C FFFFFFFFFFFFFFFF              82 TABLE    DC    56F'-1'                       END OF TABLE               00205099         
+ 00024C                               83 EOT      DS    F                                                        00205104         
+                                      84 *                                                                       00205204         
+ 000250 0000016C                      85 BUILDPAR DC    A(TABLE)                      EXTERNAL SUBROUTINE        00205399         
+ 000254 0000024C                      86          DC    A(EOT)                        PARAMETERS                 00205499         
+ 000258 000000C8                      87          DC    A(BUFFER)                                                00205504         
+ 00025C 0000016C                      88 PRNTPAR  DC    A(TABLE)                                                 00205604         
+ 000260 0000024C                      89          DC    A(EOT)                                                   00205704         
+ 000264 0000016C                      90 SEARCHP  DC    A(TABLE)                                                 00205804         
+ 000268 0000024C                      91          DC    A(EOT)                                                   00205904         
+ 00026C 0000011C                      92          DC    A(TARGET)                                                00206004         
+ 000270 00000120                      93          DC    A(FOUND)                                                 00206104         
+                                      94 *                                                                       00206204         
+ 000274 F1                            95 HEADER   DC    C'1'                          TITLE OF TABLE             00206399         
+ 000275 4040404040404040              96          DC    CL34' '                                                  00206438         
+ 000297 E3C1C2D3C540C3D6              97          DC    C'TABLE CONTENTS'                                        00206529         
+ 0002A5 F0                            98 HEADSPCE DC    C'0'                                                     00206604         
+                                      99 *                                                                       00206704         
+ 0002A6 60                           100 RESULTS  DC    C'-'                                                     00206804         
+ 0002A7 60D9C5E2E4D3E3E2             101          DC    C'-RESULTS OF SEARCHING THE TABLE-'  TITLE OF SEARCH LNE 00206999         
+ 0002C7 F0                           102 SPCE     DC    C'0'                           FORMATTING SPACE          00207099         
+ 0002C8 60                           103 SRESULT  DC    C'-'                           SEARCH RESULTS LINE       00207199         
+ 0002C9 60E3C1D9C7C5E340             104          DC    C'-TARGET = '                                            00207326         
+ 0002D3                              105 NUMFND   DS    12C                                                      00207523         
+ 0002DF                              106          DS    14C                                                      00207638         
+                                     107 *                                                                       00207704         
+                                     108 **********************************************                          00207804         
+                                     109 *                                                                       00207904         
+1                                                                                                               PAGE    3         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                     110 * BUILD                                                                 00208004         
+                                     111 *                                                                       00208104         
+                                     112 * FUNCTION: THIS METHOD BUILDS THE TABLE OUT OF                         00208204         
+                                     113 *           DATA WHICH IS READ IN FROM THE INPUT FILE                   00208304         
+                                     114 *                                                                       00208404         
+                                     115 * OUTPUT: N/A                                                           00208504         
+                                     116 *                                                                       00208604         
+                                     117 * REGISTER USAGE                                                        00208704         
+                                     118 *                                                                       00208804         
+                                     119 *  4    INPUT VALUE                                                     00208904         
+                                     120 *  5    EOF NUMBER TO CHECK                                             00209004         
+                                     121 *  7    TABLE                                                           00209104         
+                                     122 *  8    EOT                                                             00209204         
+                                     123 *  9    INPUT BUFFER                                                    00209304         
+                                     124 * 10    COUNTER                                                         00209460         
+                                     125 **********************************************                          00209504         
+                                     126 *                                                                       00209604         
+ 0002F0                              127 BUILD    CSECT                         BEGINNING OF BUILD SUBROUTINE    00209799         
+ 0002F0 90EC D00C            0000C   128          STM   14,12,12(13)                                             00209804         
+ 0002F4 18CF                         129          LR    12,15                                                    00209904         
+ 0002F0                              130          USING BUILD,12                STANDARD ENTRY LINAGE            00210099         
+ 0002F6 41E0 C094            00384   131          LA    14,BUILDSVE                                              00210104         
+ 0002FA 50D0 E004            00004   132          ST    13,4(0,14)                                               00210204         
+ 0002FE 50E0 D008            00008   133          ST    14,8(0,13)                                               00210304         
+ 000302 18DE                         134          LR    13,14                                                    00210404         
+ 000304 1BAA                         135          SR    10,10                                                    00210538         
+                                     136 *                                                                       00210604         
+ 000306 9879 1000            00000   137          LM    7,9,0(1)               LOAD PARAMETERS                   00210799         
+ 00030A 5850 C088            00378   138          L     5,=F'-77777777'        SET EOF MARKER                    00210899         
+ 00030E E000 9000 0050 00000         139 BLDLOOP  XREAD 0(0,9),80              READ INPUT FILE FROM SOURCE       00210999         
+ 000314 4740 C078            00368   140          BC    B'0100',ENDBLD         IF AT EOF GO TO ENDBLD            00211099         
+ 000318 59A0 C08C            0037C   141          C     10,=F'56'              TABLE STORAGE CHECK               00211199         
+ 00031C 4780 C078            00368   142          BC    B'1000',ENDBLD         IS STORAGE FULL GO TO ENDBLD      00211299         
+ 000320 5340 9000            00000   143          XDECI 4,0(0,9)               READIN NEXT NUMBER FROM INPUT     00211399         
+ 000324 4710 C01E            0030E   144          BC    B'0001',BLDLOOP        IF ERROR GO TO BLDLOOP            00211499         
+ 000328 1954                         145          CR    5,4                    COMPARE INPUT VALUE TO EOF MARKER 00211599         
+ 00032A 4780 C078            00368   146          BC    B'1000',ENDBLD         IF EQUAL GO TO ENDBLD             00211699         
+ 00032E 59A0 C08C            0037C   147          C     10,=F'56'              CHECK TABLE STORAGE               00211799         
+ 000332 4780 C078            00368   148          BC    B'1000',ENDBLD         IF THE TABLE IS FULL GO TO ENDBLD 00211899         
+ 000336 5040 7000            00000   149          ST    4,0(0,7)               STORE VALUE IN 4 AT ADDRESS OF 7  00211999         
+ 00033A 5AA0 C090            00380   150          A     10,=F'1'               INCREMENT STORAGE TRACKER         00212099         
+ 00033E 4170 7004            00004   151          LA    7,4(0,7)               POINT TO THE NEXT AVAILABLE SPACE 00212199         
+ 000342 5340 1000            00000   152 BLDLOOP2 XDECI 4,0(0,1)               READ IN NEXT VALUE FROM INPUT     00212299         
+ 000346 4710 C01E            0030E   153          BC    B'0001',BLDLOOP        IF ERROR GO TO BLDLOOP            00212399         
+ 00034A 1954                         154          CR    5,4                    COMPARE VALUE TO STORAGE MARKER   00212499         
+ 00034C 4780 C078            00368   155          BC    B'1000',ENDBLD         IF EQUAL GO TO ENDBLD             00212599         
+ 000350 59A0 C08C            0037C   156          C     10,=F'56'              CHECK TABLE STORAGE MARKER        00212699         
+ 000354 4780 C078            00368   157          BC    B'1000',ENDBLD         IF EQUAL GO TO ENDBLD             00212799         
+ 000358 5040 7000            00000   158          ST    4,0(0,7)               STORE VALUE IN 4 AT ADDRESS OF 7  00212899         
+ 00035C 5AA0 C090            00380   159          A     10,=F'1'               INCREMENT STORAGE MARKER          00212999         
+ 000360 4170 7004            00004   160          LA    7,4(0,7)               POINT AT NEXT AVAILABLE SPACE     00213099         
+ 000364 47F0 C052            00342   161          BC    B'1111',BLDLOOP2       GO TO BLDLOOP2                    00213199         
+                                     162 *                                                                       00213204         
+ 000368 5070 8000            00000   163 ENDBLD   ST    7,0(0,8)               SET END OF TABLE                  00213399         
+ 00036C 58D0 D004            00004   164          L     13,4(0,13)             STANDARD EXIT LINKAGE             00213499         
+ 000370 98EC D00C            0000C   165          LM    14,12,12(13)                                             00213504         
+ 000374 07FE                         166          BR    14                                                       00213604         
+1                                                                                                               PAGE    4         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                     167          LTORG                                                          00213704         
+ 000378 FB5D348F                     168                =F'-77777777'                                                             
+ 00037C 00000038                     169                =F'56'                                                                    
+ 000380 00000001                     170                =F'1'                                                                     
+ 000384                              171 BUILDSVE DS    18F                    SAVE SPACE                        00213899         
+                                     172 *                                                                       00213904         
+                                     173 **********************************************                          00214004         
+                                     174 *                                                                       00214104         
+                                     175 * PRINT                                                                 00214204         
+                                     176 *                                                                       00214304         
+                                     177 * FUNCTION: THIS METHOD PRINTS OUT THE TABLE                            00214404         
+                                     178 *           WHICH CONTAINS THE DATA. THIS TABLE                         00214504         
+                                     179 *           IS DOUBLE SPACE AND CONTAINS 7 NUMBERS                      00214604         
+                                     180 *           PER LINE.                                                   00214704         
+                                     181 *                                                                       00214804         
+                                     182 * INPUT: THE TABLE WHICH WAS BUILT FROM INPUT FILE VALUES               00214904         
+                                     183 *                                                                       00215004         
+                                     184 * OUTPUT: A FORMATTED TABLE WHICH DISPLAYS THE                          00215104         
+                                     185 *         DATA 7 NUMBERS PER LINE.                                      00215204         
+                                     186 *                                                                       00215304         
+                                     187 * REGISTER USAGE                                                        00215404         
+                                     188 *                                                                       00215546         
+                                     189 *  6    TABLE VALUE                                                     00215646         
+                                     190 *  7    TABLE                                                           00215746         
+                                     191 *  8    EOT                                                             00215846         
+                                     192 *  9    ADDRESS OF PRINT LINE                                           00215998         
+                                     193 * 10    LINE VALUE COUNTER                                              00216073         
+                                     194 *                                                                       00216146         
+                                     195 **********************************************                          00216204         
+                                     196 *                                                                       00216304         
+ 0003D0                              197 PRINT    CSECT                                                          00216404         
+ 0003D0 90EC D00C            0000C   198          STM   14,12,12(13)           STANDARD ENTRY LINKAGE            00216699         
+ 0003D4 18CF                         199          LR    12,15                                                    00216704         
+ 0003D0                              200          USING PRINT,12                                                 00216804         
+ 0003D6 41E0 C080            00450   201          LA    14,PRNTSVE                                               00216904         
+ 0003DA 50D0 E004            00004   202          ST    13,4(0,14)                                               00217004         
+ 0003DE 50E0 D008            00008   203          ST    14,8(0,13)                                               00217104         
+ 0003E2 18DE                         204          LR    13,14                                                    00217204         
+ 0003E4 9878 1000            00000   205          LM    7,8,0(1)               LOAD PARAMETERS                   00217399         
+                                     206 *                                                                       00217404         
+ 0003E8 5970 8000            00000   207 PRNTLOOP C     7,0(0,8)               COMPARE PLACE IN TABLE TO EOT     00217699         
+ 0003EC 4780 C066            00436   208          BC    B'1000',ENDPRNT        IF EQUAL GO TO ENDPRNT            00217799         
+ 0003F0 9240 C0C8      00498         209          MVI   PRNTLINE,C' '          DESTRUCTIVE OVERLAP               00217899         
+ 0003F4 D253 C0C9 C0C8 00499 00498   210          MVC   PRNTLINE+1(84),PRNTLINE                                  00217995         
+ 0003FA 4190 C0C8            00498   211          LA    9,PRNTLINE             STORE ADDRESS OF PRNTLINE INTO 9  00218099         
+ 0003FE 4190 9001            00001   212          LA    9,1(0,9)               SKIP CCC                          00218199         
+ 000402 1BAA                         213          SR    10,10                  ZERO OUT PLACE CHECKER            00218299         
+                                     214 *                                                                       00218304         
+ 000404 5970 8000            00000   215 PLOOP2   C     7,0(0,8)               COMPARE PLACE IN TABLE TO EOT     00218499         
+ 000408 4780 C05C            0042C   216          BC    B'1000',ENDP2          IF EQUAL GO TO ENDPRNT2           00218599         
+ 00040C 59A0 C078            00448   217          C     10,=F'7'               COMPARE VALUE IN 10 TO '7'        00218699         
+ 000410 4780 C05C            0042C   218          BC    B'1000',ENDP2          IF EQUAL GO TO ENDPRNT2           00218799         
+ 000414 5860 7000            00000   219          L     6,0(0,7)               PUT TABLE VALUE INTO 6            00218899         
+ 000418 5260 9000            00000   220          XDECO 6,0(0,9)               PLACE VALUE ON PRINT LINE         00218999         
+ 00041C 4190 900C            0000C   221          LA    9,12(0,9)              GO TO NEXT PLACE IN PRINT LINE    00219199         
+ 000420 5AA0 C07C            0044C   222          A     10,=F'1'               INCREMENT PLACE COUNT             00219299         
+ 000424 4170 7004            00004   223          LA    7,4(0,7)               GO TO NEXT VALUE IN TABLE         00219399         
+1                                                                                                               PAGE    5         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+ 000428 47F0 C034            00404   224          BC    B'1111',PLOOP2         GO TO PLOOP2                      00219499         
+                                     225 *                                                                       00219504         
+ 00042C E020 C0C8 0055 00498         226 ENDP2    XPRNT PRNTLINE,85            PRINT THE PRNTLINE                00219699         
+ 000432 47F0 C018            003E8   227          BC    B'1111',PRNTLOOP       GO TO PRNTLOOP                    00219799         
+ 000436 5070 8000            00000   228 ENDPRNT  ST    7,0(0,8)               SET EOT                           00219899         
+ 00043A 58D0 D004            00004   229          L     13,4(0,13)             STANDARD EXIT LINKAGE             00219999         
+ 00043E 98EC D00C            0000C   230          LM    14,12,12(13)                                             00220004         
+ 000442 07FE                         231          BR    14                     EXIT PROGRAM                      00220199         
+                                     232          LTORG                                                          00220204         
+ 000448 00000007                     233                =F'7'                                                                     
+ 00044C 00000001                     234                =F'1'                                                                     
+                                     235 *                                                                       00220304         
+ 000450                              236 PRNTSVE  DS    18F                   SAVE SPACE                         00220499         
+ 000498 40                           237 PRNTLINE DC    C' '                  PRINT LINE                         00220599         
+ 000499                              238          DS    84C                                                      00220699         
+                                     239 *                                                                       00220804         
+                                     240 ************************************************                        00220904         
+                                     241 *                                                                       00221004         
+                                     242 * SEARCH                                                                00221104         
+                                     243 *                                                                       00221204         
+                                     244 *  FUNCTION: THIS METHOD SEARCHES THE TABLE FOR                         00221304         
+                                     245 *            A VALUE THAT IS PASSED IN BY THE CALLING                   00221404         
+                                     246 *            PROGRAM.                                                   00221504         
+                                     247 *                                                                       00221604         
+                                     248 *  INTPUT: THIS METHOD TAKES 4 ARGUMENTS - THE ADDRESS                  00221704         
+                                     249 *          OF THE TABLE, THE ADDRESS OF THE EOT, TARGET VALUE           00221804         
+                                     250 *          , FOUND VALUE.                                               00221904         
+                                     251 *  OUTPUT: THIS METHOD SENDS A RETURN CONDITION CODE                    00222004         
+                                     252 *          WHICH INFORMS THE CALLING PROGRAM OF IF THE                  00222104         
+                                     253 *          SEARCH IS SUCCESSFUL.                                        00222204         
+                                     254 *                                                                       00222304         
+                                     255 *  REGISTER USAGE                                                       00222404         
+                                     256 *                                                                       00222556         
+                                     257 *   5    TARGET VALUE                                                   00222653         
+                                     258 *   6    TABLE  VALUE                                                   00222753         
+                                     259 *   7    TABLE                                                          00222804         
+                                     260 *   8    EOT                                                            00222904         
+                                     261 *   9    TARGET                                                         00223004         
+                                     262 *  10    FOUND                                                          00223166         
+                                     263 *                                                                       00223253         
+                                     264 ************************************************                        00223304         
+ 0004F0                              265 SEARCH   CSECT                                                          00223457         
+ 0004F0 90EC D00C            0000C   266          STM   14,12,12(13)           STANDARD ENTRY LINKAGE            00223599         
+ 0004F4 18CF                         267          LR    12,15                                                    00223604         
+ 0004F0                              268          USING SEARCH,12                                                00223704         
+ 0004F6 41E0 C058            00548   269          LA    14,SRCHSAVE                                              00223804         
+ 0004FA 50D0 E004            00004   270          ST    13,4(0,14)                                               00223904         
+ 0004FE 50E0 D008            00008   271          ST    14,8(0,13)                                               00224004         
+ 000502 18DE                         272          LR    13,14                                                    00224104         
+ 000504 987A 1000            00000   273          LM    7,10,0(1)              LOAD REGISTERS                    00224299         
+ 000508 5850 9000            00000   274          L     5,0(0,9)               STORE TARGET VALUE IN 5           00224399         
+                                     275 *                                                                       00224404         
+ 00050C 5860 7000            00000   276 SLOOP    L     6,0(0,7)               LOAD VALUE IN TABLE INTO 6        00224599         
+ 000510 1956                         277          CR    5,6                    COMPARE TABLE VALUE TO TARGET     00224699         
+ 000512 4780 C036            00526   278          BC    B'1000',WASFOUND       IF EQUAL GO TO WASFOUND           00224799         
+ 000516 5970 8000            00000   279          C     7,0(0,8)               CHECK TO SEE IF AT EOT            00224899         
+ 00051A 4780 C03E            0052E   280          BC    B'1000',NOTFOUND       IF AT EOT GO TO NOTFOUND          00224999         
+1                                                                                                               PAGE    6         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+ 00051E 4170 7004            00004   281          LA    7,4(0,7)               POINT TO THE NEXT VALUE IN TABLE  00225099         
+ 000522 47F0 C01C            0050C   282          BC    B'1111',SLOOP          GO TO SLOOP                       00225199         
+ 000526 58B0 C050            00540   283 WASFOUND L     11,=F'1'               SET FOUND RETURN CODE             00225299         
+ 00052A 47F0 C042            00532   284          BC    B'1111',ENDSRCH        GO TO ENDSRCH                     00225399         
+ 00052E 58B0 C054            00544   285 NOTFOUND L     11,=F'0'               SET THE FOUND RETURN CODE         00225499         
+ 000532 50B0 A000            00000   286 ENDSRCH  ST    11,0(0,10)             STORE THE RETURN CODE IN ADDRS 10 00225599         
+ 000536 58D0 D004            00004   287          L     13,4(0,13)             STANDARD EXIT LINKAGE             00225699         
+ 00053A 98EC D00C            0000C   288          LM    14,12,12(13)                                             00225704         
+ 00053E 07FE                         289          BR    14                                                       00225804         
+                                     290          LTORG                                                          00225904         
+ 000540 00000001                     291                =F'1'                                                                     
+ 000544 00000000                     292                =F'0'                                                                     
+ 000548                              293 SRCHSAVE DS    18F                   SEARCH SAVE SPACE                  00226099         
+                                     294 *                                                                       00226104         
+                                     295          END   MAIN                  END OF MAIN PROGRAM                00226299         
+0***  NO   STATEMENTS FLAGGED -  NO   WARNINGS,  NO   ERRORS                                                                      
+0*** DYNAMIC CORE AREA USED:  LOW:   17124 HIGH:    1448 LEAVING:  474996 FREE BYTES. AVERAGE:       62 BYTES/STMT ***            
+0*** ASSEMBLY TIME =    0.001 SECS,   296000 STATEMENTS/SEC ***                                                                   
+0*** PROGRAM EXECUTION BEGINNING - ANY OUTPUT BEFORE EXECUTION TIME MESSAGE IS PRODUCED BY USER PROGRAM ***                       
+1                                  TABLE CONTENTS                                                                                 
+0                                                                                                                                 
+            1       -2005         515          90          50          -1      172219                                             
+        60205     -777224           3        7534      204914         141           0                                             
+       606031        -419         218         111          46        9001      312909                                             
+         -517           9          62          89         305         250         305                                             
+      7845902        -311     -100001        -999           2        6509          -5                                             
+          177          42         777         345       -9009       65712       88442                                             
+          -84         131        5106         121         -89          15       95221                                             
+          -80    -5005005          12          34        5678        8889                                                         
+0                                                                                                                                 
+--RESULTS OF SEARCHING THE TABLE-                                                                                                 
+0                                                                                                                                 
+--TARGET =        -8033 WAS NOT FOUND                                                                                             
+--TARGET =          994 WAS NOT FOUND                                                                                             
+--TARGET =         9001 WAS FOUND                                                                                                 
+--TARGET =          177 WAS FOUND                                                                                                 
+--TARGET =            2 WAS FOUND                                                                                                 
+--TARGET =          321 WAS NOT FOUND                                                                                             
+--TARGET =         -419 WAS FOUND                                                                                                 
+0*** EXECUTION TIME =    0.003 SECS.      3443 INSTRUCTIONS EXECUTED -  1147666 INSTRUCTIONS/SEC ***                              
+0*** AM004 - NORMAL USER TERMINATION BY RETURN ***                                                                                

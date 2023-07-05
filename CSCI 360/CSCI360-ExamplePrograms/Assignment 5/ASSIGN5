@@ -1,0 +1,357 @@
+//KC03OA0A JOB ,'Kevin White',MSGCLASS=H                                00010000
+//STEP1 EXEC PGM=ASSIST                                                 00020000
+//STEPLIB DD DSN=KC02293.ASSIST.LOADLIB,DISP=SHR                        00030000
+//SYSPRINT DD SYSOUT=*                                                  00040000
+//SYSIN DD *                                                            00050000
+**************************************************                      00060000
+*                                                                       00070000
+* PROGRAM:     ASSIGN5                                                  00080011
+* PROGRAMMER:  Kevin White                                              00090011
+*                                                                       00100000
+* FUNCTION: This program will read integers from                        00110041
+*           a file of 80-byte records and store                         00111041
+*           them into a table. It will then print                       00112041
+*           out the table 5 numbers per line.                           00113041
+*           it will then print and search for                           00114041
+*           each of the numbers after the                               00115041
+*           delimiter in the file and display if                        00116041
+*           they were found or not.                                     00117041
+*                                                                       00120000
+* INPUT:    The 80-byte records data file.                              00130041
+*                                                                       00140000
+* OUTPUT:   The table of integers. 5 integers per                       00150041
+*           line. As well as the values to search                       00151041
+*           and if they were found within the                           00152041
+*           table                                                       00153041
+*                                                                       00160000
+* ENTRY CONDS: NONE                                                     00170041
+*                                                                       00180000
+* EXIT CONDS: NONE                                                      00190041
+*                                                                       00200000
+* REGISTER USAGE:                                                       00210000
+*    1     Parameter List                                               00220000
+*    2     File Data                                                    00221041
+*    3     Found Check (0 or 1)                                         00222041
+*                                                                       00230000
+* PSEUDOCODE:                                                           00240000
+*    <1> Standard Entry Linkage                                         00250041
+*    <2> Print out the header                                           00251041
+*    <3> Call BUILD subroutine                                          00252041
+*    <4> Call PRINT subroutine                                          00253041
+*    <5> While not end of file                                          00254041
+*          Call SEARCH subrotine                                        00255041
+*          If FOUND = 0                                                 00256041
+*             target was not found                                      00257041
+*          Else                                                         00258041
+*             target was found                                          00259041
+*          Print target information                                     00259141
+*                                                                       00260000
+**************************************************                      00270000
+MAIN     CSECT                                                          00280000
+         STM   14,12,12(13)       Save the registers                    00281045
+         LR    12,15              Set  R12 as the base register         00282045
+         USING MAIN,12                                                  00290001
+         LA    14,MAINSAVE        Point R14 at MAINSAVE                 00291045
+         ST    13,4(0,14)         Save forward pointer                  00292045
+         ST    14,8(0,13)         Save backward pointer                 00293045
+         LR    13,14              Point R13 at MAINSAVE                 00294045
+*                                                                       00300000
+         XPRNT HEADER,38           Prints out HEADER to 38 chars        00301045
+*                                                                       00302007
+         LA    1,BPARMS            Sets parameters for BUILD            00310045
+         L     15,=V(BUILD)        Points R15 at BUILD                  00320045
+         BALR  14,15               Branch to BUILD                      00330045
+*                                                                       00340000
+         LA    1,PPARMS            Sets parameters for PRINT            00340145
+         L     15,=V(PRINT)        Points R15 at PRINT                  00340245
+         BALR  14,15               Branch to PRINT                      00340345
+*                                                                       00340406
+         XPRNT RESULT,31           Prints out RESULT to 31 chars        00340545
+*                                                                       00340816
+MNLOOP   MVI   SRCHRES+22,C' '     Destructive Overlap                  00340945
+         MVC   SRCHRES+23(14),SRCHRES+22  14 spaces                     00341045
+         XREAD BUFFER,80           Reads from file stores in BUFFER     00341145
+         BC    B'0100',ENDMNLP     Branch if end of file                00341245
+         XDECI 2,BUFFER            Stores number in BUFFER to R2        00341345
+         ST    2,TARGET            Stores R2 in TARGET                  00341445
+         LA    1,SPARMS            Sets parameters for SEARCH           00341545
+         L     15,=V(SEARCH)       Points R15 to SEARCH                 00341645
+         BALR  14,15               Branch to SEARCH                     00341745
+         L     3,FOUND             Loads value in FOUND to R3           00341845
+         XDECO 2,PFOUND            Stores TARGET in PFOUND              00342045
+         C     3,=F'0'             Compares 3 to 0                      00342145
+         BE    NOTFND              If not found branch to NOTFND        00342245
+         MVC   SRCHRES+22(10),=C' was found'                            00342339
+         B     ENDIF               Unconditional branch to ENDIF        00342445
+NOTFND   MVC   SRCHRES+22(14),=C' was not found'                        00342539
+ENDIF    XPRNT SRCHRES,36          Prints out SRCHRES to 36 chars       00342645
+         B     MNLOOP              Unconditional branch to MNLOOP       00342745
+*                                                                       00342819
+ENDMNLP  L     13,4(0,13)          Point R13 to caller save area        00342945
+         LM    14,12,12(13)        Restore registers                    00343045
+         BR    14                  Return to caller                     00350045
+*                                                                       00370000
+         LTORG                                                          00370103
+MAINSAVE DS    18F                 Allocates 18F for save area          00371045
+TABLE    DC    60F'-1'             Allocates a table of 60 set to -1    00380045
+EOT      DS    F                   Allocates a fullword for EOT         00390045
+BUFFER   DS    80C                 Sets the input buffer to 80C         00391045
+         DC    C'*'                For end of line check                00392045
+TARGET   DS    F                   Allocates a fullword for TARGET      00393045
+FOUND    DS    F                   Allocates a fullword for FOUND       00394045
+*                                                                       00395019
+BPARMS   DC    A(TABLE)            Parameters for BUILD                 00400045
+         DC    A(EOT)                                                   00410000
+         DC    A(BUFFER)                                                00410109
+PPARMS   DC    A(TABLE)            Parameters for PRINT                 00410245
+         DC    A(EOT)                                                   00410309
+SPARMS   DC    A(TABLE)            Parameters for SEARCH                00410445
+         DC    A(EOT)                                                   00410519
+         DC    A(TARGET)                                                00410619
+         DC    A(FOUND)                                                 00410719
+*                                                                       00411007
+HEADER   DC    C'1'                New page carraige control            00412045
+         DC    CL23' '             Creates 23 spaces                    00413045
+         DC    CL14'Table Contents'                                     00414007
+*                                                                       00420000
+RESULT   DC    C'-'                Triple Space carraige control        00420145
+         DC    CL30'Results of searching the table'                     00420216
+SRCHRES  DC    C'-'                Triple Space carraige control        00420345
+         DC    CL9'TARGET = '                                           00420439
+PFOUND   DS    12C                 Allocates 12C for PFOUND             00420545
+         DS    14C                 Allocates 14C                        00420645
+*                                                                       00420716
+**************************************************                      00421002
+*                                                                       00421141
+* BUILD                                                                 00422041
+*                                                                       00422141
+* FUNCTION: This subroutine will read from the                          00422241
+*           standard input and store the data in                        00422341
+*           the table passed as a parameter until                       00422441
+*           it reaches the delimiter of -88888888.                      00422541
+*                                                                       00422641
+* INPUT:    Records of data stored in standard                          00422741
+*           input.                                                      00422841
+*                                                                       00422941
+* OUTPUT:   NONE                                                        00423041
+*                                                                       00423141
+* ENTRY CONDS: 0(1) -- Address of the table to                          00423241
+*                      store the data                                   00423341
+*              1(1) -- Address of the first unused                      00423441
+*                      data in the table                                00423541
+*              2(1) -- Address of the input buffer                      00423641
+*                                                                       00423741
+* EXIT CONDS: NONE                                                      00423841
+*                                                                       00423941
+* REGISTER USAGE:                                                       00424041
+*                                                                       00424141
+*    2     Table of data                                                00424241
+*    3     End of the table                                             00424341
+*    4     Input Buffer                                                 00424441
+*                                                                       00424541
+* PSEUDOCODE:                                                           00424641
+*                                                                       00424742
+*    <1> Standard Entry Link                                            00424842
+*    <2> Unload Parameters                                              00424944
+*    <3> While not end of file                                          00425044
+*          While not end of line                                        00425144
+*            If delimiter = file data end loop                          00425244
+*            Store file data into table                                 00425344
+*            Increment table                                            00425444
+*    <4> Set end of table                                               00425544
+*    <5> Standard Exit Link                                             00425644
+*                                                                       00425741
+**************************************************                      00425802
+BUILD    CSECT                                                          00425902
+         STM   14,12,12(13)       Save the registers                    00426046
+         LR    12,15              Set R12 as the base register          00426146
+         USING BUILD,12                                                 00426202
+         LA    14,BSAVE           Point R14 at BSAVE                    00426346
+         ST    13,4(0,14)         Save the forward pointer              00426446
+         ST    14,8(0,13)         Save the backward pointer             00426546
+         LR    13,14              Point R13 at BSAVE                    00426646
+*                                                                       00426702
+         LM    2,4,0(1)           Unload parameters                     00426846
+         L     6,=F'-88888888'    Store the delimiter in R6             00426946
+*                                                                       00427002
+BLOOP1   XREAD 0(0,4),80          Read from file and store in R4        00427146
+         BC    B'0100',ENDBLP1    If end of file branch to ENDBLP1      00427246
+         XDECI 5,0(0,4)           Store number found in R5              00427546
+         BC    B'0001',ENDBLP2    If none found branch to ENDBLP2       00427646
+         CR    6,5                Compare delimiter to number found     00427746
+         BE    ENDBLP1            If same branch to ENDBLP1             00427846
+         ST    5,0(0,2)           Store data into table                 00427946
+         77LA    2,4(0,2)           Increment table                       00428046
+BLOOP2   XDECI 5,0(0,1)           Store next number in R5               00428346
+         BC    B'0001',ENDBLP2    If no number found branch to ENDBLP2  00428446
+         CR    6,5                Compare delimiter to number found     00428546
+         BE    ENDBLP1            If same branch to ENDBLP1             00428646
+         ST    5,0(0,2)           Store data into table                 00428746
+         LA    2,4(0,2)           Increment table                       00428846
+         B     BLOOP2             Unconditional branch to BLOOP2        00428946
+ENDBLP2  B     BLOOP1             Unconditional branch to BLOOP1        00429046
+ENDBLP1  ST    2,0(0,3)           Set end of table                      00429146
+         L     13,4(0,13)         Point R13 at caller's save area       00429246
+         LM    14,12,12(13)       Restore registers                     00429346
+         BR    14                 Return to caller                      00429446
+*                                                                       00429502
+ st         LTORG                                                          00429602
+BSAVE    DS    18F                Allocate 18F for save area            00429746
+*                                                                       00429902
+**************************************************                      00430004
+*                                                                       00430104
+* PRINT                                                                 00430243
+*                                                                       00430343
+* FUNCTION: This subroutine will print out the                          00430443
+*           data held within the table given. It                        00430543
+*           will print out 5 integers per line.                         00430643
+*                                                                       00430743
+* INPUT: NONE                                                           00430843
+*                                                                       00430943
+* OUTPUT: Will print out everything inside the                          00431043
+*         table given.                                                  00431143
+*                                                                       00431243
+* ENTRY CONDS: 0(1) -- Address of the table                             00431343
+*                      holding the data                                 00431443
+*              1(1) -- Address of the end of the                        00431543
+*                      table                                            00431643
+*                                                                       00431743
+* EXIT CONDS: NONE                                                      00431843
+*                                                                       00431943
+* REGISTER USAGE:                                                       00432043
+*                                                                       00432143
+*    2     Table of data                                                00432243
+*    3     Pointer to end of table                                      00432343
+*    4     Integer                                                      00432443
+*    5     Line Address                                                 00432543
+*    6     Line Counter                                                 00432643
+*                                                                       00432743
+* PSEUDOCODE:                                                           00432843
+*                                                                       00432943
+*    <1> Standard Entry Link                                            00433043
+*    <2> While not end of table                                         00433143
+*          Print out table contents                                     00433243
+*            If 5 on line                                               00433343
+*              Start new line                                           00433443
+*                                                                       00433643
+**************************************************                      00433704
+PRINT    CSECT                                                          00433804
+         STM   14,12,12(13)       Save the registers                    00433946
+         LR    12,15              Establish R12 as the base register    00434046
+         USING PRINT,12                                                 00434104
+         LA    14,PSAVE           Point R14 at PSAVE                    00434246
+         ST    13,4(0,14)         Save the forward pointer              00434346
+         ST    14,8(0,13)         Save the backward pointer             00434446
+         LR    13,14              Point R13 at PSAVE                    00434546
+*                                                                       00434604
+         LM    2,3,0(1)           Unload parameters                     00434746
+*                                                                       00434804
+PLOOP    C     2,0(0,3)           Compare R2 to end of table            00434946
+         BE    PLPEND             if R2 equals EOT end PLOOP            00435046
+         MVI   LINE+1,C' '        Destructive Overlap on LINE           00435146
+         MVC   LINE+2(60),LINE+1  Destructive Overlap on LINE           00435246
+         LA    5,LINE             Store address of LINE in R5           00435346
+         LA    5,1(0,5)           Add 1 to R5                           00435446
+         SR    6,6                Set R6 to 0                           00435546
+PLOOP2   C     2,0(0,3)           Compare R2 to end of table            00435646
+         BE    PLP2END            If R2 equals EOT end PLOOP2           00435746
+         C     6,=F'5'            Compare R6 to 5                       00435846
+         BE    PLP2END            If R6 equals 5 end PLOOP2             00435946
+         L     4,0(0,2)           Load table data to R4                 00436046
+         XDECO 4,DATA             Store R4 to DATA                      00436146
+         MVC   0(12,5),DATA       Put DATA into LINE                    00436246
+         LA    5,12(0,5)          Increment R5 by 12                    00436346
+         A     6,=F'1'            Increment R6 by 1                     00436446
+         LA    2,4(0,2)           Increment table counter               00436546
+         B     PLOOP2             Return to start of PLOOP2             00436646
+PLP2END  XPRNT LINE,61            Print out line to 61 characters       00436746
+         B     PLOOP              Return to start of PLOOP              00436846
+*                                                                       00436904
+PLPEND   L     13,4(0,13)         Point R13 at caller's save area       00437046
+         LM    14,12,12(13)       Restore the registers                 00437146
+         BR    14                 Return to caller                      00437246
+*                                                                       00437304
+         LTORG                                                          00437404
+PSAVE    DS    18F                Allocate 18F for save area            00437546
+LINE     DC    C'0'               Double space carriage control         00437646
+         DS    61C                Allocate 61 characters to LINE        00437746
+DATA     DS    12C                Allocate 12 characters to DATA        00437846
+*                                                                       00437904
+**************************************************                      00438019
+*                                                                       00438143
+* SEARCH                                                                00438243
+*                                                                       00438343
+* FUNCTION: This subroutine will do a linear                            00438443
+*           search on the given table for the                           00438543
+*           target given. It will set FOUND to 1                        00438643
+*           if the target was found or 0 if the                         00438743
+*           target was not found.                                       00438843
+*                                                                       00438943
+* INPUT: NONE                                                           00439043
+*                                                                       00439143
+* OUTPUT: NONE                                                          00439243
+*                                                                       00439343
+* ENTRY CONDS: 0(1) -- Address of the table                             00439443
+*                      containing data to search                        00439543
+*              1(1) -- Address of the end of the                        00439643
+*                      table                                            00439743
+*              2(1) -- Address of the target to                         00439843
+*                      search for                                       00439943
+*              3(1) -- Address of the FOUND fullword                    00440043
+*                      to store the result if found                     00440143
+*                                                                       00440243
+* EXIT CONDS: NONE                                                      00440343
+*                                                                       00440443
+* REGISTER USAGE:                                                       00440543
+*                                                                       00440643
+*    2     Table of data                                                00440743
+*    3     End of the table                                             00440843
+*    4     The target to search for                                     00440943
+*    5     FOUND fullword to store result of 1 or                       00441043
+*          0                                                            00441143
+*                                                                       00441243
+* PSEUDOCODE:                                                           00441343
+*                                                                       00441443
+*    <1> Standard Entry Link                                            00441543
+*    <2> while not end of table                                         00441643
+*          If target found                                              00441743
+*            set FOUND to 1                                             00441843
+*          Else                                                         00441943
+*            set FOUND to 0                                             00442043
+*                                                                       00442143
+**************************************************                      00442219
+SEARCH   CSECT                                                          00442320
+         STM   14,12,12(13)       Save the registers                    00442446
+         LR    12,15              Establish R12 as the base register    00442546
+         USING SEARCH,12                                                00442620
+         LA    14,SSAVE           Point R14 at SSAVE                    00442746
+         ST    13,4(0,14)         Save the forward pointer              00442846
+         ST    14,8(0,13)         Save the backward pointer             00442946
+         LR    13,14              Point R13 at SSAVE                    00443046
+*                                                                       00443120
+         LM    2,5,0(1)           Unload parameters                     00443246
+         L     6,0(0,4)           Load TARGET into R6                   00443346
+*                                                                       00443421
+SRCHLP   L     7,0(0,2)           Stores table data into R7             00443546
+         CR    6,7                Compare R7 to TARGET                  00443646
+         BE    SUCCESS            If equal branch to SUCCESS            00443746
+         C     2,0(0,3)           Compare table data to EOT             00443846
+         BE    FAIL               If equal branch to FAIL               00443946
+         LA    2,4(0,2)           Increment table counter               00444046
+         B     SRCHLP             Return to start of branch             00444146
+SUCCESS  L     7,=F'1'            If found set FOUND to 1               00444246
+         B     ENDSRCH            End loop                              00444346
+FAIL     L     7,=F'0'            If not found set FOUND to 0           00444446
+ENDSRCH  ST    7,0(0,5)           Set FOUND                             00444546
+         
+	 L     13,4(0,13)         Point R13 at caller's save area       00444646
+         LM    14,12,12(13)       Restore the registers                 00444746
+         BR    14                 Return to the caller                  00444846
+*                                                                       00444920
+         LTORG                                                          00445020
+SSAVE    DS    18F                Allocate 18F for save area            00445146
+*                                                                       00445220
+         END   MAIN                                                     00445300
+/*                                                                      00446000
+//FT05F001 DD DSN=KC02314.SUMMER17.CSCI360.HW5DATA,DISP=SHR             00450000
+//                                                                      00460000

@@ -1,0 +1,47 @@
+//KC03KA9 JOB ,'MASON GREIG',MSGCLASS=H                                 00010000
+//STEP1 EXEC PGM=ASSIST                                                 00020000
+//STEPLIB DD DSN=KC02293.ASSIST.LOADLIB,DISP=SHR                        00030000
+//SYSPRINT DD SYSOUT=*                                                  00040000
+//SYSIN DD *                                                            00050000
+********************************************                            00060000
+* ASSIGNMENT 1                                                          00070000
+*                                                                       00080000
+* NAME: MASON GREIG                                                     00090000
+*                                                                       00100000
+* PART B                                                                00110008
+* DECLARE TWO CONSECUTIVE FULLWORDS OF STORAGE CALLED DIFF AND SUM      00120008
+* STORE THE FIRST ANSWER (NUM1 - NUM2) INTO DIFF                        00130008
+* STORE THE SECOND ANSWER (NUM1 + NUM2) INTO SUM                        00140008
+* USE XDUMP TO PRINT THE VALUES IN THAT AREA OF STORAGE                 00160008
+*                                                                       00170000
+* REGISTER USAGE                                                        00180000
+* 2 HOLDS NUM1 AND THE DIFFERENCE OF 2 AND 7                            00190010
+* 9 HOLDS NUM2                                                          00200000
+* 7 HOLDS NUM1 AND SUM OF 9 AND 12                                      00210003
+* 12 HOLDS NUM2                                                         00220000
+* NUM1 HOLDS VALUE 249                                                  00230000
+* NUM2 HOLDS VALUE 117                                                  00240000
+* DIFF HOLDS THE DIFFERENCE OF REG 2 AND REG 9                          00250008
+* SUM HOLDS THE SUM OF REG 7 AND 12                                     00251008
+*                                                                       00252008
+********************************************                            00260000
+MAIN     CSECT                                                          00270000
+         USING MAIN,15                                                  00280006
+         L     2,NUM1                                                   00290006
+         L     9,NUM2                                                   00300007
+         SR    2,9                                                      00310006
+         ST    2,DIFF                                                   00311008
+         XDUMP DIFF,4                                                   00320008
+         L     7,NUM1                                                   00330006
+         L     12,NUM2                                                  00340006
+         AR    7,12                                                     00350006
+         ST    7,SUM                                                    00351008
+         XDUMP SUM,4                                                    00360008
+         BR    14                                                       00370001
+NUM1     DC    F'249'                                                   00380006
+NUM2     DC    F'117'                                                   00390006
+DIFF     DS    F                                                        00391008
+SUM      DS    F                                                        00392008
+         END   MAIN                                                     00400001
+/*                                                                      00410001
+//                                                                      00420001

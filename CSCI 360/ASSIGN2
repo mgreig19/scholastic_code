@@ -1,0 +1,80 @@
+//KC03KA9A JOB ,'MASON GREIG',MSGCLASS=H                                00010000
+//STEP1   EXEC  PGM=ASSIST                                              00020000
+//STEPLIB   DD  DSN=KC02293.ASSIST.LOADLIB,DISP=SHR                     00030000
+//SYSPRINT  DD  SYSOUT=*                                                00040000
+//SYSIN     DD  *                                                       00050000
+***********************************************************             00060000
+*                                                                       00070000
+* PROGRAM:      ASSIGN2                                                 00080000
+* PROGRAMMER:   MASON GREIG                                             00090000
+*                                                                       00100000
+* REGISTER USAGE:                                                       00110000
+*   1        USED BY XDECI                                              00120000
+*  15        BASE REGISTER                                              00130000
+*   4        HOLDS THE VALUE OF X                                       00140001
+*   5        HOLDS THE VALUE OF Y                                       00150000
+*   6        HOLDS THE VALUE OF Z                                       00160001
+*   7        RESULT REGISTER                                            00170001
+*   8        LINE COUNT REGISTER                                        00180001
+*   9        TOTAL REGISTER                                             00190001
+***********************************************************             00200000
+MAIN     CSECT                                                          00210000
+         USING MAIN,15                                                  00220000
+         SR    8,8                   INITIALIZE THE LINE COUNT REG      00230002
+         SR    9,9                   INITIALIZE THE RESULT LINE         00240001
+TOP1     XREAD BUFFER,80             TOP OF LOOP/READ A LINE            00250001
+         BC    B'0100',END1          IF READ IN FAILS GOTO END1         00260001
+         XDECI 4,BUFFER              STORE THE FIRST NUM IN REG 4       00270009
+         XDECI 5,0(0,1)              STORE THE SECOND NUM IN REG 5      00280009
+         XDECI 6,0(0,1)              STORE THE THIRD NUM IN REG 6       00290009
+         XDECO 4,OUTX                STORE VALUE OF REG 4 IN OUTX       00300009
+         XDECO 5,OUTY                STORE VALUE OF REG 5 IN OUTY       00310009
+         XDECO 6,OUTZ                STORE VALUE OF REG 6 IN OUTZ       00320009
+         A     8,=F'1'               INCREMENT THE LINE COUNT           00330001
+         LR    7,5                   COPYREG 5 TO REG 7 (Y IN 7)        00340006
+         AR    7,6                   ADD REG 6 TO REG 7 (Y + Z)         00350001
+         SR    7,4                   SUBTRACT 4 FROM 7 (Y + Z - X)      00360001
+         AR    9,7                   ADD THE RESULT TO THE TOTAL SUM    00370001
+         XDECO 7,YZX                 STORE VALUE AT REG 7 IN YZX        00380009
+         XPRNT OUTLINE,96            PRINT THE REPORT LINE              00390008
+         BC    B'1111',TOP1          RETURN TO THE TOP OF THE LOOP      00400001
+END1     XDECO 9,TOTALSUM            STORE VALUE IN REG 9 AT ADDRESS    00410009
+         XDECO 8,LINENUM             STORE VALUE IN REG 8 AT ADDRESS    00420009
+         XPRNT STATLINE,68           PRINT THE SUMMARY LINE             00430007
+         BCR    B'1111',14           EXIT PROGRAM                       00440001
+BUFFER   DS    80C                   LABEL WHERE INPUT WILL BE STORED   00450009
+OUTLINE  DC    C'0'                  START OF OUTPUT LINE               00460009
+         DC    C'X ='                LITERAL 'X =' LOCATED AT START LNE 00470010
+OUTX     DS    CL12                  VALUE OF X LOCATED AFTER 'X ='     00480009
+         DC    CL10' '               TEN BLANK SPACES FOR PADDING       00490009
+         DC    C'Y ='                LITERAL 'Y =' AFTER PADDING        00500009
+OUTY     DS    CL12                  VALUE OF Y LOCATED AFTER 'Y ='     00510009
+         DC    CL10' '               TEN BLANK SPACES FOR PADDING       00520009
+         DC    C'Z ='                LITERAL 'Z =' AFTER PADDING        00530009
+OUTZ     DS    CL12                  VALUE OF Z LOCATED AFTER 'Z ='     00540009
+         DC    CL10' '               TEN BLANK SPACES OF PADDING        00550009
+         DC    C'RESULT ='           LITERAL 'RESULT =' AFTER PADDING   00560009
+YZX      DS    CL12                  VALUE OF CALCULATION RESULT        00570009
+STATLINE DC    C'0'                  START OF SUMMARY LINE              00580009
+         DC    C'NUMBER OF LINES ='  LITERAL 'NUMBER OF LINES ='        00590010
+LINENUM  DS    CL12                  VALUE OF LINE COUNT                00600009
+         DC    CL10' '               TEN BLANK SPACES FOR PADDING       00610009
+         DC    C'SUM OF RESULTS ='   LITERAL PUT AFTER PADDING          00620009
+TOTALSUM DS    CL12                  THE SUM OF ALL THE RESULTS         00630009
+         END   MAIN                  END OF THE MAIN PROGRAM            00640009
+/*                                                                      00650000
+//FT05F001  DD  *                    INPUT DATA                         00660009
+8163   2529  2805                                                       00670000
+4536   1839  5741                                                       00680000
+0591   7843  9487                                                       00690000
+4190   3057  2775                                                       00700000
+2399   0667  4129                                                       00710000
+8118   3961  6535                                                       00720000
+4765   0498  1111                                                       00730000
+9056   2345  1110                                                       00740000
+0001   0002  0003                                                       00750000
+9999   9998  9997                                                       00760000
+8001   7999  3512                                                       00770000
+/*                                                                      00780000
+//FT06F001  DD SYSOUT=*                                                 00790000
+//                                                                      00800000

@@ -1,0 +1,274 @@
+stm //KC03OA0A JOB ,'Kevin White',MSGCLASS=H                                00010000
+//STEP1 EXEC PGM=ASSIST                                                 00020000
+//STEPLIB DD DSN=KC02293.ASSIST.LOADLIB,DISP=SHR                        00030000
+//SYSPRINT DD SYSOUT=*                                                  00040000
+//SYSIN DD *                                                            00050000
+**************************************************                      00060000
+*                                                                       00070000
+* PROGRAM:     ASSIGN4                                                  00080000
+* PROGRAMMER:  Kevin White                                              00090000
+*                                                                       00091000
+* FUNCTION: This program will read integers from                        00100000
+*           a file of 80-byte records and store                         00110000
+*           them into a table. It will then print                       00120000
+*           out the table 5 numbers per line.                           00130000
+*           It will then only print out the even                        00140000
+*           integers in the table.                                      00150000
+*                                                                       00160000
+* INPUT:    The 80-byte records data file.                              00170000
+*                                                                       00180000
+* OUTPUT:   The table of integers. 5 integers per                       00190000
+*           line. And it will print only the even                       00200064
+*           integers with 6 integers per line.                          00201064
+*                                                                       00210000
+* ENTRY CONDS: NONE                                                     00220000
+*                                                                       00230000
+* EXIT CONDS: NONE                                                      00240000
+*                                                                       00250000
+* REGISTER USAGE:                                                       00260000
+*                                                                       00270000
+*    1     Parameter List                                               00280003
+*                                                                       00290000
+* PSEUDOCODE:                                                           00300000
+*                                                                       00310000
+*    <1> Print table header 1                                           00320064
+*    <2> Call BUILD Subroutine                                          00321064
+*    <3> Call PRINT Subroutine                                          00322064
+*    <4> Print table header 2                                           00322164
+*    <4> Call PRINTE Subroutine                                         00323064
+*                                                                       00330000
+**************************************************                      00340000
+MAIN     CSECT                                                          00341000
+         USING MAIN,15                                                  00342000
+*                                                                       00343000
+         XPRNT HEAD1,38      Prints out header 1                        00343164
+*                                                                       00343202
+         LA    1,PLIST       Loads Parameter list into R1               00343364
+         BAL   10,BUILD      Calls Subroutine BUILD                     00343464
+*                                                                       00343606
+         LA    1,PLIST       Loads Parameter list into R1               00343764
+         BAL   10,PRINT      Calls Subroutine PRINT                     00343864
+*                                                                       00343951
+         XPRNT HEAD2,47      Prints out header 2                        00344064
+*                                                                       00344151
+         LA    1,PLIST       Loads Parameter list into R1               00344264
+         BAL   10,PRINTE     Calls Subroutine PRINTE                    00344364
+*                                                                       00344403
+         BR    14                                                       00344500
+*                                                                       00344600
+TABLE    DC    48F'0'        Creates a table initialized to 0           00344764
+EOT      DS    F                                                        00344802
+PLIST    DC    A(TABLE)      Creates the Parameter List                 00344964
+         DC    A(EOT)                                                   00345003
+*                                                                       00345102
+HEAD1    DC    C'1'          New page carriage control                  00345264
+         DC    CL22' '                                                  00345302
+         DC    CL15'List of Numbers'                                    00345402
+HEAD2    DC    C'1'          New page carriage control                  00345564
+         DC    CL26' '                                                  00345651
+         DC    CL20'List of Even Numbers'                               00345751
+*                                                                       00345802
+**************************************************                      00345903
+*  BUILD                                                                00346004
+*                                                                       00346163
+*  FUNCTION: This subroutine will read from the                         00346263
+*            standard input and store the data in                       00346363
+*            the table passed as a parameter until                      00346463
+*            it reaches the end of the data or                          00346563
+*            until the table is full.                                   00346663
+*                                                                       00346763
+*  INPUT:    TABLE of 48 fullwords.                                     00346863
+*            EOT pointer to the end of the table.                       00346963
+*                                                                       00347063
+*  OUTPUT:   NONE                                                       00347163
+*                                                                       00347304
+*  REGISTER USAGE                                                       00347404
+*                                                                       00347513
+*     2     Table                                                       00347604
+*     3     End of table                                                00347704
+*     4     Counter                                                     00347804
+*     5     Integer                                                     00347910
+*                                                                       00348004
+*  PSEUDOCODE:                                                          00348164
+*                                                                       00348264
+*     <1> Save registers, unload parameters                             00348364
+*     <2> Read from file                                                00348464
+*     <3> While not end of file                                         00348564
+*           End loop if table is full                                   00348664
+*           While not at end of line                                    00348764
+*             Store data into table                                     00348864
+*             increment table counter                                   00348964
+*     <4> Restore registers                                             00349064
+*     <5> Branch back to MAIN                                           00349165
+*                                                                       00349264
+**************************************************                      00349303
+BUILD    STM   0,15,BSAVE         Save registers                        00349403
+         LM    2,3,0(1)           Unload parameters                     00349503
+         SR    4,4                Set R4 to 0                           00349664
+*                                                                       00349703
+BLOOP1   XREAD BUFFER,80          Stores line into BUFFER               00349864
+         BC    B'0100',ENDBLP1    If end of file end BLOOP1             00349964
+         C     4,=F'48'           Compare R4 to 48                      00350064
+         BE    ENDBLP1            If R4 equals 48 end BLOOP1            00350164
+         XDECI 5,BUFFER           Store first number into R5            00350264
+         BC    B'0001',ENDBLP2    If no number found return to start    00350365
+         ST    5,0(0,2)           Stores R5 into table                  00350465
+         LA    2,4(0,2)           Increments table pointer              00350565
+         A     4,=F'1'            Increments size counter               00350665
+BLOOP2   C     4,=F'48'           Compare R4 to 48                      00350765
+         BE    ENDBLP1            If R4 equals 48 end BLOOP1            00350865
+         XDECI 5,0(0,1)           Store next number into R5             00350965
+         BC    B'0001',ENDBLP2    If no next number end BLOOP2          00351065
+         ST    5,0(0,2)           Store number into table               00351165
+         LA    2,4(0,2)           Increment table pointer               00351265
+         A     4,=F'1'            Increment size counter                00351365
+         B     BLOOP2             Return to start of BLOOP2             00351465
+ENDBLP2  B     BLOOP1             Return to start of BLOOP1             00351565
+ENDBLP1  ST    2,0(0,3)           Set end of table pointer              00351665
+         LM    0,15,BSAVE         Restore registers                     00351765
+         BR    10                 Branch back to main                   00351865
+*                                                                       00351906
+BSAVE    DS    16F                16 fullwords to store registers       00352065
+BUFFER   DS    80C                                                      00352103
+         DC    C'*'               To create error if no more numbers    00352265
+*                                                                       00352313
+**************************************************                      00352413
+*  PRINT                                                                00352513
+*                                                                       00352663
+*  FUNCTION: This subroutine will print out the                         00352763
+*            data held within the table given. It                       00352863
+*            will print out 5 integers per line.                        00352963
+*                                                                       00353063
+*  INPUT:    TABLE the table of integers to be                          00353163
+*                  printed out.                                         00353263
+*            EOT   the pointer to the end of the                        00353363
+*                  table.                                               00353463
+*                                                                       00353563
+*  OUTPUT:   The values held within the table, 5                        00353663
+*            integers per line.                                         00353763
+*                                                                       00353813
+*  REGISTER USAGE                                                       00353913
+*                                                                       00354065
+*     2     TABLE                                                       00354113
+*     3     End of Table                                                00354213
+*     4     Integer                                                     00354328
+*     5     Line Address                                                00354440
+*     6     Line Counter                                                00354540
+*                                                                       00354665
+*  PSEUDOCODE:                                                          00354765
+*                                                                       00354865
+*     <1> Store Registers, Unload parameters                            00354965
+*     <2> While not end of table                                        00355065
+*           Print out table contents                                    00355165
+*             If 5 on line                                              00355265
+*               Start new line                                          00355365
+*     <3> Restore Registers                                             00355465
+*     <4> Branch back to MAIN                                           00355565
+*                                                                       00355665
+*                                                                       00355765
+**************************************************                      00355813
+PRINT    STM   0,15,PSAVE         Saves Registers                       00355966
+         LM    2,3,0(1)           Unloads Parameters                    00356066
+*                                                                       00356120
+PLOOP    C     2,0(0,3)           Compare R2 to EOT                     00356266
+         BE    PLPEND             If R2 equals EOT end PLOOP            00356366
+         MVC   LINE+2(60),LINE+1  Destructive Overlap on LINE           00356466
+         LA    5,LINE             Store address of LINE in R5           00356566
+         LA    5,1(0,5)           Add 1 to R5                           00356666
+         SR    6,6                Set R6 to 0                           00356766
+PLOOP2   C     2,0(0,3)           Compare R2 to EOT                     00356866
+         BE    PLP2END            if R2 equals EOT end PLOOP2           00356966
+         C     6,=F'5'            Compare R6 to 5                       00357066
+         BE    PLP2END            if R6 equals 5 end PLOOP2             00357166
+         L     4,0(0,2)           Load table data to R4                 00357266
+         XDECO 4,DATA             Store R4 to DATA                      00357366
+         MVC   0(12,5),DATA       Put DATA into LINE                    00357466
+         LA    5,12(0,5)          Increment R5 by 12                    00357566
+         A     6,=F'1'            Increment R6 by 1                     00357666
+         LA    2,4(0,2)           Increment table counter               00357766
+         B     PLOOP2             Return to start of PLOOP2             00357866
+PLP2END  XPRNT LINE,61            Print out line to 61 characters       00357966
+         B     PLOOP              Return to start of PLOOP              00358066
+*                                                                       00358120
+PLPEND   LM    0,15,PSAVE         Restore registers                     00358266
+         BR    10                 Branch back to MAIN                   00358366
+*                                                                       00358413
+PSAVE    DS    16F                Allocate 16 fullwords for Registers   00358566
+LINE     DC    C'0'               Double space carriage control         00358666
+         DS    61C                Allocate 61 characters to LINE        00358766
+DATA     DS    12C                Allocate 12 characters to DATA        00358866
+*                                                                       00358953
+**************************************************                      00359053
+* PRINTE                                                                00359153
+*                                                                       00359263
+* FUNCTION: This subroutine will print out only                         00359363
+*           the even numbers within the table.                          00359463
+*                                                                       00359563
+* INPUT:    TABLE The table of values to be                             00359663
+*                 printed                                               00359763
+*           EOT   The pointer to the end of the                         00359863
+*                 table.                                                00359963
+*                                                                       00360063
+* OUTPUT:   Prints out the even values inside the                       00360163
+*           table. Prints out 6 integers per line.                      00360263
+*                                                                       00360353
+* REGISTER USAGE                                                        00360453
+*                                                                       00360567
+*    2     Table                                                        00360653
+*    3     End-of-Table                                                 00360753
+*    4     Integer                                                      00360858
+*    5     Line Address                                                 00360958
+*    6     Line Counter                                                 00361058
+*    8,9   Even checker                                                 00361158
+*                                                                       00361267
+* PSEUDOCODE:                                                           00361367
+*    <1> Store Registers, Unload parameters                             00361467
+*    <2> While not end of table                                         00361567
+*          If integer is even                                           00361667
+*            Print out integer                                          00361767
+*          If 6 on line                                                 00361867
+*            Start new line                                             00361967
+*    <3> Restore Registers                                              00362067
+*    <4> Branch back to MAIN                                            00362167
+*                                                                       00362253
+**************************************************                      00362353
+PRINTE   STM   0,15,PESAVE             Saves Registers                  00362467
+         LM    2,3,0(1)                Unloads Parameters               00362567
+*                                                                       00362654
+PELOOP   C     2,0(0,3)                Compare R2 to EOT                00362767
+         BE    PELPEND                 IF R2 equals EOT end PELOOP      00362867
+         MVC   LINEEV+2(72),LINEEV+1   Destructive Overlap on LINEEV    00362967
+         LA    5,LINEEV                Store address of LINEEV in R5    00363067
+         LA    5,1(0,5)                Add 1 to R5                      00363167
+         SR    6,6                     Set R6 to 0                      00363267
+PELOOP2  C     2,0(0,3)                Compare R2 to EOT                00363367
+         BE    PELP2END                If R2 equals EOT end PELOOP2     00363467
+         C     6,=F'6'                 Compare R6 to 6                  00363567
+         BE    PELP2END                If R6 equals 6 end PELOOP2       00363667
+         L     4,0(0,2)                Load table data into R4          00363767
+         L     9,0(0,2)                Load table data into R9          00363867
+         M     8,=F'1'                 Multiply R9 by 1                 00363967
+         D     8,=F'2'                 Divide R9 by 2                   00364067
+         C     8,=F'0'                 Compare remainder to 0           00364167
+         BNE   NOTEVEN                 If remainder equals 0 branch     00364267
+         XDECO 4,DATAEV                Store R4 into DATAEV             00364368
+         MVC   0(12,5),DATAEV          Put DATAEV into line             00364468
+         LA    5,12(0,5)               Increment R5 by 12               00364568
+         A     6,=F'1'                 Increment R6 by 1                00364668
+NOTEVEN  LA    2,4(0,2)                Increment table pointer          00364768
+         B     PELOOP2                 Return to start of PELOOP2       00364868
+PELP2END XPRNT LINEEV,73               Print out LINEEV to 73 char      00364968
+         B     PELOOP                  Return to start of PELOOP        00365068
+*                                                                       00365153
+PELPEND  LM    0,15,PESAVE             Restore Registers                00365268
+         BR    10                      Branch back to MAIN              00365368
+*                                                                       00365454
+PESAVE   DS    16F                     Allocate 16F for Registers       00365568
+LINEEV   DC    C'0'                    Double space carriage control    00365668
+         DS    73C                     Allocate 73 characters to LINEEV 00365768
+DATAEV   DS    12C                     Allocate 12 characters to DATAEV 00365868
+*                                                                       00365903
+         END   MAIN                                                     00366001
+/*                                                                      00366100
+//FT05F001 DD DSN=KC02314.SUMMER17.CSCI360.HW4DATA,DISP=SHR             00367000
+//                                                                      00370000

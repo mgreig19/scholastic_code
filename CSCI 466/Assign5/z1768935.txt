@@ -1,0 +1,275 @@
+mysql> source ~/csci466/z1768935.sql;
++-------------------------+
+| Tables_in_classicmodels |
++-------------------------+
+| Customers               |
+| Employees               |
+| Offices                 |
+| OrderDetails            |
+| Orders                  |
+| Payments                |
+| Products                |
++-------------------------+
+7 rows in set (0.00 sec)
+
++------------------------+-------------+------+-----+---------+-------+
+| Field                  | Type        | Null | Key | Default | Extra |
++------------------------+-------------+------+-----+---------+-------+
+| customerNumber         | int(11)     | NO   | PRI | NULL    |       |
+| customerName           | varchar(50) | NO   |     | NULL    |       |
+| contactLastName        | varchar(50) | NO   |     | NULL    |       |
+| contactFirstName       | varchar(50) | NO   |     | NULL    |       |
+| phone                  | varchar(50) | NO   |     | NULL    |       |
+| addressLine1           | varchar(50) | NO   |     | NULL    |       |
+| addressLine2           | varchar(50) | YES  |     | NULL    |       |
+| city                   | varchar(50) | NO   |     | NULL    |       |
+| state                  | varchar(50) | YES  |     | NULL    |       |
+| postalCode             | varchar(15) | YES  |     | NULL    |       |
+| country                | varchar(50) | NO   |     | NULL    |       |
+| salesRepEmployeeNumber | int(11)     | YES  |     | NULL    |       |
+| creditLimit            | double      | YES  |     | NULL    |       |
++------------------------+-------------+------+-----+---------+-------+
+13 rows in set (0.00 sec)
+
++----------------+--------------+------+-----+---------+-------+
+| Field          | Type         | Null | Key | Default | Extra |
++----------------+--------------+------+-----+---------+-------+
+| employeeNumber | int(11)      | NO   | PRI | NULL    |       |
+| lastName       | varchar(50)  | NO   |     | NULL    |       |
+| firstName      | varchar(50)  | NO   |     | NULL    |       |
+| extension      | varchar(10)  | NO   |     | NULL    |       |
+| email          | varchar(100) | NO   |     | NULL    |       |
+| officeCode     | varchar(20)  | NO   |     | NULL    |       |
+| reportsTo      | int(11)      | YES  |     | NULL    |       |
+| jobTitle       | varchar(50)  | NO   |     | NULL    |       |
++----------------+--------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| officeCode   | varchar(50) | NO   | PRI | NULL    |       |
+| city         | varchar(50) | NO   |     | NULL    |       |
+| phone        | varchar(50) | NO   |     | NULL    |       |
+| addressLine1 | varchar(50) | NO   |     | NULL    |       |
+| addressLine2 | varchar(50) | YES  |     | NULL    |       |
+| state        | varchar(50) | YES  |     | NULL    |       |
+| country      | varchar(50) | NO   |     | NULL    |       |
+| postalCode   | varchar(10) | NO   |     | NULL    |       |
+| territory    | varchar(10) | NO   |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+9 rows in set (0.00 sec)
+
++-----------------+-------------+------+-----+---------+-------+
+| Field           | Type        | Null | Key | Default | Extra |
++-----------------+-------------+------+-----+---------+-------+
+| orderNumber     | int(11)     | NO   | PRI | NULL    |       |
+| productCode     | varchar(50) | NO   | PRI | NULL    |       |
+| quantityOrdered | int(11)     | NO   |     | NULL    |       |
+| priceEach       | double      | NO   |     | NULL    |       |
+| orderLineNumber | smallint(6) | NO   |     | NULL    |       |
++-----------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
++----------------+-------------+------+-----+---------+-------+
+| Field          | Type        | Null | Key | Default | Extra |
++----------------+-------------+------+-----+---------+-------+
+| orderNumber    | int(11)     | NO   | PRI | NULL    |       |
+| orderDate      | datetime    | NO   |     | NULL    |       |
+| requiredDate   | datetime    | NO   |     | NULL    |       |
+| shippedDate    | datetime    | YES  |     | NULL    |       |
+| status         | varchar(15) | NO   |     | NULL    |       |
+| comments       | text        | YES  |     | NULL    |       |
+| customerNumber | int(11)     | NO   |     | NULL    |       |
++----------------+-------------+------+-----+---------+-------+
+7 rows in set (0.01 sec)
+
++----------------+-------------+------+-----+---------+-------+
+| Field          | Type        | Null | Key | Default | Extra |
++----------------+-------------+------+-----+---------+-------+
+| customerNumber | int(11)     | NO   | PRI | NULL    |       |
+| checkNumber    | varchar(50) | NO   | PRI | NULL    |       |
+| paymentDate    | datetime    | NO   |     | NULL    |       |
+| amount         | double      | NO   |     | NULL    |       |
++----------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
++--------------------+-------------+------+-----+---------+-------+
+| Field              | Type        | Null | Key | Default | Extra |
++--------------------+-------------+------+-----+---------+-------+
+| productCode        | varchar(50) | NO   | PRI | NULL    |       |
+| productName        | varchar(70) | NO   |     | NULL    |       |
+| productLine        | varchar(50) | NO   |     | NULL    |       |
+| productScale       | varchar(10) | NO   |     | NULL    |       |
+| productVendor      | varchar(50) | NO   |     | NULL    |       |
+| productDescription | text        | NO   |     | NULL    |       |
+| quantityInStock    | smallint(6) | NO   |     | NULL    |       |
+| buyPrice           | double      | NO   |     | NULL    |       |
+| MSRP               | double      | NO   |     | NULL    |       |
++--------------------+-------------+------+-----+---------+-------+
+9 rows in set (0.00 sec)
+
++---------------------+
+| Number of Customers |
++---------------------+
+|                 122 |
++---------------------+
+1 row in set (0.00 sec)
+
++---------------------------------+
+| Number of Customers with Orders |
++---------------------------------+
+|                              98 |
++---------------------------------+
+1 row in set (0.00 sec)
+
++--------------------+
+| Number of Products |
++--------------------+
+|                110 |
++--------------------+
+1 row in set (0.00 sec)
+
++-------------+---------------------------------------+------------------+--------------+---------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+----------+--------+
+| productCode | productName                           | productLine      | productScale | productVendor             | productDescription                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | quantityInStock | buyPrice | MSRP   |
++-------------+---------------------------------------+------------------+--------------+---------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+----------+--------+
+| S10_1678    | 1969 Harley Davidson Ultimate Chopper | Motorcycles      | 1:10         | Min Lin Diecast           | This replica features working kickstand, front suspension, gear-shift lever, footbrake lever, drive chain, wheels and steering. All parts are particularly delicate due to their precise scale and require special care and attention.                                                                                                                                                                                                                                                                          |            7933 |    48.81 |   95.7 |
+| S10_1949    | 1952 Alpine Renault 1300              | Classic Cars     | 1:10         | Classic Metal Creations   | Turnable front wheels; steering function; detailed interior; detailed engine; opening hood; opening trunk; opening doors; and detailed chassis.                                                                                                                                                                                                                                                                                                                                                                 |            7305 |    98.58 |  214.3 |
+| S10_2016    | 1996 Moto Guzzi 1100i                 | Motorcycles      | 1:10         | Highway 66 Mini Classics  | Official Moto Guzzi logos and insignias, saddle bags located on side of motorcycle, detailed engine, working steering, working suspension, two leather seats, luggage rack, dual exhaust pipes, small saddle bag located on handle bars, two-tone paint with chrome accents, superior die-cast detail , rotating wheels , working kick stand, diecast metal with plastic parts and baked enamel finish.                                                                                                         |            6625 |    68.99 | 118.94 |
+| S10_4698    | 2003 Harley-Davidson Eagle Drag Bike  | Motorcycles      | 1:10         | Red Start Diecast         | Model features, official Harley Davidson logos and insignias, detachable rear wheelie bar, heavy diecast metal with resin parts, authentic multi-color tampo-printed graphics, separate engine drive belts, free-turning front fork, rotating tires and rear racing slick, certificate of authenticity, detailed engine, display stand
+, precision diecast replica, baked enamel finish, 1:10 scale model, removable fender, seat and tank cover piece for displaying the superior detail of the v-twin engine |            5582 |    91.02 | 193.66 |
+| S10_4757    | 1972 Alfa Romeo GTA                   | Classic Cars     | 1:10         | Motor City Art Classics   | Features include: Turnable front wheels; steering function; detailed interior; detailed engine; opening hood; opening trunk; opening doors; and detailed chassis.                                                                                                                                                                                                                                                                                                                                               |            3252 |    85.68 |    136 |
+| S10_4962    | 1962 LanciaA Delta 16V                | Classic Cars     | 1:10         | Second Gear Diecast       | Features include: Turnable front wheels; steering function; detailed interior; detailed engine; opening hood; opening trunk; opening doors; and detailed chassis.                                                                                                                                                                                                                                                                                                                                               |            6791 |   103.42 | 147.74 |
+| S12_1099    | 1968 Ford Mustang                     | Classic Cars     | 1:12         | Autoart Studio Design     | Hood, doors and trunk all open to reveal highly detailed interior features. Steering wheel actually turns the front wheels. Color dark green.                                                                                                                                                                                                                                                                                                                                                                   |              68 |    95.34 | 194.57 |
+| S12_1108    | 2001 Ferrari Enzo                     | Classic Cars     | 1:12         | Second Gear Diecast       | Turnable front wheels; steering function; detailed interior; detailed engine; opening hood; opening trunk; opening doors; and detailed chassis.                                                                                                                                                                                                                                                                                                                                                                 |            3619 |    95.59 |  207.8 |
+| S12_1666    | 1958 Setra Bus                        | Trucks and Buses | 1:12         | Welly Diecast Productions | Model features 30 windows, skylights & glare resistant glass, working steering system, original logos                                                                                                                                                                                                                                                                                                                                                                                                           |            1579 |     77.9 | 136.67 |
+| S12_2823    | 2002 Suzuki XREO                      | Motorcycles      | 1:12         | Unimax Art Galleries      | Official logos and insignias, saddle bags located on side of motorcycle, detailed engine, working steering, working suspension, two leather seats, luggage rack, dual exhaust pipes, small saddle bag located on handle bars, two-tone paint with chrome accents, superior die-cast detail , rotating wheels , working kick stand, diecast metal with plastic parts and baked enamel finish.                                                                                                                    |            9997 |    66.27 | 150.62 |
++-------------+---------------------------------------+------------------+--------------+---------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+----------+--------+
+10 rows in set (0.00 sec)
+
++------------------------------------+----------------+
+| customerName                       | Payment Totals |
++------------------------------------+----------------+
+| Alpha Cognac                       |       70488.44 |
+| Amica Models & Co.                 |       94117.26 |
+| Anna's Decorations, Ltd            |      153996.13 |
+| Atelier graphique                  |       24179.96 |
+| Australian Collectables, Ltd       |       50213.37 |
+| Australian Collectors, Co.         |      195364.73 |
+| Australian Gift Network, Co        |       59469.12 |
+| Auto Associés & Cie.               |       64834.30 |
+| Auto Canal+ Petit                  |       79103.86 |
+| Auto-Moto Classics Inc.            |       26479.26 |
+| AV Stores, Co.                     |      157807.81 |
+| Baane Mini Imports                 |      116599.19 |
+| Bavarian Collectables Imports, Co. |       34993.92 |
+| Blauer See Auto, Co.               |       85171.59 |
+| Boards & Toys Co.                  |        9129.35 |
++------------------------------------+----------------+
+15 rows in set (0.00 sec)
+
++---------------+
+| city          |
++---------------+
+| Boston        |
+| London        |
+| NYC           |
+| Paris         |
+| San Francisco |
+| Sydney        |
+| Tokyo         |
++---------------+
+7 rows in set (0.00 sec)
+
++---------------------+
+| Number of Employees |
++---------------------+
+|                  23 |
++---------------------+
+1 row in set (0.00 sec)
+
++------------+---------------------+
+| officeCode | Number of Employees |
++------------+---------------------+
+| 1          |                   6 |
+| 2          |                   2 |
+| 3          |                   2 |
+| 4          |                   5 |
+| 5          |                   2 |
+| 6          |                   4 |
+| 7          |                   2 |
++------------+---------------------+
+7 rows in set (0.00 sec)
+
++------------------+
+| Number of Orders |
++------------------+
+|              326 |
++------------------+
+1 row in set (0.00 sec)
+
++------------------------------+------------------+
+| customerName                 | Number of Orders |
++------------------------------+------------------+
+| Euro+ Shopping Channel       |               26 |
+| Mini Gifts Distributors Ltd. |               17 |
++------------------------------+------------------+
+2 rows in set (0.00 sec)
+
++--------------------------+
+| Number of Orders Shipped |
++--------------------------+
+|                      303 |
++--------------------------+
+1 row in set (0.00 sec)
+
++--------------------+
+| Order Status Types |
++--------------------+
+| Shipped            |
+| Resolved           |
+| Cancelled          |
+| On Hold            |
+| Disputed           |
+| In Process         |
++--------------------+
+6 rows in set (0.00 sec)
+
++--------------------+
+| Employee Names     |
++--------------------+
+| Vanauf, George     |
+| Tseng, Foon Yue    |
+| Thompson, Leslie   |
+| Patterson, Mary    |
+| Patterson, William |
+| Patterson, Steve   |
+| Nishi, Mami        |
+| Murphy, Diane      |
+| Marsh, Peter       |
+| King, Tom          |
+| Kato, Yoshimi      |
+| Jones, Barry       |
+| Jennings, Leslie   |
+| Hernandez, Gerard  |
+| Gerard, Martin     |
+| Fixter, Andy       |
+| Firrelli, Jeff     |
+| Firrelli, Julie    |
+| Castillo, Pamela   |
+| Bow, Anthony       |
+| Bott, Larry        |
+| Bondur, Loui       |
+| Bondur, Gerard     |
++--------------------+
+23 rows in set (0.00 sec)
+
++----------------+----------+-----------+-----------+-----------------------------+------------+-----------+-----------+--------+
+| employeeNumber | lastName | firstName | extension | email                       | officeCode | reportsTo | jobTitle  | City   |
++----------------+----------+-----------+-----------+-----------------------------+------------+-----------+-----------+--------+
+|           1501 | Bott     | Larry     | x2311     | lbott@classicmodelcars.com  | 7          |      1102 | Sales Rep | London |
+|           1504 | Jones    | Barry     | x102      | bjones@classicmodelcars.com | 7          |      1102 | Sales Rep | London |
++----------------+----------+-----------+-----------+-----------------------------+------------+-----------+-----------+--------+
+2 rows in set (0.00 sec)
+
+mysql> exit;

@@ -1,0 +1,42 @@
+//KC03KA9 JOB ,'MASON GREIG',MSGCLASS=H                                 00010000
+//STEP1 EXEC PGM=ASSIST                                                 00020000
+//STEPLIB DD DSN=KC02293.ASSIST.LOADLIB,DISP=SHR                        00030000
+//SYSPRINT DD SYSOUT=*                                                  00040000
+//SYSIN DD *                                                            00050000
+********************************************                            00060000
+* ASSIGNMENT 1                                                          00070000
+*                                                                       00080000
+* NAME: MASON GREIG                                                     00090000
+*                                                                       00100000
+* PART A                                                                00110000
+* DECLARE A FULLWORD NUM1 WITH THE VALUE 249                            00120000
+* DECLARE A FULLWORD NUM2 WITH THE VALUE 117                            00130000
+* SUBTRACT NUM2 FROM NUM1                                               00140000
+* ADD NUM2 TO NUM1                                                      00150000
+* USE XDUMP TO DUMP OUT THE REGISTERS                                   00160000
+*                                                                       00170000
+* REGISTER USAGE                                                        00180000
+* 2 HOLDS NUM1 AND DIFFERENCE OF 2 AND 7                                00190003
+* 9 HOLDS NUM2                                                          00200000
+* 7 HOLDS NUM1 AND SUM OF 9 AND 12                                      00210003
+* 12 HOLDS NUM2                                                         00220000
+* NUM1 HOLDS VALUE 249                                                  00230000
+* NUM2 HOLDS VALUE 117                                                  00240000
+*                                                                       00250000
+********************************************                            00260000
+MAIN     CSECT                                                          00270000
+         USING MAIN,15                                                  00280006
+         L     2,NUM1                                                   00290006
+         L     9,NUM2                                                   00300007
+         SR    2,9                                                      00310006
+         XDUMP                                                          00320006
+         L     7,NUM1                                                   00330006
+         L     12,NUM2                                                  00340006
+         AR    7,12                                                     00350006
+         XDUMP                                                          00360006
+         BR    14                                                       00370001
+NUM1     DC    F'249'                                                   00380006
+NUM2     DC    F'117'                                                   00390006
+         END   MAIN                                                     00400001
+/*                                                                      00410001
+//                                                                      00420001

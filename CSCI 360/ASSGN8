@@ -1,0 +1,812 @@
+1                    J E S 2  J O B  L O G  --  S Y S T E M  S 0 W 1  --  N O D E  Z O S K C T R         
+0 
+ 00.59.52 JOB06416 ---- FRIDAY,    01 DEC 2017 ----
+ 00.59.52 JOB06416  IRR010I  USERID KC03KA9  IS ASSIGNED TO THIS JOB.
+ 00.59.52 JOB06416  ICH70001I KC03KA9  LAST ACCESS AT 00:59:40 ON FRIDAY, DECEMBER 1, 2017
+ 00.59.52 JOB06416  $HASP373 KC03KA9A STARTED - INIT 2    - CLASS A        - SYS S0W1
+ 00.59.52 JOB06416  -                                         --TIMINGS (MINS.)--            ----PAGING COUNTS---
+ 00.59.52 JOB06416  -JOBNAME  STEPNAME PROCSTEP    RC   EXCP    TCB    SRB  CLOCK   SERV  PG   PAGE   SWAP    VIO SWAPS
+ 00.59.52 JOB06416  -KC03KA9A                      00    166 ******    .00     .0    372   0      0      0      0     0
+ 00.59.52 JOB06416  -KC03KA9A ENDED.  NAME-MASON GREIG          TOTAL TCB CPU TIME=   .00  TOTAL ELAPSED TIME=    .0
+ 00.59.52 JOB06416  $HASP395 KC03KA9A ENDED
+0------ JES2 JOB STATISTICS ------
+-  01 DEC 2017 JOB EXECUTION DATE
+-          430 CARDS READ
+-          812 SYSOUT PRINT RECORDS
+-            0 SYSOUT PUNCH RECORDS
+-           90 SYSOUT SPOOL KBYTES
+-         0.00 MINUTES EXECUTION TIME
+         1 //KC03KA9A JOB ,'MASON GREIG',MSGCLASS=H                                JOB06416
+         2 //STEP1 EXEC PGM=ASSIST                                                 00002000
+         3 //STEPLIB DD DSN=KC02293.ASSIST.LOADLIB,DISP=SHR                        00003000
+         4 //SYSPRINT DD SYSOUT=*                                                  00004000
+         5 //SYSIN DD *                                                            00005000
+         6 //FT05F001 DD DSN=KC02314.AUTUMN17.CSCI360.HW8DATA,DISP=SHR             00860000
+ ICH70001I KC03KA9  LAST ACCESS AT 00:59:40 ON FRIDAY, DECEMBER 1, 2017
+ IEF236I ALLOC. FOR KC03KA9A STEP1
+ IGD103I SMS ALLOCATED TO DDNAME STEPLIB
+ IEF237I JES2 ALLOCATED TO SYSPRINT
+ IEF237I JES2 ALLOCATED TO SYSIN
+ IGD103I SMS ALLOCATED TO DDNAME FT05F001
+ IEF142I KC03KA9A STEP1 - STEP WAS EXECUTED - COND CODE 0000
+ IGD104I KC02293.ASSIST.LOADLIB                       RETAINED,  DDNAME=STEPLIB 
+ IEF285I   KC03KA9.KC03KA9A.JOB06416.D0000102.?         SYSOUT        
+ IEF285I   KC03KA9.KC03KA9A.JOB06416.D0000101.?         SYSIN         
+ IGD104I KC02314.AUTUMN17.CSCI360.HW8DATA             RETAINED,  DDNAME=FT05F001
+ IEF373I STEP/STEP1   /START 2017335.0059
+ IEF032I STEP/STEP1   /STOP  2017335.0059 
+         CPU:     0 HR  00 MIN  00.01 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+         VIRT:   584K  SYS:   268K  EXT:        4K  SYS:    11324K
+         ATB- REAL:                     0K  SLOTS:                     0K
+              VIRT- ALLOC:       0M SHRD:       0M
+ IEF375I  JOB/KC03KA9A/START 2017335.0059
+ IEF033I  JOB/KC03KA9A/STOP  2017335.0059 
+         CPU:     0 HR  00 MIN  00.01 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+1*** ASSIST 4.0/A2-05/15/82  470/V7A/0:OS/VS2  INS=SDFP7/X=BGHO, CHECK/TRC/=1180, OPTS=CDKMPR FROM PENN ST*NIU COMPSCI*LT         
+0                                                                                                                                 
+0                                                                                                               PAGE    1         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                       1 *******************************************                             00010000         
+                                       2 * Assignment 8                                                          00020000         
+                                       3 *                                                                       00030000         
+                                       4 * Mason Greig                                                           00040000         
+                                       5 * z1768935                                                              00041000         
+                                       6 * Harry Hutchins                                                        00042000         
+                                       7 * CSCI 360                                                              00043000         
+                                       8 * Fall 2017                                                             00044000         
+                                       9 *                                                                       00045000         
+                                      10 *******************************************                             00050000         
+                                      11 * MAIN                                                                  00080036         
+                                      12 *                                                                       00081036         
+                                      13 * FUNCTION: THIS PROGRAM READS AN INPUT FILE                            00082036         
+                                      14 *           THEN DISPLAYS THE DATA, SORTS THE DATA,                     00083036         
+                                      15 *           THEN REPRINTS THE DATA                                      00084036         
+                                      16 *                                                                       00085036         
+                                      17 * REGISTER USAGE                                                        00086036         
+                                      18 *                                                                       00087036         
+                                      19 *  1    PARAMETERS                                                      00088036         
+                                      20 *  15   EXTERNAL ROUTINE REGISTER                                       00089036         
+                                      21 *  14   RETURN REGISTER                                                 00089136         
+                                      22 *  13   SAVE SPACE REGISTER                                             00089236         
+                                      23 *                                                                       00089336         
+                                      24 *******************************************                             00090000         
+                                      25 *                                                                       00100000         
+ 000000                               26 MAIN     CSECT                             START OF MAIN PROGRAM        00110013         
+ 000000 90EC D00C            0000C    27          STM   14,12,12(13)                                             00111000         
+ 000004 18CF                          28          LR    12,15                       STANDARD ENTRY LINKAGE       00112013         
+ 000000                               29          USING MAIN,12                                                  00120000         
+ 000006 41E0 CD54            00D54    30          LA    14,MAINSVE                                               00130000         
+ 00000A 50D0 E004            00004    31          ST    13,4(0,14)                                               00140000         
+ 00000E 50E0 D008            00008    32          ST    14,8(0,13)                                               00150000         
+ 000012 18DE                          33          LR    13,14                                                    00160000         
+                                      34 *                                                                       00170000         
+ 000014 4110 CD2C            00D2C    35          LA    1,BPARAM                    LOAD PARAMETERS              00180013         
+ 000018 58F0 C070            00070    36          L     15,=V(BUILD)                STORE BUILD IN 15            00190013         
+ 00001C 05EF                          37          BALR  14,15                       BRANCH AND LINK TO 15        00200013         
+                                      38 *                                                                       00210000         
+ 00001E E060 C080 00A2 00080          39          XDUMP TABLE,162                   DUMPS TABLE TO SHOW DATA     00220013         
+                                      40 *                                                                       00221000         
+ 000024 E020 CD9C 005B 00D9C          41          XPRNT HEAD,91                     PRINTS NON SORT HEADER       00222013         
+ 00002A E020 CEAD 0001 00EAD          42          XPRNT SPCE,1                                                   00222158         
+ 000030 E020 CE52 005B 00E52          43          XPRNT HEAD3,91                    PRINTS COLUMN LABELS         00223041         
+                                      44 *                                                                       00230000         
+ 000036 4110 CD34            00D34    45          LA    1,PPARAM                    LOAD PARAMETERS              00240013         
+ 00003A 58F0 C074            00074    46          L     15,=V(PRINT)                STORE PRINT IN 15            00250013         
+ 00003E 05EF                          47          BALR  14,15                       BRANCH AND LINK TO 15        00260013         
+                                      48 *                                                                       00270000         
+ 000040 4110 CD4C            00D4C    49          LA    1,SPARAM                    LOAD PARAMETERS              00280013         
+ 000044 58F0 C078            00078    50          L     15,=V(SORT)                 STORE SORT IN 15             00290013         
+ 000048 05EF                          51          BALR  14,15                       BRANCH AND LINK TO 15        00300013         
+                                      52 *                                                                       00301000         
+1                                                                                                               PAGE    2         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+ 00004A E020 CDF7 005B 00DF7          53          XPRNT HEAD2,91                    PRINTS SORT HEADER           00302013         
+ 000050 E020 CEAD 0001 00EAD          54          XPRNT SPCE,1                                                   00302158         
+ 000056 E020 CE52 005B 00E52          55          XPRNT HEAD3,91                    PRINTS COLUMN LABELS         00303041         
+                                      56 *                                                                       00310000         
+ 00005C 4110 CD40            00D40    57          LA    1,PPARAM2                   LOAD PARAMETERS INTO 1       00320013         
+ 000060 58F0 C074            00074    58          L     15,=V(PRINT)                STORE PRINT IN 15            00330013         
+ 000064 05EF                          59          BALR  14,15                       BRANCH AND LINK TO 15        00340013         
+                                      60 *                                                                       00350000         
+ 000066 58D0 D004            00004    61          L     13,4(0,13)                  STANDARD EXIT LINKAGE        00360013         
+ 00006A 98EC D00C            0000C    62          LM    14,12,12(13)                                             00370000         
+ 00006E 07FE                          63          BR    14                                                       00380000         
+                                      64          LTORG                                                          00390000         
+ 000070 00000EB0                      65                =V(BUILD)                                                                 
+ 000074 00001070                      66                =V(PRINT)                                                                 
+ 000078 00001370                      67                =V(SORT)                                                                  
+                                      68 *                                                                       00400000         
+ 000080                               69          ORG   MAIN+((*-MAIN+31)/32)*32                                 00410000         
+ 000080                               70 TABLE    DS    120CL27                     TABLE STORAGE                00420013         
+ 000D28                               71 EOT      DS    F                           END OF TABLE                 00430013         
+ 000D2C 00000080                      72 BPARAM   DC    A(TABLE)                    BUILD PARAMS                 00440013         
+ 000D30 00000D28                      73          DC    A(EOT)                                                   00450000         
+ 000D34 00000080                      74 PPARAM   DC    A(TABLE)                    PRINT PARAMS                 00460013         
+ 000D38 00000D28                      75          DC    A(EOT)                                                   00470000         
+ 000D3C 00000D9C                      76          DC    A(HEAD)                                                  00480000         
+ 000D40 00000080                      77 PPARAM2  DC    A(TABLE)                    SORT PRINT PARAMS            00490013         
+ 000D44 00000D28                      78          DC    A(EOT)                                                   00500000         
+ 000D48 00000DF7                      79          DC    A(HEAD2)                                                 00510000         
+ 000D4C 00000080                      80 SPARAM   DC    A(TABLE)                    SORT PARAMS                  00520013         
+ 000D50 00000D28                      81          DC    A(EOT)                                                   00530000         
+ 000D54                               82 MAINSVE  DS    18F                         MAIN SAVE LOCATION           00540013         
+ 000D9C F1                            83 HEAD     DC    C'1'                        INITIAL HEADER               00550013         
+ 000D9D 4040404040404040              84          DC    31C' '                                                   00560000         
+ 000DBC E2A3A4848595A340              85          DC    CL19'Student Information'                                00570000         
+ 000DCF 4040404040404040              86          DC    31C' '                                                   00580000         
+ 000DEE D78187857A40                  87          DC    CL6'Page: '                                              00590000         
+ 000DF4 4040F1                        88          DC    CL3'  1'                                                 00600000         
+ 000DF7 F1                            89 HEAD2    DC    C'1'                        SORT DATA HEADER             00610013         
+ 000DF8 4040404040404040              90          DC    27C' '                                                   00620000         
+ 000E13 E2A3A4848595A340              91          DC    CL26'Student Information By GPA'                         00630000         
+ 000E2D 4040404040404040              92          DC    28C' '                                                   00640000         
+ 000E49 D78187857A40                  93          DC    CL6'Page: '                                              00650000         
+ 000E4F 4040F2                        94          DC    CL3'  2'                                                 00660000         
+ 000E52 60                            95 HEAD3    DC    C'-'                        COLUMN LABELS                00660113         
+ 000E53 4040                          96          DC    2C' '                                                    00660200         
+ 000E55 E2A3A4848595A340              97          DC    CL10'Student ID'                                         00660300         
+ 000E5F 40404040                      98          DC    4C' '                                                    00660441         
+ 000E63 D781A2A2A6969984              99          DC    CL8'Password'                                            00660500         
+ 000E6B 4040404040                   100          DC    5C' '                                                    00660641         
+ 000E70 D9859585A6819340             101          DC    CL12'Renewal Date'                                       00660700         
+ 000E7C 404040                       102          DC    3C' '                                                    00660800         
+ 000E7F D481919699                   103          DC    CL5'Major'                                               00660900         
+ 000E84 4040404040                   104          DC    5C' '                                                    00661000         
+ 000E89 C7D7C1                       105          DC    CL3'GPA'                                                 00661100         
+ 000E8C 4040404040                   106          DC    5C' '                                                    00661200         
+ 000E91 E396A3819340C896             107          DC    CL11'Total Hours'                                        00661300         
+ 000E9C 40404040                     108          DC    4C' '                                                    00661400         
+ 000EA0 C3A499998595A340             109          DC    CL13'Current Hours'                                      00661514         
+1                                                                                                               PAGE    3         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+ 000EAD 40                           110 SPCE     DC    C' '                                                     00661658         
+                                     111 *                                                                       00661800         
+ 000000                              112 TABLELNE DSECT                             DATA DSECT                   00661913         
+ 000000                              113 SID      DS    4B                          DESCRIBES TABLE DATA         00662013         
+ 000004                              114 PSWORD   DS    12B                                                      00663000         
+ 000010                              115 RENEWPW  DS    2B                                                       00664000         
+ 000012                              116 MAJOR    DS    4B                                                       00665000         
+ 000016                              117 GPA      DS    2P                                                       00666000         
+ 000018                              118 TCRHR    DS    2B                                                       00667000         
+ 00001A                              119 CRENRLD  DS    1B                                                       00668000         
+                                     120 *                                                                       00670000         
+                                     121 *******************************************                             00680000         
+                                     122 *                                                                       00690000         
+                                     123 * BUILD                                                                 00700000         
+                                     124 *                                                                       00710000         
+                                     125 * FUNCTION: THIS SUBROUTINE BUILDS THE TABLE                            00720000         
+                                     126 *           FROM AN INPUT FILE                                          00730000         
+                                     127 *                                                                       00740000         
+                                     128 * REGISTER USAGE                                                        00750000         
+                                     129 *                                                                       00751000         
+                                     130 *  7    TABLE                                                           00760000         
+                                     131 *  8    EOT                                                             00770000         
+                                     132 *  5    USED WITH CVB                                                   00771000         
+                                     133 *  12   BASE REGISTER                                                   00772000         
+                                     134 *  13   ADDRESS OF BUILDSVE                                             00773000         
+                                     135 *  14   RETURN ADDRESS                                                  00774000         
+                                     136 *                                                                       00775000         
+                                     137 *******************************************                             00780000         
+                                     138 *                                                                       00790000         
+ 000EB0                              139 BUILD    CSECT                             START OF BUILD ROUTINE       00800013         
+ 000EB0 90EC D00C            0000C   140          STM   14,12,12(13)                                             00801000         
+ 000EB4 18CF                         141          LR    12,15                                                    00802000         
+ 000EB0                              142          USING BUILD,12                    ENTRY LINKAGE                00803013         
+ 000EB6 41E0 C0D4            00F84   143          LA    14,BUILDSVE                                              00810000         
+ 000EBA 50D0 E004            00004   144          ST    13,4(0,14)                                               00811000         
+ 000EBE 50E0 D008            00008   145          ST    14,8(0,13)                                               00812000         
+ 000EC2 18DE                         146          LR    13,14                                                    00813000         
+                                     147 *                                                                       00814000         
+ 000EC4 9878 1000            00000   148          LM    7,8,0(1)                                                 00814100         
+ 000000                              149          USING TABLELNE,7                  LOAD PARAMETERS              00815013         
+                                     150 *                                                                       00815100         
+ 000EC8 E000 C11C 0050 00FCC         151 BLOOP    XREAD BUFFER,80                   READ IN FROM INPUT FILE      00816013         
+ 000ECE 4740 C0BE            00F6E   152          BC    B'0100',ENDBLD              IF ERROR GO TO ENDBLD        00817013         
+ 000ED2 5970 8000            00000   153          C     7,0(0,8)                    COMPARE TABLE TO EOT         00817113         
+ 000ED6 4780 C0BE            00F6E   154          BE    ENDBLD                      IF EVEN GO TO ENDBLD         00817213         
+                                     155 *                                                                       00817300         
+ 000EDA F277 C188 C11D 01038 00FCD   156          PACK  TEMPID(8),BUFFER+1(8)       PUT STUDENT ID INTO TEMPID   00817413         
+ 000EE0 4F50 C188            01038   157          CVB   5,TEMPID                    CONVERT TEMPID TO BINARY     00817513         
+ 000EE4 BE5F 7000            00000   158          STCM  5,B'1111',SID               STORE BINARY ID IN SID       00817613         
+                                     159 *                                                                       00817700         
+ 000EE8 D20B 7004 C126 00004 00FD6   160          MVC   PSWORD(12),BUFFER+10        MOVE PASSWORD INTO PSWORD    00817813         
+ 000EEE D703 7004 7000 00004 00000   161          XC    PSWORD(4),SID               ENCRYPT FIRST 4 BYTES        00817913         
+ 000EF4 D703 7008 7000 00008 00000   162          XC    PSWORD+4(4),SID             ENCRYPT NEXT 4 BYTES         00818013         
+ 000EFA D703 700C 7000 0000C 00000   163          XC    PSWORD+8(4),SID             ENCRYPT LAST 4 BYTES         00818113         
+                                     164 *                                                                       00818200         
+ 000F00 F271 C190 C133 01040 00FE3   165          PACK  TDAY(8),BUFFER+23(2)        PLACE THE DATE INTO LABELS   00818313         
+ 000F06 F271 C198 C135 01048 00FE5   166          PACK  TMONTH(8),BUFFER+25(2)                                   00818400         
+1                                                                                                               PAGE    4         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+ 000F0C F273 C1A0 C137 01050 00FE7   167          PACK  TYEAR(8),BUFFER+27(4)                                    00818500         
+ 000F12 FB72 C1A0 C0D0 01050 00F80   168          SP    TYEAR(8),=P'1980'           FIND DIFFERENCE              00818613         
+ 000F18 4F50 C1A0            01050   169          CVB   5,TYEAR                     CONVERT DIFF TO BINARY       00818713         
+ 000F1C 8950 0009            00009   170          SLL   5,9                         SHIFT LEFT 9                 00818813         
+ 000F20 BE53 7010            00010   171          STCM  5,B'0011',RENEWPW           STORE BINARY YEAR IN TABLE   00818913         
+ 000F24 4F50 C198            01048   172          CVB   5,TMONTH                    CONVERT MONTH TO BINARY      00819013         
+ 000F28 8950 0005            00005   173          SLL   5,5                         SHIFT LEFT 5                 00819113         
+ 000F2C BE53 C1B8            01068   174          STCM  5,B'0011',BINARYT           STRE BINARY MONTH IN BINARYT 00819213         
+ 000F30 D601 7010 C1B8 00010 01068   175          OC    RENEWPW(2),BINARYT          OR THE DATA TOGETHER         00819313         
+ 000F36 4F50 C190            01040   176          CVB   5,TDAY                      CONVERT DAY TO BINARY        00819413         
+ 000F3A BE53 C1B8            01068   177          STCM  5,B'0011',BINARYT           STRE DAY IN BINARYT          00819513         
+                                     178 *                                                                       00819600         
+ 000F3E D203 7012 C13C 00012 00FEC   179          MVC   MAJOR(4),BUFFER+32                      MOVE MAJOR INTO  00819713         
+                                     180 *                                                      TABLE            00819813         
+ 000F44 F212 7016 C141 00016 00FF1   181          PACK  GPA(2),BUFFER+37(3)                     MOVE GPA INTO    00819913         
+                                     182 *                                                      TABLE            00820013         
+ 000F4A F272 C1A8 C145 01058 00FF5   183          PACK  TOTALHR(8),BUFFER+41(3)                 PLACE DATA IN    00820113         
+ 000F50 F271 C1B0 C149 01060 00FF9   184          PACK  ENROLHR(8),BUFFER+45(2)                 LABELS           00820313         
+ 000F56 4F50 C1A8            01058   185          CVB   5,TOTALHR                               CONVERT TOTALHR  00820413         
+ 000F5A BE53 7018            00018   186          STCM  5,B'0011',TCRHR                         STR BINARY IN    00820513         
+ 000F5E 4F50 C1B0            01060   187          CVB   5,ENROLHR                               TCRHR            00820613         
+ 000F62 BE51 701A            0001A   188          STCM  5,B'0001',CRENRLD                       CONVERT ENROLHR  00820713         
+                                     189 *                                                      TO BINARY AND    00820813         
+                                     190 *                                                      STR BINARY IN    00820913         
+                                     191 *                                                      CRENRLD          00821013         
+ 000F66 4170 701B            0001B   192          LA    7,27(0,7)                               INCREMENT TABLE  00821113         
+ 000F6A 47F0 C018            00EC8   193          B     BLOOP                                   GO TO BLOOP      00821213         
+ 000F6E 5078 0000            00000   194 ENDBLD   ST    7,0(8)                                                   00821300         
+ 000F72 58D0 D004            00004   195          L     13,4(0,13)                                               00821400         
+ 000F76 98EC D00C            0000C   196          LM    14,12,12(13)                            EXIT LINKAGE     00821513         
+ 000F7A 07FE                         197          BR    14                                                       00821600         
+                                     198          LTORG                                                          00821700         
+ 000F80 01980C                       199                =P'1980'                                                                  
+                                     200 *                                                                       00821800         
+ 000F84                              201 BUILDSVE DS    18F                                     BUILD STORAGE    00821913         
+ 000FCC                              202 BUFFER   DS    80C                                     INPUT BUFFER     00822013         
+ 00101C 5C                           203          DC    C'*'                                    EOB              00822113         
+ 00101D                              204 ADDRESS  DS    12B                                     ADDRESSABILITY   00822213         
+ 001029                              205 ADDFIX2  DS    12B                                                      00822309         
+ 001038                              206          DS    0D                                                       00822407         
+ 001038                              207 TEMPID   DS    8P                                      TEMP LABELS      00822513         
+ 001040                              208 TDAY     DS    8P                                                       00822600         
+ 001048                              209 TMONTH   DS    8P                                                       00822700         
+ 001050                              210 TYEAR    DS    8P                                                       00822800         
+ 001058                              211 TOTALHR  DS    8P                                                       00822900         
+ 001060                              212 ENROLHR  DS    8P                                                       00823000         
+ 001068                              213 BINARYT  DS    2B                                                       00823100         
+                                     214 *                                                                       00823200         
+                                     215 *******************************************                             00823300         
+                                     216 *                                                                       00823400         
+                                     217 * PRINT                                                                 00823500         
+                                     218 *                                                                       00823600         
+                                     219 * FUNCTION: THIS SUBROUTINE PRINTS THE CONTENTS                         00823700         
+                                     220 *           OF THE TABLE                                                00823800         
+                                     221 *                                                                       00823900         
+                                     222 * REGISTER USAGE:                                                       00824000         
+                                     223 *                                                                       00824100         
+1                                                                                                               PAGE    5         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                     224 *  7    TABLE                                                           00824200         
+                                     225 *  8    EOT                                                             00824300         
+                                     226 *  9    HEADER                                                          00824435         
+                                     227 *  5    FIRST-NON BLANK REG                                             00824535         
+                                     228 * 12    BASE REGISTER                                                   00824600         
+                                     229 * 13    ADDRESS OF PRINTSVE                                             00824700         
+                                     230 * 14    RETURN ADDRESS                                                  00824800         
+                                     231 *                                                                       00824900         
+                                     232 *******************************************                             00825000         
+                                     233 *                                                                       00825100         
+ 001070                              234 PRINT    CSECT                             PRINT ROUTINE                00825213         
+ 001070 90EC D00C            0000C   235          STM   14,12,12(13)                                             00825300         
+ 001074 18CF                         236          LR    12,15                                                    00825400         
+ 001070                              237          USING PRINT,12                                                 00825500         
+ 001076 41E0 C1BC            0122C   238          LA    14,PRNTSVE                  STANDARD ENTRY LINKAGE       00825613         
+ 00107A 18CF                         239          LR    12,15                                                    00825700         
+ 00107C 50E0 D008            00008   240          ST    14,8(0,13)                                               00825800         
+ 001080 18DE                         241          LR    13,14                                                    00825900         
+                                     242 *                                                                       00826000         
+ 001082 9879 1000            00000   243          LM    7,9,0(1)                    UNLOAD PARAMETERS            00826113         
+ 000000                              244          USING TABLELNE,7                                               00826200         
+ 001086 F820 C2BD C1A4 0132D 01214   245          ZAP   PAGECNT,=P'1'               INITIALIZE PAGE COUNT        00826313         
+ 00108C 1BBB                         246          SR    11,11                                   ZERO OUT 11      00826413         
+ 00108E 5970 8000            00000   247 PLOOP    C     7,0(0,8)                    COMPARE TABLE TO EOT         00826513         
+ 001092 4780 C172            011E2   248          BE    PRINTEND                    IF EQUAL GO TO PRINTEND      00826613         
+ 001096 59B0 C188            011F8   249          C     11,=F'40'                   CHECK IFF 11 IS EQUAL TO 40  00826713         
+ 00109A 47C0 C076            010E6   250          BC    B'1100',NEWLINE             IF < OR = GO TO NEWLINE      00826813         
+ 00109E 1BBB                         251          SR    11,11                       ZERO OUT 11                  00826913         
+ 0010A0 FA20 C2BD C1A4 0132D 01214   252          AP    PAGECNT(3),=P'1'            ADD 1 TO PAGE COUNT          00827051         
+ 0010A6 9240 C205      01275         253          MVI   PRNTLINE+1,C' '             CLEAR PRNTLINE               00827113         
+ 0010AA D258 C206 C205 01276 01275   254          MVC   PRNTLINE+2(89),PRNTLINE+1                                00827254         
+ 0010B0 D259 C205 9000 01275 00000   255          MVC   PRNTLINE+1(90),0(9)         PLACE HEADER ONTO LINE       00827313         
+ 0010B6 F322 C2C0 C2BD 01330 0132D   256          UNPK  PAGENUM(3),PAGECNT          MAKE PAGE COUNT PRINTABLE    00827413         
+ 0010BC D202 C25C C2C0 012CC 01330   257          MVC   PRNTLINE+88(3),PAGENUM      MOVE PAGE NUM ONTO LINE      00827513         
+ 0010C2 E020 C261 0001 012D1         258          XPRNT FORMAT,1                                                 00827654         
+ 0010C8 E020 C204 005B 01274         259          XPRNT PRNTLINE,91                 PRINT HEADER                 00827713         
+ 0010CE E020 C261 0001 012D1         260          XPRNT FORMAT,1                    PRINT SPACING                00827813         
+ 0010D4 D25A C205 C262 01275 012D2   261          MVC   PRNTLINE+1(91),COLUMLAB     MOVE COLUMN HEADER TO LINE   00827953         
+ 0010DA E020 C204 005B 01274         262          XPRNT PRNTLINE,91                 PRINT COLUMN LABELS          00828054         
+ 0010E0 E020 C261 0001 012D1         263          XPRNT FORMAT,1                    PRINT SPACING                00828113         
+ 0010E6 9240 C205      01275         264 NEWLINE  MVI   PRNTLINE+1,C' '             CLEAR PRINT LINE             00828213         
+ 0010EA D258 C206 C205 01276 01275   265          MVC   PRNTLINE+2(89),PRNTLINE+1                                00828354         
+ 0010F0 D20A C205 C1A5 01275 01215   266          MVC   STUDENT(11),=X'4021C72020202020202020'  FORMAT FOR SID   00828444         
+ 0010F6 1B55                         267          SR    5,5                         ZERO OUT 5                   00828513         
+ 0010F8 BF5F 7000            00000   268          ICM   5,B'1111',SID               MOVE SID TO REG 5            00828616         
+ 0010FC 4E50 C2E0            01350   269          CVD   5,TEMP                      CONVERT TO DECIMAL           00828713         
+ 001100 DE0A C205 C2E3 01275 01353   270          ED    STUDENT(11),TEMP+3          USE FORMATTING               00828813         
+ 001106 D20B C223 C18C 01293 011FC   271          MVC   DATETEM(12),=X'402120206120206120202020' format for date 00828947         
+ 00110C 1B55                         272          SR    5,5                         ZERO OUT REG 5               00829013         
+ 00110E BF5C 7010            00010   273          ICM   5,B'1100',RENEWPW           MOVE RENEWPW TO REG 5        00829116         
+ 001112 8850 0019            00019   274          SRL   5,25                        SHIFT RIGHT 25               00829213         
+ 001116 4E50 C2E0            01350   275          CVD   5,TEMP                      CONVERT REG 5 TO DECIMAL     00829313         
+ 00111A FA72 C2E0 C1B0 01350 01220   276          AP    TEMP(8),=P'1980'            ADD 1980 TO DATE YEAR        00829432         
+ 001120 1B55                         277          SR    5,5                         ZERO OUT REG 5               00829513         
+ 001122 BF5C 7010            00010   278          ICM   5,B'1100',RENEWPW           PLACE RENEWPW ON REG 5       00829647         
+ 001126 8950 0007            00007   279          SLL   5,7                         SHIFT LEFT 11                00829735         
+ 00112A 8850 001C            0001C   280          SRL   5,28                        SHIFT RIGHT 27               00829835         
+1                                                                                                               PAGE    6         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+ 00112E 4E50 C2E8            01358   281          CVD   5,TEMP2                     CONVERT REG 5 TO DECIMAL     00829913         
+ 001132 F070 C2E8 0004 01358 00004   282          SRP   TEMP2(8),4,0                SHIFT LEFT 4                 00830016         
+ 001138 FA77 C2E0 C2E8 01350 01358   283          AP    TEMP(8),TEMP2(8)            ADD TEMP2 TO TEMP            00830133         
+ 00113E 1B55                         284          SR    5,5                         ZERO OUT REG 5               00830213         
+ 001140 BF5F 7010            00010   285          ICM   5,B'1111',RENEWPW           MOVE RENEWPW INTO REG 5      00830345         
+ 001144 8950 000B            0000B   286          SLL   5,11                        SHIFT LEFT 11                00830413         
+ 001148 8850 001B            0001B   287          SRL   5,27                        SHIFT RIGHT 27               00830513         
+ 00114C 4E50 C2E8            01358   288          CVD   5,TEMP2                     CONVERT TO DECIMAL           00830613         
+ 001150 F070 C2E8 0006 01358 00006   289          SRP   TEMP2(8),6,0                SHIFT LEFT 6                 00830716         
+ 001156 FA77 C2E0 C2E8 01350 01358   290          AP    TEMP(8),TEMP2(8)            ADD TEMP2 TO TEMP            00830833         
+ 00115C DE06 C223 C2E3 01293 01353   291          ED    DATETEM(7),TEMP+3           PLACE DATE ON LNE WITH FRMAT 00830916         
+                                     292 *                                                                       00831000         
+ 001162 D206 C23A C1B3 012AA 01223   293          MVC   GPATEMP(7),=X'402021204B2020'  SET FORMAT FOR GPA        00831135         
+ 001168 F871 C2E0 7016 01350 00016   294          ZAP   TEMP(8),GPA(2)              INITIALIZE TEMP TO GPA       00831235         
+ 00116E DE06 C23A C2E5 012AA 01355   295          ED    GPATEMP(7),TEMP+5           PLACE GPA WITH FORMAT ON LNE 00831316         
+                                     296 *                                                                       00831400         
+ 001174 D203 C248 C198 012B8 01208   297          MVC   THOUR(4),=X'40202120'       FORMAT FOR TOTAL HOURS       00831513         
+ 00117A 1B55                         298          SR    5,5                         ZERO REG 5                   00831613         
+ 00117C 4350 7018            00018   299          IC    5,TCRHR                     PLACE FIRST BYTE IN 5        00831716         
+ 001180 8950 0001            00001   300          SLL   5,1                         SHIFT LEFT 1                 00831813         
+ 001184 4350 7019            00019   301          IC    5,TCRHR+1                   PLACE SECOND BYTE IN 5       00831916         
+ 001188 4E50 C2E0            01350   302          CVD   5,TEMP                      CONVERT REG 5 TO DECIMAL     00832013         
+ 00118C DE03 C248 C2E6 012B8 01356   303          ED    THOUR(4),TEMP+6             PLACE TOTAL HOURS ON LINE    00832116         
+                                     304 *                                                                       00832200         
+ 001192 D203 C259 C198 012C9 01208   305          MVC   CHOUR(4),=X'40202120'       FORMAT FOR CURRENT HOURS     00832313         
+ 001198 1B55                         306          SR    5,5                         ZERO REG 5                   00832413         
+ 00119A 4350 701A            0001A   307          IC    5,CRENRLD                   PLACE FIRST BYTE OF CURR CR  00832516         
+ 00119E 4E50 C2E0            01350   308          CVD   5,TEMP                      CONVRT REG 5 TO DECIMAL      00832613         
+ 0011A2 DE03 C259 C2E6 012C9 01356   309          ED    CHOUR(4),TEMP+6             PLACE FORMATTED CR HOURS ON  00832716         
+                                     310 *                                          LINE                         00832813         
+ 0011A8 D203 C234 7012 012A4 00012   311          MVC   MJROUT(4),MAJOR             PLACE MAJOR ON LINE          00832913         
+                                     312 *                                                                       00833000         
+ 0011AE D20B C2F0 7004 01360 00004   313          MVC   TEMPPW(12),PSWORD                   PLACE PSWORD INTO    00833113         
+ 0011B4 D703 C2F0 7000 01360 00000   314          XC    TEMPPW(4),SID                       TEMPPW AND DECRYPT   00833213         
+ 0011BA D703 C2F4 7000 01364 00000   315          XC    TEMPPW+4(4),SID                     PASSWORD             00833313         
+ 0011C0 D703 C2F8 7000 01368 00000   316          XC    TEMPPW+8(4),SID                                          00833400         
+ 0011C6 D20B C213 C2F0 01283 01360   317          MVC   PASSWRD(12),TEMPPW                  PLACE PASSWORD ONTO  00833513         
+                                     318 *                                                  LINE                 00833613         
+ 0011CC E020 C204 005A 01274         319          XPRNT PRNTLINE,90                         PRINT THE LINE       00833740         
+ 0011D2 5AB0 C19C            0120C   320          A     11,=F'1'                                                 00833850         
+ 0011D6 5AB0 C1A0            01210   321          A     11,=F'0'                                                 00833956         
+ 0011DA 4170 701B            0001B   322          LA    7,27(0,7)                           INCREMENT TABLE      00834047         
+ 0011DE 47F0 C01E            0108E   323          B     PLOOP                               GO TO PLOOP          00834113         
+                                     324 *                                                                       00834200         
+ 0011E2 58D0 D004            00004   325 PRINTEND L     13,4(0,13)                                               00834562         
+ 0011E6 E020 C261 0001 012D1         326          XPRNT FORMAT,1                                                 00834664         
+ 0011EC 98EC D00C            0000C   327          LM    14,12,12(13)                        STANDAD EXIT LINKAGE 00834813         
+ 0011F0 07FE                         328          BR    14                                                       00834900         
+                                     329          LTORG                                                          00835000         
+ 0011F8 00000028                     330                =F'40'                                                                    
+ 0011FC 4021202061202061             331                =X'402120206120206120202020'                                              
+ 001208 40202120                     332                =X'40202120'                                                              
+ 00120C 00000001                     333                =F'1'                                                                     
+ 001210 00000000                     334                =F'0'                                                                     
+ 001214 1C                           335                =P'1'                                                                     
+ 001215 4021C72020202020             336                =X'4021C72020202020202020'                                                
+ 001220 01980C                       337                =P'1980'                                                                  
+1                                                                                                               PAGE    7         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+ 001223 402021204B2020               338                =X'402021204B2020'                                                        
+                                     339 *                                                                       00835101         
+ 00122C                              340 PRNTSVE  DS    18F                           PRINT STORAGE              00835214         
+                                     341 *                                                                       00835301         
+ 001274 40                           342 PRNTLINE DC    C' '                          PRINT LINE START           00835414         
+ 001275                              343 STUDENT  DS    11C                           ID DATA                    00835514         
+ 001280 404040                       344          DC    3C' '                                                    00835638         
+ 001283                              345 PASSWRD  DS    12C                           PASSWORD DATA              00835714         
+ 00128F 40404040                     346          DC    4C' '                                                    00835838         
+ 001293                              347 DATETEM  DS    12C                           DATE DATA                  00835914         
+ 00129F 4040404040                   348          DC    5C' '                                                    00836040         
+ 0012A4                              349 MJROUT   DS    4C                            MAJOR DATA                 00836114         
+ 0012A8 4040                         350          DC    2C' '                                                    00836241         
+ 0012AA                              351 GPATEMP  DS    7C                            GPA DATA                   00836314         
+ 0012B1 40404040404040               352          DC    7C' '                                                    00836441         
+ 0012B8                              353 THOUR    DS    4C                            TOTAL HOURS DATA           00836514         
+ 0012BC 4040404040404040             354          DC    13C' '                                                   00836639         
+ 0012C9                              355 CHOUR    DS    4C                            CURRENT HOURS DATA         00836714         
+ 0012CD 40404040                     356          DC    4C' '                                                    00836838         
+                                     357 *                                                                       00836901         
+ 0012D1 40                           358 FORMAT   DC    C' '                        SPACING                      00837014         
+                                     359 *                                                                       00837101         
+ 0012D2 60                           360 COLUMLAB DC    C'-'                        COLUMN PRINT LABELS          00837214         
+ 0012D3 4040                         361          DC    2C' '                                                    00837301         
+ 0012D5 E2A3A4848595A340             362          DC    CL10'Student ID'                                         00837401         
+ 0012DF 40404040                     363          DC    4C' '                                                    00837501         
+ 0012E3 D781A2A2A6969984             364          DC    CL8'Password'                                            00837601         
+ 0012EB 4040404040                   365          DC    5C' '                                                    00837736         
+ 0012F0 D9859585A6819340             366          DC    CL12'Renewal Date'                                       00837801         
+ 0012FC 404040                       367          DC    3C' '                                                    00837901         
+ 0012FF D481919699                   368          DC    CL5'Major'                                               00838001         
+ 001304 4040404040                   369          DC    5C' '                                                    00838101         
+ 001309 C7D7C1                       370          DC    CL3'GPA'                                                 00838201         
+ 00130C 4040404040                   371          DC    5C' '                                                    00838301         
+ 001311 E396A3819340C896             372          DC    CL11'Total Hours'                                        00838401         
+ 00131C 40404040                     373          DC    4C' '                                                    00838501         
+ 001320 C3A499998595A340             374          DC    CL13'Current Hours'                                      00838614         
+                                     375 *                                                                       00838708         
+ 00132D 00000C                       376 PAGECNT  DC    PL3'0'                      PAGE COUNT LABEL             00838814         
+ 001330 F0F0C0                       377 PAGENUM  DC    ZL3'0'                      PAGE NUM PRINTABLE LABEL     00838914         
+                                     378 *                                                                       00839027         
+ 001350                              379          ORG   PRINT+((*-PRINT+31)/32)*32                               00839131         
+                                     380 *                                                                       00839227         
+ 001350                              381 TEMP     DS    8P                                                       00839301         
+ 001358                              382 TEMP2    DS    8P                          TEMPORARY LABELS FOR VALUES  00839414         
+ 001360                              383 TEMPPW   DS    12C                                                      00839501         
+                                     384 *                                                                       00839600         
+                                     385 *******************************************                             00839700         
+                                     386 * SORT                                                                  00839842         
+                                     387 *                                                                       00839900         
+                                     388 * FUNCTION: THIS ROUTINE SORTS THE TABLE USING                          00840042         
+                                     389 *           A BUBBLE SORT                                               00840142         
+                                     390 *                                                                       00840242         
+                                     391 * REGISTER USAGE                                                        00840342         
+                                     392 *                                                                       00840442         
+                                     393 *  7    TABLE                                                           00840542         
+                                     394 *  8    EOT                                                             00840642         
+1                                                                                                               PAGE    8         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                     395 *  9    LOCATION SAVER                                                  00840742         
+                                     396 *  12   ROUTINE REGISTER                                                00840842         
+                                     397 *  13   SAVE SPACE                                                      00840942         
+                                     398 *  14   RETURN REGISTER                                                 00841042         
+                                     399 *                                                                       00841142         
+                                     400 *******************************************                             00841200         
+                                     401 *                                                                       00841300         
+ 001370                              402 SORT     CSECT                             SORT ROUTINE                 00841442         
+ 001370 90EC D00C            0000C   403          STM   14,12,12(13)                                             00841500         
+ 001374 18CF                         404          LR    12,15                                                    00841600         
+ 001370                              405          USING SORT,12                     ENTRY LINKAGE                00841742         
+ 001376 41E0 C068            013D8   406          LA    14,SORTSVE                                               00841802         
+ 00137A 18CF                         407          LR    12,15                                                    00841900         
+ 00137C 50E0 D008            00008   408          ST    14,8(0,13)                                               00842000         
+ 001380 18DE                         409          LR    13,14                                                    00842100         
+                                     410 *                                                                       00842202         
+ 001382 9878 1000            00000   411          LM    7,8,0(1)                    UNLOAD PARAMETERS            00842342         
+ 000000                              412          USING TABLELNE,7                                               00842402         
+ 001386 1897                         413          LR    9,7                         STORE BEGINNING OF TABLE     00842542         
+ 001388 1879                         414 SLOOP    LR    7,9                         RELOAD BEGINNING OF TABLE    00842642         
+ 00138A 5990 8000            00000   415          C     9,0(0,8)                    COMPARE TABLE TO EOT         00842742         
+ 00138E 4780 C05A            013CA   416          BC    B'1000',SORTEND             IF EQUAL GO TO SORTEND       00842842         
+ 001392 5970 8000            00000   417 SLOOP2   C     7,0(0,8)                    COMPARE CURRENT LOC TO EOT   00842942         
+ 001396 4780 C052            013C2   418          BC    B'1000',SORTINC             IF EQUAL INC TABLE           00843042         
+ 00139A F911 7016 9016 00016 00016   419          CP    GPA(2),22(2,9)              COMPARE GPA TO FIRST GPA     00843142         
+ 0013A0 4720 C03C            013AC   420          BH    SWITCH                      SWITCH LOC VALUES            00843242         
+ 0013A4 4170 701B            0001B   421 INCRMNT  LA    7,27(0,7)                   INCREMENT TABLE              00843342         
+ 0013A8 47F0 C022            01392   422          B     SLOOP2                      GO TO SLOOP2                 00844042         
+ 0013AC D21A C0B0 7000 01420 00000   423 SWITCH   MVC   SWAP(27),0(7)               PUT CURRENT IN TEMP          00845042         
+ 0013B2 D21A 7000 9000 00000 00000   424          MVC   0(27,7),0(9)                PLACE NEW VAL IN CURR        00846042         
+ 0013B8 D21A 9000 C0B0 00000 01420   425          MVC   0(27,9),SWAP                PLACE TEMP INTO PREVIOUS LOC 00847042         
+ 0013BE 47F0 C034            013A4   426          BC    B'1111',INCRMNT             GO TO INCREMENT              00848042         
+ 0013C2 4190 901B            0001B   427 SORTINC  LA    9,27(0,9)                   INCREMENT TABLE              00849042         
+ 0013C6 47F0 C018            01388   428          BC    B'1111',SLOOP               GO TO SLOOP                  00849142         
+ 0013CA 58D0 D004            00004   429 SORTEND  L     13,4(0,13)                                               00849202         
+ 0013CE 98EC D00C            0000C   430          LM    14,12,12(13)                EXIT LINKAGE                 00849342         
+ 0013D2 07FE                         431          BR    14                                                       00849402         
+                                     432          LTORG                                                          00849502         
+                                     433 *                                                                       00849602         
+ 0013D8                              434 SORTSVE  DS    18F                         SORT SAVE SPACE              00849742         
+ 001420                              435 SWAP     DS    27B                         SWAP LABEL                   00849842         
+                                     436 *                                                                       00849902         
+                                     437          END                                                            00850002         
+0***  NO   STATEMENTS FLAGGED -  NO   WARNINGS,  NO   ERRORS                                                                      
+0*** DYNAMIC CORE AREA USED:  LOW:   27456 HIGH:    1964 LEAVING:  464148 FREE BYTES. AVERAGE:       67 BYTES/STMT ***            
+0*** ASSEMBLY TIME =    0.002 SECS,   219000 STATEMENTS/SEC ***                                                                   
+0*** PROGRAM EXECUTION BEGINNING - ANY OUTPUT BEFORE EXECUTION TIME MESSAGE IS PRODUCED BY USER PROGRAM ***                       
+0BEGIN XSNAP - CALL     1 AT D0000024 USER STORAGE                                                                                
+0                             CORE ADDRESSES SPECIFIED-     000080 TO 000122                                                      
+ 000080   0221701E 95A0D2BC A4B7E99A 4261305E    4D60D4E4 E2C3010F 00161103 A6FFD687   *......K...Z.......MUSC........O.*         
+ 0000A0   3F6970A1 047E4143 E6BF964B 80D4E4E2    C3110F00 420603BE 99EBA537 0C488627   *........W....MUSC...............*         
+ 0000C0   10498028 0D624D60 D7C8E8E2 190F0037    12039777 E29012D4 76861EE2 A243D737   *........PHYS........S..M...S..P.*         
+ 0000E0   A24B80C2 C9D6D338 0F00270E 01B2F59D    99147004 A21AB5DD 41F2B5DD 4C60D7C8   *...BIOL.......5..........2....PH*         
+ 000100   E8E2130F 00120400 7ACEA0F1 883D54F5    8C3958F9 8A8EE04C 40D7C8E8 E2190F00   *YS.........1...5...9.... PHYS...*         
+1000120   4602029E 2D8DF267 D57AF46B D97EF06F    6DCD4A60 C3E2C3C9 170F002C 01024EFD   *......2.N.4.R.0.....CSCI........*         
+0                                                                                                                                 
+1                               Student Information                               Page:   1                                       
+                                                                                                                                  
+-  Student ID    Password     Renewal Date   Major     GPA     Total Hours    Current Hours                                       
+   G35745822   password          00/11/     MUSC     0.10         22               17                                         
+   G61276118   drowssap          00/12/     MUSC     1.10         66                6                                         
+   G62822891   winteriscomi      00/11/     PHYS     1.90         55               18                                         
+   G60258274   letmein           00/12/     BIOL     3.80         39               14                                         
+   G28505501   qwerty            00/03/     PHYS     1.30         18                4                                         
+   G08048288   1234567890        00/02/     PHYS     1.90         70                2                                         
+   G43920781   0987654321        00/03/     CSCI     1.70         44                1                                         
+   G38731131   asdfghjkl         00/02/     MUSC     2.50         80                9                                         
+   G01810721   zxcvbnm           00/08/     MATH     2.90         34                8                                         
+   G46232138   qwertyuiop        00/04/     PHYS     0.10         91                3                                         
+   G35364980   0011223344        00/07/     PHYS     3.40         42               12                                         
+   G13967108   answeris42        00/11/     PSYC     3.00         88                4                                         
+   G61826057   314159265359      00/09/     MATH     2.70         16                2                                         
+   G36515553   05772156649       00/12/     ANTH     0.30        107                5                                         
+   G63001752   2718281828        00/10/     CSCI     3.60         82               23                                         
+   G31773247   password123       00/09/     MATH     1.90        118               18                                         
+   G72982045   8675309           00/07/     PHYS     2.30         85               23                                         
+   G52385163   0101010           00/04/     PHYS     1.60         69               13                                         
+   G34404557   !@#$%^&*()        00/04/     PHYS     0.30         30               23                                         
+   G25522904   F5F5F5F5F5F5      00/12/     ANTH     2.70         99               18                                         
+   G71973135   5Fg1{x^3n(        00/11/     PHYS     0.20        106                5                                         
+   G57509589   Computer          00/10/     MATH     2.10         60                9                                         
+   G44072762   Laptop            00/08/     ANTH     0.60         87               19                                         
+   G94539607   WorldOfWarcr      00/10/     MUSC     0.20         98               23                                         
+   G43612144   CallOfDuty        00/08/     PHYS     1.10         24               15                                         
+   G58517153   funny             00/08/     PHYS     0.30         64               21                                         
+   G68537648   weakpass          00/08/     PHYS     1.60         92               14                                         
+   G74770424   strongpass        00/10/     PHYS     1.30         66               23                                         
+   G90926219   metarzan          00/07/     BIOL     0.30         40               12                                         
+   G09999853   youjane           00/07/     ANTH     0.30         91                6                                         
+   G89324332   REDBULL           00/09/     CSCI     0.40          0                5                                         
+   G41997419   racecar           00/06/     ANTH     2.00          4               15                                         
+   G49004688   iloveschool       00/12/     MUSC     2.60        114               24                                         
+   G93366146   aliceinwonde      00/08/     ANTH     1.50         68                2                                         
+   G67994516   magnets?          00/12/     BIOL     3.70         36               22                                         
+   G62143228   shiny             00/08/     ANTH     2.40         91                4                                         
+   G63143187   darkside          00/03/     BIOL     2.50          9               16                                         
+   G53501342   expectopatro      00/08/     PHYS     0.90        110               13                                         
+   G78138644   nedstark          00/12/     MATH     2.30         88               14                                         
+   G74378433   indianajones      00/12/     PHYS     0.20         86               11                                         
+   G22539726   F4F4F4F4F4F4      00/03/     PSYC     4.00          5                1                                         
+                                                                                                                                  
+ 1                               Student Information                               Page:00B                                       
+                                                                                                                                  
+ -  Student ID    Password     Renewal Date   Major     GPA     Total Hours    Current Hour                                       
+                                                                                                                                  
+   G93448440   papajohns         00/02/     PHYS     0.70         65               13                                         
+   G11109056   pizzahut          00/05/     ANTH     1.70        110               10                                         
+   G88979192   subwayisgood      00/08/     PHYS     1.00         71                9                                         
+   G98055507   mccydisbad        00/02/     PHYS     0.80         63               16                                         
+   G71491640   burgerpage        00/03/     MUSC     1.30         78               14                                         
+   G79504142   redchicken        00/04/     PHYS     0.50         94               22                                         
+   G20279768   yellowchicke      00/02/     PHYS     2.90        118               18                                         
+   G48240272   blue'ngreen       00/10/     PSYC     2.50          7                2                                         
+   G05275510   maketeal          00/01/     PSYC     0.90         70               14                                         
+   G71794442   acquirecurre      00/08/     PSYC     3.80         17                8                                         
+   G66267468   disregardfem      00/06/     MUSC     1.50         46                5                                         
+   G39119331   doyouevenlif      00/06/     PSYC     2.10         72               21                                         
+1  G04988507   dudebrodude       00/01/     MUSC     1.90         74               16                                         
+   G20555902   Brodin            00/02/     PHYS     3.30         65               12                                         
+   G18118698   taylorslow        00/04/     MATH     1.60         38                5                                         
+   G70645080   googlethis        00/12/     PHYS     2.70         33                4                                         
+   G12775071   /r/funny          00/10/     PSYC     0.30          4               20                                         
+   G10084685   FREEEEEEEEEE      00/04/     MUSC     2.10         55                8                                         
+   G76380214   DOMMMMMMMMMM      00/08/     CSCI     1.50         63                8                                         
+   G85319721   SweepTheLeg       00/09/     MUSC     1.30        109               14                                         
+   G07643040   TheBestAroun      00/05/     PHYS     2.80         68                4                                         
+   G75667368   DanceMagicDa      00/07/     MATH     0.30         35               17                                         
+   G68652725   DavidBowie        00/04/     MATH     0.30         12                4                                         
+   G32010910   TheBeatles        00/06/     CSCI     3.60         83                7                                         
+   G00031165   QueenSoGood       00/07/     PHYS     1.40         35                7                                         
+   G72270533   ZombieBrains      00/05/     PSYC     3.20         86               11                                         
+   G18426525   CARL!!!!!!!!      00/01/     PHYS     1.10         76               20                                         
+   G09649918   JonHammWow        00/07/     PSYC     0.00         94                4                                         
+   G67576384   HIMYMSoGood       00/12/     ANTH     3.90         82               17                                         
+   G38754882   HighFiveBro       00/12/     PSYC     2.50         90               20                                         
+   G24945034   STINSON_OUT       00/05/     PHYS     4.00         16               21                                         
+   G88503456   UncleBuck         00/09/     MATH     2.70        101                2                                         
+   G71109829   ThereIsNoSpo      00/06/     MUSC     0.10        107               16                                         
+   G81946874   FreeYourMind      00/12/     ANTH     1.20         79                1                                         
+   G64839629   StrongBad         00/12/     MUSC     1.70         59                6                                         
+   G03182052   RoyaleWChees      00/12/     PHYS     3.00          2               15                                         
+   G13261659   programmer        00/06/     MATH     2.00        118               16                                         
+   G00276539   icannotbrain      00/11/     MATH     1.20         46               14                                         
+   G67871318   ihavethedumb      00/06/     PHYS     2.30         20               11                                         
+   G04679760   PeopleAssume      00/09/     PSYC     2.50        119               14                                         
+   G09384114   ThatTimeIsAS      00/05/     PHYS     0.60         83               15                                         
+                                                                                                                                  
+ 1                               Student Information                               Page:00C                                       
+                                                                                                                                  
+ -  Student ID    Password     Renewal Date   Major     GPA     Total Hours    Current Hour                                       
+                                                                                                                                  
+   G38836803   trictProgres      00/12/     PHYS     2.20         66                9                                         
+   G54738499   sionOfCauseT      00/08/     CSCI     2.90        109                1                                         
+   G17815357   oEffectButAc      00/12/     PHYS     2.30         35               14                                         
+   G10423687   tuallyFromAN      00/10/     ANTH     3.10        102               17                                         
+   G45165887   onLinearNonS      00/09/     PHYS     2.10         49               15                                         
+   G46423851   ubjectiveVie      00/06/     MUSC     0.20         30               20                                         
+   G10809227   wpointItsMor      00/01/     ANTH     3.20         16               11                                         
+   G85791889   eLikeABigBal      00/05/     PSYC     0.80         61               11                                         
+   G42843017   lOfWibblyWob      00/09/     PHYS     1.00         30               12                                         
+   G77567002   bly...time-y      00/12/     PSYC     0.80         10                3                                         
+   G57940012   wime-y...         00/05/     PHYS     2.20        103                9                                         
+   G29891791   stuff             00/12/     PHYS     0.20         98               19                                         
+   G76609035   BowtiesAreCo      00/09/     PHYS     1.50         58               22                                         
+   G77636733   EXTERMINATE       00/04/     BIOL     2.90         56                9                                         
+   G14757792   ImBatman          00/12/     ANTH     0.90         89                7                                         
+   G86362255   xXLegolasXx       00/02/     PSYC     3.40         47               21                                         
+   G33769268   Tibbers           00/09/     PSYC     2.30         61               17                                         
+   G07927924   SHAZAM            00/11/     PHYS     4.00         17               12                                         
+                                                                                                                                  
+0*** EXECUTION TIME =    0.006 SECS.      9269 INSTRUCTIONS EXECUTED -  1544833 INSTRUCTIONS/SEC ***                              
+1 ASSIST COMPLETION DUMP                                                                                                          
+0PSW AT ABEND FFC50006 800011F0       COMPLETION CODE   SYSTEM = 0C6 SPECIFICATION                                                
+0** TRACE OF INSTRUCTIONS JUST BEFORE TERMINATION: PSW BITS SHOWN ARE THOSE BEFORE CORRESPONDING INSTRUCTION DECODED ***          
+0  IM LOCATION    INSTRUCTION :  IM = PSW BITS 32-39(ILC,CC,MASK) BEFORE INSTRUCTION EXECUTED AT PROGRAM LOCATION SHOWN           
+0  10  0011CC     E020 C204 005A                                                                                                  
+0  D0  0011D2     5AB0 C19C                                                                                                       
+0  A0  0011D6     5AB0 C1A0                                                                                                       
+0  A0  0011DA     4170 701B                                                                                                       
+0  A0  0011DE     47F0 C01E                                                                                                       
+0  A0  00108E     5970 8000                                                                                                       
+0  80  001092     4780 C172                                                                                                       
+0  80  0011E2     58D0 D004                                                                                                       
+0  80  0011E6     E020 C261 0001                                                                                                  
+0  C0  0011EC     98EC D00C       <-- LAST INSTRUCTION DONE - PROBABLE CAUSE OF TERMINATION                                       
+0                                                                                                                                 
+-** TRACE OF LAST 10 BRANCH INSTRUCTIONS EXECUTED: PSW BITS SHOWN ARE THOSE BEFORE CORRESPONDING INSTRUCTION DECODED ***          
+0  IM LOCATION    INSTRUCTION :  IM = PSW BITS 32-39(ILC,CC,MASK) BEFORE INSTRUCTION EXECUTED AT PROGRAM LOCATION SHOWN           
+0  20  0011DE     47F0 C01E                                                                                                       
+0  90  00109A     47C0 C076                                                                                                       
+0  A0  0011DE     47F0 C01E                                                                                                       
+0  90  00109A     47C0 C076                                                                                                       
+0  A0  0011DE     47F0 C01E                                                                                                       
+0  90  00109A     47C0 C076                                                                                                       
+0  A0  0011DE     47F0 C01E                                                                                                       
+0  90  00109A     47C0 C076                                                                                                       
+0  A0  0011DE     47F0 C01E                                                                                                       
+0  80  001092     4780 C172                                                                                                       
+0 REGS 0-7      F4F4F4F4    00000D34    F4F4F4F4    F4F4F4F4    F4F4F4F4    0000000C    F4F4F4F4    00000B0C                      
+  REGS 8-15     00000D28    00000D9C    F4F4F4F4    00000012    00001070    F5F5F5F5    0000122C    00001070                      
+0 FLTR 0-6      F4F4F4F4F4F4F4F4        F4F4F4F4F4F4F4F4        F4F4F4F4F4F4F4F4        F4F4F4F4F4F4F4F4                          
+1 USER STORAGE                                                                                                                    
+0                             CORE ADDRESSES SPECIFIED-     000000 TO 001588                                                      
+ 000000   90ECD00C 18CF41E0 CD5450D0 E00450E0    D00818DE 4110CD2C 58F0C070 05EFE060   *.........................0......*         
+ 000020   C08000A2 E020CD9C 005BE020 CEAD0001    E020CE52 005B4110 CD3458F0 C07405EF   *...........................0....*         
+ 000040   4110CD4C 58F0C078 05EFE020 CDF7005B    E020CEAD 0001E020 CE52005B 4110CD40   *.....0.......7................. *         
+ 000060   58F0C074 05EF58D0 D00498EC D00C07FE    00000EB0 00001070 00001370 F5F5F5F5   *.0..........................5555*         
+ 000080   0221701E 95A0D2BC A4B7E99A 4261305E    4D60D4E4 E2C3010F 00161103 A6FFD687   *......K...Z.......MUSC........O.*         
+ 0000A0   3F6970A1 047E4143 E6BF964B 80D4E4E2    C3110F00 420603BE 99EBA537 0C488627   *........W....MUSC...............*         
+ 0000C0   10498028 0D624D60 D7C8E8E2 190F0037    12039777 E29012D4 76861EE2 A243D737   *........PHYS........S..M...S..P.*         
+ 0000E0   A24B80C2 C9D6D338 0F00270E 01B2F59D    99147004 A21AB5DD 41F2B5DD 4C60D7C8   *...BIOL.......5..........2....PH*         
+ 000100   E8E2130F 00120400 7ACEA0F1 883D54F5    8C3958F9 8A8EE04C 40D7C8E8 E2190F00   *YS.........1...5...9.... PHYS...*         
+ 000120   4602029E 2D8DF267 D57AF46B D97EF06F    6DCD4A60 C3E2C3C9 170F002C 01024EFD   *......2.N.4.R.0.....CSCI........*         
+ 000140   7B83EC79 FD85C66C E9910EBD 3B4C40D4    E4E2C325 0F005009 001BA121 A9BC2284   *......F.Z..... MUSC.............*         
+ 000160   828E3561 405BE161 4D00D4C1 E3C8290F    00220802 C1724A9A 67F7D3A1 69D6C394   *.... .....MATH......A....7L..OC.*         
+ 000180   56320A4C 80D7C8E8 E2010F00 5B03021B    A074F2EB 5185F0E9 5387F6EF E0344CE0   *.....PHYS.........2...0Z..6.....*         
+ 0001A0   D7C8E8E2 340F002A 0C00D51F 048140BD    A2854C96 A6F4275F 444D60D7 E2E8C330   *PHYS......N... ......4.....PSYC.*         
+ 0001C0   0F005804 03AF6409 F05E90F8 F65696FF    F65C91F0 4D20D4C1 E3C8270F 00100202   *........0..86...6..0..MATH......*         
+ 0001E0   2D2EE1F2 D8D916F0 DCDB17F4 D9D7A14B    80C1D5E3 C8030F00 6B0503C1 5498F136   *...2QR.0...4RP...ANTH......A..1.*         
+ 000200   A560F139 A560F139 14D84D40 C3E2C3C9    360F0052 1701E4D2 3F966570 9DA7724B   *..1...1..Q. CSCI......UK........*         
+ 000220   BBF01621 7F4D20D4 C1E3C819 0F007612    04599E1D FCAF69E8 F7A9675D 4419DE5D   *.0.....MATH............Y7.......*         
+ 000240   4CE0D7C8 E8E2230F 00551703 1F558BF3    EEA57AF3 EEA5CB43 5F15CB4C 80D7C8E8   *..PHYS.........3...3.........PHY*         
+ 000260   E2160F00 450D020C F8CD5870 83966E53    A8914F51 B88D4C80 D7C8E8E2 030F001E   *S.......8...............PHYS....*         
+ 000280   17018572 D8C770B4 2DC770B4 2DC770B4    2D4B80C1 D5E3C827 0F006312 044A390F   *....QG...G...G.....ANTH.........*         
+ 0002A0   F18CBEFE C4ED66FC 9107794F 4B60D7C8    E8E2020F 006A0503 6D86D5C0 FB1242A7   *1...D.........PHYS........N.....*         
+ 0002C0   CE034C43 2DC6954B 40D4C1E3 C8210F00    3C0902A0 7F3AD121 E8999437 3F7A42E0   *.....F.. MATH.........J.Y.......*         
+ 0002E0   3F7A4D00 C1D5E3C8 060F0057 1305A28F    57E33416 C4817409 B1843B0C CE4B40D4   *....ANTH.........T..D......... M*         
+ 000300   E4E2C302 0F006217 029977F0 C118E463    D41FB354 A13137B0 4D00D7C8 E8E2110F   *USC........0A.U.M.........PHYS..*         
+ 000320   00180F03 7CE6A185 D87334AB 3CA6E143    3CA6E14D 00D7C8E8 E2030F00 40150415   *.....W..Q............PHYS... ...*         
+ 000340   CD30A290 4CA29394 6F924455 8D704D00    D7C8E8E2 160F005C 0E0474E7 F8A6D77E   *................PHYS.......X8.P.*         
+ 000360   6E91F370 79A6D6A7 B84B40D7 C8E8E213    0F004217 056B6C8B 91EECF0A 9CC2ED1E   *..3...O... PHYS..............B..*         
+ 000380   452B2CCB 4CE0C2C9 D6D3030F 00280C00    9895EDA8 0E317C81 0D10AD40 D8D5AD4C   *......BIOL................. QN..*         
+ 0003A0   E0C1D5E3 C8030F00 5B060552 FB2CDC97    3FEEE181 286C4512 BB6C4D20 C3E2C3C9   *.ANTH.......................CSCI*         
+ 0003C0   040F0000 050280D4 6B9B0157 EE81014D    2B42C094 2B4CC0C1 D5E3C820 0F00040F   *.......M...............ANTH.....*         
+ 0003E0   02EBC090 8B785635 87494318 947D53D0    4B80D4E4 E2C3260F 00721805 90A78284   *..................MUSC..........*         
+ 000400   032E0180 19322493 0523074B 00C1D5E3    C8150F00 4402040D 8394908C 040181AE   *.............ANTH...............*         
+ 000420   21FB444D C3D44B80 C2C9D6D3 370F0024    1603B43A FCA13CB3 69ABF47A BC43F47A   *....CM..BIOL..............4...4.*         
+ 000440   BC4D00C1 D5E3C824 0F005B04 03C37D13    8742E481 A14AF996 43833D53 4C60C2C9   *...ANTH......C....U...9.......BI*         
+ 000460   D6D3250F 00091003 305D9E86 97CA1B80    93CB0982 93C4084D 00D7C8E8 E2090F00   *OL...................D...PHYS...*         
+ 000480   6E0D04A8 4D14912D C9B6A729 D48644E8    0D544B80 D4C1E3C8 230F0058 0E046EEC   *........I...M..Y....MATH........*         
+ 0004A0   C18DFB68 4885FB6D 5092FB69 634B80D7    C8E8E202 0F00560B 0157EDCE C7A32B3A   *A..............PHYS.........G...*         
+ 0004C0   C7A32B3A C7A32B3A 4C60D7E2 E8C3400F    00050105 91E8F892 107F7994 07606DA7   *G...G.....PSYC ......Y8.........*         
+ 0004E0   D1A8B84C 40D7C8E8 E2070F00 410D00A9    82C09720 2B698121 266340E9 C2804CA0   *J... PHYS................. ZB...*         
+ 000500   C1D5E3C8 170F006E 0A054DB6 F8A7E934    5E84E53F 5A82DB20 7C4D00D7 C8E8E210   *ANTH........8.Z...V........PHYS.*         
+ 000520   0F004709 05D83553 915BB6FB 815197D1    845C7513 4C40D7C8 E8E2080F 003F1004   *.....Q.........J..... PHYS......*         
+ 000540   42E03886 E679BF81 DB77B983 C7A0784C    60D4E4E2 C3130F00 4E0E04BD 230E9D38   *....W.......G....MUSC...........*         
+ 000560   A78D8C34 A09C8128 634E4C80 D7C8E8E2    050F005E 16013571 D8A9B0E2 4B9793F2   *............PHYS........Q..S...2*         
+ 000580   5088B6E3 5D4C40D7 C8E8E229 0F007612    02E01690 8073B215 7F759109 876583D0   *...T.. PHYS.....................*         
+ 0005A0   4B40D7E2 E8C3250F 00070200 507F7694    D1EDF3A3 D5FEE540 103F364A 20D7E2E8   *. PSYC..........J.3.N.V .....PSY*         
+ 0005C0   C3090F00 460E0447 7F0A85C4 E7AE8DDE    FA89A0DE E68F4B00 D7E2E8C3 380F0011   *C..........DX.......W...PSYC....*         
+ 0005E0   0803F329 4C877A8B D58674A8 D58775AC    D84CC0D4 E4E2C315 0F002E05 0254E9E3   *..3.....N...N...Q..MUSC.......ZT*         
+ 000600   86C24175 A6D14C66 97C76065 4CC0D7E2    E8C3210F 00481500 4C1E5B84 E89ADE82   *.B...J...G....PSYC..........Y...*         
+ 000620   D588DFA4 C89B1B4A 20D4E4E2 C3190F00    4A100139 A87EC3A0 3EFA88AC E83E4179   *N...H....MUSC.........C.....Y...*         
+ 000640   E83E4C40 D7C8E8E2 330F0041 0C011478    2AA295D0 B9978DDA B997B238 6A4C80D4   *Y.. PHYS.......................M*         
+ 000660   C1E3C816 0F002605 0435F558 83A363DF    97B056D0 8D97B518 4B80D7C8 E8E2270F   *ATH.......5...............PHYS..*         
+ 000680   00210400 C2EE9F61 5B8F19A4 577B3740    82AEDF4B 40D7E2E8 C3030F00 04140099   *....B.......... .... PSYC.......*         
+ 0006A0   E14DC640 2488C55C 2488C55C 24884C80    D4E4E2C3 210F0037 08048D78 36C05BAC   *..F ..E...E.....MUSC............*         
+ 0006C0   E2D059AC E2D059AC E24D00C3 E2C3C915    0F003F08 0515E029 E7B365AC 92F668AC   *S...S...S..CSCI.........X....6..*         
+ 0006E0   D6906769 4B20D4E4 E2C3130F 006D0E00    749FA0E3 FC1A6285 D63C6199 E23B354C   *O.....MUSC.........T....O...S...*         
+ 000700   A0D7C8E8 E2280F00 44040482 97A8C003    022B8156 162F8D01 53294CE0 D4C1E3C8   *.PHYS.......................MATH*         
+ 000720   030F0023 1104178E B5C0962B 3C80D518    138D92CE F54C80D4 C1E3C803 0F000C04   *..............N.....5..MATH.....*         
+ 000740   01E8729E E260F75C 8469D10D 844A32DE    4CC0C3E2 C3C9360F 00530700 0079BDD8   *.Y..S.7...J.......CSCI.........Q*         
+ 000760   A4FC3895 E2EF7A96 96FDFD4C E0D7C8E8    E2140F00 2307044E C2C5EDD8 56478DCB   *....S........PHYS.......BE.Q....*         
+1000780   005C85C7 57674CA0 D7E2E8C3 320F0056    0B01192A 9DC2D8F3 4E5B4370 C75B4370   *...G....PSYC.........BQ3....G...*         
+ 0007A0   C74A20D7 C8E8E211 0F004C14 00933EFE    D105AB36 8107AA18 96357EBE 4CE0D7E2   *G..PHYS.........J.............PS*         
+ 0007C0   E8C3000F 005E0404 072240CC CEF6A8D0    E5B48792 91A6004B 80C1D5E3 C8390F00   *YC........ ..6..V........ANTH...*         
+ 0007E0   5211024F 5A42CAC6 DDCAC4C6 FFC7C0D6    CC024B80 D7E2E8C3 250F005A 14017CA1   *.......F..DF.G.O....PSYC........*         
+ 000800   8AE39F68 5FE3AA74 E7D79842 CA4CA0D7    C8E8E240 0F001015 054674A0 E1D3F733   *.T...T..XP.....PHYS .........L7.*         
+ 000820   8084D023 970634E0 4B20D4C1 E3C8270F    00650204 3D0CC5E7 B5895C81 F4AE1092   *..........MATH........EX....4...*         
+ 000840   DF9B534C C0D4E4E2 C3010F00 6B1004E2    68FAC27B ED7FEC74 CC63D06B FD7E4B80   *.....MUSC......S..B.............*         
+ 000860   C1D5E3C8 120F004F 0103DD5F CDE17EC6    5B965A9D 4C879D1F 8D4B80D4 E4E2C317   *ANTH...........F...........MUSC.*         
+ 000880   0F003B06 00308DE4 D9A62565 93B56B27    88B50846 4B80D7C8 E8E2300F 00020F00   *.......UR.............PHYS......*         
+ 0008A0   CA5B5B97 53CDDC99 4BCFCF85 531B1B4C    C0D4C1E3 C8200F00 76100004 383B8987   *.................MATH...........*         
+ 0008C0   B9AE9592 9BB99985 B1AE4B60 D4C1E3C8    120F002E 0E040BA2 568D8323 F381A82A   *............MATH............3...*         
+ 0008E0   D380AF36 D44CC0D7 C8E8E223 0F00140B    00476850 D7C2FEC7 93C2A9F2 A2E3FCD5   *L...M..PHYS.........PB.G.B.2.T.N*         
+ 000900   4B20D7E2 E8C3250F 00770E00 8F30B2E3    07B111E3 06A437C9 2DF1504C A0D7C8E8   *..PSYC.........T...T...I.1...PHY*         
+ 000920   E2060F00 530F0250 9A43A1C9 13C0A187    03D585C9 1FE14B80 D7C8E8E2 220F0042   *S..........I.....N.I....PHYS....*         
+ 000940   0903433E 43A1CAA8 D6D5C5FD C2A7E1BB    A04D00C3 E2C3C929 0F006D01 010FD73D   *........ONE.B......CSCI.......P.*         
+ 000960   97CA51BB 848C74FF A5AC16BE 4B80D7C8    E8E2230F 00230E00 9F0D87A3 3B8C1493   *..............PHYS..............*         
+ 000980   37CB1E96 0BCC524D 40C1D5E3 C8310F00    661102B1 2D3F9424 FEB69734 ACA6D727   *........ ANTH.................P.*         
+ 0009A0   B8DD4D20 D7C8E8E2 210F0031 0F02C45F    2BA646CE AE8167D6 8E8721D6 AE4CC0D4   *....PHYS......D........O...O...M*         
+ 0009C0   E4E2C302 0F001E14 00A4EF8B A6337902    95072628 A2707912 4C20C1D5 E3C8320F   *USC.......................ANTH..*         
+ 0009E0   00100B05 1D149180 CE9D0380 DCD61882    DF95024C A0D7E2E8 C3080F00 3D0B028D   *.............O.......PSYC.......*         
+ 000A00   BB89915B 3D6F8B0F 391AAA6B 2D0B4D20    D7C8E8E2 100F001E 0C049F94 1A860C3C   *................PHYS............*         
+ 000A20   514FD437 93901AF4 B24B80D7 E2E8C308    0F000A03 0374182C A5FD8CA9 63DC5367   *..M....4...PSYC.................*         
+ 000A40   4834586C 4CA0D7C8 E8E2220F 00670901    C81CCFA3 6BB84987 885C8F41 885C8F4B   *......PHYS......H...............*         
+ 000A60   80D7C8E8 E2020F00 62130490 F60BC606    50A88D15 54CA9D15 359D4D20 D7C8E8E2   *.PHYS.......6.F.............PHYS*         
+ 000A80   150F003A 1604A0A4 7DC14747 B8DD746D    A8C54361 3D4C80C2 C9D6D329 0F003809   *.........A.......E.....BIOL.....*         
+ 000AA0   00E12FA0 C975ED21 A375AE35 40A16FE0    4B80C1D5 E3C8090F 00590705 25C88FA2   *....I....... .....ANTH.......H..*         
+ 000AC0   C21B0A82 B35B0EA7 C26FCF4C 40D7E2E8    C3340F00 2F150203 4734E18A C5B6879A   *B.......B... PSYC...........E...*         
+ 000AE0   E5744243 07744B20 D7E2E8C3 230F003D    110078F8 74E2B039 9DC1ACB8 344038B8   *V.......PSYC.......8.S...A... ..*         
+ 000B00   344B60D7 C8E8E240 0F00110C F5F5F5F5    F5F5F5F5 F5F5F5F5 F5F5F5F5 F5F5F5F5   *...PHYS ....55555555555555555555*         
+ 000B20   F5F5F5F5 F5F5F5F5 F5F5F5F5 F5F5F5F5    F5F5F5F5 F5F5F5F5 F5F5F5F5 F5F5F5F5   *55555555555555555555555555555555*         
+   LINES    000B40-000D00    SAME AS ABOVE                                                                                        
+ 000D20   F5F5F5F5 F5F5F5F5 00000B0C 00000080    00000D28 00000080 00000D28 00000D9C   *55555555........................*         
+ 000D40   00000080 00000D28 00000DF7 00000080    00000D28 F5F5F5F5 00001440 0000122C   *...........7........5555... ....*         
+ 000D60   50000040 00001070 F4F4F4F4 00000D34    F4F4F4F4 F4F4F4F4 F4F4F4F4 F4F4F4F4   *... ....4444....4444444444444444*         
+ 000D80   F4F4F4F4 F4F4F4F4 F4F4F4F4 F4F4F4F4    F4F4F4F4 F4F4F4F4 00000000 F1404040   *444444444444444444444444....1   *         
+ 000DA0   40404040 40404040 40404040 40404040    40404040 40404040 40404040 E2A3A484   *                            S...*         
+ 000DC0   8595A340 C9958696 999481A3 89969540    40404040 40404040 40404040 40404040   *... I..........                 *         
+ 000DE0   40404040 40404040 40404040 4040D781    87857A40 4040F1F1 40404040 40404040   *              P....   11        *         
+ 000E00   40404040 40404040 40404040 40404040    404040E2 A3A48485 95A340C9 95869699   *                   S...... I....*         
+ 000E20   9481A389 969540C2 A840C7D7 C1404040    40404040 40404040 40404040 40404040   *...... B. GPA                   *         
+ 000E40   40404040 40404040 40D78187 857A4040    40F26040 40E2A3A4 848595A3 40C9C440   *         P....   2.  S...... ID *         
+ 000E60   404040D7 81A2A2A6 96998440 40404040    D9859585 A6819340 C481A385 404040D4   *   P.......     R...... D...   M*         
+ 000E80   81919699 40404040 40C7D7C1 40404040    40E396A3 819340C8 96A499A2 40404040   *....     GPA     T.... H....    *         
+ 000EA0   C3A49999 8595A340 C896A499 A240F5F5    90ECD00C 18CF41E0 C0D450D0 E00450E0   *C...... H.... 55.........M......*         
+ 000EC0   D00818DE 98781000 E000C11C 00504740    C0BE5970 80004780 C0BEF277 C188C11D   *..........A.... ..........2.A.A.*         
+ 000EE0   4F50C188 BE5F7000 D20B7004 C126D703    70047000 D7037008 7000D703 700C7000   *..A.....K...A.P.....P.....P.....*         
+ 000F00   F271C190 C133F271 C198C135 F273C1A0    C137FB72 C1A0C0D0 4F50C1A0 89500009   *2.A.A.2.A.A.2.A.A...A.....A.....*         
+ 000F20   BE537010 4F50C198 89500005 BE53C1B8    D6017010 C1B84F50 C190BE53 C1B8D203   *......A.......A.O...A...A...A.K.*         
+ 000F40   7012C13C F2127016 C141F272 C1A8C145    F271C1B0 C1494F50 C1A8BE53 70184F50   *..A.2...A.2.A.A.2.A.A...A.......*         
+ 000F60   C1B0BE51 701A4170 701B47F0 C0185078    000058D0 D00498EC D00C07FE F5F5F5F5   *A..........0................5555*         
+ 000F80   01980CF5 F5F5F5F5 00000D54 F5F5F5F5    F5F5F5F5 F5F5F5F5 F5F5F5F5 F5F5F5F5   *...55555....55555555555555555555*         
+ 000FA0   F5F5F5F5 F5F5F5F5 F5F5F5F5 F5F5F5F5    F5F5F5F5 F5F5F5F5 F5F5F5F5 F5F5F5F5   *55555555555555555555555555555555*         
+ 000FC0   F5F5F5F5 F5F5F5F5 F5F5F5F5 D8F0F7F9    F2F7F9F2 F440E2C8 C1E9C1D4 40404040   *555555555555Q07927924 SHAZAM    *         
+ 000FE0   404040F2 F4F1F1F2 F0F1F740 D7C8E8E2    40F4F0F0 40F0F1F7 40F1F240 40404040   *   24112017 PHYS 400 017 12     *         
+ 001000   40404040 40404040 40404040 40404040    40404040 40404040 40404040 5CF5F5F5   *                            .555*         
+ 001020   F5F5F5F5 F5F5F5F5 F5F5F5F5 F5F5F5F5    F5F5F5F5 F5F5F5F5 00000000 7927924F   *555555555555555555555555........*         
+ 001040   00000000 0000024F 00000000 0000011F    00000000 0000037C 00000000 0000017F   *................................*         
+ 001060   00000000 0000012F 0018F5F5 F5F5F5F5    90ECD00C 18CF41E0 C1BC18CF 50E0D008   *..........555555........A.......*         
+ 001080   18DE9879 1000F820 C2BDC1A4 1BBB5970    80004780 C17259B0 C18847C0 C0761BBB   *......8.B.A.........A...A.......*         
+ 0010A0   FA20C2BD C1A49240 C205D258 C206C205    D259C205 9000F322 C2C0C2BD D202C25C   *..B.A.. B.K.B.B.K.B...3.B.B.K.B.*         
+ 0010C0   C2C0E020 C2610001 E020C204 005BE020    C2610001 D25AC205 C262E020 C204005B   *B...B.....B.....B...K.B.B...B...*         
+ 0010E0   E020C261 00019240 C205D258 C206C205    D20AC205 C1A51B55 BF5F7000 4E50C2E0   *..B.... B.K.B.B.K.B.A.........B.*         
+ 001100   DE0AC205 C2E3D20B C223C18C 1B55BF5C    70108850 00194E50 C2E0FA72 C2E0C1B0   *..B.BTK.B.A.............B...B.A.*         
+1001120   1B55BF5C 70108950 00078850 001C4E50    C2E8F070 C2E80004 FA77C2E0 C2E81B55   *................BY0.BY....B.BY..*         
+ 001140   BF5F7010 8950000B 8850001B 4E50C2E8    F070C2E8 0006FA77 C2E0C2E8 DE06C223   *..............BY0.BY....B.BY..B.*         
+ 001160   C2E3D206 C23AC1B3 F871C2E0 7016DE06    C23AC2E5 D203C248 C1981B55 43507018   *BTK.B.A.8.B.....B.BVK.B.A.......*         
+ 001180   89500001 43507019 4E50C2E0 DE03C248    C2E6D203 C259C198 1B554350 701A4E50   *..........B...B.BWK.B.A.........*         
+ 0011A0   C2E0DE03 C259C2E6 D203C234 7012D20B    C2F07004 D703C2F0 7000D703 C2F47000   *B...B.BWK.B...K.B0..P.B0..P.B4..*         
+ 0011C0   D703C2F8 7000D20B C213C2F0 E020C204    005A5AB0 C19C5AB0 C1A04170 701B47F0   *P.B8..K.B.B0..B.....A...A......0*         
+ 0011E0   C01E58D0 D004E020 C2610001 98ECD00C    07FEF5F5 F5F5F5F5 00000028 40212020   *........B.........555555.... ...*         
+ 001200   61202061 20202020 40202120 00000001    00000000 1C4021C7 20202020 20202020   *........ ............ .G........*         
+ 001220   01980C40 2021204B 2020F5F5 F5F5F5F5    F5F5F5F5 F5F5F5F5 F5F5F5F5 F5F5F5F5   *... ......5555555555555555555555*         
+ 001240   F5F5F5F5 F5F5F5F5 F5F5F5F5 F5F5F5F5    F5F5F5F5 F5F5F5F5 F5F5F5F5 F5F5F5F5   *55555555555555555555555555555555*         
+ 001260   F5F5F5F5 F5F5F5F5 F5F5F5F5 F5F5F5F5    F5F5F5F5 404040C7 F0F7F9F2 F7F9F2F4   *55555555555555555555   G07927924*         
+ 001280   404040E2 C8C1E9C1 D4404040 40404040    40404040 40F0F061 F1F16120 20202040   *   SHAZAM            00.11..... *         
+ 0012A0   40404040 D7C8E8E2 40404040 40F44BF0    F0404040 40404040 4040F1F7 40404040   *    PHYS     4.00         17    *         
+ 0012C0   40404040 40404040 404040F1 F24040A2    40406040 40E2A3A4 848595A3 40C9C440   *           12  .  .  S...... ID *         
+ 0012E0   404040D7 81A2A2A6 96998440 40404040    D9859585 A6819340 C481A385 404040D4   *   P.......     R...... D...   M*         
+ 001300   81919699 40404040 40C7D7C1 40404040    40E396A3 819340C8 96A499A2 40404040   *....     GPA     T.... H....    *         
+ 001320   C3A49999 8595A340 C896A499 A200003C    F0F0C3F5 F5F5F5F5 F5F5F5F5 F5F5F5F5   *C...... H.......00C5555555555555*         
+ 001340   F5F5F5F5 F5F5F5F5 F5F5F5F5 F5F5F5F5    00000000 0000012C 00000000 0000000C   *5555555555555555................*         
+ 001360   E2C8C1E9 C1D44040 40404040 F5F5F5F5    90ECD00C 18CF41E0 C06818CF 50E0D008   *SHAZAM      5555................*         
+ 001380   18DE9878 10001897 18795990 80004780    C05A5970 80004780 C052F911 70169016   *..........................9.....*         
+ 0013A0   4720C03C 4170701B 47F0C022 D21AC0B0    7000D21A 70009000 D21A9000 C0B047F0   *.........0..K.....K.....K......0*         
+ 0013C0   C0344190 901B47F0 C01858D0 D00498EC    D00C07FE F5F5F5F5 F5F5F5F5 F5F5F5F5   *.......0............555555555555*         
+ 0013E0   F5F5F5F5 F5F5F5F5 F5F5F5F5 F5F5F5F5    F5F5F5F5 F5F5F5F5 F5F5F5F5 F5F5F5F5   *55555555555555555555555555555555*         
+   LINES    001400-001420    SAME AS ABOVE                                                                                        
+ 001440   F5F5F5F5 00000000 00000D54 FFFE7960    00000000 F4F4F4F4 F4F4F4F4 F4F4F4F4   *5555................444444444444*         
+ 001460   F4F4F4F4 F4F4F4F4 F4F4F4F4 F4F4F4F4    F4F4F4F4 F4F4F4F4 F4F4F4F4 F4F4F4F4   *44444444444444444444444444444444*         
+ 001480   F4F4F4F4 F4F4F4F4 F5F5F5F5 F5F5F5F5    F5F5F5F5 F5F5F5F5 F5F5F5F5 F5F5F5F5   *44444444555555555555555555555555*         
+ 0014A0   F5F5F5F5 F5F5F5F5 F5F5F5F5 F5F5F5F5    F5F5F5F5 F5F5F5F5 F5F5F5F5 F5F5F5F5   *55555555555555555555555555555555*         
+   LINES    0014C0-001560    SAME AS ABOVE                                                                                        
+0                                                                                                                                 

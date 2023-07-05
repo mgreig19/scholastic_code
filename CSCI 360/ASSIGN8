@@ -1,0 +1,430 @@
+//KC03KA9A JOB ,'MASON GREIG',MSGCLASS=H                                00001000
+//STEP1 EXEC PGM=ASSIST                                                 00002000
+//STEPLIB DD DSN=KC02293.ASSIST.LOADLIB,DISP=SHR                        00003000
+//SYSPRINT DD SYSOUT=*                                                  00004000
+//SYSIN DD *                                                            00005000
+*******************************************                             00010000
+* Assignment 8                                                          00020000
+*                                                                       00030000
+* Mason Greig                                                           00040000
+* z1768935                                                              00041000
+* Harry Hutchins                                                        00042000
+* CSCI 360                                                              00043000
+* Fall 2017                                                             00044000
+*                                                                       00045000
+*******************************************                             00050000
+* MAIN                                                                  00080036
+*                                                                       00081036
+* FUNCTION: THIS PROGRAM READS AN INPUT FILE                            00082036
+*           THEN DISPLAYS THE DATA, SORTS THE DATA,                     00083036
+*           THEN REPRINTS THE DATA                                      00084036
+*                                                                       00085036
+* REGISTER USAGE                                                        00086036
+*                                                                       00087036
+*  1    PARAMETERS                                                      00088036
+*  15   EXTERNAL ROUTINE REGISTER                                       00089036
+*  14   RETURN REGISTER                                                 00089136
+*  13   SAVE SPACE REGISTER                                             00089236
+*                                                                       00089336
+*******************************************                             00090000
+*                                                                       00100000
+MAIN     CSECT                             START OF MAIN PROGRAM        00110013
+         STM   14,12,12(13)                                             00111000
+         LR    12,15                       STANDARD ENTRY LINKAGE       00112013
+         USING MAIN,12                                                  00120000
+         LA    14,MAINSVE                                               00130000
+         ST    13,4(0,14)                                               00140000
+         ST    14,8(0,13)                                               00150000
+         LR    13,14                                                    00160000
+*                                                                       00170000
+         LA    1,BPARAM                    LOAD PARAMETERS              00180013
+         L     15,=V(BUILD)                STORE BUILD IN 15            00190013
+         BALR  14,15                       BRANCH AND LINK TO 15        00200013
+*                                                                       00210000
+         XDUMP TABLE,162                   DUMPS TABLE TO SHOW DATA     00220013
+*                                                                       00221000
+         XPRNT HEAD,91                     PRINTS NON SORT HEADER       00222013
+         XPRNT SPCE,1                                                   00222158
+         XPRNT HEAD3,91                    PRINTS COLUMN LABELS         00223041
+*                                                                       00230000
+         LA    1,PPARAM                    LOAD PARAMETERS              00240013
+         L     15,=V(PRINT)                STORE PRINT IN 15            00250013
+         BALR  14,15                       BRANCH AND LINK TO 15        00260013
+*                                                                       00270000
+         LA    1,SPARAM                    LOAD PARAMETERS              00280013
+         L     15,=V(SORT)                 STORE SORT IN 15             00290013
+         BALR  14,15                       BRANCH AND LINK TO 15        00300013
+*                                                                       00301000
+         XPRNT HEAD2,91                    PRINTS SORT HEADER           00302013
+         XPRNT SPCE,1                                                   00302158
+         XPRNT HEAD3,91                    PRINTS COLUMN LABELS         00303041
+*                                                                       00310000
+         LA    1,PPARAM2                   LOAD PARAMETERS INTO 1       00320013
+         L     15,=V(PRINT)                STORE PRINT IN 15            00330013
+         BALR  14,15                       BRANCH AND LINK TO 15        00340013
+*                                                                       00350000
+         L     13,4(0,13)                  STANDARD EXIT LINKAGE        00360013
+         LM    14,12,12(13)                                             00370000
+         BR    14                                                       00380000
+         LTORG                                                          00390000
+*                                                                       00400000
+         ORG   MAIN+((*-MAIN+31)/32)*32                                 00410000
+TABLE    DS    120CL27                     TABLE STORAGE                00420013
+EOT      DS    F                           END OF TABLE                 00430013
+BPARAM   DC    A(TABLE)                    BUILD PARAMS                 00440013
+         DC    A(EOT)                                                   00450000
+PPARAM   DC    A(TABLE)                    PRINT PARAMS                 00460013
+         DC    A(EOT)                                                   00470000
+         DC    A(HEAD)                                                  00480000
+PPARAM2  DC    A(TABLE)                    SORT PRINT PARAMS            00490013
+         DC    A(EOT)                                                   00500000
+         DC    A(HEAD2)                                                 00510000
+SPARAM   DC    A(TABLE)                    SORT PARAMS                  00520013
+         DC    A(EOT)                                                   00530000
+MAINSVE  DS    18F                         MAIN SAVE LOCATION           00540013
+HEAD     DC    C'1'                        INITIAL HEADER               00550013
+         DC    31C' '                                                   00560000
+         DC    CL19'Student Information'                                00570000
+         DC    31C' '                                                   00580000
+         DC    CL6'Page: '                                              00590000
+         DC    CL3'  1'                                                 00600000
+HEAD2    DC    C'1'                        SORT DATA HEADER             00610013
+         DC    27C' '                                                   00620000
+         DC    CL26'Student Information By GPA'                         00630000
+         DC    28C' '                                                   00640000
+         DC    CL6'Page: '                                              00650000
+         DC    CL3'  2'                                                 00660000
+HEAD3    DC    C'-'                        COLUMN LABELS                00660113
+         DC    2C' '                                                    00660200
+         DC    CL10'Student ID'                                         00660300
+         DC    4C' '                                                    00660441
+         DC    CL8'Password'                                            00660500
+         DC    5C' '                                                    00660641
+         DC    CL12'Renewal Date'                                       00660700
+         DC    3C' '                                                    00660800
+         DC    CL5'Major'                                               00660900
+         DC    5C' '                                                    00661000
+         DC    CL3'GPA'                                                 00661100
+         DC    5C' '                                                    00661200
+         DC    CL11'Total Hours'                                        00661300
+         DC    4C' '                                                    00661400
+         DC    CL13'Current Hours'                                      00661514
+SPCE     DC    C' '                                                     00661658
+*                                                                       00661800
+TABLELNE DSECT                             DATA DSECT                   00661913
+SID      DS    4B                          DESCRIBES TABLE DATA         00662013
+PSWORD   DS    12B                                                      00663000
+RENEWPW  DS    2B                                                       00664000
+MAJOR    DS    4B                                                       00665000
+GPA      DS    2P                                                       00666000
+TCRHR    DS    2B                                                       00667000
+CRENRLD  DS    1B                                                       00668000
+*                                                                       00670000
+*******************************************                             00680000
+*                                                                       00690000
+* BUILD                                                                 00700000
+*                                                                       00710000
+* FUNCTION: THIS SUBROUTINE BUILDS THE TABLE                            00720000
+*           FROM AN INPUT FILE                                          00730000
+*                                                                       00740000
+* REGISTER USAGE                                                        00750000
+*                                                                       00751000
+*  7    TABLE                                                           00760000
+*  8    EOT                                                             00770000
+*  5    USED WITH CVB                                                   00771000
+*  12   BASE REGISTER                                                   00772000
+*  13   ADDRESS OF BUILDSVE                                             00773000
+*  14   RETURN ADDRESS                                                  00774000
+*                                                                       00775000
+*******************************************                             00780000
+*                                                                       00790000
+BUILD    CSECT                             START OF BUILD ROUTINE       00800013
+         STM   14,12,12(13)                                             00801000
+         LR    12,15                                                    00802000
+         USING BUILD,12                    ENTRY LINKAGE                00803013
+         LA    14,BUILDSVE                                              00810000
+         ST    13,4(0,14)                                               00811000
+         ST    14,8(0,13)                                               00812000
+         LR    13,14                                                    00813000
+*                                                                       00814000
+         LM    7,8,0(1)                                                 00814100
+         USING TABLELNE,7                  LOAD PARAMETERS              00815013
+*                                                                       00815100
+BLOOP    XREAD BUFFER,80                   READ IN FROM INPUT FILE      00816013
+         BC    B'0100',ENDBLD              IF ERROR GO TO ENDBLD        00817013
+         C     7,0(0,8)                    COMPARE TABLE TO EOT         00817113
+         BE    ENDBLD                      IF EVEN GO TO ENDBLD         00817213
+*                                                                       00817300
+         PACK  TEMPID(8),BUFFER+1(8)       PUT STUDENT ID INTO TEMPID   00817413
+         CVB   5,TEMPID                    CONVERT TEMPID TO BINARY     00817513
+         STCM  5,B'1111',SID               STORE BINARY ID IN SID       00817613
+*                                                                       00817700
+         MVC   PSWORD(12),BUFFER+10        MOVE PASSWORD INTO PSWORD    00817813
+         XC    PSWORD(4),SID               ENCRYPT FIRST 4 BYTES        00817913
+         XC    PSWORD+4(4),SID             ENCRYPT NEXT 4 BYTES         00818013
+         XC    PSWORD+8(4),SID             ENCRYPT LAST 4 BYTES         00818113
+*                                                                       00818200
+         PACK  TDAY(8),BUFFER+23(2)        PLACE THE DATE INTO LABELS   00818313
+         PACK  TMONTH(8),BUFFER+25(2)                                   00818400
+         PACK  TYEAR(8),BUFFER+27(4)                                    00818500
+         SP    TYEAR(8),=P'1980'           FIND DIFFERENCE              00818613
+         CVB   5,TYEAR                     CONVERT DIFF TO BINARY       00818713
+         SLL   5,9                         SHIFT LEFT 9                 00818813
+         STCM  5,B'0011',RENEWPW           STORE BINARY YEAR IN TABLE   00818913
+         CVB   5,TMONTH                    CONVERT MONTH TO BINARY      00819013
+         SLL   5,5                         SHIFT LEFT 5                 00819113
+         STCM  5,B'0011',BINARYT           STRE BINARY MONTH IN BINARYT 00819213
+         OC    RENEWPW(2),BINARYT          OR THE DATA TOGETHER         00819313
+         CVB   5,TDAY                      CONVERT DAY TO BINARY        00819413
+         STCM  5,B'0011',BINARYT           STRE DAY IN BINARYT          00819513
+*                                                                       00819600
+         MVC   MAJOR(4),BUFFER+32                      MOVE MAJOR INTO  00819713
+*                                                      TABLE            00819813
+         PACK  GPA(2),BUFFER+37(3)                     MOVE GPA INTO    00819913
+*                                                      TABLE            00820013
+         PACK  TOTALHR(8),BUFFER+41(3)                 PLACE DATA IN    00820113
+         PACK  ENROLHR(8),BUFFER+45(2)                 LABELS           00820313
+         CVB   5,TOTALHR                               CONVERT TOTALHR  00820413
+         STCM  5,B'0011',TCRHR                         STR BINARY IN    00820513
+         CVB   5,ENROLHR                               TCRHR            00820613
+         STCM  5,B'0001',CRENRLD                       CONVERT ENROLHR  00820713
+*                                                      TO BINARY AND    00820813
+*                                                      STR BINARY IN    00820913
+*                                                      CRENRLD          00821013
+         LA    7,27(0,7)                               INCREMENT TABLE  00821113
+         B     BLOOP                                   GO TO BLOOP      00821213
+ENDBLD   ST    7,0(8)                                                   00821300
+         L     13,4(0,13)                                               00821400
+         LM    14,12,12(13)                            EXIT LINKAGE     00821513
+         BR    14                                                       00821600
+         LTORG                                                          00821700
+*                                                                       00821800
+BUILDSVE DS    18F                                     BUILD STORAGE    00821913
+BUFFER   DS    80C                                     INPUT BUFFER     00822013
+         DC    C'*'                                    EOB              00822113
+ADDRESS  DS    12B                                     ADDRESSABILITY   00822213
+ADDFIX2  DS    12B                                                      00822309
+         DS    0D                                                       00822407
+TEMPID   DS    8P                                      TEMP LABELS      00822513
+TDAY     DS    8P                                                       00822600
+TMONTH   DS    8P                                                       00822700
+TYEAR    DS    8P                                                       00822800
+TOTALHR  DS    8P                                                       00822900
+ENROLHR  DS    8P                                                       00823000
+BINARYT  DS    2B                                                       00823100
+*                                                                       00823200
+*******************************************                             00823300
+*                                                                       00823400
+* PRINT                                                                 00823500
+*                                                                       00823600
+* FUNCTION: THIS SUBROUTINE PRINTS THE CONTENTS                         00823700
+*           OF THE TABLE                                                00823800
+*                                                                       00823900
+* REGISTER USAGE:                                                       00824000
+*                                                                       00824100
+*  7    TABLE                                                           00824200
+*  8    EOT                                                             00824300
+*  9    HEADER                                                          00824435
+*  5    FIRST-NON BLANK REG                                             00824535
+* 12    BASE REGISTER                                                   00824600
+* 13    ADDRESS OF PRINTSVE                                             00824700
+* 14    RETURN ADDRESS                                                  00824800
+*                                                                       00824900
+*******************************************                             00825000
+*                                                                       00825100
+PRINT    CSECT                             PRINT ROUTINE                00825213
+         STM   14,12,12(13)                                             00825300
+         LR    12,15                                                    00825400
+         USING PRINT,12                                                 00825500
+         LA    14,PRNTSVE                  STANDARD ENTRY LINKAGE       00825613
+         LR    12,15                                                    00825700
+         ST    14,8(0,13)                                               00825800
+         LR    13,14                                                    00825900
+*                                                                       00826000
+         LM    7,9,0(1)                    UNLOAD PARAMETERS            00826113
+         USING TABLELNE,7                                               00826200
+         ZAP   PAGECNT,=P'1'               INITIALIZE PAGE COUNT        00826313
+         SR    11,11                                   ZERO OUT 11      00826413
+PLOOP    C     7,0(0,8)                    COMPARE TABLE TO EOT         00826513
+         BE    PRINTEND                    IF EQUAL GO TO PRINTEND      00826613
+         C     11,=F'40'                   CHECK IFF 11 IS EQUAL TO 40  00826713
+         BC    B'1100',NEWLINE             IF < OR = GO TO NEWLINE      00826813
+         SR    11,11                       ZERO OUT 11                  00826913
+         AP    PAGECNT(3),=P'1'            ADD 1 TO PAGE COUNT          00827051
+         MVI   PRNTLINE+1,C' '             CLEAR PRNTLINE               00827113
+         MVC   PRNTLINE+2(89),PRNTLINE+1                                00827254
+         MVC   PRNTLINE+1(90),0(9)         PLACE HEADER ONTO LINE       00827313
+         UNPK  PAGENUM(3),PAGECNT          MAKE PAGE COUNT PRINTABLE    00827413
+         MVC   PRNTLINE+88(3),PAGENUM      MOVE PAGE NUM ONTO LINE      00827513
+         XPRNT FORMAT,1                                                 00827654
+         XPRNT PRNTLINE,91                 PRINT HEADER                 00827713
+         XPRNT FORMAT,1                    PRINT SPACING                00827813
+         MVC   PRNTLINE+1(91),COLUMLAB     MOVE COLUMN HEADER TO LINE   00827953
+         XPRNT PRNTLINE,91                 PRINT COLUMN LABELS          00828054
+         XPRNT FORMAT,1                    PRINT SPACING                00828113
+NEWLINE  MVI   PRNTLINE+1,C' '             CLEAR PRINT LINE             00828213
+         MVC   PRNTLINE+2(89),PRNTLINE+1                                00828354
+         MVC   STUDENT(11),=X'4021C72020202020202020'  FORMAT FOR SID   00828444
+         SR    5,5                         ZERO OUT 5                   00828513
+         ICM   5,B'1111',SID               MOVE SID TO REG 5            00828616
+         CVD   5,TEMP                      CONVERT TO DECIMAL           00828713
+         ED    STUDENT(11),TEMP+3          USE FORMATTING               00828813
+         MVC   DATETEM(12),=X'402120206120206120202020' format for date 00828947
+         SR    5,5                         ZERO OUT REG 5               00829013
+         ICM   5,B'1100',RENEWPW           MOVE RENEWPW TO REG 5        00829116
+         SRL   5,25                        SHIFT RIGHT 25               00829213
+         CVD   5,TEMP                      CONVERT REG 5 TO DECIMAL     00829313
+         AP    TEMP(8),=P'1980'            ADD 1980 TO DATE YEAR        00829432
+         SR    5,5                         ZERO OUT REG 5               00829513
+         ICM   5,B'1100',RENEWPW           PLACE RENEWPW ON REG 5       00829647
+         SLL   5,7                         SHIFT LEFT 11                00829735
+         SRL   5,28                        SHIFT RIGHT 27               00829835
+         CVD   5,TEMP2                     CONVERT REG 5 TO DECIMAL     00829913
+         SRP   TEMP2(8),4,0                SHIFT LEFT 4                 00830016
+         AP    TEMP(8),TEMP2(8)            ADD TEMP2 TO TEMP            00830133
+         SR    5,5                         ZERO OUT REG 5               00830213
+         ICM   5,B'1111',RENEWPW           MOVE RENEWPW INTO REG 5      00830345
+         SLL   5,11                        SHIFT LEFT 11                00830413
+         SRL   5,27                        SHIFT RIGHT 27               00830513
+         CVD   5,TEMP2                     CONVERT TO DECIMAL           00830613
+         SRP   TEMP2(8),6,0                SHIFT LEFT 6                 00830716
+         AP    TEMP(8),TEMP2(8)            ADD TEMP2 TO TEMP            00830833
+         ED    DATETEM(7),TEMP+3           PLACE DATE ON LNE WITH FRMAT 00830916
+*                                                                       00831000
+         MVC   GPATEMP(7),=X'402021204B2020'  SET FORMAT FOR GPA        00831135
+         ZAP   TEMP(8),GPA(2)              INITIALIZE TEMP TO GPA       00831235
+         ED    GPATEMP(7),TEMP+5           PLACE GPA WITH FORMAT ON LNE 00831316
+*                                                                       00831400
+         MVC   THOUR(4),=X'40202120'       FORMAT FOR TOTAL HOURS       00831513
+         SR    5,5                         ZERO REG 5                   00831613
+         IC    5,TCRHR                     PLACE FIRST BYTE IN 5        00831716
+         SLL   5,1                         SHIFT LEFT 1                 00831813
+         IC    5,TCRHR+1                   PLACE SECOND BYTE IN 5       00831916
+         CVD   5,TEMP                      CONVERT REG 5 TO DECIMAL     00832013
+         ED    THOUR(4),TEMP+6             PLACE TOTAL HOURS ON LINE    00832116
+*                                                                       00832200
+         MVC   CHOUR(4),=X'40202120'       FORMAT FOR CURRENT HOURS     00832313
+         SR    5,5                         ZERO REG 5                   00832413
+         IC    5,CRENRLD                   PLACE FIRST BYTE OF CURR CR  00832516
+         CVD   5,TEMP                      CONVRT REG 5 TO DECIMAL      00832613
+         ED    CHOUR(4),TEMP+6             PLACE FORMATTED CR HOURS ON  00832716
+*                                          LINE                         00832813
+         MVC   MJROUT(4),MAJOR             PLACE MAJOR ON LINE          00832913
+*                                                                       00833000
+         MVC   TEMPPW(12),PSWORD                   PLACE PSWORD INTO    00833113
+         XC    TEMPPW(4),SID                       TEMPPW AND DECRYPT   00833213
+         XC    TEMPPW+4(4),SID                     PASSWORD             00833313
+         XC    TEMPPW+8(4),SID                                          00833400
+         MVC   PASSWRD(12),TEMPPW                  PLACE PASSWORD ONTO  00833513
+*                                                  LINE                 00833613
+         XPRNT PRNTLINE,90                         PRINT THE LINE       00833740
+         A     11,=F'1'                                                 00833850
+         A     11,=F'0'                                                 00833956
+         LA    7,27(0,7)                           INCREMENT TABLE      00834047
+         B     PLOOP                               GO TO PLOOP          00834113
+*                                                                       00834200
+PRINTEND L     13,4(0,13)                                               00834562
+         XPRNT FORMAT,1                                                 00834664
+         LM    14,12,12(13)                        STANDAD EXIT LINKAGE 00834813
+         BR    14                                                       00834900
+         LTORG                                                          00835000
+*                                                                       00835101
+PRNTSVE  DS    18F                           PRINT STORAGE              00835214
+*                                                                       00835301
+PRNTLINE DC    C' '                          PRINT LINE START           00835414
+STUDENT  DS    11C                           ID DATA                    00835514
+         DC    3C' '                                                    00835638
+PASSWRD  DS    12C                           PASSWORD DATA              00835714
+         DC    4C' '                                                    00835838
+DATETEM  DS    12C                           DATE DATA                  00835914
+         DC    5C' '                                                    00836040
+MJROUT   DS    4C                            MAJOR DATA                 00836114
+         DC    2C' '                                                    00836241
+GPATEMP  DS    7C                            GPA DATA                   00836314
+         DC    7C' '                                                    00836441
+THOUR    DS    4C                            TOTAL HOURS DATA           00836514
+         DC    13C' '                                                   00836639
+CHOUR    DS    4C                            CURRENT HOURS DATA         00836714
+         DC    4C' '                                                    00836838
+*                                                                       00836901
+FORMAT   DC    C' '                        SPACING                      00837014
+*                                                                       00837101
+COLUMLAB DC    C'-'                        COLUMN PRINT LABELS          00837214
+         DC    2C' '                                                    00837301
+         DC    CL10'Student ID'                                         00837401
+         DC    4C' '                                                    00837501
+         DC    CL8'Password'                                            00837601
+         DC    5C' '                                                    00837736
+         DC    CL12'Renewal Date'                                       00837801
+         DC    3C' '                                                    00837901
+         DC    CL5'Major'                                               00838001
+         DC    5C' '                                                    00838101
+         DC    CL3'GPA'                                                 00838201
+         DC    5C' '                                                    00838301
+         DC    CL11'Total Hours'                                        00838401
+         DC    4C' '                                                    00838501
+         DC    CL13'Current Hours'                                      00838614
+*                                                                       00838708
+PAGECNT  DC    PL3'0'                      PAGE COUNT LABEL             00838814
+PAGENUM  DC    ZL3'0'                      PAGE NUM PRINTABLE LABEL     00838914
+*                                                                       00839027
+         ORG   PRINT+((*-PRINT+31)/32)*32                               00839131
+*                                                                       00839227
+TEMP     DS    8P                                                       00839301
+TEMP2    DS    8P                          TEMPORARY LABELS FOR VALUES  00839414
+TEMPPW   DS    12C                                                      00839501
+*                                                                       00839600
+*******************************************                             00839700
+* SORT                                                                  00839842
+*                                                                       00839900
+* FUNCTION: THIS ROUTINE SORTS THE TABLE USING                          00840042
+*           A BUBBLE SORT                                               00840142
+*                                                                       00840242
+* REGISTER USAGE                                                        00840342
+*                                                                       00840442
+*  7    TABLE                                                           00840542
+*  8    EOT                                                             00840642
+*  9    LOCATION SAVER                                                  00840742
+*  12   ROUTINE REGISTER                                                00840842
+*  13   SAVE SPACE                                                      00840942
+*  14   RETURN REGISTER                                                 00841042
+*                                                                       00841142
+*******************************************                             00841200
+*                                                                       00841300
+SORT     CSECT                             SORT ROUTINE                 00841442
+         STM   14,12,12(13)                                             00841500
+         LR    12,15                                                    00841600
+         USING SORT,12                     ENTRY LINKAGE                00841742
+         LA    14,SORTSVE                                               00841802
+         LR    12,15                                                    00841900
+         ST    14,8(0,13)                                               00842000
+         LR    13,14                                                    00842100
+*                                                                       00842202
+         LM    7,8,0(1)                    UNLOAD PARAMETERS            00842342
+         USING TABLELNE,7                                               00842402
+         LR    9,7                         STORE BEGINNING OF TABLE     00842542
+SLOOP    LR    7,9                         RELOAD BEGINNING OF TABLE    00842642
+         C     9,0(0,8)                    COMPARE TABLE TO EOT         00842742
+         BC    B'1000',SORTEND             IF EQUAL GO TO SORTEND       00842842
+SLOOP2   C     7,0(0,8)                    COMPARE CURRENT LOC TO EOT   00842942
+         BC    B'1000',SORTINC             IF EQUAL INC TABLE           00843042
+         CP    GPA(2),22(2,9)              COMPARE GPA TO FIRST GPA     00843142
+         BH    SWITCH                      SWITCH LOC VALUES            00843242
+INCRMNT  LA    7,27(0,7)                   INCREMENT TABLE              00843342
+         B     SLOOP2                      GO TO SLOOP2                 00844042
+SWITCH   MVC   SWAP(27),0(7)               PUT CURRENT IN TEMP          00845042
+         MVC   0(27,7),0(9)                PLACE NEW VAL IN CURR        00846042
+         MVC   0(27,9),SWAP                PLACE TEMP INTO PREVIOUS LOC 00847042
+         BC    B'1111',INCRMNT             GO TO INCREMENT              00848042
+SORTINC  LA    9,27(0,9)                   INCREMENT TABLE              00849042
+         BC    B'1111',SLOOP               GO TO SLOOP                  00849142
+SORTEND  L     13,4(0,13)                                               00849202
+         LM    14,12,12(13)                EXIT LINKAGE                 00849342
+         BR    14                                                       00849402
+         LTORG                                                          00849502
+*                                                                       00849602
+SORTSVE  DS    18F                         SORT SAVE SPACE              00849742
+SWAP     DS    27B                         SWAP LABEL                   00849842
+*                                                                       00849902
+         END                                                            00850002
+//FT05F001 DD DSN=KC02314.AUTUMN17.CSCI360.HW8DATA,DISP=SHR             00860000

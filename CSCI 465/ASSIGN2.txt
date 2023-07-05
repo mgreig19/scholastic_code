@@ -1,0 +1,159 @@
+1                    J E S 2  J O B  L O G  --  S Y S T E M  S 0 W 1  --  N O D E  Z O S K C T R         
+0 
+ 11.36.16 JOB05956 ---- FRIDAY,    16 FEB 2018 ----
+ 11.36.16 JOB05956  IRR010I  USERID KC03LF7  IS ASSIGNED TO THIS JOB.
+ 11.36.16 JOB05956  ICH70001I KC03LF7  LAST ACCESS AT 11:34:37 ON FRIDAY, FEBRUARY 16, 2018
+ 11.36.16 JOB05956  $HASP373 KC03LF7A STARTED - INIT 2    - CLASS A        - SYS S0W1
+ 11.36.16 JOB05956  -                                         --TIMINGS (MINS.)--            ----PAGING COUNTS---
+ 11.36.16 JOB05956  -JOBNAME  STEPNAME PROCSTEP    RC   EXCP    TCB    SRB  CLOCK   SERV  PG   PAGE   SWAP    VIO SWAPS
+ 11.36.16 JOB05956  -KC03LF7A                      00     53 ******    .00     .0    273   0      0      0      0     0
+ 11.36.16 JOB05956  -KC03LF7A                      00     57 ******    .00     .0    202   0      0      0      0     0
+ 11.36.16 JOB05956  -KC03LF7A ENDED.  NAME-GREIG                TOTAL TCB CPU TIME=   .00  TOTAL ELAPSED TIME=    .0
+ 11.36.16 JOB05956  $HASP395 KC03LF7A ENDED
+0------ JES2 JOB STATISTICS ------
+-  16 FEB 2018 JOB EXECUTION DATE
+-           89 CARDS READ
+-          159 SYSOUT PRINT RECORDS
+-            0 SYSOUT PUNCH RECORDS
+-           13 SYSOUT SPOOL KBYTES
+-         0.00 MINUTES EXECUTION TIME
+         1 //KC03LF7A JOB ,'GREIG',MSGCLASS=H                                      JOB05956
+           //*                                                                     00020001
+           //****************************************                              00030023
+           //*                                      *                              00040023
+           //* CSCI 465 SPRING 2018                 *                              00050023
+           //*                                      *                              00060023
+           //* ASSIGNMENT 2 - JCL & PROGRAM FETCH   *                              00070023
+           //*                                      *                              00080023
+           //* PROGRAMMER: MASON GREIG              *                              00090023
+           //*                                      *                              00100023
+           //* DUE DATE: 1/31/2018                  *                              00110023
+           //* DUE TIME: 11:59PM                    *                              00120023
+           //*                                      *                              00130023
+           //* THE PRIMARAY PURPOSE OF THIS PROGRAM *                              00140002
+           //* IS TO COMPLETE A JOB WITH TWO JOB    *                              00150002
+           //* STEPS. THE FIRST JOB STEP WILL FETCH *                              00160002
+           //* AND EXECUTE A PROGRAM OBJECT NAMED   *                              00170002
+           //* READDATA STORED IN THE INSTRUCTORS   *                              00180002
+           //* LOAD LIBRARY PDSE. THE SECOND STEP   *                              00190002
+           //* WILL FETCH AND EXECUTE A PROGRAM     *                              00200002
+           //* OBJECT NAMED RPTDATA FROM THE SAME   *                              00210002
+           //* LIBRARY.                             *                              00220002
+           //*                                      *                              00221023
+           //****************************************                              00230002
+           //*                                                                     00240002
+         2 //JSTEP01  EXEC PGM=READDATA                                            00250003
+           //*                                                                     00260003
+         3 //STEPLIB  DD DSN=KC02322.CSCI465.LOADLIB,DISP=SHR                      00270007
+           //*                                                                     00270123
+           //****************************************                              00271023
+           //*                                      *                              00280023
+           //* JSTEP01: THIS JOB STEP WILL FETCH    *                              00280124
+           //*         AND EXECUTE A PROGRAM OBJECT *                              00280224
+           //*         NAMED READDATA STORED IN     *                              00280324
+           //*         KC02322.CSCI465.LOADLIB      *                              00280424
+           //*                                      *                              00280524
+           //* RECSIN1: INPUT FOR THE FIRST JSTEP   *                              00280624
+           //*         WHICH READS IN THE DATA FROM *                              00280724
+           //*         A SPECIFIC MEMBER OF A PDSE  *                              00280824
+           //*         NAMED DATASP18(DATA2)        *                              00280924
+           //*                                      *                              00281024
+           //* RECSOUT1: A TEMPORARY DATA SET WHICH *                              00281124
+           //*          IS PASSED TO THE NEXT JSTEP *                              00281224
+           //*          ON SUCCESS AND DELETED IF   *                              00281324
+           //*          THE A PART OF THE JSTEP     *                              00281424
+           //*          FAILS                       *                              00281524
+           //*                                      *                              00281624
+           //* SYSUDUMP: NECESSARY IN CASE OF ABEND *                              00281724
+           //*          WHICH CAUSES THIS JCL TO    *                              00281824
+           //*          PRINT A DUMP TO STND OUTPUT *                              00281924
+           //*                                      *                              00282024
+           //****************************************                              00283023
+         4 //RECSIN1  DD DSN=KC02322.CSCI465.DATASP18(DATA2),DISP=SHR              00290004
+           //*                                                                     00291003
+         5 //RECSOUT1 DD DSN=&&TEMP,SPACE=(TRK,(1,1)),DISP=(NEW,PASS,DELETE)       00291106
+           //*                                                                     00291205
+         6 //SYSUDUMP DD SYSOUT=*                                                  00292003
+           //*                                                                     00300003
+         7 //JSTEP02  EXEC PGM=RPTDATA                                             00310009
+           //*                                                                     00320009
+         8 //STEPLIB  DD DSN=KC02322.CSCI465.LOADLIB,DISP=SHR                      00330020
+           //****************************************                              00331024
+           //*                                      *                              00332024
+           //* JSTEP02: THIS JOB STEP WILL FETCH    *                              00332124
+           //*         AND EXECUTE A PROGRAM OBJECT *                              00332224
+           //*         NAMED RPTDATA THAT IS STORED *                              00332324
+           //*         IN KC02322.CSCI465.LOADLIB   *                              00332424
+           //*                                      *                              00332524
+           //* RECSIN2: THE TEMPORARY DATA SET FROM *                              00332624
+           //*         THE PREVIOUS JOB STEP WHICH  *                              00332724
+           //*         IS USED AS INPUT FOR THIS    *                              00332824
+           //*         JOB STEP                     *                              00332924
+           //*                                      *                              00333024
+           //* RECSOUT2: THIS IS THE OUTPUT OF THE  *                              00333124
+           //*          JOB STEP WHICH PRINTS THE   *                              00333224
+           //*          PASSED IN DATA OUT TO THE   *                              00333324
+           //*          STANDARD OUTPUT             *                              00333424
+           //*                                      *                              00333524
+           //* SYSUDUMP: NECESSARY IN CASE OF ABEND *                              00333624
+           //*          WHICH CAUSES THIS JCL TO    *                              00333724
+           //*          PRINT A DUMP TO STND OUTPUT *                              00333824
+           //*                                      *                              00333924
+           //****************************************                              00334024
+           //*                                                                     00340020
+         9 //RECSIN2  DD DSN=&&TEMP,DISP=(MOD,DELETE,DELETE)                       00350025
+           //*                                                                     00360009
+        10 //RECSOUT2 DD SYSOUT=*                                                  00370009
+           //*                                                                     00380009
+        11 //SYSUDUMP DD SYSOUT=*                                                  00390009
+ ICH70001I KC03LF7  LAST ACCESS AT 11:34:37 ON FRIDAY, FEBRUARY 16, 2018
+ IEF236I ALLOC. FOR KC03LF7A JSTEP01
+ IGD103I SMS ALLOCATED TO DDNAME STEPLIB
+ IGD103I SMS ALLOCATED TO DDNAME RECSIN1
+ IGD101I SMS ALLOCATED TO DDNAME (RECSOUT1)
+         DSN (SYS18047.T113616.RA000.KC03LF7A.TEMP.H01    )
+         STORCLAS (TEMPSC) MGMTCLAS (        ) DATACLAS (        )
+         VOL SER NOS= TEMP00                                                                
+ IEF237I JES2 ALLOCATED TO SYSUDUMP
+ IEF142I KC03LF7A JSTEP01 - STEP WAS EXECUTED - COND CODE 0000
+ IGD104I KC02322.CSCI465.LOADLIB                      RETAINED,  DDNAME=STEPLIB 
+ IGD104I KC02322.CSCI465.DATASP18                     RETAINED,  DDNAME=RECSIN1 
+ IGD106I SYS18047.T113616.RA000.KC03LF7A.TEMP.H01     PASSED,    DDNAME=RECSOUT1
+ IEF285I   KC03LF7.KC03LF7A.JOB05956.D0000101.?         SYSOUT        
+ IEF373I STEP/JSTEP01 /START 2018047.1136
+ IEF032I STEP/JSTEP01 /STOP  2018047.1136 
+         CPU:     0 HR  00 MIN  00.01 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+         VIRT:    40K  SYS:   276K  EXT:     1572K  SYS:    12076K
+         ATB- REAL:                     0K  SLOTS:                     0K
+              VIRT- ALLOC:       0M SHRD:       0M
+ IEFA108I KC03LF7A JSTEP02 RECSIN2 - PASSED DATA SET INFORMATION FOUND. MOD IS TREATED AS OLD
+ IEF236I ALLOC. FOR KC03LF7A JSTEP02
+ IGD103I SMS ALLOCATED TO DDNAME STEPLIB
+ IGD103I SMS ALLOCATED TO DDNAME RECSIN2
+ IEF237I JES2 ALLOCATED TO RECSOUT2
+ IEF237I JES2 ALLOCATED TO SYSUDUMP
+ IEF142I KC03LF7A JSTEP02 - STEP WAS EXECUTED - COND CODE 0000
+ IGD104I KC02322.CSCI465.LOADLIB                      RETAINED,  DDNAME=STEPLIB 
+ IGD105I SYS18047.T113616.RA000.KC03LF7A.TEMP.H01     DELETED,   DDNAME=RECSIN2 
+ IEF285I   KC03LF7.KC03LF7A.JOB05956.D0000102.?         SYSOUT        
+ IEF285I   KC03LF7.KC03LF7A.JOB05956.D0000103.?         SYSOUT        
+ IEF373I STEP/JSTEP02 /START 2018047.1136
+ IEF032I STEP/JSTEP02 /STOP  2018047.1136 
+         CPU:     0 HR  00 MIN  00.01 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+         VIRT:    44K  SYS:   276K  EXT:     1564K  SYS:    12076K
+         ATB- REAL:                     0K  SLOTS:                     0K
+              VIRT- ALLOC:       0M SHRD:       0M
+ IEF375I  JOB/KC03LF7A/START 2018047.1136
+ IEF033I  JOB/KC03LF7A/STOP  2018047.1136 
+         CPU:     0 HR  00 MIN  00.02 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+0QUOTATIONS FROM TWO IMPORTANT AMERICAN HISTORICAL DOCUMENTS    SPRING 2018                                                       
+0"We hold these truths to be self-evident, that all men are created                                                               
+0equal, that they are endowed by their Creator with certain unalienable                                                           
+0Rights, that among these are Life, Liberty and the pursuit of                                                                    
+0Happiness." -- Declaration of Independence, 1776                                                                                 
+0"We the People of the United States, in Order to form a more perfect                                                             
+0Union, establish Justice, insure domestic Tranquility, provide for the                                                           
+0common defence, promote the general Welfare, and secure the Blessings                                                            
+0of Liberty to ourselves and our Posterity, do ordain and establish this                                                          
+0Constitution of the United States of America." -- Preamble to the U.S.                                                           
+0Constitution, 1789                                                                                                               
